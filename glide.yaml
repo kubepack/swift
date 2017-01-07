@@ -1,0 +1,24 @@
+package: github.com/appscode/grpc-seed
+import:
+- package: github.com/appscode/api
+- package: github.com/appscode/errors
+- package: github.com/appscode/go
+- package: github.com/appscode/k8s-addons
+- package: github.com/appscode/log
+- package: github.com/golang/glog
+- package: github.com/golang/protobuf
+  version: 8ee79997227bf9b34611aee7946ae64735e6fd93
+- package: github.com/grpc-ecosystem/grpc-gateway
+  version: master
+  repo: git@github.com:appscode/grpc-gateway.git
+  vcs: git
+- package: github.com/soheilhy/cmux
+  version: v0.1.2
+- package: github.com/spf13/pflag
+- package: github.com/xeipuuv/gojsonschema
+- package: golang.org/x/net
+- package: google.golang.org/grpc
+  version: v1.0.5
+testImport:
+- package: github.com/stretchr/testify
+  version: v1.1.4

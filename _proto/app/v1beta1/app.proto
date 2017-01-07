@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package appscode.seed.app.v1beta1;
+
+option go_package = "v1beta1";
+
+option java_multiple_files = true;
+option java_outer_classname = "AppProto";
+option java_package = "com.appscode.seed.app.v1beta1";
+
+import "google/api/annotations.proto";
+import "appscode/api/annotations.proto";
+import "appscode/api/dtypes/types.proto";
+
+service Apps {
+    rpc Hello(HelloRequest) returns(HelloResponse) {
+        option(google.api.http) = {
+            get: "/_appscode/api/seed/v1beta1/apps/hello"
+        };
+        option (appscode.api.cors) = {
+            enable: true
+        };
+    }
+}
+
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloResponse {
+    dtypes.Status status = 1;
+    string greetings = 2;
+}

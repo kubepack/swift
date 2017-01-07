@@ -1,0 +1,8 @@
+{
+  "/_appscode/api/seed/v1beta1/apps/hello": {
+    "get": {
+      "file": "/app/v1beta1/app.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/hello"
+    }
+  }
+}

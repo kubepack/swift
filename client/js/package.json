@@ -1,0 +1,26 @@
+{
+  "name": "appscode-seed-js-client",
+  "version": "0.1.0",
+  "description": "AppsCode Seed API JavaScript Client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "appscode",
+    "seed",
+    "api",
+    "ajax",
+    "xhr"
+  ],
+  "author": "AppsCode Inc.",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/appscode/grpc-seed",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "grpc-xhr": "^1.0.9",
+    "lodash": "^4.16.4",
+    "path": "^0.12.7",
+    "rsvp": "^3.3.3"
+  }
+}

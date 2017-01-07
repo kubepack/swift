@@ -1,3 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Go template
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
 *.o
 *.a
@@ -22,3 +24,11 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# external packages folder
+dist/
+.idea/
+**/node_modules/

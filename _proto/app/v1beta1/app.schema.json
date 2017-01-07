@@ -1,0 +1,12 @@
+{
+  "definitions": {
+    "v1beta1HelloRequest": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  }
+}
