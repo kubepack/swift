@@ -41,28 +41,22 @@ func (s *apiServer) ListenAndServe() {
 		log.Fatal(err)
 	}
 
-	m := cmux.New(l)
 	if !s.UseTLS() {
+		m := cmux.New(l)
 		grpcl := m.MatchWithWriters(cmux.HTTP2MatchHeaderFieldSendSettings("content-type", "application/grpc"))
 		httpl := m.Match(cmux.Any())
 
 		go s.ServeGRPC(grpcl)
 		go s.ServeHTTP(httpl)
+
+		log.Fatalln(m.Serve())
 	} else {
-		grpcl := m.MatchWithWriters(cmux.HTTP2MatchHeaderFieldSendSettings("content-type", "application/grpc"))
-		tlsl := m.Match(cmux.Any())
-
-		go s.ServeGRPC(grpcl)
 		go s.RedirectToHTTPS()
-		go s.ServeHTTPS(tlsl)
+		s.ServeHTTPS(l)
 	}
-
-	log.Fatalln(m.Serve())
 }
 
-func (s *apiServer) ServeGRPC(l net.Listener) {
-	defer runtime.HandleCrash()
-
+func (s *apiServer) newGRPCServer() *grpc.Server {
 	var gRPCServer *grpc.Server
 	if s.UseTLS() {
 		creds, err := credentials.NewServerTLSFromFile(s.CertFile, s.KeyFile)
@@ -78,14 +72,17 @@ func (s *apiServer) ServeGRPC(l net.Listener) {
 		log.Infoln("Registering server:", reflect.TypeOf(endpoint.Server))
 		endpoints.RegisterGRPC(endpoint.RegisterFunc, gRPCServer, endpoint.Server)
 	}
-
-	log.Infoln("[GRPCSERVER] Starting gRPC Server at port", s.Port)
-	log.Fatalln("[GRPCSERVER] gRPC Server failed:", gRPCServer.Serve(l))
+	return gRPCServer
 }
 
-func (s *apiServer) ServeHTTP(l net.Listener) {
+func (s *apiServer) ServeGRPC(l net.Listener) {
 	defer runtime.HandleCrash()
 
+	log.Infoln("[GRPCSERVER] Starting gRPC Server at port", s.Port)
+	log.Fatalln("[GRPCSERVER] gRPC Server failed:", s.newGRPCServer().Serve(l))
+}
+
+func (s *apiServer) newGatewayMux() *gwrt.ServeMux {
 	gwMux := gwrt.NewServeMux()
 	var grpcDialOptions []grpc.DialOption
 	if s.UseTLS() {
@@ -99,13 +96,18 @@ func (s *apiServer) ServeHTTP(l net.Listener) {
 		log.Infoln("Registering endpoint:", funcName(endpoint.RegisterFunc))
 		endpoints.RegisterProxy(endpoint.RegisterFunc, context.Background(), gwMux, fmt.Sprintf("127.0.0.1:%d", s.Port), grpcDialOptions)
 	}
+	return gwMux
+}
+
+func (s *apiServer) ServeHTTP(l net.Listener) {
+	defer runtime.HandleCrash()
 
 	log.Infoln("[PROXYSERVER] Sarting Proxy Server at port", s.Port)
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%d", s.Port),
 		ReadTimeout:  30 * time.Second,
 		WriteTimeout: 30 * time.Second,
-		Handler:      gwMux,
+		Handler:      s.newGatewayMux(),
 	}
 	log.Fatalln("[PROXYSERVER] Proxy Server failed:", srv.Serve(l))
 }
@@ -151,6 +153,7 @@ func (s *apiServer) ServeHTTPS(l net.Listener) {
 			tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
 		},
 		ClientAuth: tls.VerifyClientCertIfGiven,
+		NextProtos: []string{"h2"},
 	}
 	if s.CACertFile != "" {
 		caCert, err := ioutil.ReadFile(s.CACertFile)
@@ -162,11 +165,24 @@ func (s *apiServer) ServeHTTPS(l net.Listener) {
 		tlsConfig.ClientCAs = caCertPool
 	}
 
-	// Create TLS listener.
-	tlsl := tls.NewListener(l, tlsConfig)
+	grpcServer := s.newGRPCServer()
+	gwMux := s.newGatewayMux()
 
-	// Serve HTTP over TLS.
-	s.ServeHTTP(tlsl)
+	srv := &http.Server{
+		Addr: fmt.Sprintf(":%d", s.Port),
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 5 * time.Second,
+		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			// This is a partial recreation of gRPC's internal checks https://github.com/grpc/grpc-go/pull/514/files#diff-95e9a25b738459a2d3030e1e6fa2a718R61
+			if r.ProtoMajor == 2 && strings.Contains(r.Header.Get("Content-Type"), "application/grpc") {
+				grpcServer.ServeHTTP(w, r)
+			} else {
+				gwMux.ServeHTTP(w, r)
+			}
+		}),
+		TLSConfig: tlsConfig,
+	}
+	log.Fatalln("[REDIRECTOR] Redirector Server failed:", srv.Serve(tls.NewListener(l, tlsConfig)))
 }
 
 func Run(cfg *options.Config) {
