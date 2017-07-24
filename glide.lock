@@ -1,14 +1,14 @@
-hash: 4070942a956c7d4698a0e750e049b08b619e4753ad678d42ce212ee57478c41d
-updated: 2017-01-07T01:54:03.003478459-08:00
+hash: a7943aff6a3c65a9fb1dfb16299a7505769e358e049fdffa777c6cdb01f49c9f
+updated: 2017-07-24T01:55:03.517636495-07:00
 imports:
 - name: github.com/appscode/api
-  version: 3ba3c83788ce153e2d34cd81235aee1504395142
+  version: d98df977c923189d5e4856bf8d428f5528b6bdd1
   subpackages:
   - dtypes
 - name: github.com/appscode/errors
-  version: 6a668ba07d02064c06707b7d8b0f5239db707045
+  version: 748883e321a9f99fe901bd2663c7af3fcae43ea4
 - name: github.com/appscode/go
-  version: a7f716de7a1373d1e8a5b31728166ada8e7595c6
+  version: 9fde097ebcef0add8325c8fbee63ae01e7da530e
   subpackages:
   - env
   - flags
@@ -16,23 +16,26 @@ imports:
   - runtime
   - version
 - name: github.com/appscode/k8s-addons
-  version: 33355decdcfd7223715907341bac88c2106834a9
+  version: 3e80e94240b591fcb80f354fb77fdb3085f38675
 - name: github.com/appscode/log
   version: 68e0e42e42c01371f3950571fc87c2298a51dd8f
   subpackages:
   - golog
+- name: github.com/facebookgo/stack
+  version: d9d227395bc3d7a635388c75b2e3b3a750e11888
 - name: github.com/golang/glog
   version: 44145f04b68cf362d9c4df2182967c2275eaefed
 - name: github.com/golang/protobuf
-  version: 8ee79997227bf9b34611aee7946ae64735e6fd93
+  version: 6e4cc92cc905d5f4a73041c1b8228ea08f4c6147
   subpackages:
   - jsonpb
   - proto
   - protoc-gen-go/descriptor
   - ptypes/any
+  - ptypes/struct
 - name: github.com/grpc-ecosystem/grpc-gateway
-  version: 24187bf5b5f6731e0915842f78ddf4ef3941faa3
-  repo: git@github.com:appscode/grpc-gateway.git
+  version: 42a2d1c4991e79a4a8318984e5c81031b21f3c76
+  repo: https://github.com/appscode/grpc-gateway.git
   vcs: git
   subpackages:
   - runtime
@@ -51,9 +54,9 @@ imports:
 - name: github.com/soheilhy/cmux
   version: bf4a8ede9e87c006fe1d4278c6c7f2b8be1fa84c
 - name: github.com/spf13/cobra
-  version: f62e98d28ab7ad31d707ba837a966378465c7b57
+  version: 90fc11bbc0a789c29272c21b5ff9e93db183f8dc
 - name: github.com/spf13/pflag
-  version: 5ccb023bc27df288a957c5e994cd44fd19619465
+  version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/xeipuuv/gojsonpointer
   version: e0fe6f68307607d540ed8eac07a342c33fa1b54a
 - name: github.com/xeipuuv/gojsonreference
@@ -61,25 +64,40 @@ imports:
 - name: github.com/xeipuuv/gojsonschema
   version: 93e72a773fade158921402d6a24c819b48aba29d
 - name: golang.org/x/net
-  version: e90d6d0afc4c315a0d87a568ae68577cc15149a0
+  version: da118f7b8e5954f39d0d2130ab35d4bf0e3cb344
   subpackages:
   - context
   - http2
   - http2/hpack
+  - idna
   - internal/timeseries
   - lex/httplex
   - trace
+- name: golang.org/x/text
+  version: 470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4
+  subpackages:
+  - secure/bidirule
+  - transform
+  - unicode/bidi
+  - unicode/norm
+- name: google.golang.org/genproto
+  version: 411e09b969b1170a9f0c467558eb4c4c110d9c77
+  subpackages:
+  - googleapis/rpc/status
 - name: google.golang.org/grpc
-  version: 708a7f9f3283aa2d4f6132d287d78683babe55c8
+  version: d2e1b51f33ff8c5e4a15560ff049d200e83726c5
   subpackages:
   - codes
   - credentials
+  - grpclb/grpc_lb_v1
   - grpclog
   - internal
+  - keepalive
   - metadata
   - naming
   - peer
   - stats
+  - status
   - tap
   - transport
 - name: gopkg.in/mgo.v2

@@ -16,7 +16,7 @@ from os.path import expandvars
 # Debian package
 # https://gist.github.com/rcrowley/3728417
 
-API_ROOT = expandvars("$GOPATH/src/github.com/appscode/grpc-seed/_proto")
+REPO_ROOT = expandvars("$GOPATH/src/github.com/appscode/grpc-seed/_proto")
 VALID_FORMATS = ['date-time',
                  'email',
                  'hostname',
@@ -30,7 +30,7 @@ RESP_REGEX = ur'^\s*rpc\s*\w+\s*\(\s*[^)]+\)\s*returns\s*\(\s*(?P<resp>\w+)\s*\)
 URL_REGREX = ur'^\s*(?P<verb>get|post|put|patch|delete)\s*:\s*"(?P<url>[^"]+)"'
 
 
-def call(cmd, stdin=None, cwd=API_ROOT):
+def call(cmd, stdin=None, cwd=REPO_ROOT):
     print(cmd)
     subprocess.call([expandvars(cmd)], shell=True, stdin=stdin, cwd=cwd)
 
@@ -64,14 +64,14 @@ def write_json(obj, name):
 
 def gen_assets():
     call('go get github.com/jteeuwen/go-bindata/...')
-    call('go-bindata -ignore=\\.go -o meta/data.go -pkg meta meta/...')
+    call('go-bindata -ignore=\\.go -ignore=\\.DS_Store -mode=0644 -modtime=1453795200 -o meta/data.go -pkg meta meta/...')
 
 
 def fix_swagger_schema():
-    for root, dirnames, filenames in os.walk(API_ROOT):
+    for root, dirnames, filenames in os.walk(REPO_ROOT):
         for filename in fnmatch.filter(filenames, '*.swagger.json'):
 
-            rel_path = root[len(API_ROOT) + 1:]
+            rel_path = root[len(REPO_ROOT) + 1:]
             parts = rel_path.split('/', 2)
             if len(parts) != 2:
                 continue
@@ -103,7 +103,7 @@ def swagger_defs(defs):
         schema = defs[name]
         result['requests'][name] = schema
         if 'properties' in schema:
-            for p, v in schema['properties'].iteritems():
+            for p, v in schema['properties'].items():
                 if '$ref' in v:
                     nw_obj = v['$ref'][len('#/definitions/'):]
                     if nw_obj not in result['requests']:
@@ -130,7 +130,7 @@ def swagger_defs(defs):
 
 def generate_json_schema():
     call("find . | grep schema.json | xargs rename 's/schema.json/schema.json.ext/' {}")
-    for root, dirnames, filenames in os.walk(API_ROOT):
+    for root, dirnames, filenames in os.walk(REPO_ROOT):
         for filename in fnmatch.filter(filenames, '*.swagger.json'):
             swagger = os.path.join(root, filename)
             schema = os.path.join(root, filename.replace('.swagger.', '.schema.'))
@@ -139,9 +139,9 @@ def generate_json_schema():
             if os.path.exists(ext_schema):
                 # merge
                 ext_defs = read_json(ext_schema)['definitions']
-                for m, mspec in gen_defs.iteritems():
+                for m, mspec in gen_defs.items():
                     if 'properties' in mspec.keys():
-                        for f, fspec in mspec['properties'].iteritems():
+                        for f, fspec in mspec['properties'].items():
                             if f in [
                                 'auth_secret_name',
                                 'bucket_name',
@@ -162,6 +162,8 @@ def generate_json_schema():
                                     and 'properties' in ext_defs[m] \
                                     and f in ext_defs[m]['properties'] \
                                     and set(fspec.keys()) != set(ext_defs[m]['properties'][f].keys()):
+                                print(mspec['properties'][f])
+                                print(ext_defs[m]['properties'][f])
                                 mspec['properties'][f] = ext_defs[m]['properties'][f]
             write_json({'definitions': gen_defs}, schema)
     call("(find . | grep schema.json.ext | xargs rm) || true")
@@ -173,7 +175,7 @@ def schema_go(reqs, resps, defs):
         'responses': {}
     }
     for key in defs['requests'].keys():
-        if key in reqs.keys() and key.endswith("Request"):
+        if key in reqs and key.endswith("Request"):
             schema = defs['requests'][key]
             result['requests'][reqs[key]] = schema
             dep_defs = {}
@@ -182,7 +184,7 @@ def schema_go(reqs, resps, defs):
             while stack:
                 sch = stack.pop()
                 if 'properties' in sch:
-                    for p, v in sch['properties'].iteritems():
+                    for p, v in sch['properties'].items():
                         if '$ref' in v:
                             nw_obj = v['$ref'][len('#/definitions/'):]
                             if nw_obj not in dep_defs:
@@ -203,7 +205,7 @@ def schema_go(reqs, resps, defs):
             schema['$schema'] = 'http://json-schema.org/draft-04/schema#'
     for key in defs['responses'].keys():
         # print key
-        if key in resps.keys() and key.endswith("Response"):
+        if key in resps and key.endswith("Response"):
             schema = defs['responses'][key]
             result['responses'][resps[key]] = schema
     return result
@@ -219,8 +221,6 @@ def render_schema_go(pkg, schemas):
     if schemas['requests']:
         imports.append("github.com/xeipuuv/gojsonschema")
         imports.append("github.com/golang/glog")
-    if schemas['responses']:
-        imports.append("github.com/appscode/api/dtypes")
     imports.sort()
     if imports:
         contents += 'import (\n'
@@ -236,7 +236,7 @@ def render_schema_go(pkg, schemas):
         contents += """func init() {
 	var err error
 """
-        for key, sch in schemas['requests'].iteritems():
+        for key, sch in schemas['requests'].items():
             var_name = key[0:1].lower() + key[1:]
             sch_str = json.dumps(sch, sort_keys=True, indent=2, separators=(',', ': '))
             sch_str = sch_str.replace('`', '` + "`" + `')
@@ -253,11 +253,6 @@ def render_schema_go(pkg, schemas):
         contents += '	return {}Schema.Validate(gojsonschema.NewGoLoader(m))\n'.format(key[0:1].lower() + key[1:])
         contents += '}\n'
         contents += 'func (m *' + key + ') IsRequest() {}\n\n'
-
-    for key in schemas['responses'].keys():
-        contents += 'func (m *' + key + ') SetStatus(s *dtypes.Status) {\n'
-        contents += '	m.Status = s\n'
-        contents += '}\n'
 
     return contents
 
@@ -303,7 +298,7 @@ def detect_schema_pkg(swagger):
             parts = pkg.split(".")
             for x in range(0, len(parts)):
                 prefix = str.join("", parts[x:])
-                for key, defs in read_json(swagger)['definitions'].iteritems():
+                for key, defs in read_json(swagger)['definitions'].items():
                     if key.startswith(prefix) and key.endswith("Request"):
                         return prefix
         else:
@@ -328,7 +323,7 @@ def detect_go_pkg(swagger):
 
 
 def generate_go_schema():
-    for root, dirnames, filenames in os.walk(API_ROOT):
+    for root, dirnames, filenames in os.walk(REPO_ROOT):
         for filename in fnmatch.filter(filenames, '*.swagger.json'):
             swagger = os.path.join(root, filename)
             schema = os.path.join(root, filename.replace('.swagger.', '.schema.'))
@@ -346,13 +341,14 @@ def generate_go_schema():
 
 
 def apply_naming_policy():
-    for root, dirnames, filenames in os.walk(API_ROOT):
+    for root, dirnames, filenames in os.walk(REPO_ROOT):
         for filename in fnmatch.filter(filenames, '*.schema.json'):
             schema = os.path.join(root, filename)
+            print(schema)
             content = read_json(schema)
-            for key, defs in content['definitions'].iteritems():
+            for key, defs in content['definitions'].items():
                 if 'properties' in defs:
-                    for p, v in defs['properties'].iteritems():
+                    for p, v in defs['properties'].items():
                         if p in [
                             'cluster_name',
                             'namespace', 'name',
@@ -362,6 +358,7 @@ def apply_naming_policy():
                             'auth_secret_name',
                             'cloud_credential'
                         ]:
+                            print('====>>>> ' + p)
                             if 'maxLength' not in v:
                                 v['maxLength'] = 63
                             if 'pattern' not in v:
@@ -371,7 +368,7 @@ def apply_naming_policy():
 
 def generate_url_summary():
     urls = {}
-    for root, dirnames, filenames in os.walk(API_ROOT):
+    for root, dirnames, filenames in os.walk(REPO_ROOT):
         for filename in fnmatch.filter(filenames, '*.proto'):
             proto = os.path.join(root, filename)
             rel_proto = proto[proto.index('github.com/appscode/grpc-seed/_proto') + len('github.com/appscode/grpc-seed/_proto'):]
@@ -388,8 +385,8 @@ def generate_url_summary():
                     # check that verb is not redefined
                     if url_key in urls:
                         if verb in urls[url_key]:
-                            print verb, 'verb is redefined for URL:', url_key
-                            print 'previously defined as ', urls[url_key][verb]['url'], 'in', urls[url_key][verb]['file']
+                            print(verb, 'verb is redefined for URL:', url_key)
+                            print('previously defined as ', urls[url_key][verb]['url'], 'in', urls[url_key][verb]['file'])
                             sys.exit(1)
                     else:
                         urls[url_key] = {}
@@ -397,7 +394,7 @@ def generate_url_summary():
                         'url': url,
                         'file': rel_proto
                     }
-    write_json(urls, API_ROOT + '/api_urls.json')
+    write_json(urls, REPO_ROOT + '/api_urls.json')
 
 
 if __name__ == "__main__":

@@ -169,7 +169,7 @@ func (s *apiServer) ServeHTTPS(l net.Listener) {
 	gwMux := s.newGatewayMux()
 
 	srv := &http.Server{
-		Addr: fmt.Sprintf(":%d", s.Port),
+		Addr:         fmt.Sprintf(":%d", s.Port),
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 5 * time.Second,
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

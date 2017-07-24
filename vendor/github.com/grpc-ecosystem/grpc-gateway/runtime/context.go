@@ -9,27 +9,27 @@ import (
 	"time"
 
 	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/metadata"
+	"google.golang.org/grpc/status"
 )
 
-// MetadataHeaderPrefix is prepended to HTTP headers in order to convert them to
-// gRPC metadata for incoming requests processed by grpc-gateway
+// MetadataHeaderPrefix is the http prefix that represents custom metadata
+// parameters to or from a gRPC call.
 const MetadataHeaderPrefix = "Grpc-Metadata-"
+
+// MetadataPrefix is the prefix for grpc-gateway supplied custom metadata fields.
+const MetadataPrefix = "grpcgateway-"
 
 // MetadataTrailerPrefix is prepended to gRPC metadata as it is converted to
 // HTTP headers in a response handled by grpc-gateway
 const MetadataTrailerPrefix = "Grpc-Trailer-"
+
 const metadataGrpcTimeout = "Grpc-Timeout"
 
 const xForwardedFor = "X-Forwarded-For"
 const xForwardedHost = "X-Forwarded-Host"
-const cookieHeader = "Cookie"
-const csrfTokenHeader = "X-Phabricator-Csrf"
-const corsHeaderPrefix = "access-control-"
-const rateLimitHeaderPrefix = "x-ratelimit-"
 
 var (
 	// DefaultContextTimeout is used for gRPC call context.WithTimeout whenever a Grpc-Timeout inbound
@@ -39,41 +39,32 @@ var (
 
 /*
 AnnotateContext adds context information such as metadata from the request.
+
 At a minimum, the RemoteAddr is included in the fashion of "X-Forwarded-For",
 except that the forwarded destination is not another HTTP service but rather
 a gRPC service.
 */
-func AnnotateContext(ctx context.Context, req *http.Request) (context.Context, error) {
+func AnnotateContext(ctx context.Context, mux *ServeMux, req *http.Request) (context.Context, error) {
 	var pairs []string
 	timeout := DefaultContextTimeout
 	if tm := req.Header.Get(metadataGrpcTimeout); tm != "" {
 		var err error
 		timeout, err = timeoutDecode(tm)
 		if err != nil {
-			return nil, grpc.Errorf(codes.InvalidArgument, "invalid grpc-timeout: %s", tm)
+			return nil, status.Errorf(codes.InvalidArgument, "invalid grpc-timeout: %s", tm)
 		}
 	}
 
 	for key, vals := range req.Header {
 		for _, val := range vals {
-			if key == "Authorization" {
+			// For backwards-compatibility, pass through 'authorization' header with no prefix.
+			if strings.ToLower(key) == "authorization" {
 				pairs = append(pairs, "authorization", val)
-				continue
 			}
-			if key == cookieHeader {
-				pairs = append(pairs, key, val)
-				continue
-			}
-			if strings.EqualFold(key, csrfTokenHeader) {
-				pairs = append(pairs, key, val)
-				continue
-			}
-			if strings.HasPrefix(strings.ToLower(key), corsHeaderPrefix) {
-				pairs = append(pairs, key, val)
-				continue
-			}
-			if strings.HasPrefix(key, MetadataHeaderPrefix) {
-				pairs = append(pairs, key[len(MetadataHeaderPrefix):], val)
+			if mux.incomingHeaderMatcher != nil {
+				if h, ok := mux.incomingHeaderMatcher(key); ok {
+					pairs = append(pairs, h, val)
+				}
 			}
 		}
 	}
@@ -95,21 +86,17 @@ func AnnotateContext(ctx context.Context, req *http.Request) (context.Context, e
 		}
 	}
 
-	// adding extra headers to metadata
-	pairs = append(pairs,
-		"http-request-method", req.Method,
-		"http-request-endpoint", req.RequestURI,
-		"http-request-host", req.Host,
-		"http-userAgent", req.UserAgent(),
-	)
-
 	if timeout != 0 {
 		ctx, _ = context.WithTimeout(ctx, timeout)
 	}
 	if len(pairs) == 0 {
 		return ctx, nil
 	}
-	return metadata.NewContext(ctx, metadata.Pairs(pairs...)), nil
+	md := metadata.Pairs(pairs...)
+	if mux.metadataAnnotator != nil {
+		md = metadata.Join(md, mux.metadataAnnotator(ctx, req))
+	}
+	return metadata.NewOutgoingContext(ctx, md), nil
 }
 
 // ServerMetadata consists of metadata sent from gRPC server.
@@ -164,4 +151,39 @@ func timeoutUnitToDuration(u uint8) (d time.Duration, ok bool) {
 	default:
 	}
 	return
+}
+
+// isPermanentHTTPHeader checks whether hdr belongs to the list of
+// permenant request headers maintained by IANA.
+// http://www.iana.org/assignments/message-headers/message-headers.xml
+func isPermanentHTTPHeader(hdr string) bool {
+	switch hdr {
+	case
+		"Accept",
+		"Accept-Charset",
+		"Accept-Language",
+		"Accept-Ranges",
+		"Authorization",
+		"Cache-Control",
+		"Content-Type",
+		"Cookie",
+		"Date",
+		"Expect",
+		"From",
+		"Host",
+		"If-Match",
+		"If-Modified-Since",
+		"If-None-Match",
+		"If-Schedule-Tag-Match",
+		"If-Unmodified-Since",
+		"Max-Forwards",
+		"Origin",
+		"Pragma",
+		"Referer",
+		"User-Agent",
+		"Via",
+		"Warning":
+		return true
+	}
+	return false
 }

@@ -10,7 +10,6 @@ option java_package = "com.appscode.seed.app.v1beta1";
 
 import "google/api/annotations.proto";
 import "appscode/api/annotations.proto";
-import "appscode/api/dtypes/types.proto";
 
 service Apps {
     rpc Hello(HelloRequest) returns(HelloResponse) {
@@ -28,6 +27,5 @@ message HelloRequest {
 }
 
 message HelloResponse {
-    dtypes.Status status = 1;
-    string greetings = 2;
+    string greetings = 1;
 }

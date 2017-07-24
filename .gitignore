@@ -32,3 +32,4 @@ _testmain.go
 dist/
 .idea/
 **/node_modules/
+.vscode/

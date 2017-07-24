@@ -27,7 +27,6 @@ check_antipackage()
 
 # ref: https://github.com/ellisonbg/antipackage
 import antipackage
-from github.appscode.baler import baler
 from github.appscode.libbuild import libbuild
 
 import datetime
@@ -90,7 +89,7 @@ def vet():
 
 def gen_protos():
     # Generate protos
-    die(call('./hack/gen.sh', cwd=libbuild.REPO_ROOT + '/_proto'))
+    die(call('./hack/make.sh', cwd=libbuild.REPO_ROOT + '/_proto'))
     #Move generated go files to api.
     call('rm -rf apis', cwd=libbuild.REPO_ROOT + '/pkg')
     shutil.copytree(libbuild.REPO_ROOT + '/_proto', libbuild.REPO_ROOT + '/pkg/apis', ignore=ignore_most)
