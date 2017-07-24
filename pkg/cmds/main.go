@@ -7,7 +7,6 @@ import (
 	v "github.com/appscode/go/version"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	_ "k8s.io/client-go/kubernetes/fake"
 )
 
 func NewRootCmd(version string) *cobra.Command {
