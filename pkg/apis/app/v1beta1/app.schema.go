@@ -28,4 +28,3 @@ func (m *HelloRequest) IsValid() (*gojsonschema.Result, error) {
 	return helloRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *HelloRequest) IsRequest() {}
-

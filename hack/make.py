@@ -78,13 +78,13 @@ def version():
 
 
 def fmt():
-    libbuild.ungroup_go_imports('pkg', 'cmd')
-    die(call('goimports -w pkg cmd'))
-    call('gofmt -s -w pkg cmd')
+    libbuild.ungroup_go_imports('pkg', '*.go')
+    die(call('goimports -w pkg *.go'))
+    call('gofmt -s -w pkg *.go')
 
 
 def vet():
-    call('go vet ./pkg/... ./cmd/...')
+    call('go vet ./pkg/... *.go')
 
 
 def gen_protos():
@@ -163,13 +163,13 @@ def update_registry():
 
 
 def install():
-    die(call('GO15VENDOREXPERIMENT=1 ' + libbuild.GOC + ' install ./pkg/... ./cmd/...'))
+    die(call('GO15VENDOREXPERIMENT=1 ' + libbuild.GOC + ' install .'))
 
 
 def default():
     gen()
     fmt()
-    die(call('GO15VENDOREXPERIMENT=1 ' + libbuild.GOC + ' install ./pkg/... ./cmd/...'))
+    die(call('GO15VENDOREXPERIMENT=1 ' + libbuild.GOC + ' install .'))
 
 
 if __name__ == "__main__":
