@@ -21,6 +21,7 @@ import:
 - package: github.com/xeipuuv/gojsonschema
 - package: google.golang.org/grpc
   version: v1.3.0
+- package: google.golang.org/genproto
 testImport:
 - package: github.com/stretchr/testify
   version: v1.1.4

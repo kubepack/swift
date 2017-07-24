@@ -1,4 +1,4 @@
-package app
+package cmd
 
 import (
 	"crypto/tls"
@@ -15,7 +15,7 @@ import (
 
 	"github.com/appscode/go/runtime"
 	"github.com/appscode/log"
-	"github.com/appscode/wheel/cmd/seed-apis/app/options"
+	"github.com/appscode/wheel/pkg/apiserver/cmd/options"
 	"github.com/appscode/wheel/pkg/apiserver/endpoints"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/soheilhy/cmux"

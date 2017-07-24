@@ -1,15 +1,7 @@
 package main
 
 import (
-	"github.com/appscode/go/flags"
-	_ "github.com/appscode/go/flags"
-	"github.com/appscode/go/hold"
 	v "github.com/appscode/go/version"
-	logs "github.com/appscode/log/golog"
-	"github.com/appscode/wheel/cmd/seed-apis/app"
-	"github.com/appscode/wheel/cmd/seed-apis/app/options"
-	_ "github.com/appscode/wheel/pkg/app"
-	"github.com/spf13/pflag"
 )
 
 var (
@@ -40,17 +32,4 @@ func init() {
 	v.Version.BuildHost = BuildHost
 	v.Version.BuildHostOs = BuildHostOs
 	v.Version.BuildHostArch = BuildHostArch
-}
-
-func main() {
-	config := options.NewConfig()
-	config.AddFlags(pflag.CommandLine)
-
-	flags.InitFlags()
-	logs.InitLogs()
-	defer logs.FlushLogs()
-	flags.DumpAll()
-
-	app.Run(config)
-	hold.Hold()
 }
