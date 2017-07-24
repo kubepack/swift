@@ -33,7 +33,7 @@ cd grpc
 git submodule update --init
 echo "setting up protoc"
 cd /opt/grpc/third_party/protobuf
-./automake.sh && ./configure && make
+./autogen.sh && ./configure && make
 make install
 ldconfig
 echo "setting up grpc"
@@ -52,10 +52,17 @@ EOF
 
 setup_proxy() {
 	echo "Setting up grpc proxy"
+	rm -rf $GOPATH/src/github.com/googleapis/googleapis
+	go get -u github.com/googleapis/googleapis || true
+	rm -rf $GOPATH/src/github.com/googleapis/googleapis/third_party
+	rm -rf $GOPATH/src/google.golang.org/genproto
+	go get google.golang.org/genproto || true
+	rm -rf $GOPATH/src/google.golang.org/grpc
 	go get -u google.golang.org/grpc
 	pushd $GOPATH/src/google.golang.org/grpc
-	git checkout v1.0.5
+	git checkout v1.3.0
 	popd
+	rm -rf $GOPATH/src/github.com/golang/protobuf
 	go get -u github.com/golang/protobuf/protoc-gen-go
 	mkdir -p $GOPATH/src/github.com/grpc-ecosystem
 	pushd $GOPATH/src/github.com/grpc-ecosystem
@@ -63,9 +70,11 @@ setup_proxy() {
 		git clone git@github.com:appscode/grpc-gateway.git
 	fi
 	cd grpc-gateway
-	git reset --soft HEAD~10
+	git fetch origin
+	git checkout v1.2.2-ac
+	git reset --soft HEAD~20
 	git reset HEAD --hard
-	git pull origin master
+	git pull origin v1.2.2-ac
 	go install ./protoc-gen-grpc-gateway/...
 	go install ./protoc-gen-grpc-gateway-cors/...
 	go install ./protoc-gen-grpc-js-client/...
