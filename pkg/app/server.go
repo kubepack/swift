@@ -3,8 +3,8 @@ package app
 import (
 	"fmt"
 
-	app "github.com/appscode/grpc-seed/pkg/apis/app/v1beta1"
-	"github.com/appscode/grpc-seed/pkg/apiserver/endpoints"
+	app "github.com/appscode/wheel/pkg/apis/app/v1beta1"
+	"github.com/appscode/wheel/pkg/apiserver/endpoints"
 	"golang.org/x/net/context"
 )
 

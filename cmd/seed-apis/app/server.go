@@ -14,9 +14,9 @@ import (
 	"time"
 
 	"github.com/appscode/go/runtime"
-	"github.com/appscode/grpc-seed/cmd/seed-apis/app/options"
-	"github.com/appscode/grpc-seed/pkg/apiserver/endpoints"
 	"github.com/appscode/log"
+	"github.com/appscode/wheel/cmd/seed-apis/app/options"
+	"github.com/appscode/wheel/pkg/apiserver/endpoints"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/soheilhy/cmux"
 	"golang.org/x/net/context"

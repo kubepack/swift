@@ -1,4 +1,4 @@
-package: github.com/appscode/grpc-seed
+package: github.com/appscode/wheel
 import:
 - package: github.com/appscode/errors
 - package: github.com/appscode/go

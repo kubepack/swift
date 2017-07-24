@@ -5,10 +5,10 @@ import (
 	_ "github.com/appscode/go/flags"
 	"github.com/appscode/go/hold"
 	v "github.com/appscode/go/version"
-	"github.com/appscode/grpc-seed/cmd/seed-apis/app"
-	"github.com/appscode/grpc-seed/cmd/seed-apis/app/options"
-	_ "github.com/appscode/grpc-seed/pkg/app"
 	logs "github.com/appscode/log/golog"
+	"github.com/appscode/wheel/cmd/seed-apis/app"
+	"github.com/appscode/wheel/cmd/seed-apis/app/options"
+	_ "github.com/appscode/wheel/pkg/app"
 	"github.com/spf13/pflag"
 )
 
