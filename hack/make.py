@@ -48,11 +48,11 @@ from os.path import expandvars
 libbuild.REPO_ROOT = expandvars('$GOPATH') + '/src/github.com/appscode/wheel'
 BUILD_METADATA = libbuild.metadata(libbuild.REPO_ROOT)
 libbuild.BIN_MATRIX = {
-    'seed': {
+    'wheel': {
         'type': 'go',
         'go_version': True,
         'distro': {
-            'linux': ['amd64']
+            'alpine': ['amd64']
         }
     },
 }
@@ -78,13 +78,13 @@ def version():
 
 
 def fmt():
-    libbuild.ungroup_go_imports('pkg', 'cmd')
-    die(call('goimports -w pkg cmd'))
-    call('gofmt -s -w pkg cmd')
+    libbuild.ungroup_go_imports('pkg', '*.go')
+    die(call('goimports -w pkg *.go'))
+    call('gofmt -s -w pkg *.go')
 
 
 def vet():
-    call('go vet ./pkg/... ./cmd/...')
+    call('go vet ./pkg/... *.go')
 
 
 def gen_protos():
@@ -117,9 +117,9 @@ def build_cmd(name):
         if 'distro' in cfg:
             for goos, archs in cfg['distro'].items():
                 for goarch in archs:
-                    libbuild.go_build(name, goos, goarch, main='cmd/{}/*.go'.format(name))
+                    libbuild.go_build(name, goos, goarch, main='*.go')
         else:
-            libbuild.go_build(name, libbuild.GOHOSTOS, libbuild.GOHOSTARCH, main='cmd/{}/*.go'.format(name))
+            libbuild.go_build(name, libbuild.GOHOSTOS, libbuild.GOHOSTARCH, main='*.go')
 
 
 def build_cmds():
@@ -163,13 +163,13 @@ def update_registry():
 
 
 def install():
-    die(call('GO15VENDOREXPERIMENT=1 ' + libbuild.GOC + ' install ./pkg/... ./cmd/...'))
+    die(call('GO15VENDOREXPERIMENT=1 ' + libbuild.GOC + ' install .'))
 
 
 def default():
     gen()
     fmt()
-    die(call('GO15VENDOREXPERIMENT=1 ' + libbuild.GOC + ' install ./pkg/... ./cmd/...'))
+    die(call('GO15VENDOREXPERIMENT=1 ' + libbuild.GOC + ' install .'))
 
 
 if __name__ == "__main__":

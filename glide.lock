@@ -1,30 +1,27 @@
-hash: a7943aff6a3c65a9fb1dfb16299a7505769e358e049fdffa777c6cdb01f49c9f
-updated: 2017-07-24T01:55:03.517636495-07:00
+hash: aab2b74919e9b7139442c1b21bf5bfcfcbec4bc843df94a91266ae300c1daf85
+updated: 2017-07-24T03:58:29.931907493-07:00
 imports:
-- name: github.com/appscode/api
-  version: d98df977c923189d5e4856bf8d428f5528b6bdd1
-  subpackages:
-  - dtypes
 - name: github.com/appscode/errors
   version: 748883e321a9f99fe901bd2663c7af3fcae43ea4
 - name: github.com/appscode/go
   version: 9fde097ebcef0add8325c8fbee63ae01e7da530e
   subpackages:
   - env
-  - flags
   - hold
   - runtime
   - version
 - name: github.com/appscode/k8s-addons
-  version: 3e80e94240b591fcb80f354fb77fdb3085f38675
+  version: 468f387079f246a5d72e4d7c9255c02449b1ee9d
 - name: github.com/appscode/log
   version: 68e0e42e42c01371f3950571fc87c2298a51dd8f
   subpackages:
   - golog
-- name: github.com/facebookgo/stack
-  version: d9d227395bc3d7a635388c75b2e3b3a750e11888
+- name: github.com/cpuguy83/go-md2man
+  version: 23709d0847197db6021a51fdb193e66e9222d4e7
+  subpackages:
+  - md2man
 - name: github.com/golang/glog
-  version: 44145f04b68cf362d9c4df2182967c2275eaefed
+  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
 - name: github.com/golang/protobuf
   version: 6e4cc92cc905d5f4a73041c1b8228ea08f4c6147
   subpackages:
@@ -41,7 +38,6 @@ imports:
   - runtime
   - runtime/internal
   - third_party/appscodeapis/appscode/api
-  - third_party/googleapis/google/api
   - utilities
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
@@ -51,18 +47,22 @@ imports:
   - autoinc
   - idgen
   - signal
+- name: github.com/russross/blackfriday
+  version: 067529f716f4c3f5e37c8c95ddd59df1007290ae
 - name: github.com/soheilhy/cmux
   version: bf4a8ede9e87c006fe1d4278c6c7f2b8be1fa84c
 - name: github.com/spf13/cobra
   version: 90fc11bbc0a789c29272c21b5ff9e93db183f8dc
+  subpackages:
+  - doc
 - name: github.com/spf13/pflag
   version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/xeipuuv/gojsonpointer
-  version: e0fe6f68307607d540ed8eac07a342c33fa1b54a
+  version: 6fe8760cad3569743d51ddbb243b26f8456742dc
 - name: github.com/xeipuuv/gojsonreference
   version: e02fc20de94c78484cd5ffb007f8af96be030a45
 - name: github.com/xeipuuv/gojsonschema
-  version: 93e72a773fade158921402d6a24c819b48aba29d
+  version: 0c8571ac0ce161a5feb57375a9cdf148c98c0f70
 - name: golang.org/x/net
   version: da118f7b8e5954f39d0d2130ab35d4bf0e3cb344
   subpackages:
@@ -81,8 +81,9 @@ imports:
   - unicode/bidi
   - unicode/norm
 - name: google.golang.org/genproto
-  version: 411e09b969b1170a9f0c467558eb4c4c110d9c77
+  version: b0a3dcfcd1a9bd48e63634bd8802960804cf8315
   subpackages:
+  - googleapis/api/annotations
   - googleapis/rpc/status
 - name: google.golang.org/grpc
   version: d2e1b51f33ff8c5e4a15560ff049d200e83726c5
@@ -105,6 +106,8 @@ imports:
   subpackages:
   - bson
   - internal/json
+- name: gopkg.in/yaml.v2
+  version: 25c4ec802a7d637f88d584ab26798e94ad14c13b
 testImports:
 - name: github.com/davecgh/go-spew
   version: 6d212800a42e8ab5c146b8ace3490ee17e5225f9
