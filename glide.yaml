@@ -29,7 +29,8 @@ import:
 - package: k8s.io/client-go
   version: v3.0.0-beta.0
 - package: k8s.io/helm
-  version: v2.5.1
+  repo: https://github.com/appscode/helm.git
+  version: 2.5.1-ac
 testImport:
 - package: github.com/stretchr/testify
   version: v1.1.4
