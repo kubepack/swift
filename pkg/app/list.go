@@ -54,7 +54,12 @@ func (l *listCmd) run() (app.ListReleasesResponse, error) {
 		return nil, prettyError(err)
 	}
 
-	return app.ListReleasesResponse(res), nil
+	return app.ListReleasesResponse{
+		Count: res.Count,
+		Next: res.Next,
+		Releases: res.Releases,
+		Total: res.Total,
+	}, nil
 }
 
 // statusCodes gets the list of status codes that are to be included in the results.

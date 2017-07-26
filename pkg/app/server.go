@@ -6,6 +6,7 @@ import (
 	app "github.com/appscode/wheel/pkg/apis/app/v1beta1"
 	"github.com/appscode/wheel/pkg/apiserver/endpoints"
 	"golang.org/x/net/context"
+	"k8s.io/helm/pkg/helm"
 )
 
 func init() {
@@ -28,7 +29,7 @@ func (*AppsServer) Hello(ctx context.Context, req *app.HelloRequest) (*app.Hello
 }
 
 func (*AppsServer) ListReleases(req *app.ListReleasesRequest, srv app.ReleaseService_ListReleasesServer) error {
-	/*setupConnection()
+	setupConnection()
 
 	l := &listCmd{
 		client: helm.NewClient(helm.Host(settings.TillerHost)),
@@ -39,7 +40,7 @@ func (*AppsServer) ListReleases(req *app.ListReleasesRequest, srv app.ReleaseSer
 		return err
 	}
 
-	srv.Send(&res)*/
+	srv.Send(&res)
 	return nil
 }
 
