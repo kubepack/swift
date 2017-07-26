@@ -1,14 +1,62 @@
 {
-  "/_appscode/api/seed/v1beta1/apps/hello": {
-    "get": {
-      "file": "/app/v1beta1/app.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/hello"
-    }
-  },
-  "/_appscode/api/seed/v1beta1/apps/listreleases": {
+  "/_appscode/api/seed/v1beta1/apps/get-history": {
     "get": {
       "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/listreleases"
+      "url": "/_appscode/api/seed/v1beta1/apps/get-history"
+    }
+  },
+  "/_appscode/api/seed/v1beta1/apps/get-release-content": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/get-release-content"
+    }
+  },
+  "/_appscode/api/seed/v1beta1/apps/get-release-status": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/get-release-status"
+    }
+  },
+  "/_appscode/api/seed/v1beta1/apps/get-version": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/get-version"
+    }
+  },
+  "/_appscode/api/seed/v1beta1/apps/install-release": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/install-release"
+    }
+  },
+  "/_appscode/api/seed/v1beta1/apps/list-releases": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/list-releases"
+    }
+  },
+  "/_appscode/api/seed/v1beta1/apps/rollback-release": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/rollback-release"
+    }
+  },
+  "/_appscode/api/seed/v1beta1/apps/run-test-release": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/run-test-release"
+    }
+  },
+  "/_appscode/api/seed/v1beta1/apps/uninstall-release": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/uninstall-release"
+    }
+  },
+  "/_appscode/api/seed/v1beta1/apps/update-release": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/update-release"
     }
   }
 }

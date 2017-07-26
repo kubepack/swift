@@ -42,14 +42,17 @@
     },
     "StatusCode": {
       "default": "UNKNOWN",
-      "description": " - UNKNOWN: Status_UNKNOWN indicates that a release is in an uncertain state.\n - DEPLOYED: Status_DEPLOYED indicates that the release has been pushed to Kubernetes.\n - DELETED: Status_DELETED indicates that a release has been deleted from Kubermetes.\n - SUPERSEDED: Status_SUPERSEDED indicates that this release object is outdated and a newer one exists.\n - FAILED: Status_FAILED indicates that the release was not successfully deployed.\n - DELETING: Status_DELETING indicates that a delete operation is underway.",
+      "description": " - UNKNOWN: Status_UNKNOWN indicates that a release is in an uncertain state.\n - DEPLOYED: Status_DEPLOYED indicates that the release has been pushed to Kubernetes.\n - DELETED: Status_DELETED indicates that a release has been deleted from Kubermetes.\n - SUPERSEDED: Status_SUPERSEDED indicates that this release object is outdated and a newer one exists.\n - FAILED: Status_FAILED indicates that the release was not successfully deployed.\n - DELETING: Status_DELETING indicates that a delete operation is underway.\n - PENDING_INSTALL: Status_PENDING_INSTALL indicates that an install operation is underway.\n - PENDING_UPGRADE: Status_PENDING_UPGRADE indicates that an upgrade operation is underway.\n - PENDING_ROLLBACK: Status_PENDING_ROLLBACK indicates that an rollback operation is underway.",
       "enum": [
         "UNKNOWN",
         "DEPLOYED",
         "DELETED",
         "SUPERSEDED",
         "FAILED",
-        "DELETING"
+        "DELETING",
+        "PENDING_INSTALL",
+        "PENDING_UPGRADE",
+        "PENDING_ROLLBACK"
       ],
       "type": "string"
     },
@@ -66,7 +69,7 @@
         "files": {
           "description": "Miscellaneous files in a chart archive,\ne.g. README, LICENSE, etc.",
           "items": {
-            "$ref": "#/definitions/hapichartAny"
+            "$ref": "#/definitions/protobufAny"
           },
           "type": "array"
         },
@@ -182,6 +185,10 @@
           "title": "The tags to check to enable chart",
           "type": "string"
         },
+        "tillerVersion": {
+          "title": "TillerVersion is a SemVer constraints on what version of Tiller is required.\nSee SemVer ranges here: https://github.com/Masterminds/semver#basic-comparisons",
+          "type": "string"
+        },
         "version": {
           "title": "A SemVer 2 conformant version string of the chart",
           "type": "string"
@@ -213,21 +220,6 @@
       },
       "type": "object"
     },
-    "hapichartAny": {
-      "properties": {
-        "type_url": {
-          "description": "A resource name whose content describes the type of the\nserialized data.",
-          "type": "string"
-        },
-        "value": {
-          "description": "Data for file.",
-          "format": "byte",
-          "type": "string"
-        }
-      },
-      "title": "Copied from https://github.com/golang/protobuf/blob/master/ptypes/any/any.proto",
-      "type": "object"
-    },
     "hapireleaseStatus": {
       "description": "Status defines the status of a release.",
       "properties": {
@@ -244,6 +236,21 @@
         },
         "resources": {
           "description": "Cluster resources as kubectl would print them.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "protobufAny": {
+      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }",
+      "properties": {
+        "type_url": {
+          "description": "A URL/resource name whose content describes the type of the\nserialized protocol buffer message.\n\nFor URLs which use the scheme `http`, `https`, or no scheme, the\nfollowing restrictions and interpretations apply:\n\n* If no scheme is provided, `https` is assumed.\n* The last segment of the URL's path must represent the fully\n  qualified name of the type (as in `path/google.protobuf.Duration`).\n  The name should be in a canonical form (e.g., leading \".\" is\n  not accepted).\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics.",
+          "type": "string"
+        },
+        "value": {
+          "description": "Must be a valid serialized protocol buffer of the above specified type.",
+          "format": "byte",
           "type": "string"
         }
       },
@@ -292,10 +299,6 @@
       "properties": {
         "Description": {
           "description": "Description is human-friendly \"log entry\" about this release.",
-          "type": "string"
-        },
-        "Username": {
-          "description": "Username is the authenticated user who performed this release.",
           "type": "string"
         },
         "deleted": {
@@ -386,7 +389,8 @@
       "enum": [
         "UNKNOWN",
         "SUCCESS",
-        "FAILURE"
+        "FAILURE",
+        "RUNNING"
       ],
       "type": "string"
     },
@@ -843,7 +847,316 @@
     "version": "1beta1"
   },
   "paths": {
-    "/_appscode/api/seed/v1beta1/apps/listreleases": {
+    "/_appscode/api/seed/v1beta1/apps/get-history": {
+      "get": {
+        "operationId": "GetHistory",
+        "parameters": [
+          {
+            "description": "The name of the release.",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The maximum number of releases to include.",
+            "format": "int32",
+            "in": "query",
+            "name": "max",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1beta1GetHistoryResponse"
+            }
+          }
+        },
+        "summary": "ReleaseHistory retrieves a releasse's history.",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
+    "/_appscode/api/seed/v1beta1/apps/get-release-content": {
+      "get": {
+        "operationId": "GetReleaseContent",
+        "parameters": [
+          {
+            "description": "The name of the release.",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Version is the version of the release.",
+            "format": "int32",
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1beta1GetReleaseContentResponse"
+            }
+          }
+        },
+        "summary": "GetReleaseContent retrieves the release content (chart + value) for the specified release.",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
+    "/_appscode/api/seed/v1beta1/apps/get-release-status": {
+      "get": {
+        "operationId": "GetReleaseStatus",
+        "parameters": [
+          {
+            "description": "Name is the name of the release.",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Version is the version of the release.",
+            "format": "int32",
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1beta1GetReleaseStatusResponse"
+            }
+          }
+        },
+        "summary": "GetReleasesStatus retrieves status information for the specified release.",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
+    "/_appscode/api/seed/v1beta1/apps/get-version": {
+      "get": {
+        "operationId": "GetVersion",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1beta1GetVersionResponse"
+            }
+          }
+        },
+        "summary": "GetVersion returns the current version of the server.",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
+    "/_appscode/api/seed/v1beta1/apps/install-release": {
+      "get": {
+        "operationId": "InstallRelease",
+        "parameters": [
+          {
+            "description": "The name of the chart.",
+            "in": "query",
+            "name": "chart.metadata.name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The URL to a relevant project page, git repo, or contact person.",
+            "in": "query",
+            "name": "chart.metadata.home",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Source is the URL to the source code of this chart.",
+            "in": "query",
+            "items": {
+              "type": "string"
+            },
+            "name": "chart.metadata.sources",
+            "required": false,
+            "type": "array"
+          },
+          {
+            "description": "A SemVer 2 conformant version string of the chart.",
+            "in": "query",
+            "name": "chart.metadata.version",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "A one-sentence description of the chart.",
+            "in": "query",
+            "name": "chart.metadata.description",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "A list of string keywords.",
+            "in": "query",
+            "items": {
+              "type": "string"
+            },
+            "name": "chart.metadata.keywords",
+            "required": false,
+            "type": "array"
+          },
+          {
+            "description": "The name of the template engine to use. Defaults to 'gotpl'.",
+            "in": "query",
+            "name": "chart.metadata.engine",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The URL to an icon file.",
+            "in": "query",
+            "name": "chart.metadata.icon",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The API Version of this chart.",
+            "in": "query",
+            "name": "chart.metadata.apiVersion",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The condition to check to enable chart.",
+            "in": "query",
+            "name": "chart.metadata.condition",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The tags to check to enable chart.",
+            "in": "query",
+            "name": "chart.metadata.tags",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The version of the application enclosed inside of this chart.",
+            "in": "query",
+            "name": "chart.metadata.appVersion",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Whether or not this chart is deprecated.",
+            "format": "boolean",
+            "in": "query",
+            "name": "chart.metadata.deprecated",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "TillerVersion is a SemVer constraints on what version of Tiller is required.\nSee SemVer ranges here: https://github.com/Masterminds/semver#basic-comparisons.",
+            "in": "query",
+            "name": "chart.metadata.tillerVersion",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "chart.values.raw",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "values.raw",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "DryRun, if true, will run through the release logic, but neither create\na release object nor deploy to Kubernetes. The release object returned\nin the response will be fake.",
+            "format": "boolean",
+            "in": "query",
+            "name": "dry_run",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Name is the candidate release name. This must be unique to the\nnamespace, otherwise the server will return an error. If it is not\nsupplied, the server will autogenerate one.",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "DisableHooks causes the server to skip running any hooks for the install.",
+            "format": "boolean",
+            "in": "query",
+            "name": "disable_hooks",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Namepace is the kubernetes namespace of the release.",
+            "in": "query",
+            "name": "namespace",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "ReuseName requests that Tiller re-uses a name, instead of erroring out.",
+            "format": "boolean",
+            "in": "query",
+            "name": "reuse_name",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "timeout specifies the max amount of time any kubernetes client command can run.",
+            "format": "int64",
+            "in": "query",
+            "name": "timeout",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "wait, if true, will wait until all Pods, PVCs, and Services are in a ready state\nbefore marking the release as successful. It will wait for as long as timeout.",
+            "format": "boolean",
+            "in": "query",
+            "name": "wait",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1beta1InstallReleaseResponse"
+            }
+          }
+        },
+        "summary": "InstallRelease requests installation of a chart as a new release.",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
+    "/_appscode/api/seed/v1beta1/apps/list-releases": {
       "get": {
         "operationId": "ListReleases",
         "parameters": [
@@ -895,7 +1208,7 @@
             "type": "string"
           },
           {
-            "description": " - UNKNOWN: Status_UNKNOWN indicates that a release is in an uncertain state.\n - DEPLOYED: Status_DEPLOYED indicates that the release has been pushed to Kubernetes.\n - DELETED: Status_DELETED indicates that a release has been deleted from Kubermetes.\n - SUPERSEDED: Status_SUPERSEDED indicates that this release object is outdated and a newer one exists.\n - FAILED: Status_FAILED indicates that the release was not successfully deployed.\n - DELETING: Status_DELETING indicates that a delete operation is underway.",
+            "description": " - UNKNOWN: Status_UNKNOWN indicates that a release is in an uncertain state.\n - DEPLOYED: Status_DEPLOYED indicates that the release has been pushed to Kubernetes.\n - DELETED: Status_DELETED indicates that a release has been deleted from Kubermetes.\n - SUPERSEDED: Status_SUPERSEDED indicates that this release object is outdated and a newer one exists.\n - FAILED: Status_FAILED indicates that the release was not successfully deployed.\n - DELETING: Status_DELETING indicates that a delete operation is underway.\n - PENDING_INSTALL: Status_PENDING_INSTALL indicates that an install operation is underway.\n - PENDING_UPGRADE: Status_PENDING_UPGRADE indicates that an upgrade operation is underway.\n - PENDING_ROLLBACK: Status_PENDING_ROLLBACK indicates that an rollback operation is underway.",
             "in": "query",
             "items": {
               "enum": [
@@ -904,7 +1217,10 @@
                 "DELETED",
                 "SUPERSEDED",
                 "FAILED",
-                "DELETING"
+                "DELETING",
+                "PENDING_INSTALL",
+                "PENDING_UPGRADE",
+                "PENDING_ROLLBACK"
               ],
               "type": "string"
             },
@@ -929,6 +1245,387 @@
           }
         },
         "summary": "ListReleases retrieves release history.\nTODO: Allow filtering the set of releases by\nrelease status. By default, ListAllReleases returns the releases who\ncurrent status is \"Active\".",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
+    "/_appscode/api/seed/v1beta1/apps/rollback-release": {
+      "get": {
+        "operationId": "RollbackRelease",
+        "parameters": [
+          {
+            "description": "The name of the release.",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "dry_run, if true, will run through the release logic but no create.",
+            "format": "boolean",
+            "in": "query",
+            "name": "dry_run",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "DisableHooks causes the server to skip running any hooks for the rollback.",
+            "format": "boolean",
+            "in": "query",
+            "name": "disable_hooks",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Version is the version of the release to deploy.",
+            "format": "int32",
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Performs pods restart for resources if applicable.",
+            "format": "boolean",
+            "in": "query",
+            "name": "recreate",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "timeout specifies the max amount of time any kubernetes client command can run.",
+            "format": "int64",
+            "in": "query",
+            "name": "timeout",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "wait, if true, will wait until all Pods, PVCs, and Services are in a ready state\nbefore marking the release as successful. It will wait for as long as timeout.",
+            "format": "boolean",
+            "in": "query",
+            "name": "wait",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Force resource update through delete/recreate if needed.",
+            "format": "boolean",
+            "in": "query",
+            "name": "force",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1beta1RollbackReleaseResponse"
+            }
+          }
+        },
+        "summary": "RollbackRelease rolls back a release to a previous version.",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
+    "/_appscode/api/seed/v1beta1/apps/run-test-release": {
+      "get": {
+        "operationId": "RunReleaseTest",
+        "parameters": [
+          {
+            "description": "Name is the name of the release.",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "timeout specifies the max amount of time any kubernetes client command can run.",
+            "format": "int64",
+            "in": "query",
+            "name": "timeout",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "cleanup specifies whether or not to attempt pod deletion after test completes.",
+            "format": "boolean",
+            "in": "query",
+            "name": "cleanup",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "(streaming responses)",
+            "schema": {
+              "$ref": "#/definitions/v1beta1TestReleaseResponse"
+            }
+          }
+        },
+        "summary": "RunReleaseTest executes the tests defined of a named release",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
+    "/_appscode/api/seed/v1beta1/apps/uninstall-release": {
+      "get": {
+        "operationId": "UninstallRelease",
+        "parameters": [
+          {
+            "description": "Name is the name of the release to delete.",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "DisableHooks causes the server to skip running any hooks for the uninstall.",
+            "format": "boolean",
+            "in": "query",
+            "name": "disable_hooks",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Purge removes the release from the store and make its name free for later use.",
+            "format": "boolean",
+            "in": "query",
+            "name": "purge",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "timeout specifies the max amount of time any kubernetes client command can run.",
+            "format": "int64",
+            "in": "query",
+            "name": "timeout",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1beta1UninstallReleaseResponse"
+            }
+          }
+        },
+        "summary": "UninstallRelease requests deletion of a named release.",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
+    "/_appscode/api/seed/v1beta1/apps/update-release": {
+      "get": {
+        "operationId": "UpdateRelease",
+        "parameters": [
+          {
+            "description": "The name of the release.",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The name of the chart.",
+            "in": "query",
+            "name": "chart.metadata.name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The URL to a relevant project page, git repo, or contact person.",
+            "in": "query",
+            "name": "chart.metadata.home",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Source is the URL to the source code of this chart.",
+            "in": "query",
+            "items": {
+              "type": "string"
+            },
+            "name": "chart.metadata.sources",
+            "required": false,
+            "type": "array"
+          },
+          {
+            "description": "A SemVer 2 conformant version string of the chart.",
+            "in": "query",
+            "name": "chart.metadata.version",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "A one-sentence description of the chart.",
+            "in": "query",
+            "name": "chart.metadata.description",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "A list of string keywords.",
+            "in": "query",
+            "items": {
+              "type": "string"
+            },
+            "name": "chart.metadata.keywords",
+            "required": false,
+            "type": "array"
+          },
+          {
+            "description": "The name of the template engine to use. Defaults to 'gotpl'.",
+            "in": "query",
+            "name": "chart.metadata.engine",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The URL to an icon file.",
+            "in": "query",
+            "name": "chart.metadata.icon",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The API Version of this chart.",
+            "in": "query",
+            "name": "chart.metadata.apiVersion",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The condition to check to enable chart.",
+            "in": "query",
+            "name": "chart.metadata.condition",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The tags to check to enable chart.",
+            "in": "query",
+            "name": "chart.metadata.tags",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The version of the application enclosed inside of this chart.",
+            "in": "query",
+            "name": "chart.metadata.appVersion",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Whether or not this chart is deprecated.",
+            "format": "boolean",
+            "in": "query",
+            "name": "chart.metadata.deprecated",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "TillerVersion is a SemVer constraints on what version of Tiller is required.\nSee SemVer ranges here: https://github.com/Masterminds/semver#basic-comparisons.",
+            "in": "query",
+            "name": "chart.metadata.tillerVersion",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "chart.values.raw",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "values.raw",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "dry_run, if true, will run through the release logic, but neither create.",
+            "format": "boolean",
+            "in": "query",
+            "name": "dry_run",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "DisableHooks causes the server to skip running any hooks for the upgrade.",
+            "format": "boolean",
+            "in": "query",
+            "name": "disable_hooks",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Performs pods restart for resources if applicable.",
+            "format": "boolean",
+            "in": "query",
+            "name": "recreate",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "timeout specifies the max amount of time any kubernetes client command can run.",
+            "format": "int64",
+            "in": "query",
+            "name": "timeout",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "ResetValues will cause Tiller to ignore stored values, resetting to default values.",
+            "format": "boolean",
+            "in": "query",
+            "name": "reset_values",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "wait, if true, will wait until all Pods, PVCs, and Services are in a ready state\nbefore marking the release as successful. It will wait for as long as timeout.",
+            "format": "boolean",
+            "in": "query",
+            "name": "wait",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "ReuseValues will cause Tiller to reuse the values from the last release.\nThis is ignored if reset_values is set.",
+            "format": "boolean",
+            "in": "query",
+            "name": "reuse_values",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Force resource update through delete/recreate if needed.",
+            "format": "boolean",
+            "in": "query",
+            "name": "force",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1beta1UpdateReleaseResponse"
+            }
+          }
+        },
+        "summary": "UpdateRelease updates release content.",
         "tags": [
           "ReleaseService"
         ]

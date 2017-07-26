@@ -16,5 +16,14 @@ import "github.com/grpc-ecosystem/grpc-gateway/runtime"
 func ExportReleaseServiceCorsPatterns() []runtime.Pattern {
 	return []runtime.Pattern{
 		pattern_ReleaseService_ListReleases_0,
+		pattern_ReleaseService_GetReleaseStatus_0,
+		pattern_ReleaseService_GetReleaseContent_0,
+		pattern_ReleaseService_UpdateRelease_0,
+		pattern_ReleaseService_InstallRelease_0,
+		pattern_ReleaseService_UninstallRelease_0,
+		pattern_ReleaseService_GetVersion_0,
+		pattern_ReleaseService_RollbackRelease_0,
+		pattern_ReleaseService_GetHistory_0,
+		pattern_ReleaseService_RunReleaseTest_0,
 	}
 }
