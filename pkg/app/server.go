@@ -65,7 +65,7 @@ func (*AppsServer) GetReleaseStatus(ctx context.Context, req *app.GetReleaseStat
 		Version: req.Version,
 	}
 
-	statusRes, err := rlc.GetReleaseStatus(ctx, &statusReq)
+	statusRes, err := rlc.GetReleaseStatus(newContext(), &statusReq)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (*AppsServer) GetReleaseContent(ctx context.Context, req *app.GetReleaseCon
 		Version: req.Version,
 	}
 
-	contentRes, err := rlc.GetReleaseContent(ctx, &contentReq)
+	contentRes, err := rlc.GetReleaseContent(newContext(), &contentReq)
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func (*AppsServer) UpdateRelease(ctx context.Context, req *app.UpdateReleaseRequ
 		Wait:         req.Wait,
 	}
 
-	updateRes, err := rlc.UpdateRelease(ctx, &updateReq)
+	updateRes, err := rlc.UpdateRelease(newContext(), &updateReq)
 	if err != nil {
 		return nil, err
 	}
@@ -149,7 +149,7 @@ func (*AppsServer) InstallRelease(ctx context.Context, req *app.InstallReleaseRe
 		ReuseName:    req.ReuseName,
 	}
 
-	installRes, err := rlc.InstallRelease(ctx, &installReq)
+	installRes, err := rlc.InstallRelease(newContext(), &installReq)
 	if err != nil {
 		return nil, err
 	}
@@ -173,7 +173,7 @@ func (*AppsServer) UninstallRelease(ctx context.Context, req *app.UninstallRelea
 		Purge:        req.Purge,
 	}
 
-	uninstallRes, err := rlc.UninstallRelease(ctx, &uninstallReq)
+	uninstallRes, err := rlc.UninstallRelease(newContext(), &uninstallReq)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +193,7 @@ func (*AppsServer) GetVersion(ctx context.Context, req *app.GetVersionRequest) (
 
 	versionReq := rls.GetVersionRequest{}
 
-	versionRes, err := rlc.GetVersion(ctx, &versionReq)
+	versionRes, err := rlc.GetVersion(newContext(), &versionReq)
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +221,7 @@ func (*AppsServer) RollbackRelease(ctx context.Context, req *app.RollbackRelease
 		Version:      req.Version,
 	}
 
-	rollbackRes, err := rlc.RollbackRelease(ctx, &rollbackReq)
+	rollbackRes, err := rlc.RollbackRelease(newContext(), &rollbackReq)
 	if err != nil {
 		return nil, err
 	}
@@ -243,7 +243,7 @@ func (*AppsServer) GetHistory(ctx context.Context, req *app.GetHistoryRequest) (
 		Max:  req.Max,
 	}
 
-	historyRes, err := rlc.GetHistory(ctx, &historyReq)
+	historyRes, err := rlc.GetHistory(newContext(), &historyReq)
 	if err != nil {
 		return nil, err
 	}
