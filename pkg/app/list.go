@@ -1,8 +1,8 @@
 package app
 
-/*
 import (
 	"io"
+
 	app "github.com/appscode/wheel/pkg/apis/app/v1beta1"
 	"k8s.io/helm/pkg/helm"
 	"k8s.io/helm/pkg/proto/hapi/release"
@@ -97,4 +97,3 @@ func (l *listCmd) statusCodes() []release.Status_Code {
 	}
 	return status
 }
-*/

@@ -12,8 +12,8 @@ func init() {
 	endpoints.GRPCServerEndpoints.Register(app.RegisterAppsServer, &AppsServer{})
 	endpoints.ProxyServerEndpoints.Register(app.RegisterAppsHandlerFromEndpoint)
 
-	//endpoints.GRPCServerEndpoints.Register(app.RegisterReleaseServiceServer, &AppsServer{})
-	//endpoints.ProxyServerEndpoints.Register(app.RegisterReleaseServiceHandlerFromEndpoint)
+	endpoints.GRPCServerEndpoints.Register(app.RegisterReleaseServiceServer, &AppsServer{})
+	endpoints.ProxyServerEndpoints.Register(app.RegisterReleaseServiceHandlerFromEndpoint)
 }
 
 type AppsServer struct{}

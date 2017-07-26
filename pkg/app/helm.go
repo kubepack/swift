@@ -1,11 +1,11 @@
 package app
 
-/*
 import (
 	"errors"
 	"fmt"
 	"os"
 	"strings"
+
 	"github.com/appscode/log"
 	"google.golang.org/grpc"
 	"k8s.io/client-go/kubernetes"
@@ -144,4 +144,3 @@ func newClient() helm.Interface {
 	}
 	return helm.NewClient(options...)
 }
-*/
