@@ -4,5 +4,11 @@
       "file": "/app/v1beta1/app.proto",
       "url": "/_appscode/api/seed/v1beta1/apps/hello"
     }
+  },
+  "/_appscode/api/seed/v1beta1/apps/listreleases": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/_appscode/api/seed/v1beta1/apps/listreleases"
+    }
   }
 }
