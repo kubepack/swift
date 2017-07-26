@@ -22,6 +22,14 @@ import:
 - package: google.golang.org/grpc
   version: v1.3.0
 - package: google.golang.org/genproto
+- package: k8s.io/kubernetes
+  version: ~1.6.0
+- package: k8s.io/apimachinery
+  version: 75b8dd260ef0469d96d578705a87cffd0e09dab8
+- package: k8s.io/client-go
+  version: v3.0.0-beta.0
+- package: k8s.io/helm
+  version: v2.5.1
 testImport:
 - package: github.com/stretchr/testify
   version: v1.1.4
