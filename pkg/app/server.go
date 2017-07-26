@@ -7,6 +7,17 @@ import (
 	"github.com/appscode/wheel/pkg/apiserver/endpoints"
 	"golang.org/x/net/context"
 	"k8s.io/helm/pkg/helm"
+	"github.com/appscode/wheel/pkg/kube"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/labels"
+	"time"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/metadata"
+	rls "k8s.io/helm/pkg/proto/hapi/services"
+	"k8s.io/helm/pkg/version"
+
+
 )
 
 func init() {
@@ -28,8 +39,91 @@ func (*AppsServer) Hello(ctx context.Context, req *app.HelloRequest) (*app.Hello
 	}, nil
 }
 
+// connect returns a grpc connection to tiller or error. The grpc dial options
+// are constructed here.
+func connect(ctx context.Context, host string) (conn *grpc.ClientConn, err error) {
+	opts := []grpc.DialOption{
+		grpc.WithTimeout(5 * time.Second),
+		grpc.WithBlock(),
+	}
+	opts = append(opts, grpc.WithInsecure())
+
+	/*switch {
+	case h.opts.useTLS:
+		opts = append(opts, grpc.WithTransportCredentials(credentials.NewTLS(h.opts.tlsConfig)))
+	default:
+		opts = append(opts, grpc.WithInsecure())
+	}*/
+
+
+	if conn, err = grpc.Dial(host, opts...); err != nil {
+		return nil, err
+	}
+	return conn, nil
+}
+
+// NewContext creates a versioned context.
+func NewContext() context.Context {
+	md := metadata.Pairs("x-helm-api-client", version.GetVersion())
+	return metadata.NewContext(context.TODO(), md)
+}
+
 func (*AppsServer) ListReleases(req *app.ListReleasesRequest, srv app.ReleaseService_ListReleasesServer) error {
-	setupConnection()
+
+	f := kube.NewKubeFactory()
+
+	restClient, err := f.RESTClient()
+	if err != nil {
+		return err
+	}
+
+	config, err := f.ClientConfig()
+	if err != nil {
+		return err
+	}
+
+	operatorNamespace := "kube-system" //flag
+	clientSet, err := f.ClientSet() //err
+	operatorLabel := "app: helm"
+
+
+	operatorPodList, err := clientSet.Core().Pods(operatorNamespace).List(
+		metav1.ListOptions{
+			LabelSelector: operatorLabel,
+		},
+	)
+	if err != nil {
+		return err
+	}
+
+	operatorPortNumber := 44134
+
+	tunnel := newTunnel(restClient, config, operatorNamespace, operatorPodList.Items[0].Name, operatorPortNumber)
+	if err := tunnel.forwardPort(); err != nil {
+		return err
+	}
+
+	ctx := NewContext()
+	host := fmt.Sprintf("127.0.0.1:%d",tunnel.Local)
+
+	conn, err := connect(ctx, host)
+
+	rlc := rls.NewReleaseServiceClient(conn)
+
+	r := rls.ListReleasesRequest{
+		Filter: req.Filter,
+		Limit: req.Limit,
+		Namespace: req.Namespace,
+		Offset: req.Offset,
+		SortBy: req.SortBy.String(),
+		SortOrder: req.SortOrder,
+		StatusCodes: req.SortOrder,
+	}
+
+	s, err := rlc.ListReleases(ctx, r)
+	if err != nil {
+		return nil, err
+	}
 
 	l := &listCmd{
 		client: helm.NewClient(helm.Host(settings.TillerHost)),

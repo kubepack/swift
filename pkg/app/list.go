@@ -55,10 +55,10 @@ func (l *listCmd) run() (app.ListReleasesResponse, error) {
 	}
 
 	return app.ListReleasesResponse{
-		Count: res.Count,
-		Next: res.Next,
+		Count:    res.Count,
+		Next:     res.Next,
 		Releases: res.Releases,
-		Total: res.Total,
+		Total:    res.Total,
 	}, nil
 }
 
