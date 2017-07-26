@@ -2,22 +2,17 @@ package app
 
 import (
 	"fmt"
+	"time"
 
 	app "github.com/appscode/wheel/pkg/apis/app/v1beta1"
 	"github.com/appscode/wheel/pkg/apiserver/endpoints"
-	"golang.org/x/net/context"
-	"k8s.io/helm/pkg/helm"
 	"github.com/appscode/wheel/pkg/kube"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/labels"
-	"time"
+	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/metadata"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
 	"k8s.io/helm/pkg/version"
-
-
 )
 
 func init() {
@@ -55,7 +50,6 @@ func connect(ctx context.Context, host string) (conn *grpc.ClientConn, err error
 		opts = append(opts, grpc.WithInsecure())
 	}*/
 
-
 	if conn, err = grpc.Dial(host, opts...); err != nil {
 		return nil, err
 	}
@@ -83,9 +77,12 @@ func (*AppsServer) ListReleases(req *app.ListReleasesRequest, srv app.ReleaseSer
 	}
 
 	operatorNamespace := "kube-system" //flag
-	clientSet, err := f.ClientSet() //err
 	operatorLabel := "app: helm"
 
+	clientSet, err := f.ClientSet()
+	if err != nil {
+		return err
+	}
 
 	operatorPodList, err := clientSet.Core().Pods(operatorNamespace).List(
 		metav1.ListOptions{
@@ -104,37 +101,40 @@ func (*AppsServer) ListReleases(req *app.ListReleasesRequest, srv app.ReleaseSer
 	}
 
 	ctx := NewContext()
-	host := fmt.Sprintf("127.0.0.1:%d",tunnel.Local)
+	host := fmt.Sprintf("127.0.0.1:%d", tunnel.Local)
 
 	conn, err := connect(ctx, host)
 
 	rlc := rls.NewReleaseServiceClient(conn)
 
 	r := rls.ListReleasesRequest{
-		Filter: req.Filter,
-		Limit: req.Limit,
-		Namespace: req.Namespace,
-		Offset: req.Offset,
-		SortBy:  rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]) ,
-		SortOrder: req.SortOrder,
-		StatusCodes: req.SortOrder,
+		Filter:      req.Filter,
+		Limit:       req.Limit,
+		Namespace:   req.Namespace,
+		Offset:      req.Offset,
+		SortBy:      rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
+		SortOrder:   rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
+		StatusCodes: req.StatusCodes,
 	}
 
-	s, err := rlc.ListReleases(ctx, r)
-	if err != nil {
-		return nil, err
-	}
-
-	l := &listCmd{
-		client: helm.NewClient(helm.Host(settings.TillerHost)),
-	}
-
-	res, err := l.run()
+	s, err := rlc.ListReleases(ctx, &r)
 	if err != nil {
 		return err
 	}
 
-	srv.Send(&res)
+	res, err := s.Recv()
+	if err != nil {
+		return err
+	}
+
+	rsp := app.ListReleasesResponse{
+		Count:    res.Count,
+		Next:     res.Next,
+		Releases: res.Releases,
+		Total:    res.Total,
+	}
+
+	srv.Send(&rsp)
 	return nil
 }
 
