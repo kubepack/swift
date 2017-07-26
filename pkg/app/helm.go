@@ -15,7 +15,6 @@ import (
 	"k8s.io/helm/pkg/helm/portforwarder"
 	"k8s.io/helm/pkg/kube"
 	"k8s.io/helm/pkg/tlsutil"
-	"k8s.io/kubernetes/pkg/client/clientset_generated/internalclientset"
 )
 
 var (
@@ -106,12 +105,12 @@ func getKubeClient(context string) (*rest.Config, kubernetes.Interface, error) {
 // getInternalKubeClient creates a Kubernetes config and an "internal" client for a given kubeconfig context.
 //
 // Prefer the similar getKubeClient if you don't need to use such an internal client.
-func getInternalKubeClient(context string) (*rest.Config, internalclientset.Interface, error) {
+func getInternalKubeClient(context string) (*rest.Config, kubernetes.Interface, error) {
 	config, err := configForContext(context)
 	if err != nil {
 		return nil, nil, err
 	}
-	client, err := internalclientset.NewForConfig(config)
+	client, err := kubernetes.NewForConfig(config)
 	if err != nil {
 		return nil, nil, fmt.Errorf("could not get Kubernetes client: %s", err)
 	}
