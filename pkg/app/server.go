@@ -115,7 +115,7 @@ func (*AppsServer) ListReleases(req *app.ListReleasesRequest, srv app.ReleaseSer
 		Limit: req.Limit,
 		Namespace: req.Namespace,
 		Offset: req.Offset,
-		SortBy: req.SortBy.String(),
+		SortBy:  rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]) ,
 		SortOrder: req.SortOrder,
 		StatusCodes: req.SortOrder,
 	}
