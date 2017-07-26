@@ -8,13 +8,13 @@ RETVAL=0
 ROOT=$PWD
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-ALIAS+="Mhapi/chart/chart.proto=k8s.io/helm/_proto/hapi/chart,"
-ALIAS+="Mhapi/chart/config.proto=k8s.io/helm/_proto/hapi/chart,"
-ALIAS+="Mhapi/release/release.proto=k8s.io/helm/_proto/hapi/release,"
-ALIAS+="Mhapi/release/info.proto=k8s.io/helm/_proto/hapi/release,"
-ALIAS+="Mhapi/release/test_run.proto=k8s.io/helm/_proto/hapi/release,"
-ALIAS+="Mhapi/release/status.proto=k8s.io/helm/_proto/hapi/release,"
-ALIAS+="Mhapi/version/version.proto=k8s.io/helm/_proto/hapi/version,"
+ALIAS+="Mhapi/chart/chart.proto=k8s.io/helm/pkg/proto/hapi/chart,"
+ALIAS+="Mhapi/chart/config.proto=k8s.io/helm/pkg/proto/hapi/chart,"
+ALIAS+="Mhapi/release/release.proto=k8s.io/helm/pkg/proto/hapi/release,"
+ALIAS+="Mhapi/release/info.proto=k8s.io/helm/pkg/proto/hapi/release,"
+ALIAS+="Mhapi/release/test_run.proto=k8s.io/helm/pkg/proto/hapi/release,"
+ALIAS+="Mhapi/release/status.proto=k8s.io/helm/pkg/proto/hapi/release,"
+ALIAS+="Mhapi/version/version.proto=k8s.io/helm/pkg/proto/hapi/version,"
 ALIAS+="Mappscode/api/annotations.proto=github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis/appscode/api,"
 ALIAS+="Mappscode/api/dtypes/types.proto=github.com/appscode/api/dtypes"
 
