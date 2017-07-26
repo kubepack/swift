@@ -11,6 +11,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/labels"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
 	"k8s.io/helm/pkg/version"
 )
@@ -77,18 +78,16 @@ func (*AppsServer) ListReleases(req *app.ListReleasesRequest, srv app.ReleaseSer
 	}
 
 	operatorNamespace := "kube-system" //flag
-	operatorLabel := "app: helm"
-
 	clientSet, err := f.ClientSet()
 	if err != nil {
 		return err
 	}
 
-	operatorPodList, err := clientSet.Core().Pods(operatorNamespace).List(
-		metav1.ListOptions{
-			LabelSelector: operatorLabel,
-		},
-	)
+	operatorPodList, err := clientSet.Core().Pods(operatorNamespace).List(metav1.ListOptions{
+		LabelSelector: labels.SelectorFromSet(labels.Set{
+			"app": "helm",
+		}).String(),
+	})
 	if err != nil {
 		return err
 	}
