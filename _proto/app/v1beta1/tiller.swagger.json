@@ -521,6 +521,10 @@
           "$ref": "#/definitions/chartChart",
           "description": "Chart is the protobuf representation of a chart."
         },
+        "chart_url": {
+          "title": "url to download char tar file @appscode",
+          "type": "string"
+        },
         "disable_hooks": {
           "description": "DisableHooks causes the server to skip running any hooks for the install.",
           "format": "boolean",
@@ -1140,6 +1144,13 @@
             "name": "wait",
             "required": false,
             "type": "boolean"
+          },
+          {
+            "description": "url to download char tar file @appscode.",
+            "in": "query",
+            "name": "chart_url",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {

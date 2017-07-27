@@ -4,6 +4,8 @@ import (
 	app "github.com/appscode/wheel/pkg/apis/app/v1beta1"
 	"github.com/appscode/wheel/pkg/apiserver/endpoints"
 	"golang.org/x/net/context"
+	"k8s.io/helm/pkg/chartutil"
+	"k8s.io/helm/pkg/proto/hapi/chart"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
 )
 
@@ -133,6 +135,33 @@ func (*AppsServer) UpdateRelease(ctx context.Context, req *app.UpdateReleaseRequ
 // InstallRelease requests installation of a chart as a new release.
 func (*AppsServer) InstallRelease(ctx context.Context, req *app.InstallReleaseRequest) (*app.InstallReleaseResponse, error) {
 	rlc, err := getReleaseServiceClient()
+	if err != nil {
+		return nil, err
+	}
+
+	dir := "/tmp/wheel-archive/"
+
+	//req.ChartUrl = "https://kubernetes-charts.storage.googleapis.com/g2-0.1.0.tgz" //kubeapps-g2-url
+
+	if req.Namespace == "" {
+		req.Namespace = "default"
+	}
+
+	if req.Values == nil { // (req.Values == nil) causes render error
+		req.Values = &chart.Config{}
+	}
+
+	req.Chart, err = chartFromUrl(req.ChartUrl, dir)
+	if err != nil {
+		return nil, err
+	}
+
+	// ref: k8s.io/helm/pkg/helm/client.go (func InstallReleaseFromChart)
+	err = chartutil.ProcessRequirementsEnabled(req.Chart, req.Values)
+	if err != nil {
+		return nil, err
+	}
+	err = chartutil.ProcessRequirementsImportValues(req.Chart)
 	if err != nil {
 		return nil, err
 	}

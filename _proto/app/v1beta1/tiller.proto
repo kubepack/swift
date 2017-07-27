@@ -338,6 +338,9 @@ message InstallReleaseRequest {
 	// wait, if true, will wait until all Pods, PVCs, and Services are in a ready state
 	// before marking the release as successful. It will wait for as long as timeout
 	bool wait = 9;
+
+	// url to download char tar file @appscode
+	string chart_url = 10;
 }
 
 // InstallReleaseResponse is the response from a release installation.
