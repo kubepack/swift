@@ -53,6 +53,9 @@ service ReleaseService {
 	// release status. By default, ListAllReleases returns the releases who
 	// current status is "Active".
 	rpc ListReleases(ListReleasesRequest) returns (stream ListReleasesResponse) {
+		option (google.api.http) = {
+			get: "/tiller/v2/releases/list/json"
+		};
 	}
 
 	/*
@@ -115,7 +118,7 @@ service ReleaseService {
 	// RollbackRelease rolls back a release to a previous version.
 	rpc RollbackRelease(RollbackReleaseRequest) returns (RollbackReleaseResponse) {
 		option (google.api.http) = {
-			delete : "/tiller/v2/releases/{name}/content/json"
+			get : "/tiller/v2/releases/{name}/rollback/json"
 		};
 	}
 

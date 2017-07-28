@@ -1,9 +1,5 @@
 {
   "/tiller/v2/releases/*/content/json": {
-    "delete": {
-      "file": "/app/v1beta1/tiller.proto",
-      "url": "/tiller/v2/releases/{name}/content/json"
-    },
     "get": {
       "file": "/app/v1beta1/tiller.proto",
       "url": "/tiller/v2/releases/{name}/content/json"
@@ -27,6 +23,12 @@
       "url": "/tiller/v2/releases/{name}/json"
     }
   },
+  "/tiller/v2/releases/*/rollback/json": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/rollback/json"
+    }
+  },
   "/tiller/v2/releases/*/status/json": {
     "get": {
       "file": "/app/v1beta1/tiller.proto",
@@ -37,6 +39,12 @@
     "get": {
       "file": "/app/v1beta1/tiller.proto",
       "url": "/tiller/v2/releases/json"
+    }
+  },
+  "/tiller/v2/releases/list/json": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/list/json"
     }
   },
   "/tiller/v2/version/json": {

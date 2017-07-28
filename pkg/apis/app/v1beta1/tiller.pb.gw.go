@@ -30,6 +30,31 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 
 var (
+	filter_ReleaseService_ListReleases_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_ReleaseService_ListReleases_0(ctx context.Context, marshaler runtime.Marshaler, client ReleaseServiceClient, req *http.Request, pathParams map[string]string) (ReleaseService_ListReleasesClient, runtime.ServerMetadata, error) {
+	var protoReq ListReleasesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_ReleaseService_ListReleases_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	stream, err := client.ListReleases(ctx, &protoReq)
+	if err != nil {
+		return nil, metadata, err
+	}
+	header, err := stream.Header()
+	if err != nil {
+		return nil, metadata, err
+	}
+	metadata.HeaderMD = header
+	return stream, metadata, nil
+
+}
+
+var (
 	filter_ReleaseService_GetReleaseStatus_0 = &utilities.DoubleArray{Encoding: map[string]int{"name": 0}, Base: []int{1, 1, 0}, Check: []int{0, 1, 2}}
 )
 
@@ -305,6 +330,35 @@ func RegisterReleaseServiceHandlerFromEndpoint(ctx context.Context, mux *runtime
 func RegisterReleaseServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
 	client := NewReleaseServiceClient(conn)
 
+	mux.Handle("GET", pattern_ReleaseService_ListReleases_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(ctx)
+		defer cancel()
+		if cn, ok := w.(http.CloseNotifier); ok {
+			go func(done <-chan struct{}, closed <-chan bool) {
+				select {
+				case <-done:
+				case <-closed:
+					cancel()
+				}
+			}(ctx.Done(), cn.CloseNotify())
+		}
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_ReleaseService_ListReleases_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_ReleaseService_ListReleases_0(ctx, mux, outboundMarshaler, w, req, func() (proto.Message, error) { return resp.Recv() }, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("GET", pattern_ReleaseService_GetReleaseStatus_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(ctx)
 		defer cancel()
@@ -479,7 +533,7 @@ func RegisterReleaseServiceHandler(ctx context.Context, mux *runtime.ServeMux, c
 
 	})
 
-	mux.Handle("DELETE", pattern_ReleaseService_RollbackRelease_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_ReleaseService_RollbackRelease_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(ctx)
 		defer cancel()
 		if cn, ok := w.(http.CloseNotifier); ok {
@@ -541,6 +595,8 @@ func RegisterReleaseServiceHandler(ctx context.Context, mux *runtime.ServeMux, c
 }
 
 var (
+	pattern_ReleaseService_ListReleases_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"tiller", "v2", "releases", "list", "json"}, ""))
+
 	pattern_ReleaseService_GetReleaseStatus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 2, 5}, []string{"tiller", "v2", "releases", "name", "status", "json"}, ""))
 
 	pattern_ReleaseService_GetReleaseContent_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 2, 5}, []string{"tiller", "v2", "releases", "name", "content", "json"}, ""))
@@ -553,12 +609,14 @@ var (
 
 	pattern_ReleaseService_GetVersion_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"tiller", "v2", "version", "json"}, ""))
 
-	pattern_ReleaseService_RollbackRelease_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 2, 5}, []string{"tiller", "v2", "releases", "name", "content", "json"}, ""))
+	pattern_ReleaseService_RollbackRelease_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4, 2, 5}, []string{"tiller", "v2", "releases", "name", "rollback", "json"}, ""))
 
 	pattern_ReleaseService_GetHistory_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3, 2, 4}, []string{"tiller", "v2", "releases", "name", "json"}, ""))
 )
 
 var (
+	forward_ReleaseService_ListReleases_0 = runtime.ForwardResponseStream
+
 	forward_ReleaseService_GetReleaseStatus_0 = runtime.ForwardResponseMessage
 
 	forward_ReleaseService_GetReleaseContent_0 = runtime.ForwardResponseMessage

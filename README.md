@@ -1,60 +1,88 @@
 [Website](https://appscode.com) • [Slack](https://slack.appscode.com) • [Twitter](https://twitter.com/AppsCodeHQ)
 
 # wheel
-Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller service
+Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller service.
 
-## Build Instructions
+## Build and Run
 ```sh
 # Install/Update dependency (needs glide)
 glide slow
 
-# build & run
+# build
 ./hack/make.py
-```
 
-## Test api
-
-Run the server, by running:
-```sh
+# run server
 wheel run --v=10
 ```
 
-Get version:
+## API Reference
 
-<http://127.0.0.1:50066/_appscode/api/seed/v1beta1/apps/get-version>
+- **Tiller Version** 
+```
+GET http://127.0.0.1:50066/tiller/v2/version/json
+```
 
-List releases:
+- **List releases** 
+```
+GET http://127.0.0.1:50066/tiller/v2/releases/list/json
+```
 
-<http://127.0.0.1:50066/_appscode/api/seed/v1beta1/apps/list-releases>
+- **Release status**
+```
+GET http://127.0.0.1:50066/tiller/v2/releases/my-release/status/json
+```
 
-Get Release status:
+- **Release content**
+```
+GET http://127.0.0.1:50066/tiller/v2/releases/my-release/content/json
+```
 
-<http://127.0.0.1:50066/_appscode/api/seed/v1beta1/apps/get-release-status?name=wheel-test>
+- **Release history**
+```
+GET http://127.0.0.1:50066/tiller/v2/releases/my-release/json
+```
 
-Get Release content:
+- **Rollback release**
+```
+GET http://127.0.0.1:50066/tiller/v2/releases/my-release/rollback/json
+```
 
-<http://127.0.0.1:50066/_appscode/api/seed/v1beta1/apps/get-release-content?name=wheel-test>
+- **Install release**
 
-Get Release history:
+```
+POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
 
-<http://127.0.0.1:50066/_appscode/api/seed/v1beta1/apps/get-history?name=wheel-test&&max=3>
+{
+	"chart_url": "https://github.com/tamalsaha/test-chart/raw/master/test-chart-0.1.0.tgz",
+	"values": {
+		"raw": "{\"ns\":\"c10\",\"clusterName\":\"h505\"}"
+	}
+}
+```
 
-Uninstall release:
+- **Update release**
 
-<http://127.0.0.1:50066/_appscode/api/seed/v1beta1/apps/uninstall-release?name=wheel-test>
+```
+PUT http://127.0.0.1:50066/tiller/v2/releases/my-release/json
 
-Rollback release:
+{
+	"chart_url": "https://github.com/tamalsaha/test-chart/raw/master/test-chart-0.1.0.tgz",
+	"values": {
+		"raw": "{\"ns\":\"c15\",\"clusterName\":\"h505\"}"
+	}
+}
+```
 
-<http://127.0.0.1:50066/_appscode/api/seed/v1beta1/apps/rollback-release?name=wheel-test>
+- **Uninstall release**
 
-Install release:
+```
+DELETE http://127.0.0.1:50066/tiller/v2/releases/my-release/json
+```
 
-<http://127.0.0.1:50066/_appscode/api/seed/v1beta1/apps/install-release?name=wheel-test&chart_url=https://kubernetes-charts.storage.googleapis.com/g2-0.1.0.tgz>
+- **Uninstall & purge release**
 
-Update release:
+```
+DELETE http://127.0.0.1:50066/tiller/v2/releases/my-release/json?purge=true
+```
 
-<http://127.0.0.1:50066/_appscode/api/seed/v1beta1/apps/update-release>
 
-Run test release:
-
-<http://127.0.0.1:50066/_appscode/api/seed/v1beta1/apps/run-test-release>

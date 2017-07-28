@@ -855,30 +855,101 @@
     "version": "1beta1"
   },
   "paths": {
-    "/tiller/v2/releases/{name}/content/json": {
-      "delete": {
-        "operationId": "RollbackRelease",
+    "/tiller/v2/releases/list/json": {
+      "get": {
+        "operationId": "ListReleases",
         "parameters": [
           {
-            "in": "path",
-            "name": "name",
-            "required": true,
+            "description": "Limit is the maximum number of releases to be returned.",
+            "format": "int64",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Offset is the last release name that was seen. The next listing\noperation will start with the name after this one.\nExample: If list one returns albert, bernie, carl, and sets 'next: dennis'.\ndennis is the offset. Supplying 'dennis' for the next request should\ncause the next batch to return a set of results starting with 'dennis'.",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "UNKNOWN",
+            "description": "SortBy is the sort field that the ListReleases server should sort data before returning.",
+            "enum": [
+              "UNKNOWN",
+              "NAME",
+              "LAST_RELEASED"
+            ],
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter is a regular expression used to filter which releases should be listed.\n\nAnything that matches the regexp will be included in the results.",
+            "in": "query",
+            "name": "filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "SortOrder is the ordering directive used for sorting.",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "sort_order",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": " - UNKNOWN: Status_UNKNOWN indicates that a release is in an uncertain state.\n - DEPLOYED: Status_DEPLOYED indicates that the release has been pushed to Kubernetes.\n - DELETED: Status_DELETED indicates that a release has been deleted from Kubermetes.\n - SUPERSEDED: Status_SUPERSEDED indicates that this release object is outdated and a newer one exists.\n - FAILED: Status_FAILED indicates that the release was not successfully deployed.\n - DELETING: Status_DELETING indicates that a delete operation is underway.\n - PENDING_INSTALL: Status_PENDING_INSTALL indicates that an install operation is underway.\n - PENDING_UPGRADE: Status_PENDING_UPGRADE indicates that an upgrade operation is underway.\n - PENDING_ROLLBACK: Status_PENDING_ROLLBACK indicates that an rollback operation is underway.",
+            "in": "query",
+            "items": {
+              "enum": [
+                "UNKNOWN",
+                "DEPLOYED",
+                "DELETED",
+                "SUPERSEDED",
+                "FAILED",
+                "DELETING",
+                "PENDING_INSTALL",
+                "PENDING_UPGRADE",
+                "PENDING_ROLLBACK"
+              ],
+              "type": "string"
+            },
+            "name": "status_codes",
+            "required": false,
+            "type": "array"
+          },
+          {
+            "description": "Namespace is the filter to select releases only from a specific namespace.",
+            "in": "query",
+            "name": "namespace",
+            "required": false,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "(streaming responses)",
             "schema": {
-              "$ref": "#/definitions/v1beta1RollbackReleaseResponse"
+              "$ref": "#/definitions/v1beta1ListReleasesResponse"
             }
           }
         },
-        "summary": "RollbackRelease rolls back a release to a previous version.",
+        "summary": "ListReleases retrieves release history.\nTODO: Allow filtering the set of releases by\nrelease status. By default, ListAllReleases returns the releases who\ncurrent status is \"Active\".",
         "tags": [
           "ReleaseService"
         ]
-      },
+      }
+    },
+    "/tiller/v2/releases/{name}/content/json": {
       "get": {
         "operationId": "GetReleaseContent",
         "parameters": [
@@ -1024,6 +1095,87 @@
           }
         },
         "summary": "UpdateRelease updates release content.",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
+    "/tiller/v2/releases/{name}/rollback/json": {
+      "get": {
+        "operationId": "RollbackRelease",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "dry_run, if true, will run through the release logic but no create.",
+            "format": "boolean",
+            "in": "query",
+            "name": "dry_run",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "DisableHooks causes the server to skip running any hooks for the rollback.",
+            "format": "boolean",
+            "in": "query",
+            "name": "disable_hooks",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Version is the version of the release to deploy.",
+            "format": "int32",
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Performs pods restart for resources if applicable.",
+            "format": "boolean",
+            "in": "query",
+            "name": "recreate",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "timeout specifies the max amount of time any kubernetes client command can run.",
+            "format": "int64",
+            "in": "query",
+            "name": "timeout",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "wait, if true, will wait until all Pods, PVCs, and Services are in a ready state\nbefore marking the release as successful. It will wait for as long as timeout.",
+            "format": "boolean",
+            "in": "query",
+            "name": "wait",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Force resource update through delete/recreate if needed.",
+            "format": "boolean",
+            "in": "query",
+            "name": "force",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1beta1RollbackReleaseResponse"
+            }
+          }
+        },
+        "summary": "RollbackRelease rolls back a release to a previous version.",
         "tags": [
           "ReleaseService"
         ]
