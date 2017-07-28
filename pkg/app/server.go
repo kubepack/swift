@@ -1,10 +1,10 @@
 package app
 
 import (
+	"github.com/appscode/log"
 	app "github.com/appscode/wheel/pkg/apis/app/v1beta1"
 	"github.com/appscode/wheel/pkg/apiserver/endpoints"
 	"golang.org/x/net/context"
-	"k8s.io/helm/pkg/chartutil"
 	"k8s.io/helm/pkg/proto/hapi/chart"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
 )
@@ -14,6 +14,11 @@ func init() {
 	endpoints.ProxyServerEndpoints.Register(app.RegisterReleaseServiceHandlerFromEndpoint)
 }
 
+const (
+	WHEEL_ARCHIVE = "/tmp/wheel-archive/"
+	DEFAULT_NS    = "default"
+)
+
 type AppsServer struct{}
 
 var _ app.ReleaseServiceServer = &AppsServer{}
@@ -22,6 +27,10 @@ func (*AppsServer) ListReleases(req *app.ListReleasesRequest, srv app.ReleaseSer
 	rlc, err := getReleaseServiceClient()
 	if err != nil {
 		return err
+	}
+
+	if req.Namespace == "" {
+		req.Namespace = DEFAULT_NS
 	}
 
 	listReq := rls.ListReleasesRequest{
@@ -108,6 +117,19 @@ func (*AppsServer) UpdateRelease(ctx context.Context, req *app.UpdateReleaseRequ
 		return nil, err
 	}
 
+	if req.Values == nil { // (req.Values == nil) causes render error
+		req.Values = &chart.Config{}
+	}
+
+	if req.Chart == nil {
+		req.Chart, err = prepareChart(req.ChartUrl, req.Values)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	log.Infoln(req)
+
 	updateReq := rls.UpdateReleaseRequest{
 		Name:         req.Name,
 		Timeout:      req.Timeout,
@@ -139,32 +161,22 @@ func (*AppsServer) InstallRelease(ctx context.Context, req *app.InstallReleaseRe
 		return nil, err
 	}
 
-	dir := "/tmp/wheel-archive/"
-
-	//req.ChartUrl = "https://kubernetes-charts.storage.googleapis.com/g2-0.1.0.tgz" //kubeapps-g2-url
-
 	if req.Namespace == "" {
-		req.Namespace = "default"
+		req.Namespace = DEFAULT_NS
 	}
 
 	if req.Values == nil { // (req.Values == nil) causes render error
 		req.Values = &chart.Config{}
 	}
 
-	req.Chart, err = chartFromUrl(req.ChartUrl, dir)
-	if err != nil {
-		return nil, err
+	if req.Chart == nil {
+		req.Chart, err = prepareChart(req.ChartUrl, req.Values)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	// ref: k8s.io/helm/pkg/helm/client.go (func InstallReleaseFromChart)
-	err = chartutil.ProcessRequirementsEnabled(req.Chart, req.Values)
-	if err != nil {
-		return nil, err
-	}
-	err = chartutil.ProcessRequirementsImportValues(req.Chart)
-	if err != nil {
-		return nil, err
-	}
+	log.Infoln(req)
 
 	installReq := rls.InstallReleaseRequest{
 		Name:         req.Name,

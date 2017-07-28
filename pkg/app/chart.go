@@ -29,6 +29,27 @@ import (
 	"k8s.io/helm/pkg/proto/hapi/chart"
 )
 
+// req.ChartUrl = "https://kubernetes-charts.storage.googleapis.com/g2-0.1.0.tgz" //kubeapps-g2-url
+
+func prepareChart(chartUrl string, values *chart.Config) (*chart.Chart, error) {
+	chart, err := chartFromUrl(chartUrl, WHEEL_ARCHIVE)
+	if err != nil {
+		return nil, err
+	}
+
+	// ref: k8s.io/helm/pkg/helm/client.go (func InstallReleaseFromChart)
+	err = chartutil.ProcessRequirementsEnabled(chart, values)
+	if err != nil {
+		return nil, err
+	}
+	err = chartutil.ProcessRequirementsImportValues(chart)
+	if err != nil {
+		return nil, err
+	}
+
+	return chart, nil
+}
+
 func chartFromUrl(url string, dir string) (*chart.Chart, error) {
 	if url == "" {
 		return nil, errors.New("Url not specified")

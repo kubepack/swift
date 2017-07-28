@@ -1,62 +1,48 @@
 {
-  "/_appscode/api/seed/v1beta1/apps/get-history": {
+  "/tiller/v2/releases/*/content/json": {
+    "delete": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/content/json"
+    },
     "get": {
       "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/get-history"
+      "url": "/tiller/v2/releases/{name}/content/json"
     }
   },
-  "/_appscode/api/seed/v1beta1/apps/get-release-content": {
+  "/tiller/v2/releases/*/json": {
+    "delete": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/json"
+    },
     "get": {
       "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/get-release-content"
+      "url": "/tiller/v2/releases/{name}/json"
+    },
+    "post": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/json"
+    },
+    "put": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/json"
     }
   },
-  "/_appscode/api/seed/v1beta1/apps/get-release-status": {
+  "/tiller/v2/releases/*/status/json": {
     "get": {
       "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/get-release-status"
+      "url": "/tiller/v2/releases/{name}/status/json"
     }
   },
-  "/_appscode/api/seed/v1beta1/apps/get-version": {
+  "/tiller/v2/releases/json": {
     "get": {
       "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/get-version"
+      "url": "/tiller/v2/releases/json"
     }
   },
-  "/_appscode/api/seed/v1beta1/apps/install-release": {
+  "/tiller/v2/version/json": {
     "get": {
       "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/install-release"
-    }
-  },
-  "/_appscode/api/seed/v1beta1/apps/list-releases": {
-    "get": {
-      "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/list-releases"
-    }
-  },
-  "/_appscode/api/seed/v1beta1/apps/rollback-release": {
-    "get": {
-      "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/rollback-release"
-    }
-  },
-  "/_appscode/api/seed/v1beta1/apps/run-test-release": {
-    "get": {
-      "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/run-test-release"
-    }
-  },
-  "/_appscode/api/seed/v1beta1/apps/uninstall-release": {
-    "get": {
-      "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/uninstall-release"
-    }
-  },
-  "/_appscode/api/seed/v1beta1/apps/update-release": {
-    "get": {
-      "file": "/app/v1beta1/tiller.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/update-release"
+      "url": "/tiller/v2/version/json"
     }
   }
 }
