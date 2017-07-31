@@ -1,7 +1,6 @@
 package app
 
 import (
-	"github.com/appscode/log"
 	app "github.com/appscode/wheel/pkg/apis/app/v1beta1"
 	"github.com/appscode/wheel/pkg/apiserver/endpoints"
 	"golang.org/x/net/context"
@@ -24,7 +23,7 @@ type AppsServer struct{}
 var _ app.ReleaseServiceServer = &AppsServer{}
 
 func (*AppsServer) ListReleases(req *app.ListReleasesRequest, srv app.ReleaseService_ListReleasesServer) error {
-	rlc, err := getReleaseServiceClient()
+	rlc, err := getReleaseServiceClient(srv.Context())
 	if err != nil {
 		return err
 	}
@@ -64,9 +63,58 @@ func (*AppsServer) ListReleases(req *app.ListReleasesRequest, srv app.ReleaseSer
 	return nil
 }
 
+func (*AppsServer) SummarizeReleases(ctx context.Context, req *app.ListReleasesRequest) (*app.SummarizeReleasesResponse, error) {
+	rlc, err := getReleaseServiceClient(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	if req.Namespace == "" {
+		req.Namespace = DEFAULT_NS
+	}
+
+	listReq := rls.ListReleasesRequest{
+		Filter:      req.Filter,
+		Limit:       req.Limit,
+		Namespace:   req.Namespace,
+		Offset:      req.Offset,
+		SortBy:      rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
+		SortOrder:   rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
+		StatusCodes: req.StatusCodes,
+	}
+
+	listClient, err := rlc.ListReleases(newContext(), &listReq)
+	if err != nil {
+		return nil, err
+	}
+
+	listRes, err := listClient.Recv()
+	if err != nil {
+		return nil, err
+	}
+
+	var releases []*app.ReleaseSummary
+
+	for _, item := range listRes.Releases {
+		releases = append(releases, &app.ReleaseSummary{
+			Namespace:     item.Namespace,
+			Name:          item.Name,
+			Info:          item.Info,
+			Version:       item.Version,
+			Config:        item.Config,
+			ChartMetadata: item.Chart.Metadata,
+		})
+	}
+
+	return &app.SummarizeReleasesResponse{
+		Releases: releases,
+	}, nil
+
+}
+
 // GetReleasesStatus retrieves status information for the specified release.
 func (*AppsServer) GetReleaseStatus(ctx context.Context, req *app.GetReleaseStatusRequest) (*app.GetReleaseStatusResponse, error) {
-	rlc, err := getReleaseServiceClient()
+	rlc, err := getReleaseServiceClient(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +138,7 @@ func (*AppsServer) GetReleaseStatus(ctx context.Context, req *app.GetReleaseStat
 
 // GetReleaseContent retrieves the release content (chart + value) for the specified release.
 func (*AppsServer) GetReleaseContent(ctx context.Context, req *app.GetReleaseContentRequest) (*app.GetReleaseContentResponse, error) {
-	rlc, err := getReleaseServiceClient()
+	rlc, err := getReleaseServiceClient(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +160,7 @@ func (*AppsServer) GetReleaseContent(ctx context.Context, req *app.GetReleaseCon
 
 // UpdateRelease updates release content.
 func (*AppsServer) UpdateRelease(ctx context.Context, req *app.UpdateReleaseRequest) (*app.UpdateReleaseResponse, error) {
-	rlc, err := getReleaseServiceClient()
+	rlc, err := getReleaseServiceClient(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -127,8 +175,6 @@ func (*AppsServer) UpdateRelease(ctx context.Context, req *app.UpdateReleaseRequ
 			return nil, err
 		}
 	}
-
-	log.Infoln(req)
 
 	updateReq := rls.UpdateReleaseRequest{
 		Name:         req.Name,
@@ -156,7 +202,7 @@ func (*AppsServer) UpdateRelease(ctx context.Context, req *app.UpdateReleaseRequ
 
 // InstallRelease requests installation of a chart as a new release.
 func (*AppsServer) InstallRelease(ctx context.Context, req *app.InstallReleaseRequest) (*app.InstallReleaseResponse, error) {
-	rlc, err := getReleaseServiceClient()
+	rlc, err := getReleaseServiceClient(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -175,8 +221,6 @@ func (*AppsServer) InstallRelease(ctx context.Context, req *app.InstallReleaseRe
 			return nil, err
 		}
 	}
-
-	log.Infoln(req)
 
 	installReq := rls.InstallReleaseRequest{
 		Name:         req.Name,
@@ -202,7 +246,7 @@ func (*AppsServer) InstallRelease(ctx context.Context, req *app.InstallReleaseRe
 
 // UninstallRelease requests deletion of a named release.
 func (*AppsServer) UninstallRelease(ctx context.Context, req *app.UninstallReleaseRequest) (*app.UninstallReleaseResponse, error) {
-	rlc, err := getReleaseServiceClient()
+	rlc, err := getReleaseServiceClient(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -227,7 +271,7 @@ func (*AppsServer) UninstallRelease(ctx context.Context, req *app.UninstallRelea
 
 // GetVersion returns the current version of the server.
 func (*AppsServer) GetVersion(ctx context.Context, req *app.GetVersionRequest) (*app.GetVersionResponse, error) {
-	rlc, err := getReleaseServiceClient()
+	rlc, err := getReleaseServiceClient(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -246,7 +290,7 @@ func (*AppsServer) GetVersion(ctx context.Context, req *app.GetVersionRequest) (
 
 // RollbackRelease rolls back a release to a previous version.
 func (*AppsServer) RollbackRelease(ctx context.Context, req *app.RollbackReleaseRequest) (*app.RollbackReleaseResponse, error) {
-	rlc, err := getReleaseServiceClient()
+	rlc, err := getReleaseServiceClient(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -274,7 +318,7 @@ func (*AppsServer) RollbackRelease(ctx context.Context, req *app.RollbackRelease
 
 // ReleaseHistory retrieves a releasse's history.
 func (*AppsServer) GetHistory(ctx context.Context, req *app.GetHistoryRequest) (*app.GetHistoryResponse, error) {
-	rlc, err := getReleaseServiceClient()
+	rlc, err := getReleaseServiceClient(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -296,7 +340,7 @@ func (*AppsServer) GetHistory(ctx context.Context, req *app.GetHistoryRequest) (
 
 // RunReleaseTest executes the tests defined of a named release
 func (*AppsServer) RunReleaseTest(req *app.TestReleaseRequest, srv app.ReleaseService_RunReleaseTestServer) error {
-	rlc, err := getReleaseServiceClient()
+	rlc, err := getReleaseServiceClient(srv.Context())
 	if err != nil {
 		return err
 	}

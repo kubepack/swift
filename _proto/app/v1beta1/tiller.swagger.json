@@ -638,6 +638,37 @@
       },
       "type": "object"
     },
+    "v1beta1ReleaseSummary": {
+      "description": "ReleaseSummary summaries a deployment of a chart, together with the chart\nmetadata and the variables used to deploy that chart.",
+      "properties": {
+        "chart_metadata": {
+          "$ref": "#/definitions/chartMetadata",
+          "description": "ChartMetadata is the metadata of chart that was released."
+        },
+        "config": {
+          "$ref": "#/definitions/chartConfig",
+          "description": "Config is the set of extra Values added to the chart.\nThese values override the default values inside of the chart."
+        },
+        "info": {
+          "$ref": "#/definitions/releaseInfo",
+          "title": "Info provides information about a release"
+        },
+        "name": {
+          "title": "Name is the name of the release",
+          "type": "string"
+        },
+        "namespace": {
+          "description": "Namespace is the kubernetes namespace of the release.",
+          "type": "string"
+        },
+        "version": {
+          "description": "Version is an int32 which represents the version of the release.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
     "v1beta1RollbackReleaseRequest": {
       "properties": {
         "disable_hooks": {
@@ -687,6 +718,18 @@
       "properties": {
         "release": {
           "$ref": "#/definitions/releaseRelease"
+        }
+      },
+      "type": "object"
+    },
+    "v1beta1SummarizeReleasesResponse": {
+      "description": "@appscode\nSummarizeReleasesResponse is a list of release summaries.",
+      "properties": {
+        "releases": {
+          "items": {
+            "$ref": "#/definitions/v1beta1ReleaseSummary"
+          },
+          "type": "array"
         }
       },
       "type": "object"
@@ -855,6 +898,100 @@
     "version": "1beta1"
   },
   "paths": {
+    "/tiller/v2/releases/json": {
+      "get": {
+        "operationId": "SummarizeReleases",
+        "parameters": [
+          {
+            "description": "Limit is the maximum number of releases to be returned.",
+            "format": "int64",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Offset is the last release name that was seen. The next listing\noperation will start with the name after this one.\nExample: If list one returns albert, bernie, carl, and sets 'next: dennis'.\ndennis is the offset. Supplying 'dennis' for the next request should\ncause the next batch to return a set of results starting with 'dennis'.",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "UNKNOWN",
+            "description": "SortBy is the sort field that the ListReleases server should sort data before returning.",
+            "enum": [
+              "UNKNOWN",
+              "NAME",
+              "LAST_RELEASED"
+            ],
+            "in": "query",
+            "name": "sort_by",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter is a regular expression used to filter which releases should be listed.\n\nAnything that matches the regexp will be included in the results.",
+            "in": "query",
+            "name": "filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "SortOrder is the ordering directive used for sorting.",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "sort_order",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": " - UNKNOWN: Status_UNKNOWN indicates that a release is in an uncertain state.\n - DEPLOYED: Status_DEPLOYED indicates that the release has been pushed to Kubernetes.\n - DELETED: Status_DELETED indicates that a release has been deleted from Kubermetes.\n - SUPERSEDED: Status_SUPERSEDED indicates that this release object is outdated and a newer one exists.\n - FAILED: Status_FAILED indicates that the release was not successfully deployed.\n - DELETING: Status_DELETING indicates that a delete operation is underway.\n - PENDING_INSTALL: Status_PENDING_INSTALL indicates that an install operation is underway.\n - PENDING_UPGRADE: Status_PENDING_UPGRADE indicates that an upgrade operation is underway.\n - PENDING_ROLLBACK: Status_PENDING_ROLLBACK indicates that an rollback operation is underway.",
+            "in": "query",
+            "items": {
+              "enum": [
+                "UNKNOWN",
+                "DEPLOYED",
+                "DELETED",
+                "SUPERSEDED",
+                "FAILED",
+                "DELETING",
+                "PENDING_INSTALL",
+                "PENDING_UPGRADE",
+                "PENDING_ROLLBACK"
+              ],
+              "type": "string"
+            },
+            "name": "status_codes",
+            "required": false,
+            "type": "array"
+          },
+          {
+            "description": "Namespace is the filter to select releases only from a specific namespace.",
+            "in": "query",
+            "name": "namespace",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/v1beta1SummarizeReleasesResponse"
+            }
+          }
+        },
+        "summary": "@appscode\nSummarizeReleases retrieves summary of release history.\nTODO: Allow filtering the set of releases by\nrelease status. By default, SummarizeReleases returns the releases who\ncurrent status is \"Active\".",
+        "tags": [
+          "ReleaseService"
+        ]
+      }
+    },
     "/tiller/v2/releases/list/json": {
       "get": {
         "operationId": "ListReleases",

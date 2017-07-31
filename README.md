@@ -22,6 +22,11 @@ wheel run --v=10
 GET http://127.0.0.1:50066/tiller/v2/version/json
 ```
 
+- **Summarize releases** 
+```
+GET http://127.0.0.1:50066/tiller/v2/releases/json
+```
+
 - **List releases** 
 ```
 GET http://127.0.0.1:50066/tiller/v2/releases/list/json

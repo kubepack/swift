@@ -18,6 +18,7 @@ package appscode.seed.app.v1beta1;
 
 import "hapi/chart/chart.proto";
 import "hapi/chart/config.proto";
+import "hapi/chart/metadata.proto";
 import "hapi/release/release.proto";
 import "hapi/release/info.proto";
 import "hapi/release/test_run.proto";
@@ -58,18 +59,16 @@ service ReleaseService {
 		};
 	}
 
-	/*
 	// @appscode
 	// SummarizeReleases retrieves summary of release history.
 	// TODO: Allow filtering the set of releases by
 	// release status. By default, SummarizeReleases returns the releases who
 	// current status is "Active".
-	rpc SummarizeReleases(SummarizeReleasesRequest) returns (SummarizeReleasesResponse) {
+	rpc SummarizeReleases(ListReleasesRequest) returns (SummarizeReleasesResponse) {
 		option (google.api.http) = {
 			get: "/tiller/v2/releases/json"
 		};
 	}
-	*/
 
 	// GetReleasesStatus retrieves status information for the specified release.
 	rpc GetReleaseStatus(GetReleaseStatusRequest) returns (GetReleaseStatusResponse) {
@@ -198,34 +197,34 @@ message ListReleasesResponse {
 	repeated hapi.release.Release releases = 4;
 }
 
-/*
-// @appscode
-// SummarizeReleasesRequest requests a list of release summaries.
-// Releases can be sorted according to a few pre-determined sort stategies.
-message SummarizeReleasesRequest {
-	// SortBy is the sort field that the ListReleases server should sort data before returning.
-	ListSort.SortBy sort_by = 1;
-
-	// Filter is a regular expression used to filter which releases should be listed.
-	//
-	// Anything that matches the regexp will be included in the results.
-	string filter = 2;
-
-	// SortOrder is the ordering directive used for sorting.
-	ListSort.SortOrder sort_order = 3;
-
-	repeated hapi.release.Status.Code status_codes = 6;
-	// Namespace is the filter to select releases only from a specific namespace.
-	string namespace = 4;
-}
-
 // @appscode
 // SummarizeReleasesResponse is a list of release summaries.
 message SummarizeReleasesResponse {
-	// Releases is the list of found release objects.
-	repeated hapi.release.ReleaseSummary releases = 1;
+	repeated ReleaseSummary releases = 4;
 }
-*/
+
+// ReleaseSummary summaries a deployment of a chart, together with the chart
+// metadata and the variables used to deploy that chart.
+message ReleaseSummary {
+	// Name is the name of the release
+	string name = 1;
+
+	// Info provides information about a release
+	hapi.release.Info info = 2;
+
+	// ChartMetadata is the metadata of chart that was released.
+	hapi.chart.Metadata chart_metadata = 3;
+
+	// Config is the set of extra Values added to the chart.
+	// These values override the default values inside of the chart.
+	hapi.chart.Config config = 4;
+
+	// Version is an int32 which represents the version of the release.
+	int32 version = 5;
+
+	// Namespace is the kubernetes namespace of the release.
+	string namespace = 6;
+}
 
 // GetReleaseStatusRequest is a request to get the status of a release.
 message GetReleaseStatusRequest {

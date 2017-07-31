@@ -14,6 +14,14 @@ import (
 	"k8s.io/helm/pkg/version"
 )
 
+const (
+	DEFAULT_OPERATOR_NS   = "kube-system"
+	OPERATOR_NS_HEADER    = "k8s-operator-ns"
+	DEFAULT_OPERATOR_PORT = 44134
+	LOCALHOST             = "127.0.0.1"
+	HELM_APP_LABEL        = "helm"
+)
+
 // connect returns a grpc connection to tiller or error. The grpc dial options
 // are constructed here.
 func connect(host string) (conn *grpc.ClientConn, err error) {
@@ -42,9 +50,11 @@ func newContext() context.Context {
 	return metadata.NewContext(context.TODO(), md)
 }
 
-func getHost() (string, error) {
-	operatorNamespace := "kube-system"
-	operatorPortNumber := 44134
+func getHost(operatorNamespace string) (string, error) {
+	if operatorNamespace == "" {
+		operatorNamespace = DEFAULT_OPERATOR_NS
+	}
+	operatorPortNumber := DEFAULT_OPERATOR_PORT
 
 	f := kube.NewKubeFactory()
 	restClient, err := f.RESTClient()
@@ -64,7 +74,7 @@ func getHost() (string, error) {
 
 	operatorPodList, err := clientSet.Core().Pods(operatorNamespace).List(metav1.ListOptions{
 		LabelSelector: labels.SelectorFromSet(labels.Set{
-			"app": "helm",
+			"app": HELM_APP_LABEL,
 		}).String(),
 	})
 	if err != nil {
@@ -76,11 +86,20 @@ func getHost() (string, error) {
 		return "", err
 	}
 
-	return fmt.Sprintf("127.0.0.1:%d", tunnel.Local), nil
+	return fmt.Sprintf("%s:%d", LOCALHOST, tunnel.Local), nil
 }
 
-func getReleaseServiceClient() (rls.ReleaseServiceClient, error) {
-	host, err := getHost()
+func getReleaseServiceClient(ctx context.Context) (rls.ReleaseServiceClient, error) {
+	var operatorNs string
+
+	if headers, ok := metadata.FromContext(ctx); ok {
+		token := headers[OPERATOR_NS_HEADER]
+		if len(token) > 0 {
+			operatorNs = token[0]
+		}
+	}
+
+	host, err := getHost(operatorNs)
 	if err != nil {
 		return nil, err
 	}

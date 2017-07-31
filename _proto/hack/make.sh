@@ -10,6 +10,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 ALIAS+="Mhapi/chart/chart.proto=k8s.io/helm/pkg/proto/hapi/chart,"
 ALIAS+="Mhapi/chart/config.proto=k8s.io/helm/pkg/proto/hapi/chart,"
+ALIAS+="Mhapi/chart/metadata.proto=k8s.io/helm/pkg/proto/hapi/chart,"
 ALIAS+="Mhapi/release/release.proto=k8s.io/helm/pkg/proto/hapi/release,"
 ALIAS+="Mhapi/release/info.proto=k8s.io/helm/pkg/proto/hapi/release,"
 ALIAS+="Mhapi/release/test_run.proto=k8s.io/helm/pkg/proto/hapi/release,"

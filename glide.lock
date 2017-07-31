@@ -1,5 +1,5 @@
 hash: d6fa080fd6f46502594f7d6eabc30699fd497cb2d5de802a9e90a47920a2ea65
-updated: 2017-07-26T18:04:02.784674748+06:00
+updated: 2017-07-31T10:52:56.548819898+06:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -9,11 +9,12 @@ imports:
 - name: github.com/appscode/errors
   version: 748883e321a9f99fe901bd2663c7af3fcae43ea4
 - name: github.com/appscode/go
-  version: 9fde097ebcef0add8325c8fbee63ae01e7da530e
+  version: 95092d156baddb2d9aab547739669496d58ab6bd
   subpackages:
   - env
   - hold
   - runtime
+  - strings
   - version
 - name: github.com/appscode/k8s-addons
   version: 468f387079f246a5d72e4d7c9255c02449b1ee9d
