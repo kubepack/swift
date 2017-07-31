@@ -14,8 +14,7 @@ func init() {
 }
 
 const (
-	WHEEL_ARCHIVE = "/tmp/wheel-archive/"
-	DEFAULT_NS    = "default"
+	DEFAULT_NS = "default"
 )
 
 type AppsServer struct{}

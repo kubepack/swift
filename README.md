@@ -52,7 +52,7 @@ GET http://127.0.0.1:50066/tiller/v2/releases/my-release/json
 GET http://127.0.0.1:50066/tiller/v2/releases/my-release/rollback/json
 ```
 
-- **Install release**
+- **Install release from url**
 
 ```
 POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
@@ -62,6 +62,26 @@ POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
 	"values": {
 		"raw": "{\"ns\":\"c10\",\"clusterName\":\"h505\"}"
 	}
+}
+```
+
+- **Install release from stable kubeapps (most recent version)**
+
+```
+POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
+
+{
+	"chart_url": "stable/fluent-bit"
+}
+```
+
+- **Install release from stable kubeapps (specific version)**
+
+```
+POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
+
+{
+	"chart_url": "stable/fluent-bit/0.1.2"
 }
 ```
 
