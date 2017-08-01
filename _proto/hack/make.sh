@@ -8,6 +8,14 @@ RETVAL=0
 ROOT=$PWD
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+ALIAS+="Mhapi/chart/chart.proto=k8s.io/helm/pkg/proto/hapi/chart,"
+ALIAS+="Mhapi/chart/config.proto=k8s.io/helm/pkg/proto/hapi/chart,"
+ALIAS+="Mhapi/chart/metadata.proto=k8s.io/helm/pkg/proto/hapi/chart,"
+ALIAS+="Mhapi/release/release.proto=k8s.io/helm/pkg/proto/hapi/release,"
+ALIAS+="Mhapi/release/info.proto=k8s.io/helm/pkg/proto/hapi/release,"
+ALIAS+="Mhapi/release/test_run.proto=k8s.io/helm/pkg/proto/hapi/release,"
+ALIAS+="Mhapi/release/status.proto=k8s.io/helm/pkg/proto/hapi/release,"
+ALIAS+="Mhapi/version/version.proto=k8s.io/helm/pkg/proto/hapi/version,"
 ALIAS+="Mappscode/api/annotations.proto=github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis/appscode/api,"
 ALIAS+="Mappscode/api/dtypes/types.proto=github.com/appscode/api/dtypes"
 
@@ -34,6 +42,7 @@ gen_proto() {
          -I ${GOPATH}/src/github.com \
          -I ${GOPATH}/src/github.com/googleapis/googleapis/ \
          -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis \
+         -I ${GOPATH}/src/k8s.io/helm/_proto \
          --go_out=plugins=grpc,${ALIAS}:. *.proto
 }
 
@@ -46,6 +55,7 @@ gen_gateway_proto() {
          -I ${GOPATH}/src/github.com \
          -I ${GOPATH}/src/github.com/googleapis/googleapis/ \
          -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis \
+         -I ${GOPATH}/src/k8s.io/helm/_proto \
          --grpc-gateway_out=logtostderr=true,${ALIAS}:. *.proto
 }
 
@@ -58,6 +68,7 @@ gen_cors_pattern() {
          -I ${GOPATH}/src/github.com \
          -I ${GOPATH}/src/github.com/googleapis/googleapis/ \
          -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis \
+         -I ${GOPATH}/src/k8s.io/helm/_proto \
          --grpc-gateway-cors_out=logtostderr=true,${ALIAS}:. *.proto
 }
 
@@ -70,6 +81,7 @@ gen_js_client() {
          -I ${GOPATH}/src/github.com \
          -I ${GOPATH}/src/github.com/googleapis/googleapis/ \
          -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis \
+         -I ${GOPATH}/src/k8s.io/helm/_proto \
          --grpc-js-client_out=logtostderr=true,remove_prefix=/appscode/api,${ALIAS}:. *.proto
 }
 
@@ -82,6 +94,7 @@ gen_swagger_def() {
          -I ${GOPATH}/src/github.com \
          -I ${GOPATH}/src/github.com/googleapis/googleapis/ \
          -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis \
+         -I ${GOPATH}/src/k8s.io/helm/_proto \
          --swagger_out=logtostderr=true,${ALIAS}:. *.proto
 }
 
@@ -177,6 +190,7 @@ gen_py() {
          -I ${GOPATH}/src/github.com \
          -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
          -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis \
+         -I ${GOPATH}/src/k8s.io/helm/_proto \
          --python_out=':.' --grpc_python_out=':.' *.proto
 }
 
@@ -205,6 +219,7 @@ gen_php() {
          -I ${GOPATH}/src/github.com \
          -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
          -I ${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis \
+         -I ${GOPATH}/src/k8s.io/helm/_proto \
          --plugin=protoc-gen-grpc="$(which grpc_php_plugin)" \
          --php_out=':.' --grpc_out=':.' *.proto
 }

@@ -1,8 +1,56 @@
 {
-  "/_appscode/api/seed/v1beta1/apps/hello": {
+  "/tiller/v2/releases/*/content/json": {
     "get": {
-      "file": "/app/v1beta1/app.proto",
-      "url": "/_appscode/api/seed/v1beta1/apps/hello"
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/content/json"
+    }
+  },
+  "/tiller/v2/releases/*/json": {
+    "delete": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/json"
+    },
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/json"
+    },
+    "post": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/json"
+    },
+    "put": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/json"
+    }
+  },
+  "/tiller/v2/releases/*/rollback/json": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/rollback/json"
+    }
+  },
+  "/tiller/v2/releases/*/status/json": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/{name}/status/json"
+    }
+  },
+  "/tiller/v2/releases/json": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/json"
+    }
+  },
+  "/tiller/v2/releases/list/json": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/releases/list/json"
+    }
+  },
+  "/tiller/v2/version/json": {
+    "get": {
+      "file": "/app/v1beta1/tiller.proto",
+      "url": "/tiller/v2/version/json"
     }
   }
 }

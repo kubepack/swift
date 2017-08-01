@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/appscode/go/runtime"
+	stringz "github.com/appscode/go/strings"
 	"github.com/appscode/log"
 	"github.com/appscode/wheel/pkg/apiserver/cmd/options"
 	"github.com/appscode/wheel/pkg/apiserver/endpoints"
@@ -83,7 +84,15 @@ func (s *apiServer) ServeGRPC(l net.Listener) {
 }
 
 func (s *apiServer) newGatewayMux() *gwrt.ServeMux {
-	gwMux := gwrt.NewServeMux()
+	gwMux := gwrt.NewServeMux(
+		gwrt.WithIncomingHeaderMatcher(func(h string) (string, bool) {
+			if stringz.PrefixFold(h, "k8s-") {
+				return h, true
+			}
+			return "", false
+		}),
+		gwrt.WithProtoErrorHandler(gwrt.DefaultHTTPProtoErrorHandler),
+	)
 	var grpcDialOptions []grpc.DialOption
 	if s.UseTLS() {
 		grpcDialOptions = []grpc.DialOption{
