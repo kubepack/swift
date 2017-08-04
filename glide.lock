@@ -1,13 +1,11 @@
-hash: d6fa080fd6f46502594f7d6eabc30699fd497cb2d5de802a9e90a47920a2ea65
-updated: 2017-08-01T00:37:06.418501451-07:00
+hash: 25507561844acce4d0a6cb46e8b51d1d002e9bca34ada282f51091ecf52c122b
+updated: 2017-08-04T09:32:38.069064575-07:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
   subpackages:
   - compute/metadata
   - internal
-- name: github.com/appscode/errors
-  version: 748883e321a9f99fe901bd2663c7af3fcae43ea4
 - name: github.com/appscode/go
   version: 95092d156baddb2d9aab547739669496d58ab6bd
   subpackages:
@@ -16,8 +14,6 @@ imports:
   - runtime
   - strings
   - version
-- name: github.com/appscode/k8s-addons
-  version: 468f387079f246a5d72e4d7c9255c02449b1ee9d
 - name: github.com/appscode/log
   version: 68e0e42e42c01371f3950571fc87c2298a51dd8f
   subpackages:
@@ -488,7 +484,7 @@ imports:
   - pkg/urlutil
   - pkg/version
 - name: k8s.io/kubernetes
-  version: 095136c3078ccf887b9034b7ce598a0a1faff769
+  version: d74e09bb4e4e7026f45becbed8310665ddcb8514
   subpackages:
   - federation/apis/federation
   - federation/apis/federation/install
