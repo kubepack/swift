@@ -337,35 +337,3 @@ func (*ReleaseServer) GetHistory(ctx context.Context, req *proto.GetHistoryReque
 		Releases: historyRes.Releases,
 	}, nil
 }
-
-// RunReleaseTest executes the tests defined of a named release
-func (*ReleaseServer) RunReleaseTest(req *proto.TestReleaseRequest, srv proto.ReleaseService_RunReleaseTestServer) error {
-	rlc, err := getReleaseServiceClient(srv.Context())
-	if err != nil {
-		return err
-	}
-
-	testReq := rls.TestReleaseRequest{
-		Name:    req.Name,
-		Cleanup: req.Cleanup,
-		Timeout: req.Timeout,
-	}
-
-	testClient, err := rlc.RunReleaseTest(newContext(), &testReq)
-	if err != nil {
-		return err
-	}
-
-	testRes, err := testClient.Recv()
-	if err != nil {
-		return err
-	}
-
-	res := proto.TestReleaseResponse{
-		Msg:    testRes.Msg,
-		Status: testRes.Status,
-	}
-
-	srv.Send(&res)
-	return nil
-}
