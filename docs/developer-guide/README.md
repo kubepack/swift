@@ -57,17 +57,3 @@ $ docker push <image>:<tag>
 ```console
 $ ./hack/gendocs/make.sh
 ```
-
-### Testing Wheel
-#### Unit tests
-```console
-$ ./hack/make.py test unit
-```
-
-#### Run e2e tests
-Wheel uses [Ginkgo](http://onsi.github.io/ginkgo/) to run e2e tests.
-```console
-$ ./hack/make.py test e2e
-```
-
-To run e2e tests against remote backends, you need to set cloud provider credentials in `./hack/config/.env`. You can see an example file in `./hack/config/.env.example`.
