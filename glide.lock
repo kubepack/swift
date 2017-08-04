@@ -1,5 +1,5 @@
 hash: f42e6f039e0081ed69720112cede85cda6626e623a80d3f57c30f7288f44adfb
-updated: 2017-08-04T13:48:31.04632807-07:00
+updated: 2017-08-04T14:01:57.222575502-07:00
 imports:
 - name: bitbucket.org/ww/goautoneg
   version: 75cd24fc2f2c2a2088577d12123ddee5f54e0675
@@ -12,15 +12,12 @@ imports:
   version: d98df977c923189d5e4856bf8d428f5528b6bdd1
   subpackages:
   - dtypes
-  - meta
 - name: github.com/appscode/errors
   version: 748883e321a9f99fe901bd2663c7af3fcae43ea4
 - name: github.com/appscode/go
   version: 95092d156baddb2d9aab547739669496d58ab6bd
   subpackages:
-  - arrays
   - container/serializer
-  - encoding/yaml
   - env
   - hold
   - runtime
