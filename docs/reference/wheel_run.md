@@ -14,13 +14,19 @@ wheel run [flags]
 ### Options
 
 ```
-      --api-port int        Port used to serve apis (default 50066)
-      --caCertFile string   File containing CA certificate
-      --certFile string     File container server TLS certificate
-  -h, --help                help for run
-      --keyFile string      File containing server TLS private key
-      --pprof-port int      port used to run pprof tools (default 6060)
-      --report-monitoring   Report monitoring, disabled for dev env by default
+      --analytics                     Send analytical events to Google Analytics (default true)
+      --api-domain string             Domain used for apiserver (prod: api.appscode.com
+      --caCertFile string             File containing CA certificate
+      --certFile string               File container server TLS certificate
+      --cors-origin-allow-subdomain   Allow CORS request from subdomains of origin
+      --cors-origin-host string       Allowed CORS origin host e.g, domain[:port]
+      --enable-cors                   Enable CORS support
+      --enable-java-client            Set true to send SETTINGS frame from the server. Default set to false
+  -h, --help                          help for run
+      --keyFile string                File containing server TLS private key
+      --plaintext-addr string         host:port used to server plaintext apis (default ":9855")
+      --secure-addr string            host:port used to server secure apis (default ":50055")
+      --web-addr string               Address to listen on for web interface and telemetry. (default ":5050")
 ```
 
 ### Options inherited from parent commands

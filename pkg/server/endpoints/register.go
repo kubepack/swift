@@ -10,6 +10,11 @@ import (
 	"google.golang.org/grpc"
 )
 
+type endPoint struct {
+	RegisterFunc interface{}
+	Server       interface{}
+}
+
 func RegisterGRPC(function interface{}, s *grpc.Server, val interface{}) {
 	f := reflect.ValueOf(function)
 	var mu sync.Mutex

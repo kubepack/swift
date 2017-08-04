@@ -1,5 +1,5 @@
-hash: a9704132a8c8f59e62c2b566d2c102b88013e104b383beff607e65d0922c3cb4
-updated: 2017-08-04T13:26:46.472384284-07:00
+hash: f42e6f039e0081ed69720112cede85cda6626e623a80d3f57c30f7288f44adfb
+updated: 2017-08-04T13:48:31.04632807-07:00
 imports:
 - name: bitbucket.org/ww/goautoneg
   version: 75cd24fc2f2c2a2088577d12123ddee5f54e0675
@@ -185,6 +185,8 @@ imports:
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/jonboulle/clockwork
   version: 72f9bd7c4e0c2a40055ab3d0f09654f730cce982
+- name: github.com/jpillora/go-ogle-analytics
+  version: 14b04e0594ef6a9fd943363b135656f0ec8c9d0e
 - name: github.com/juju/ratelimit
   version: 77ed1c8a01217656d2080ad51981f6e99adaa177
 - name: github.com/mailru/easyjson
