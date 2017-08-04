@@ -97,8 +97,13 @@ def gen_protos():
     call("find . -type f -name '*.go' -delete", cwd=libbuild.REPO_ROOT + '/_proto')
 
 
+def gen_js_client():
+    die(call('./hack/make.sh', cwd=libbuild.REPO_ROOT + '/client/js'))
+
+
 def gen():
     gen_protos()
+    gen_js_client()
 
 
 def ignore_most(folder, files):

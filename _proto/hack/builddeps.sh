@@ -33,7 +33,7 @@ cd grpc
 git submodule update --init
 echo "setting up protoc"
 cd /opt/grpc/third_party/protobuf
-./autogen.sh && ./configure && make
+./automake.sh && ./configure && make
 make install
 ldconfig
 echo "setting up grpc"
