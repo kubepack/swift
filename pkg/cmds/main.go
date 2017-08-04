@@ -12,7 +12,7 @@ import (
 func NewRootCmd(version string) *cobra.Command {
 	rootCmd := &cobra.Command{
 		Use:   "wheel [command]",
-		Short: `Wheel by Appscode - Ajax friendly Helm Tiller Service`,
+		Short: `Wheel by Appscode - Ajax friendly Helm Tiller Proxy`,
 		PersistentPreRun: func(c *cobra.Command, args []string) {
 			c.Flags().VisitAll(func(flag *pflag.Flag) {
 				log.Printf("FLAG: --%s=%q", flag.Name, flag.Value)
