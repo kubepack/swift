@@ -110,4 +110,17 @@ DELETE http://127.0.0.1:50066/tiller/v2/releases/my-release/json
 DELETE http://127.0.0.1:50066/tiller/v2/releases/my-release/json?purge=true
 ```
 
+## Contribution guidelines
+Want to help improve Wheel? Please start [here](/CONTRIBUTING.md).
 
+---
+
+**The wheel server collects anonymous usage statistics to help us learn how the software is being used and how we can improve it. To disable stats collection, run the operator with the flag** `--analytics=false`.
+
+---
+
+## Support
+If you have any questions, you can reach out to us.
+* [Slack](https://slack.appscode.com)
+* [Twitter](https://twitter.com/AppsCodeHQ)
+* [Website](https://appscode.com)
