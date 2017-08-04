@@ -69,7 +69,7 @@
         "files": {
           "description": "Miscellaneous files in a chart archive,\ne.g. README, LICENSE, etc.",
           "items": {
-            "$ref": "#/definitions/protobufAny"
+            "$ref": "#/definitions/hapichartAny"
           },
           "type": "array"
         },
@@ -220,6 +220,21 @@
       },
       "type": "object"
     },
+    "hapichartAny": {
+      "properties": {
+        "type_url": {
+          "description": "A resource name whose content describes the type of the\nserialized data.",
+          "type": "string"
+        },
+        "value": {
+          "description": "Data for file.",
+          "format": "byte",
+          "type": "string"
+        }
+      },
+      "title": "Copied from https://github.com/golang/protobuf/blob/master/ptypes/any/any.proto",
+      "type": "object"
+    },
     "hapireleaseStatus": {
       "description": "Status defines the status of a release.",
       "properties": {
@@ -236,21 +251,6 @@
         },
         "resources": {
           "description": "Cluster resources as kubectl would print them.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "protobufAny": {
-      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(&foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": <string>,\n      \"lastName\": <string>\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }",
-      "properties": {
-        "type_url": {
-          "description": "A URL/resource name whose content describes the type of the\nserialized protocol buffer message.\n\nFor URLs which use the scheme `http`, `https`, or no scheme, the\nfollowing restrictions and interpretations apply:\n\n* If no scheme is provided, `https` is assumed.\n* The last segment of the URL's path must represent the fully\n  qualified name of the type (as in `path/google.protobuf.Duration`).\n  The name should be in a canonical form (e.g., leading \".\" is\n  not accepted).\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics.",
-          "type": "string"
-        },
-        "value": {
-          "description": "Must be a valid serialized protocol buffer of the above specified type.",
-          "format": "byte",
           "type": "string"
         }
       },
@@ -417,7 +417,7 @@
       "title": "TestSuite comprises of the last run of the pre-defined test suite of a release version",
       "type": "object"
     },
-    "v1beta1GetHistoryRequest": {
+    "v2GetHistoryRequest": {
       "description": "GetHistoryRequest requests a release's history.",
       "properties": {
         "max": {
@@ -432,7 +432,7 @@
       },
       "type": "object"
     },
-    "v1beta1GetHistoryResponse": {
+    "v2GetHistoryResponse": {
       "description": "GetHistoryResponse is received in response to a GetHistory rpc.",
       "properties": {
         "releases": {
@@ -444,7 +444,7 @@
       },
       "type": "object"
     },
-    "v1beta1GetReleaseContentRequest": {
+    "v2GetReleaseContentRequest": {
       "description": "GetReleaseContentRequest is a request to get the contents of a release.",
       "properties": {
         "name": {
@@ -459,7 +459,7 @@
       },
       "type": "object"
     },
-    "v1beta1GetReleaseContentResponse": {
+    "v2GetReleaseContentResponse": {
       "description": "GetReleaseContentResponse is a response containing the contents of a release.",
       "properties": {
         "release": {
@@ -469,7 +469,7 @@
       },
       "type": "object"
     },
-    "v1beta1GetReleaseStatusRequest": {
+    "v2GetReleaseStatusRequest": {
       "description": "GetReleaseStatusRequest is a request to get the status of a release.",
       "properties": {
         "name": {
@@ -484,7 +484,7 @@
       },
       "type": "object"
     },
-    "v1beta1GetReleaseStatusResponse": {
+    "v2GetReleaseStatusResponse": {
       "description": "GetReleaseStatusResponse is the response indicating the status of the named release.",
       "properties": {
         "info": {
@@ -502,11 +502,11 @@
       },
       "type": "object"
     },
-    "v1beta1GetVersionRequest": {
+    "v2GetVersionRequest": {
       "description": "GetVersionRequest requests for version information.",
       "type": "object"
     },
-    "v1beta1GetVersionResponse": {
+    "v2GetVersionResponse": {
       "properties": {
         "Version": {
           "$ref": "#/definitions/versionVersion"
@@ -514,7 +514,7 @@
       },
       "type": "object"
     },
-    "v1beta1InstallReleaseRequest": {
+    "v2InstallReleaseRequest": {
       "description": "InstallReleaseRequest is the request for an installation of a chart.",
       "properties": {
         "chart": {
@@ -565,7 +565,7 @@
       },
       "type": "object"
     },
-    "v1beta1InstallReleaseResponse": {
+    "v2InstallReleaseResponse": {
       "description": "InstallReleaseResponse is the response from a release installation.",
       "properties": {
         "release": {
@@ -574,7 +574,7 @@
       },
       "type": "object"
     },
-    "v1beta1ListReleasesRequest": {
+    "v2ListReleasesRequest": {
       "description": "ListReleasesRequest requests a list of releases.\n\nReleases can be retrieved in chunks by setting limit and offset.\n\nReleases can be sorted according to a few pre-determined sort stategies.",
       "properties": {
         "filter": {
@@ -611,7 +611,7 @@
       },
       "type": "object"
     },
-    "v1beta1ListReleasesResponse": {
+    "v2ListReleasesResponse": {
       "description": "ListReleasesResponse is a list of releases.",
       "properties": {
         "count": {
@@ -638,7 +638,7 @@
       },
       "type": "object"
     },
-    "v1beta1ReleaseSummary": {
+    "v2ReleaseSummary": {
       "description": "ReleaseSummary summaries a deployment of a chart, together with the chart\nmetadata and the variables used to deploy that chart.",
       "properties": {
         "chart_metadata": {
@@ -669,7 +669,7 @@
       },
       "type": "object"
     },
-    "v1beta1RollbackReleaseRequest": {
+    "v2RollbackReleaseRequest": {
       "properties": {
         "disable_hooks": {
           "format": "boolean",
@@ -713,7 +713,7 @@
       },
       "type": "object"
     },
-    "v1beta1RollbackReleaseResponse": {
+    "v2RollbackReleaseResponse": {
       "description": "RollbackReleaseResponse is the response to an update request.",
       "properties": {
         "release": {
@@ -722,19 +722,19 @@
       },
       "type": "object"
     },
-    "v1beta1SummarizeReleasesResponse": {
+    "v2SummarizeReleasesResponse": {
       "description": "@appscode\nSummarizeReleasesResponse is a list of release summaries.",
       "properties": {
         "releases": {
           "items": {
-            "$ref": "#/definitions/v1beta1ReleaseSummary"
+            "$ref": "#/definitions/v2ReleaseSummary"
           },
           "type": "array"
         }
       },
       "type": "object"
     },
-    "v1beta1TestReleaseRequest": {
+    "v2TestReleaseRequest": {
       "description": "TestReleaseRequest is a request to get the status of a release.",
       "properties": {
         "cleanup": {
@@ -754,7 +754,7 @@
       },
       "type": "object"
     },
-    "v1beta1TestReleaseResponse": {
+    "v2TestReleaseResponse": {
       "properties": {
         "msg": {
           "type": "string"
@@ -766,7 +766,7 @@
       "title": "TestReleaseResponse represents a message from executing a test",
       "type": "object"
     },
-    "v1beta1UninstallReleaseRequest": {
+    "v2UninstallReleaseRequest": {
       "description": "UninstallReleaseRequest represents a request to uninstall a named release.",
       "properties": {
         "disable_hooks": {
@@ -791,7 +791,7 @@
       },
       "type": "object"
     },
-    "v1beta1UninstallReleaseResponse": {
+    "v2UninstallReleaseResponse": {
       "description": "UninstallReleaseResponse represents a successful response to an uninstall request.",
       "properties": {
         "info": {
@@ -805,7 +805,7 @@
       },
       "type": "object"
     },
-    "v1beta1UpdateReleaseRequest": {
+    "v2UpdateReleaseRequest": {
       "description": "UpdateReleaseRequest updates a release.",
       "properties": {
         "chart": {
@@ -867,7 +867,7 @@
       },
       "type": "object"
     },
-    "v1beta1UpdateReleaseResponse": {
+    "v2UpdateReleaseResponse": {
       "description": "UpdateReleaseResponse is the response to an update request.",
       "properties": {
         "release": {
@@ -895,7 +895,7 @@
   "host": "api.appscode.com",
   "info": {
     "title": "tiller.proto",
-    "version": "1beta1"
+    "version": "2"
   },
   "paths": {
     "/tiller/v2/releases/json": {
@@ -982,7 +982,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/v1beta1SummarizeReleasesResponse"
+              "$ref": "#/definitions/v2SummarizeReleasesResponse"
             }
           }
         },
@@ -1076,7 +1076,7 @@
           "200": {
             "description": "(streaming responses)",
             "schema": {
-              "$ref": "#/definitions/v1beta1ListReleasesResponse"
+              "$ref": "#/definitions/v2ListReleasesResponse"
             }
           }
         },
@@ -1109,7 +1109,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/v1beta1GetReleaseContentResponse"
+              "$ref": "#/definitions/v2GetReleaseContentResponse"
             }
           }
         },
@@ -1134,7 +1134,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/v1beta1UninstallReleaseResponse"
+              "$ref": "#/definitions/v2UninstallReleaseResponse"
             }
           }
         },
@@ -1165,7 +1165,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/v1beta1GetHistoryResponse"
+              "$ref": "#/definitions/v2GetHistoryResponse"
             }
           }
         },
@@ -1188,7 +1188,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1beta1InstallReleaseRequest"
+              "$ref": "#/definitions/v2InstallReleaseRequest"
             }
           }
         ],
@@ -1196,7 +1196,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/v1beta1InstallReleaseResponse"
+              "$ref": "#/definitions/v2InstallReleaseResponse"
             }
           }
         },
@@ -1219,7 +1219,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1beta1UpdateReleaseRequest"
+              "$ref": "#/definitions/v2UpdateReleaseRequest"
             }
           }
         ],
@@ -1227,7 +1227,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/v1beta1UpdateReleaseResponse"
+              "$ref": "#/definitions/v2UpdateReleaseResponse"
             }
           }
         },
@@ -1308,7 +1308,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/v1beta1RollbackReleaseResponse"
+              "$ref": "#/definitions/v2RollbackReleaseResponse"
             }
           }
         },
@@ -1341,7 +1341,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/v1beta1GetReleaseStatusResponse"
+              "$ref": "#/definitions/v2GetReleaseStatusResponse"
             }
           }
         },
@@ -1358,7 +1358,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/v1beta1GetVersionResponse"
+              "$ref": "#/definitions/v2GetVersionResponse"
             }
           }
         },

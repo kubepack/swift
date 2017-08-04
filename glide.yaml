@@ -1,8 +1,6 @@
 package: github.com/appscode/wheel
 import:
-- package: github.com/appscode/errors
 - package: github.com/appscode/go
-- package: github.com/appscode/k8s-addons
 - package: github.com/appscode/log
 - package: github.com/golang/glog
 - package: golang.org/x/net
@@ -17,6 +15,7 @@ import:
   vcs: git
 - package: github.com/soheilhy/cmux
   version: v0.1.2
+- package: github.com/spf13/cobra
 - package: github.com/spf13/pflag
 - package: github.com/xeipuuv/gojsonschema
 - package: google.golang.org/grpc
