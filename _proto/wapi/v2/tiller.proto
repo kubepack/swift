@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package appscode.lever.v2;
+package appscode.wapi.v2;
 
 import "hapi/chart/chart.proto";
 import "hapi/chart/config.proto";
@@ -18,7 +18,7 @@ option go_package = "v2";
 
 option java_multiple_files = true;
 option java_outer_classname = "ReleaseProto";
-option java_package = "com.appscode.lever.v2";
+option java_package = "com.appscode.wapi.v2";
 
 // ReleaseService is the service that a helm application uses to mutate,
 // query, and manage releases.
