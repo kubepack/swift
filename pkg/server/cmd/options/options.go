@@ -15,15 +15,16 @@ type Config struct {
 	EnableCORS               bool
 	CORSOriginHost           string
 	CORSOriginAllowSubdomain bool
-	MonitoringServerAddr     string
+	WebAddr                  string
+	EnableAnalytics          bool
 }
 
 func NewConfig() *Config {
 	return &Config{
-		SecureAddr:    ":50066",
-		PlaintextAddr: ":9866",
-		// This Port Both Contains /metrics and /debug prefix with promethus and pprof.
-		MonitoringServerAddr: ":6060",
+		SecureAddr:      ":50055",
+		PlaintextAddr:   ":9855",
+		WebAddr:         ":5050",
+		EnableAnalytics: true,
 	}
 }
 
@@ -41,5 +42,6 @@ func (s *Config) AddFlags(fs *pflag.FlagSet) {
 	fs.StringVar(&s.CORSOriginHost, "cors-origin-host", s.CORSOriginHost, `Allowed CORS origin host e.g, domain[:port]`)
 	fs.BoolVar(&s.CORSOriginAllowSubdomain, "cors-origin-allow-subdomain", s.CORSOriginAllowSubdomain, "Allow CORS request from subdomains of origin")
 
-	fs.StringVar(&s.MonitoringServerAddr, "monitoring-addr", s.MonitoringServerAddr, "host:port used to serve as monitoring server")
+	fs.StringVar(&s.WebAddr, "web-addr", s.WebAddr, "Address to listen on for web interface and telemetry.")
+	fs.BoolVar(&s.EnableAnalytics, "analytics", s.EnableAnalytics, "Send analytical events to Google Analytics")
 }

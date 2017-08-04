@@ -264,8 +264,8 @@ func Run(cfg *options.Config) {
 
 	// Run Monitoring Server with both /metric and /debug
 	go func() {
-		if cfg.MonitoringServerAddr != "" {
-			if err := http.ListenAndServe(cfg.MonitoringServerAddr, nil); err != nil {
+		if cfg.WebAddr != "" {
+			if err := http.ListenAndServe(cfg.WebAddr, nil); err != nil {
 				log.Errorln("Failed to start monitoring server, cause", err)
 			}
 		}
