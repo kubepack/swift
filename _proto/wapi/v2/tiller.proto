@@ -43,6 +43,9 @@ service ReleaseService {
 		option (google.api.http) = {
 			get: "/tiller/v2/releases/list/json"
 		};
+		option (appscode.api.cors) = {
+			enable: true
+		};
 	}
 
 	// @appscode
@@ -54,6 +57,9 @@ service ReleaseService {
 		option (google.api.http) = {
 			get: "/tiller/v2/releases/json"
 		};
+		option (appscode.api.cors) = {
+			enable: true
+		};
 	}
 
 	// GetReleasesStatus retrieves status information for the specified release.
@@ -61,12 +67,18 @@ service ReleaseService {
 		option (google.api.http) = {
 			get: "/tiller/v2/releases/{name}/status/json"
 		};
+		option (appscode.api.cors) = {
+			enable: true
+		};
 	}
 
 	// GetReleaseContent retrieves the release content (chart + value) for the specified release.
 	rpc GetReleaseContent(GetReleaseContentRequest) returns (GetReleaseContentResponse) {
 		option (google.api.http) = {
 			get: "/tiller/v2/releases/{name}/content/json"
+		};
+		option (appscode.api.cors) = {
+			enable: true
 		};
 	}
 
@@ -76,6 +88,9 @@ service ReleaseService {
 			put: "/tiller/v2/releases/{name}/json"
 			body: "*"
 		};
+		option (appscode.api.cors) = {
+			enable: true
+		};
 	}
 
 	// InstallRelease requests installation of a chart as a new release.
@@ -84,12 +99,18 @@ service ReleaseService {
 			post: "/tiller/v2/releases/{name}/json"
 			body: "*"
 		};
+		option (appscode.api.cors) = {
+			enable: true
+		};
 	}
 
 	// UninstallRelease requests deletion of a named release.
 	rpc UninstallRelease(UninstallReleaseRequest) returns (UninstallReleaseResponse) {
 		option (google.api.http) = {
 			delete : "/tiller/v2/releases/{name}/json"
+		};
+		option (appscode.api.cors) = {
+			enable: true
 		};
 	}
 
@@ -98,12 +119,18 @@ service ReleaseService {
 		option (google.api.http) = {
 			get: "/tiller/v2/version/json"
 		};
+		option (appscode.api.cors) = {
+			enable: true
+		};
 	}
 
 	// RollbackRelease rolls back a release to a previous version.
 	rpc RollbackRelease(RollbackReleaseRequest) returns (RollbackReleaseResponse) {
 		option (google.api.http) = {
 			get : "/tiller/v2/releases/{name}/rollback/json"
+		};
+		option (appscode.api.cors) = {
+			enable: true
 		};
 	}
 
@@ -112,10 +139,9 @@ service ReleaseService {
 		option (google.api.http) = {
 			get: "/tiller/v2/releases/{name}/json"
 		};
-	}
-
-	// RunReleaseTest executes the tests defined of a named release
-	rpc RunReleaseTest(TestReleaseRequest) returns (stream TestReleaseResponse) {
+		option (appscode.api.cors) = {
+			enable: true
+		};
 	}
 }
 
@@ -386,21 +412,4 @@ message GetHistoryRequest {
 // GetHistoryResponse is received in response to a GetHistory rpc.
 message GetHistoryResponse {
 	repeated hapi.release.Release releases = 1;
-}
-
-// TestReleaseRequest is a request to get the status of a release.
-message TestReleaseRequest {
-	// Name is the name of the release
-	string name = 1;
-	// timeout specifies the max amount of time any kubernetes client command can run.
-	int64 timeout = 2;
-	// cleanup specifies whether or not to attempt pod deletion after test completes
-	bool cleanup = 3;
-}
-
-// TestReleaseResponse represents a message from executing a test
-message TestReleaseResponse {
-	string msg = 1;
-	hapi.release.TestRun.Status status = 2;
-
 }

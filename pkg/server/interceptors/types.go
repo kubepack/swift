@@ -16,8 +16,8 @@ type Interceptor interface {
 }
 
 type InterceptorConfig struct {
-	Type                      string                     `json:"type,omitempty"`
-	ValidationInterceptor     *ValidationInterceptor     `json:"validationInterceptor,omitempty"`
+	Type                  string                 `json:"type,omitempty"`
+	ValidationInterceptor *ValidationInterceptor `json:"validationInterceptor,omitempty"`
 }
 
 // InterceptorConfigs needs to run before any other init runs in

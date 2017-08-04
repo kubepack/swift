@@ -752,3 +752,4 @@ func (m *GetHistoryRequest) IsValid() (*gojsonschema.Result, error) {
 	return getHistoryRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *GetHistoryRequest) IsRequest() {}
+

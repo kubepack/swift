@@ -1,11 +1,11 @@
 package interceptors
 
 import (
-	"appscode.com/ark/pkg/apiserver/endpoints"
 	"github.com/appscode/api/dtypes"
 	"github.com/appscode/errors"
 	"github.com/appscode/go/container/serializer"
 	"github.com/appscode/log"
+	"github.com/appscode/wheel/pkg/server/endpoints"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )

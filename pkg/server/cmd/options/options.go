@@ -1,7 +1,6 @@
 package options
 
 import (
-	_env "github.com/appscode/go/env"
 	"github.com/spf13/pflag"
 )
 
@@ -16,13 +15,13 @@ type Config struct {
 	EnableCORS               bool
 	CORSOriginHost           string
 	CORSOriginAllowSubdomain bool
-	MonitoringServerAddr string
+	MonitoringServerAddr     string
 }
 
 func NewConfig() *Config {
 	return &Config{
-		SecureAddr:           ":50066",
-		PlaintextAddr:        ":9866",
+		SecureAddr:    ":50066",
+		PlaintextAddr: ":9866",
 		// This Port Both Contains /metrics and /debug prefix with promethus and pprof.
 		MonitoringServerAddr: ":6060",
 	}
