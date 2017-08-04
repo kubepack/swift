@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -13,23 +12,36 @@ import (
 	"strings"
 	"time"
 
+	"github.com/appscode/wheel/pkg/server/cmd/options"
+	"github.com/appscode/wheel/pkg/server/endpoints"
+	"github.com/appscode/wheel/pkg/server/interceptors"
+	gearman "appscode.com/ark/pkg/gearman/client"
 	"github.com/appscode/go/runtime"
 	stringz "github.com/appscode/go/strings"
 	"github.com/appscode/log"
-	"github.com/appscode/wheel/pkg/server/cmd/options"
-	"github.com/appscode/wheel/pkg/server/endpoints"
+	goprom "github.com/grpc-ecosystem/go-grpc-prometheus"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/soheilhy/cmux"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/metadata"
 )
 
 type apiServer struct {
-	Port       int
-	CACertFile string
-	CertFile   string
-	KeyFile    string
+	SecureAddr               string
+	PlaintextAddr            string
+	APIDomain                string
+	CACertFile               string
+	CertFile                 string
+	KeyFile                  string
+	EnableJavaClient         bool
+	EnableCORS               bool
+	CORSOriginHost           string
+	CORSOriginAllowSubdomain bool
+	GRPCEndpoints            endpoints.GRPCEndpoints
+	ProxyEndpoints           endpoints.ProxyEndPoints
 }
 
 func (s *apiServer) UseTLS() bool {
@@ -37,106 +49,139 @@ func (s *apiServer) UseTLS() bool {
 }
 
 func (s *apiServer) ListenAndServe() {
-	l, err := net.Listen("tcp", fmt.Sprintf(":%d", s.Port))
+	if s.UseTLS() {
+		go s.ServeHTTPS()
+	}
+
+	plaintextListener, err := net.Listen("tcp", s.PlaintextAddr)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if !s.UseTLS() {
-		m := cmux.New(l)
-		grpcl := m.MatchWithWriters(cmux.HTTP2MatchHeaderFieldSendSettings("content-type", "application/grpc"))
-		httpl := m.Match(cmux.Any())
+	m := cmux.New(plaintextListener)
 
-		go s.ServeGRPC(grpcl)
-		go s.ServeHTTP(httpl)
-
-		log.Fatalln(m.Serve())
+	// We first match the connection against HTTP2 fields. If matched, the
+	// connection will be sent through the "grpcl" listener.
+	var grpcl net.Listener
+	if s.EnableJavaClient {
+		grpcl = m.MatchWithWriters(cmux.HTTP2MatchHeaderFieldSendSettings("content-type", "application/grpc"))
 	} else {
-		go s.RedirectToHTTPS()
-		s.ServeHTTPS(l)
+		grpcl = m.Match(cmux.HTTP2HeaderField("content-type", "application/grpc"))
 	}
+
+	// Otherwise, we match it againts HTTP1 methods. If matched,
+	// it is sent through the "httpl" listener.
+	httpl := m.Match(cmux.Any())
+
+	// Then we used the muxed listeners.
+	go func() {
+		defer runtime.HandleCrash()
+
+		log.Infoln("[GRPCSERVER] Starting gRPC Server at addr", grpcl.Addr())
+		log.Fatalln("[GRPCSERVER] gRPC Server failed:", s.newGRPCServer(false).Serve(grpcl))
+	}()
+	go func() {
+		defer runtime.HandleCrash()
+
+		log.Infoln("[PROXYSERVER] Sarting Proxy Server at port", httpl.Addr())
+		srv := &http.Server{
+			Addr:         httpl.Addr().String(),
+			ReadTimeout:  30 * time.Second,
+			WriteTimeout: 30 * time.Second,
+			Handler:      s.newGatewayMux(httpl, false),
+		}
+		log.Fatalln("[PROXYSERVER] Proxy Server failed:", srv.Serve(httpl))
+	}()
+
+	log.Fatalln(m.Serve())
 }
 
-func (s *apiServer) newGRPCServer() *grpc.Server {
+func (s *apiServer) newGRPCServer(useTLS bool) *grpc.Server {
 	var gRPCServer *grpc.Server
-	if s.UseTLS() {
+	if useTLS {
 		creds, err := credentials.NewServerTLSFromFile(s.CertFile, s.KeyFile)
 		if err != nil {
 			log.Fatalln(err)
 		}
-		gRPCServer = grpc.NewServer(grpc.Creds(creds))
+		gRPCServer = grpc.NewServer(grpc.UnaryInterceptor(interceptors.NewUnaryInterceptor(s.EnableCORS, s.CORSOriginHost, s.CORSOriginAllowSubdomain)), grpc.Creds(creds))
 	} else {
-		gRPCServer = grpc.NewServer()
+		gRPCServer = grpc.NewServer(grpc.UnaryInterceptor(interceptors.NewUnaryInterceptor(s.EnableCORS, s.CORSOriginHost, s.CORSOriginAllowSubdomain)))
 	}
 
-	for _, endpoint := range endpoints.GRPCServerEndpoints {
+	// Register gRPC Prometheus monitoring interceptors
+	goprom.Register(gRPCServer)
+	// Enable Time Histogram
+	goprom.EnableHandlingTimeHistogram()
+
+	for _, endpoint := range s.GRPCEndpoints {
 		log.Infoln("Registering server:", reflect.TypeOf(endpoint.Server))
 		endpoints.RegisterGRPC(endpoint.RegisterFunc, gRPCServer, endpoint.Server)
 	}
 	return gRPCServer
 }
 
-func (s *apiServer) ServeGRPC(l net.Listener) {
-	defer runtime.HandleCrash()
-
-	log.Infoln("[GRPCSERVER] Starting gRPC Server at port", s.Port)
-	log.Fatalln("[GRPCSERVER] gRPC Server failed:", s.newGRPCServer().Serve(l))
-}
-
-func (s *apiServer) newGatewayMux() *gwrt.ServeMux {
+/*
+gwrt.EqualFoldMatcher("Origin"),
+gwrt.EqualFoldMatcher("Cookie"),
+gwrt.EqualFoldMatcher("X-Phabricator-Csrf"),
+gwrt.PrefixFoldMatcher("access-control-"),
+gwrt.EqualFoldMatcher("vary"),
+gwrt.EqualFoldMatcher("x-content-type-options"),
+gwrt.PrefixFoldMatcher("x-ratelimit-"),
+*/
+func (s *apiServer) newGatewayMux(l net.Listener, useTLS bool) *gwrt.ServeMux {
 	gwMux := gwrt.NewServeMux(
 		gwrt.WithIncomingHeaderMatcher(func(h string) (string, bool) {
-			if stringz.PrefixFold(h, "k8s-") {
+			if stringz.PrefixFold(h, "access-control-request-") ||
+				strings.EqualFold(h, "Origin") ||
+				strings.EqualFold(h, "Cookie") ||
+				strings.EqualFold(h, "X-Phabricator-Csrf") {
 				return h, true
 			}
 			return "", false
 		}),
+		gwrt.WithOutgoingHeaderMatcher(func(h string) (string, bool) {
+			if stringz.PrefixFold(h, "access-control-allow-") ||
+				strings.EqualFold(h, "Set-Cookie") ||
+				strings.EqualFold(h, "vary") ||
+				strings.EqualFold(h, "x-content-type-options") ||
+				stringz.PrefixFold(h, "x-ratelimit-") {
+				return h, true
+			}
+			return "", false
+		}),
+		gwrt.WithMetadata(func(c context.Context, req *http.Request) metadata.MD {
+			return metadata.Pairs("x-forwarded-method", req.Method)
+		}),
 		gwrt.WithProtoErrorHandler(gwrt.DefaultHTTPProtoErrorHandler),
 	)
 	var grpcDialOptions []grpc.DialOption
-	if s.UseTLS() {
+	if useTLS {
 		grpcDialOptions = []grpc.DialOption{
-			grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "appscode.stream")),
+			grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, s.APIDomain)),
 		}
 	} else {
 		grpcDialOptions = []grpc.DialOption{grpc.WithInsecure()}
 	}
-	for _, endpoint := range endpoints.ProxyServerEndpoints {
+	if s.EnableCORS {
+		endpoints.ProxyServerCorsPattern.RegisterHandler(gwMux, s.CORSOriginHost, s.CORSOriginAllowSubdomain)
+	}
+
+	addr := l.Addr().String()
+	addr = "127.0.0.1" + addr[strings.LastIndex(addr, ":"):]
+	for _, endpoint := range s.ProxyEndpoints {
 		log.Infoln("Registering endpoint:", funcName(endpoint.RegisterFunc))
-		endpoints.RegisterProxy(endpoint.RegisterFunc, context.Background(), gwMux, fmt.Sprintf("127.0.0.1:%d", s.Port), grpcDialOptions)
+		endpoints.RegisterProxy(endpoint.RegisterFunc, context.Background(), gwMux, addr, grpcDialOptions)
 	}
 	return gwMux
 }
 
-func (s *apiServer) ServeHTTP(l net.Listener) {
-	defer runtime.HandleCrash()
-
-	log.Infoln("[PROXYSERVER] Sarting Proxy Server at port", s.Port)
-	srv := &http.Server{
-		Addr:         fmt.Sprintf(":%d", s.Port),
-		ReadTimeout:  30 * time.Second,
-		WriteTimeout: 30 * time.Second,
-		Handler:      s.newGatewayMux(),
+func (s *apiServer) ServeHTTPS() {
+	l, err := net.Listen("tcp", s.SecureAddr)
+	if err != nil {
+		log.Fatal(err)
 	}
-	log.Fatalln("[PROXYSERVER] Proxy Server failed:", srv.Serve(l))
-}
 
-func (s *apiServer) RedirectToHTTPS() {
-	defer runtime.HandleCrash()
-	log.Infoln("[REDIRECTOR] Sarting Redirector Server")
-	srv := &http.Server{
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 5 * time.Second,
-		Handler: http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-			w.Header().Set("Connection", "close")
-			url := "https://" + req.Host + req.URL.String()
-			http.Redirect(w, req, url, http.StatusMovedPermanently)
-		}),
-	}
-	log.Fatalln("[REDIRECTOR] Redirector Server failed:", srv.ListenAndServe())
-}
-
-func (s *apiServer) ServeHTTPS(l net.Listener) {
 	// Load certificates.
 	certificate, err := tls.LoadX509KeyPair(s.CertFile, s.KeyFile)
 	if err != nil {
@@ -156,13 +201,13 @@ func (s *apiServer) ServeHTTPS(l net.Listener) {
 		CipherSuites: []uint16{
 			tls.TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
 			tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-			// tls.TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, // Go 1.8 only
-			// tls.TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,   // Go 1.8 only
+			tls.TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305, // Go 1.8 only
+			tls.TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,   // Go 1.8 only
 			tls.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
 			tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
 		},
 		ClientAuth: tls.VerifyClientCertIfGiven,
-		NextProtos: []string{"h2"},
+		NextProtos: []string{"h2", "http/1.1"},
 	}
 	if s.CACertFile != "" {
 		caCert, err := ioutil.ReadFile(s.CACertFile)
@@ -174,13 +219,13 @@ func (s *apiServer) ServeHTTPS(l net.Listener) {
 		tlsConfig.ClientCAs = caCertPool
 	}
 
-	grpcServer := s.newGRPCServer()
-	gwMux := s.newGatewayMux()
+	grpcServer := s.newGRPCServer(true)
+	gwMux := s.newGatewayMux(l, true)
 
 	srv := &http.Server{
-		Addr:         fmt.Sprintf(":%d", s.Port),
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 5 * time.Second,
+		Addr:         s.SecureAddr,
+		ReadTimeout:  30 * time.Second,
+		WriteTimeout: 30 * time.Second,
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// This is a partial recreation of gRPC's internal checks https://github.com/grpc/grpc-go/pull/514/files#diff-95e9a25b738459a2d3030e1e6fa2a718R61
 			if r.ProtoMajor == 2 && strings.Contains(r.Header.Get("Content-Type"), "application/grpc") {
@@ -191,23 +236,48 @@ func (s *apiServer) ServeHTTPS(l net.Listener) {
 		}),
 		TLSConfig: tlsConfig,
 	}
-	log.Fatalln("[REDIRECTOR] Redirector Server failed:", srv.Serve(tls.NewListener(l, tlsConfig)))
+
+	log.Infoln("[HTTP2] Starting HTTP2 Server at port", l.Addr().String())
+	log.Fatalln("[HTTP2] HTTP2 Server failed:", srv.Serve(tls.NewListener(l, tlsConfig)))
 }
 
 func Run(cfg *options.Config) {
-	cfgBytes, _ := json.Marshal(cfg)
+	cfgBytes, _ := json.MarshalIndent(cfg, " ", " ")
 	log.Infoln("Configuration:", string(cfgBytes))
 
-	server := &apiServer{
-		Port:       cfg.APIPort,
-		CACertFile: cfg.CACertFile,
-		CertFile:   cfg.CertFile,
-		KeyFile:    cfg.KeyFile,
+	gc, err := gearman.New(cfg.GearmanServerAddress, cfg.CronVersion, cfg.RestApiAddress)
+	if err != nil {
+		log.Fatalln(err)
 	}
-	go server.ListenAndServe()
+	clients.Gearman = gc
 
+	if cfg.ReportMonitoring {
+		http.Handle(cfg.MonitoringURIPrefix, prometheus.Handler())
+	}
+
+	apisPublic := &apiServer{
+		SecureAddr:               cfg.SecureAddr,
+		PlaintextAddr:            cfg.PlaintextAddr,
+		APIDomain:                cfg.APIDomain,
+		CACertFile:               cfg.CACertFile,
+		CertFile:                 cfg.CertFile,
+		KeyFile:                  cfg.KeyFile,
+		EnableJavaClient:         cfg.EnableJavaClient,
+		EnableCORS:               cfg.EnableCORS,
+		CORSOriginHost:           cfg.CORSOriginHost,
+		CORSOriginAllowSubdomain: cfg.CORSOriginAllowSubdomain,
+		GRPCEndpoints:            endpoints.GRPCServerPublicEndpoints,
+		ProxyEndpoints:           endpoints.ProxyServerPublicEndpoints,
+	}
+	go apisPublic.ListenAndServe()
+
+	// Run Monitoring Server with both /metric and /debug
 	go func() {
-		log.Infoln(http.ListenAndServe(fmt.Sprintf(":%d", cfg.PprofPort), nil))
+		if cfg.MonitoringServerAddr != "" {
+			if err := http.ListenAndServe(cfg.MonitoringServerAddr, nil); err != nil {
+				log.Errorln("Failed to start monitoring server, cause", err)
+			}
+		}
 	}()
 }
 

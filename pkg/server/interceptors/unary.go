@@ -1,0 +1,55 @@
+package interceptors
+
+import (
+	"appscode.com/ark/pkg/apiserver/endpoints"
+	"github.com/appscode/api/dtypes"
+	"github.com/appscode/errors"
+	"github.com/appscode/go/container/serializer"
+	"github.com/appscode/log"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+)
+
+func NewUnaryInterceptor(enableCORS bool, allowHost string, allowSubdomain bool) grpc.UnaryServerInterceptor {
+	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+		log.V(12).Infoln("Called unary with context", ctx)
+		if enableCORS {
+			endpoints.SetCORSHeaders(ctx, allowHost, allowSubdomain)
+		}
+		endpoints.SetSecurityHeaders(ctx)
+
+		defer func() {
+			if r := recover(); r != nil {
+				err = dtypes.Internal(errors.New("Server crashed, :(").Err())
+				return
+			}
+		}()
+
+		var interceptors = serializer.New()
+		interceptors.Add(&MonitorInterceptor{})
+		if InterceptorConfigs.AuthenticationInterceptor != nil {
+			interceptors.Add(InterceptorConfigs.AuthenticationInterceptor)
+		}
+		if InterceptorConfigs.ValidationInterceptor != nil {
+			interceptors.Add(InterceptorConfigs.ValidationInterceptor)
+		}
+
+		// ref: https://github.com/mwitkow/go-grpc-middleware/blob/master/chain.go#L17
+		buildChain := func(current grpc.UnaryServerInterceptor, next grpc.UnaryHandler) grpc.UnaryHandler {
+			return func(currentCtx context.Context, currentReq interface{}) (interface{}, error) {
+				return current(currentCtx, currentReq, info, next)
+			}
+		}
+		chain := handler
+		for it := interceptors.Iterator(); it.HasNext(); {
+			n := it.Now()
+			val, ok := n.(Interceptor)
+			if !ok {
+				log.Errorln("Bad Interceptor Registered")
+				continue
+			}
+			chain = buildChain(val.Intercept, chain)
+		}
+		return chain(ctx, req)
+	}
+}
