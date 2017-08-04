@@ -27,9 +27,6 @@ func NewUnaryInterceptor(enableCORS bool, allowHost string, allowSubdomain bool)
 
 		var interceptors = serializer.New()
 		interceptors.Add(&MonitorInterceptor{})
-		if InterceptorConfigs.AuthenticationInterceptor != nil {
-			interceptors.Add(InterceptorConfigs.AuthenticationInterceptor)
-		}
 		if InterceptorConfigs.ValidationInterceptor != nil {
 			interceptors.Add(InterceptorConfigs.ValidationInterceptor)
 		}
