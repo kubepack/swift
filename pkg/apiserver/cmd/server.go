@@ -15,9 +15,9 @@ import (
 
 	"github.com/appscode/go/runtime"
 	stringz "github.com/appscode/go/strings"
-	"github.com/appscode/lever/pkg/apiserver/cmd/options"
-	"github.com/appscode/lever/pkg/apiserver/endpoints"
 	"github.com/appscode/log"
+	"github.com/appscode/wheel/pkg/apiserver/cmd/options"
+	"github.com/appscode/wheel/pkg/apiserver/endpoints"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/soheilhy/cmux"
 	"golang.org/x/net/context"

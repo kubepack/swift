@@ -15,7 +15,7 @@
   ],
   "author": "AppsCode Inc.",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/appscode/lever",
+  "homepage": "https://github.com/appscode/wheel",
   "dependencies": {
     "fs": "0.0.1-security",
     "grpc-xhr": "^1.0.9",

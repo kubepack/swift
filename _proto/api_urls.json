@@ -1,55 +1,55 @@
 {
   "/tiller/v2/releases/*/content/json": {
     "get": {
-      "file": "/lever/v2/tiller.proto",
+      "file": "/wapi/v2/tiller.proto",
       "url": "/tiller/v2/releases/{name}/content/json"
     }
   },
   "/tiller/v2/releases/*/json": {
     "delete": {
-      "file": "/lever/v2/tiller.proto",
+      "file": "/wapi/v2/tiller.proto",
       "url": "/tiller/v2/releases/{name}/json"
     },
     "get": {
-      "file": "/lever/v2/tiller.proto",
+      "file": "/wapi/v2/tiller.proto",
       "url": "/tiller/v2/releases/{name}/json"
     },
     "post": {
-      "file": "/lever/v2/tiller.proto",
+      "file": "/wapi/v2/tiller.proto",
       "url": "/tiller/v2/releases/{name}/json"
     },
     "put": {
-      "file": "/lever/v2/tiller.proto",
+      "file": "/wapi/v2/tiller.proto",
       "url": "/tiller/v2/releases/{name}/json"
     }
   },
   "/tiller/v2/releases/*/rollback/json": {
     "get": {
-      "file": "/lever/v2/tiller.proto",
+      "file": "/wapi/v2/tiller.proto",
       "url": "/tiller/v2/releases/{name}/rollback/json"
     }
   },
   "/tiller/v2/releases/*/status/json": {
     "get": {
-      "file": "/lever/v2/tiller.proto",
+      "file": "/wapi/v2/tiller.proto",
       "url": "/tiller/v2/releases/{name}/status/json"
     }
   },
   "/tiller/v2/releases/json": {
     "get": {
-      "file": "/lever/v2/tiller.proto",
+      "file": "/wapi/v2/tiller.proto",
       "url": "/tiller/v2/releases/json"
     }
   },
   "/tiller/v2/releases/list/json": {
     "get": {
-      "file": "/lever/v2/tiller.proto",
+      "file": "/wapi/v2/tiller.proto",
       "url": "/tiller/v2/releases/list/json"
     }
   },
   "/tiller/v2/version/json": {
     "get": {
-      "file": "/lever/v2/tiller.proto",
+      "file": "/wapi/v2/tiller.proto",
       "url": "/tiller/v2/version/json"
     }
   }
