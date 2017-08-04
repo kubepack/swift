@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
+	"github.com/appscode/lever/pkg/cmds"
 	logs "github.com/appscode/log/golog"
-	"github.com/appscode/wheel/pkg/cmds"
 )
 
 func main() {

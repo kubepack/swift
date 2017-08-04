@@ -1,8 +1,8 @@
 package app
 
 import (
-	app "github.com/appscode/wheel/pkg/apis/app/v1beta1"
-	"github.com/appscode/wheel/pkg/apiserver/endpoints"
+	app "github.com/appscode/lever/pkg/apis/lever/v2"
+	"github.com/appscode/lever/pkg/apiserver/endpoints"
 	"golang.org/x/net/context"
 	"k8s.io/helm/pkg/proto/hapi/chart"
 	rls "k8s.io/helm/pkg/proto/hapi/services"

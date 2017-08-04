@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/appscode/wheel/pkg/kube"
+	"github.com/appscode/lever/pkg/kube"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"

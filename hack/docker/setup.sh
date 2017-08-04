@@ -8,7 +8,7 @@ GOPATH=$(go env GOPATH)
 SRC=$GOPATH/src
 BIN=$GOPATH/bin
 ROOT=$GOPATH
-REPO_ROOT=$GOPATH/src/github.com/appscode/wheel
+REPO_ROOT=$GOPATH/src/github.com/appscode/lever
 
 source "$REPO_ROOT/hack/libbuild/common/lib.sh"
 source "$REPO_ROOT/hack/libbuild/common/public_image.sh"
@@ -16,20 +16,20 @@ source "$REPO_ROOT/hack/libbuild/common/public_image.sh"
 APPSCODE_ENV=${APPSCODE_ENV:-dev}
 IMG=wheel
 
-DIST=$GOPATH/src/github.com/appscode/wheel/dist
+DIST=$GOPATH/src/github.com/appscode/lever/dist
 mkdir -p $DIST
 if [ -f "$DIST/.tag" ]; then
 	export $(cat $DIST/.tag | xargs)
 fi
 
 clean() {
-    pushd $GOPATH/src/github.com/appscode/wheel/hack/docker
+    pushd $GOPATH/src/github.com/appscode/lever/hack/docker
     rm wheel Dockerfile
     popd
 }
 
 build_binary() {
-    pushd $GOPATH/src/github.com/appscode/wheel
+    pushd $GOPATH/src/github.com/appscode/lever
     ./hack/builddeps.sh
     ./hack/make.py build
     detect_tag $DIST/.tag
@@ -37,7 +37,7 @@ build_binary() {
 }
 
 build_docker() {
-    pushd $GOPATH/src/github.com/appscode/wheel/hack/docker
+    pushd $GOPATH/src/github.com/appscode/lever/hack/docker
     cp $DIST/wheel/wheel-alpine-amd64 wheel
     chmod 755 wheel
 
