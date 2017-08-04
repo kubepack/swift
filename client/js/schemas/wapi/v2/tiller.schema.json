@@ -390,26 +390,6 @@
       },
       "type": "object"
     },
-    "v2TestReleaseRequest": {
-      "description": "TestReleaseRequest is a request to get the status of a release.",
-      "properties": {
-        "cleanup": {
-          "title": "cleanup specifies whether or not to attempt pod deletion after test completes",
-          "type": "boolean"
-        },
-        "name": {
-          "maxLength": 63,
-          "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
-          "title": "Name is the name of the release",
-          "type": "string"
-        },
-        "timeout": {
-          "description": "timeout specifies the max amount of time any kubernetes client command can run.",
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
     "v2UninstallReleaseRequest": {
       "description": "UninstallReleaseRequest represents a request to uninstall a named release.",
       "properties": {

@@ -15,7 +15,6 @@ var installReleaseRequestSchema *gojsonschema.Schema
 var getReleaseContentRequestSchema *gojsonschema.Schema
 var uninstallReleaseRequestSchema *gojsonschema.Schema
 var getHistoryRequestSchema *gojsonschema.Schema
-var testReleaseRequestSchema *gojsonschema.Schema
 
 func init() {
 	var err error
@@ -707,30 +706,6 @@ func init() {
 	if err != nil {
 		glog.Fatal(err)
 	}
-	testReleaseRequestSchema, err = gojsonschema.NewSchema(gojsonschema.NewStringLoader(`{
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "description": "TestReleaseRequest is a request to get the status of a release.",
-  "properties": {
-    "cleanup": {
-      "title": "cleanup specifies whether or not to attempt pod deletion after test completes",
-      "type": "boolean"
-    },
-    "name": {
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
-      "title": "Name is the name of the release",
-      "type": "string"
-    },
-    "timeout": {
-      "description": "timeout specifies the max amount of time any kubernetes client command can run.",
-      "type": "integer"
-    }
-  },
-  "type": "object"
-}`))
-	if err != nil {
-		glog.Fatal(err)
-	}
 }
 
 func (m *UpdateReleaseRequest) IsValid() (*gojsonschema.Result, error) {
@@ -777,8 +752,3 @@ func (m *GetHistoryRequest) IsValid() (*gojsonschema.Result, error) {
 	return getHistoryRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *GetHistoryRequest) IsRequest() {}
-
-func (m *TestReleaseRequest) IsValid() (*gojsonschema.Result, error) {
-	return testReleaseRequestSchema.Validate(gojsonschema.NewGoLoader(m))
-}
-func (m *TestReleaseRequest) IsRequest() {}
