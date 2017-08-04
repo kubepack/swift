@@ -17,7 +17,7 @@ def reindex(root):
 // DO NOT EDIT!
 
 /*
-This is a RSVP based Ajax client for AppsCode Seed gRPC JSON APIs.
+This is a RSVP based Ajax client for gRPC gateway JSON APIs.
 */
 
 var _ = require('lodash');
@@ -29,7 +29,7 @@ var _ = require('lodash');
         content += "    require('./{}'),\n".format(api)
     content = content[:-2]
     content += '\n);\n'
-    content += 'module.exports = apis.appscode;\n'
+    content += 'module.exports = apis.wapi;\n'
     with open(root + '/index.js', 'w') as f:
         return f.write(content)
 

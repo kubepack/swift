@@ -2,12 +2,12 @@
 // DO NOT EDIT!
 
 /*
-This is a RSVP based Ajax client for AppsCode Seed gRPC JSON APIs.
+This is a RSVP based Ajax client for gRPC gateway JSON APIs.
 */
 
 var _ = require('lodash');
 
 var apis = _.merge({},
-    require('./apis/app/v1beta1/app.gw.js')
+    require('./apis/wapi/v2/tiller.gw.js')
 );
-module.exports = apis.appscode;
+module.exports = apis.wapi;

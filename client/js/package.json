@@ -1,21 +1,27 @@
 {
-  "name": "appscode-seed-js-client",
-  "version": "0.1.0",
-  "description": "AppsCode Seed API JavaScript Client",
+  "name": "@appscode/tiller-js-client",
+  "version": "0.0.5",
+  "description": "Tiller JavaScript Client",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/appscode/wheel.git"
+  },
   "keywords": [
-    "appscode",
-    "seed",
-    "api",
+    "helm",
+    "tiller",
     "ajax",
     "xhr"
   ],
   "author": "AppsCode Inc.",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/appscode/wheel",
+  "bugs": {
+    "url": "https://github.com/appscode/wheel/issues"
+  },
+  "homepage": "https://github.com/appscode/wheel#readme",
   "dependencies": {
     "fs": "0.0.1-security",
     "grpc-xhr": "^1.0.9",
