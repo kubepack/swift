@@ -120,19 +120,11 @@ func (s *apiServer) newGRPCServer(useTLS bool) *grpc.Server {
 	return gRPCServer
 }
 
-/*
-gwrt.EqualFoldMatcher("Origin"),
-gwrt.EqualFoldMatcher("Cookie"),
-gwrt.EqualFoldMatcher("X-Phabricator-Csrf"),
-gwrt.PrefixFoldMatcher("access-control-"),
-gwrt.EqualFoldMatcher("vary"),
-gwrt.EqualFoldMatcher("x-content-type-options"),
-gwrt.PrefixFoldMatcher("x-ratelimit-"),
-*/
 func (s *apiServer) newGatewayMux(l net.Listener, useTLS bool) *gwrt.ServeMux {
 	gwMux := gwrt.NewServeMux(
 		gwrt.WithIncomingHeaderMatcher(func(h string) (string, bool) {
 			if stringz.PrefixFold(h, "access-control-request-") ||
+				stringz.PrefixFold(h, "k8s-") ||
 				strings.EqualFold(h, "Origin") ||
 				strings.EqualFold(h, "Cookie") ||
 				strings.EqualFold(h, "X-Phabricator-Csrf") {
