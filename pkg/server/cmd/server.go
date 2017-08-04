@@ -12,8 +12,6 @@ import (
 	"strings"
 	"time"
 
-	"appscode.com/ark/pkg/apiserver/clients"
-	gearman "appscode.com/ark/pkg/gearman/client"
 	"github.com/appscode/go/runtime"
 	stringz "github.com/appscode/go/strings"
 	"github.com/appscode/log"
@@ -22,7 +20,7 @@ import (
 	"github.com/appscode/wheel/pkg/server/interceptors"
 	goprom "github.com/grpc-ecosystem/go-grpc-prometheus"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/soheilhy/cmux"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -246,15 +244,7 @@ func Run(cfg *options.Config) {
 	cfgBytes, _ := json.MarshalIndent(cfg, " ", " ")
 	log.Infoln("Configuration:", string(cfgBytes))
 
-	gc, err := gearman.New(cfg.GearmanServerAddress, cfg.CronVersion, cfg.RestApiAddress)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	clients.Gearman = gc
-
-	if cfg.ReportMonitoring {
-		http.Handle(cfg.MonitoringURIPrefix, prometheus.Handler())
-	}
+	http.Handle("/metrics", promhttp.Handler())
 
 	apisPublic := &apiServer{
 		SecureAddr:               cfg.SecureAddr,
@@ -267,8 +257,8 @@ func Run(cfg *options.Config) {
 		EnableCORS:               cfg.EnableCORS,
 		CORSOriginHost:           cfg.CORSOriginHost,
 		CORSOriginAllowSubdomain: cfg.CORSOriginAllowSubdomain,
-		GRPCEndpoints:            endpoints.GRPCServerPublicEndpoints,
-		ProxyEndpoints:           endpoints.ProxyServerPublicEndpoints,
+		GRPCEndpoints:            endpoints.GRPCServerEndpoints,
+		ProxyEndpoints:           endpoints.ProxyServerEndpoints,
 	}
 	go apisPublic.ListenAndServe()
 
