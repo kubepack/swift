@@ -8,6 +8,8 @@ import (
 
 type MonitorInterceptor struct{}
 
+var _ Interceptor = &MonitorInterceptor{}
+
 func (m *MonitorInterceptor) Intercept(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 	return goprom.UnaryServerInterceptor(ctx, req, info, handler)
 }

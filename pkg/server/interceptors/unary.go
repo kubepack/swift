@@ -25,12 +25,8 @@ func NewUnaryInterceptor(enableCORS bool, allowHost string, allowSubdomain bool)
 			}
 		}()
 
-		var interceptors = serializer.New()
-		interceptors.Add(&MonitorInterceptor{})
-		if InterceptorConfigs.ValidationInterceptor != nil {
-			interceptors.Add(InterceptorConfigs.ValidationInterceptor)
-		}
-
+		var handlers = serializer.New()
+		handlers.Add(&MonitorInterceptor{})
 		// ref: https://github.com/mwitkow/go-grpc-middleware/blob/master/chain.go#L17
 		buildChain := func(current grpc.UnaryServerInterceptor, next grpc.UnaryHandler) grpc.UnaryHandler {
 			return func(currentCtx context.Context, currentReq interface{}) (interface{}, error) {
@@ -38,7 +34,7 @@ func NewUnaryInterceptor(enableCORS bool, allowHost string, allowSubdomain bool)
 			}
 		}
 		chain := handler
-		for it := interceptors.Iterator(); it.HasNext(); {
+		for it := handlers.Iterator(); it.HasNext(); {
 			n := it.Now()
 			val, ok := n.(Interceptor)
 			if !ok {
