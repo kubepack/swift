@@ -4,9 +4,9 @@ import (
 	_ "net/http/pprof"
 
 	"github.com/appscode/go/hold"
-	apiCmd "github.com/appscode/wheel/pkg/apiserver/cmd"
-	"github.com/appscode/wheel/pkg/apiserver/cmd/options"
 	_ "github.com/appscode/wheel/pkg/app"
+	apiCmd "github.com/appscode/wheel/pkg/server/cmd"
+	"github.com/appscode/wheel/pkg/server/cmd/options"
 	"github.com/spf13/cobra"
 )
 
