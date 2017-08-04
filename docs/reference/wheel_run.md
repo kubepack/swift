@@ -15,7 +15,7 @@ wheel run [flags]
 
 ```
       --analytics                     Send analytical events to Google Analytics (default true)
-      --api-domain string             Domain used for apiserver (prod: api.appscode.com
+      --api-domain string             Domain used to server wheel api
       --caCertFile string             File containing CA certificate
       --certFile string               File container server TLS certificate
       --cors-origin-allow-subdomain   Allow CORS request from subdomains of origin

@@ -33,7 +33,7 @@ func (s *Config) AddFlags(fs *pflag.FlagSet) {
 	fs.StringVar(&s.PlaintextAddr, "plaintext-addr", s.PlaintextAddr, "host:port used to server plaintext apis")
 
 	fs.BoolVar(&s.EnableJavaClient, "enable-java-client", s.EnableJavaClient, "Set true to send SETTINGS frame from the server. Default set to false")
-	fs.StringVar(&s.APIDomain, "api-domain", s.APIDomain, "Domain used for apiserver (prod: api.appscode.com")
+	fs.StringVar(&s.APIDomain, "api-domain", s.APIDomain, "Domain used to server wheel api")
 	fs.StringVar(&s.CACertFile, "caCertFile", s.CACertFile, "File containing CA certificate")
 	fs.StringVar(&s.CertFile, "certFile", s.CertFile, "File container server TLS certificate")
 	fs.StringVar(&s.KeyFile, "keyFile", s.KeyFile, "File containing server TLS private key")
