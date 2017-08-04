@@ -1,4 +1,4 @@
-package app
+package release
 
 import (
 	app "github.com/appscode/wheel/pkg/apis/wapi/v2"

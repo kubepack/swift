@@ -4,7 +4,7 @@ import (
 	_ "net/http/pprof"
 
 	"github.com/appscode/go/hold"
-	_ "github.com/appscode/wheel/pkg/app"
+	_ "github.com/appscode/wheel/pkg/release"
 	apiCmd "github.com/appscode/wheel/pkg/server/cmd"
 	"github.com/appscode/wheel/pkg/server/cmd/options"
 	"github.com/spf13/cobra"
