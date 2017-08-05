@@ -34,7 +34,7 @@ func (c *KubeconfigConnector) Connect(ctx context.Context) (rls.ReleaseServiceCl
 	if err != nil {
 		return nil, err
 	}
-	addr, err := c.GetTillerAddr(client, config, c.Namespace(ctx))
+	addr, err := c.GetTillerAddr(client, config)
 	if err != nil {
 		return nil, err
 	}
