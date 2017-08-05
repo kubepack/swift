@@ -41,7 +41,7 @@ func (c *InClusterConnector) Connect(ctx context.Context) (rls.ReleaseServiceCli
 	if err != nil {
 		return nil, err
 	}
-	conn, err := connect(addr)
+	conn, err := Connect(addr)
 	if err != nil {
 		return nil, err
 	}

@@ -17,7 +17,7 @@ const (
 type TunnelConnector struct {
 }
 
-func (s *TunnelConnector) getTillerAddr(client clientset.Interface, config *rest.Config, tillerNamespace string) (string, error) {
+func (s *TunnelConnector) GetTillerAddr(client clientset.Interface, config *rest.Config, tillerNamespace string) (string, error) {
 	podList, err := client.CoreV1().Pods(tillerNamespace).List(metav1.ListOptions{
 		LabelSelector: tillerLabelSelector,
 	})
@@ -31,7 +31,7 @@ func (s *TunnelConnector) getTillerAddr(client clientset.Interface, config *rest
 	return fmt.Sprintf("127.0.0.1:%d", tunnel.Local), nil
 }
 
-func (s *TunnelConnector) namespace(ctx context.Context) string {
+func (s *TunnelConnector) Namespace(ctx context.Context) string {
 	if headers, ok := metadata.FromContext(ctx); ok {
 		namespaces := headers[headerTillerNamespace]
 		if len(namespaces) > 0 {

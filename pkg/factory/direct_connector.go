@@ -22,7 +22,7 @@ func (c *DirectConnector) UID() string {
 }
 
 func (c *DirectConnector) Connect(ctx context.Context) (rls.ReleaseServiceClient, error) {
-	conn, err := connect(c.TillerEndpoint)
+	conn, err := Connect(c.TillerEndpoint)
 	if err != nil {
 		return nil, err
 	}

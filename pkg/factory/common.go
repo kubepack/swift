@@ -20,7 +20,7 @@ var (
 
 // connect returns a grpc connection to tiller or error. The grpc dial options
 // are constructed here.
-func connect(target string) (conn *grpc.ClientConn, err error) {
+func Connect(target string) (conn *grpc.ClientConn, err error) {
 	opts := []grpc.DialOption{
 		grpc.WithTimeout(5 * time.Second),
 		grpc.WithBlock(),
