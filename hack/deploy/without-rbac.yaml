@@ -1,0 +1,54 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: wheel
+  name: wheel
+  namespace: kube-system
+spec:
+  template:
+    metadata:
+      labels:
+        app: wheel
+    spec:
+      containers:
+      - args:
+        - run
+        - --v=3
+        env:
+        - name: APPSCODE_ENV
+          value: prod
+        image: appscode/wheel:canary
+        imagePullPolicy: Always
+        name: wheel
+        ports:
+        - containerPort: 9855
+          name: pt
+          protocol: TCP
+        - containerPort: 50055
+          name: tls
+          protocol: TCP
+        - containerPort: 56790
+          name: web
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wheel
+  namespace: kube-system
+  labels:
+    app: wheel
+spec:
+  ports:
+  - name: pt
+    port: 9855
+    targetPort: pt
+  - name: tls
+    port: 50055
+    targetPort: web
+  - name: web
+    port: 56790
+    targetPort: web
+  selector:
+    app: wheel
