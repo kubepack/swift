@@ -1,41 +1,38 @@
 package release
 
 import (
+	stringz "github.com/appscode/go/strings"
 	proto "github.com/appscode/wheel/pkg/apis/wapi/v2"
-	"github.com/appscode/wheel/pkg/server/endpoints"
+	"github.com/appscode/wheel/pkg/extpoints"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc/metadata"
+	apiv1 "k8s.io/client-go/pkg/api/v1"
 	"k8s.io/helm/pkg/proto/hapi/chart"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
+	"k8s.io/helm/pkg/version"
 )
 
-func init() {
-	endpoints.GRPCServerEndpoints.Register(proto.RegisterReleaseServiceServer, &ReleaseServer{})
-	endpoints.ProxyServerEndpoints.Register(proto.RegisterReleaseServiceHandlerFromEndpoint)
-	endpoints.ProxyServerCorsPattern.Register(proto.ExportReleaseServiceCorsPatterns())
+type Server struct {
+	ClientFactory extpoints.Connector
 }
 
-const (
-	DEFAULT_NS = "default"
-)
+var _ proto.ReleaseServiceServer = &Server{}
 
-type ReleaseServer struct{}
+// NewContext creates a versioned context.
+func newContext() context.Context {
+	md := metadata.Pairs("x-helm-api-client", version.GetVersion())
+	return metadata.NewContext(context.TODO(), md)
+}
 
-var _ proto.ReleaseServiceServer = &ReleaseServer{}
-
-func (*ReleaseServer) ListReleases(req *proto.ListReleasesRequest, srv proto.ReleaseService_ListReleasesServer) error {
-	rlc, err := getReleaseServiceClient(srv.Context())
+func (s *Server) ListReleases(req *proto.ListReleasesRequest, srv proto.ReleaseService_ListReleasesServer) error {
+	rlc, err := s.ClientFactory.Connect(srv.Context())
 	if err != nil {
 		return err
 	}
-
-	if req.Namespace == "" {
-		req.Namespace = DEFAULT_NS
-	}
-
 	listReq := rls.ListReleasesRequest{
 		Filter:      req.Filter,
 		Limit:       req.Limit,
-		Namespace:   req.Namespace,
+		Namespace:   stringz.Val(req.Namespace, apiv1.NamespaceDefault),
 		Offset:      req.Offset,
 		SortBy:      rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
 		SortOrder:   rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
@@ -63,20 +60,15 @@ func (*ReleaseServer) ListReleases(req *proto.ListReleasesRequest, srv proto.Rel
 	return nil
 }
 
-func (*ReleaseServer) SummarizeReleases(ctx context.Context, req *proto.ListReleasesRequest) (*proto.SummarizeReleasesResponse, error) {
-	rlc, err := getReleaseServiceClient(ctx)
+func (s *Server) SummarizeReleases(ctx context.Context, req *proto.ListReleasesRequest) (*proto.SummarizeReleasesResponse, error) {
+	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
-
-	if req.Namespace == "" {
-		req.Namespace = DEFAULT_NS
-	}
-
 	listReq := rls.ListReleasesRequest{
 		Filter:      req.Filter,
 		Limit:       req.Limit,
-		Namespace:   req.Namespace,
+		Namespace:   stringz.Val(req.Namespace, apiv1.NamespaceDefault),
 		Offset:      req.Offset,
 		SortBy:      rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
 		SortOrder:   rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
@@ -113,8 +105,8 @@ func (*ReleaseServer) SummarizeReleases(ctx context.Context, req *proto.ListRele
 }
 
 // GetReleasesStatus retrieves status information for the specified release.
-func (*ReleaseServer) GetReleaseStatus(ctx context.Context, req *proto.GetReleaseStatusRequest) (*proto.GetReleaseStatusResponse, error) {
-	rlc, err := getReleaseServiceClient(ctx)
+func (s *Server) GetReleaseStatus(ctx context.Context, req *proto.GetReleaseStatusRequest) (*proto.GetReleaseStatusResponse, error) {
+	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -137,8 +129,8 @@ func (*ReleaseServer) GetReleaseStatus(ctx context.Context, req *proto.GetReleas
 }
 
 // GetReleaseContent retrieves the release content (chart + value) for the specified release.
-func (*ReleaseServer) GetReleaseContent(ctx context.Context, req *proto.GetReleaseContentRequest) (*proto.GetReleaseContentResponse, error) {
-	rlc, err := getReleaseServiceClient(ctx)
+func (s *Server) GetReleaseContent(ctx context.Context, req *proto.GetReleaseContentRequest) (*proto.GetReleaseContentResponse, error) {
+	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -159,8 +151,8 @@ func (*ReleaseServer) GetReleaseContent(ctx context.Context, req *proto.GetRelea
 }
 
 // UpdateRelease updates release content.
-func (*ReleaseServer) UpdateRelease(ctx context.Context, req *proto.UpdateReleaseRequest) (*proto.UpdateReleaseResponse, error) {
-	rlc, err := getReleaseServiceClient(ctx)
+func (s *Server) UpdateRelease(ctx context.Context, req *proto.UpdateReleaseRequest) (*proto.UpdateReleaseResponse, error) {
+	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -201,14 +193,10 @@ func (*ReleaseServer) UpdateRelease(ctx context.Context, req *proto.UpdateReleas
 }
 
 // InstallRelease requests installation of a chart as a new release.
-func (*ReleaseServer) InstallRelease(ctx context.Context, req *proto.InstallReleaseRequest) (*proto.InstallReleaseResponse, error) {
-	rlc, err := getReleaseServiceClient(ctx)
+func (s *Server) InstallRelease(ctx context.Context, req *proto.InstallReleaseRequest) (*proto.InstallReleaseResponse, error) {
+	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
-	}
-
-	if req.Namespace == "" {
-		req.Namespace = DEFAULT_NS
 	}
 
 	if req.Values == nil { // (req.Values == nil) causes render error
@@ -230,7 +218,7 @@ func (*ReleaseServer) InstallRelease(ctx context.Context, req *proto.InstallRele
 		DryRun:       req.DryRun,
 		Values:       req.Values,
 		Wait:         req.Wait,
-		Namespace:    req.Namespace,
+		Namespace:    stringz.Val(req.Namespace, apiv1.NamespaceDefault),
 		ReuseName:    req.ReuseName,
 	}
 
@@ -245,8 +233,8 @@ func (*ReleaseServer) InstallRelease(ctx context.Context, req *proto.InstallRele
 }
 
 // UninstallRelease requests deletion of a named release.
-func (*ReleaseServer) UninstallRelease(ctx context.Context, req *proto.UninstallReleaseRequest) (*proto.UninstallReleaseResponse, error) {
-	rlc, err := getReleaseServiceClient(ctx)
+func (s *Server) UninstallRelease(ctx context.Context, req *proto.UninstallReleaseRequest) (*proto.UninstallReleaseResponse, error) {
+	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -270,8 +258,8 @@ func (*ReleaseServer) UninstallRelease(ctx context.Context, req *proto.Uninstall
 }
 
 // GetVersion returns the current version of the server.
-func (*ReleaseServer) GetVersion(ctx context.Context, req *proto.GetVersionRequest) (*proto.GetVersionResponse, error) {
-	rlc, err := getReleaseServiceClient(ctx)
+func (s *Server) GetVersion(ctx context.Context, req *proto.GetVersionRequest) (*proto.GetVersionResponse, error) {
+	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -289,8 +277,8 @@ func (*ReleaseServer) GetVersion(ctx context.Context, req *proto.GetVersionReque
 }
 
 // RollbackRelease rolls back a release to a previous version.
-func (*ReleaseServer) RollbackRelease(ctx context.Context, req *proto.RollbackReleaseRequest) (*proto.RollbackReleaseResponse, error) {
-	rlc, err := getReleaseServiceClient(ctx)
+func (s *Server) RollbackRelease(ctx context.Context, req *proto.RollbackReleaseRequest) (*proto.RollbackReleaseResponse, error) {
+	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -316,9 +304,9 @@ func (*ReleaseServer) RollbackRelease(ctx context.Context, req *proto.RollbackRe
 	}, nil
 }
 
-// ReleaseHistory retrieves a releasse's history.
-func (*ReleaseServer) GetHistory(ctx context.Context, req *proto.GetHistoryRequest) (*proto.GetHistoryResponse, error) {
-	rlc, err := getReleaseServiceClient(ctx)
+// ReleaseHistory retrieves a release's history.
+func (s *Server) GetHistory(ctx context.Context, req *proto.GetHistoryRequest) (*proto.GetHistoryResponse, error) {
+	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}

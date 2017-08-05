@@ -26,7 +26,7 @@ wheel run [flags]
       --keyFile string                File containing server TLS private key
       --plaintext-addr string         host:port used to server plaintext apis (default ":9855")
       --secure-addr string            host:port used to server secure apis (default ":50055")
-      --web-addr string               Address to listen on for web interface and telemetry. (default ":5050")
+      --web-addr string               Address to listen on for web interface and telemetry. (default ":56790")
 ```
 
 ### Options inherited from parent commands

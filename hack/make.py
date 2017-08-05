@@ -101,9 +101,14 @@ def gen_js_client():
     die(call('./hack/make.sh', cwd=libbuild.REPO_ROOT + '/client/js'))
 
 
+def gen_extpoints():
+    die(call('go generate main.go'))
+
+
 def gen():
     gen_protos()
     gen_js_client()
+    gen_extpoints()
 
 
 def ignore_most(folder, files):

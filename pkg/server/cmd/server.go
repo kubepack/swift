@@ -16,6 +16,9 @@ import (
 	"github.com/appscode/go/runtime"
 	stringz "github.com/appscode/go/strings"
 	"github.com/appscode/log"
+	proto "github.com/appscode/wheel/pkg/apis/wapi/v2"
+	"github.com/appscode/wheel/pkg/extpoints"
+	"github.com/appscode/wheel/pkg/release"
 	"github.com/appscode/wheel/pkg/server/cmd/options"
 	"github.com/appscode/wheel/pkg/server/endpoints"
 	"github.com/appscode/wheel/pkg/server/interceptors"
@@ -233,34 +236,39 @@ func (s *apiServer) ServeHTTPS() {
 	log.Fatalln("[HTTP2] HTTP2 Server failed:", srv.Serve(tls.NewListener(l, tlsConfig)))
 }
 
-func Run(cfg *options.Config) {
-	cfgBytes, _ := json.MarshalIndent(cfg, " ", " ")
+func Run(opt *options.Options) {
+	cfgBytes, _ := json.MarshalIndent(opt, " ", " ")
 	log.Infoln("Configuration:", string(cfgBytes))
 
-	http.Handle("/metrics", promhttp.Handler())
+	clientFactory := extpoints.Connectors.Lookup(opt.Connector)
+	if clientFactory == nil {
+		log.Fatalln("Failed to detect connector")
+	}
+	endpoints.GRPCServerEndpoints.Register(proto.RegisterReleaseServiceServer, &release.Server{ClientFactory: clientFactory})
+	endpoints.ProxyServerEndpoints.Register(proto.RegisterReleaseServiceHandlerFromEndpoint)
+	endpoints.ProxyServerCorsPattern.Register(proto.ExportReleaseServiceCorsPatterns())
 
-	apisPublic := &apiServer{
-		SecureAddr:               cfg.SecureAddr,
-		PlaintextAddr:            cfg.PlaintextAddr,
-		APIDomain:                cfg.APIDomain,
-		CACertFile:               cfg.CACertFile,
-		CertFile:                 cfg.CertFile,
-		KeyFile:                  cfg.KeyFile,
-		EnableJavaClient:         cfg.EnableJavaClient,
-		EnableCORS:               cfg.EnableCORS,
-		CORSOriginHost:           cfg.CORSOriginHost,
-		CORSOriginAllowSubdomain: cfg.CORSOriginAllowSubdomain,
+	srv := &apiServer{
+		SecureAddr:               opt.SecureAddr,
+		PlaintextAddr:            opt.PlaintextAddr,
+		APIDomain:                opt.APIDomain,
+		CACertFile:               opt.CACertFile,
+		CertFile:                 opt.CertFile,
+		KeyFile:                  opt.KeyFile,
+		EnableJavaClient:         opt.EnableJavaClient,
+		EnableCORS:               opt.EnableCORS,
+		CORSOriginHost:           opt.CORSOriginHost,
+		CORSOriginAllowSubdomain: opt.CORSOriginAllowSubdomain,
 		GRPCEndpoints:            endpoints.GRPCServerEndpoints,
 		ProxyEndpoints:           endpoints.ProxyServerEndpoints,
 	}
-	go apisPublic.ListenAndServe()
+	go srv.ListenAndServe()
 
 	// Run Monitoring Server with both /metric and /debug
 	go func() {
-		if cfg.WebAddr != "" {
-			if err := http.ListenAndServe(cfg.WebAddr, nil); err != nil {
-				log.Errorln("Failed to start monitoring server, cause", err)
-			}
+		if opt.WebAddr != "" {
+			http.Handle("/metrics", promhttp.Handler())
+			log.Errorln("Failed to start monitoring server, cause", http.ListenAndServe(opt.WebAddr, nil))
 		}
 	}()
 }
