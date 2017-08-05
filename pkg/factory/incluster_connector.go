@@ -2,9 +2,6 @@ package factory
 
 import (
 	"fmt"
-	"io/ioutil"
-	"os"
-	"strings"
 
 	"github.com/appscode/wheel/pkg/extpoints"
 	"golang.org/x/net/context"
@@ -37,7 +34,7 @@ func (c *InClusterConnector) Connect(ctx context.Context) (rls.ReleaseServiceCli
 	if err != nil {
 		return nil, err
 	}
-	addr, err := c.getTillerAddr(client, c.namespace())
+	addr, err := c.getTillerAddr(client)
 	if err != nil {
 		return nil, err
 	}
@@ -48,24 +45,12 @@ func (c *InClusterConnector) Connect(ctx context.Context) (rls.ReleaseServiceCli
 	return rls.NewReleaseServiceClient(conn), nil
 }
 
-func (c *InClusterConnector) getTillerAddr(client clientset.Interface, tillerNamespace string) (string, error) {
-	svcList, err := client.CoreV1().Services(tillerNamespace).List(metav1.ListOptions{
+func (c *InClusterConnector) getTillerAddr(client clientset.Interface) (string, error) {
+	svcList, err := client.CoreV1().Services(apiv1.NamespaceAll).List(metav1.ListOptions{
 		LabelSelector: tillerLabelSelector,
 	})
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("%s:%d", svcList.Items[0], defaultTillerPort), nil
-}
-
-func (c *InClusterConnector) namespace() string {
-	if ns := os.Getenv("OPERATOR_NAMESPACE"); ns != "" {
-		return ns
-	}
-	if data, err := ioutil.ReadFile("/var/run/secrets/kubernetes.io/serviceaccount/namespace"); err == nil {
-		if ns := strings.TrimSpace(string(data)); len(ns) > 0 {
-			return ns
-		}
-	}
-	return apiv1.NamespaceDefault
+	return fmt.Sprintf("%s.%s:%d", svcList.Items[0].Name, svcList.Items[0].Namespace, defaultTillerPort), nil
 }
