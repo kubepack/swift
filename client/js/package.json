@@ -1,7 +1,7 @@
 {
   "name": "@appscode/tiller-js-client",
-  "version": "0.0.5",
-  "description": "Tiller JavaScript Client",
+  "version": "0.0.6",
+  "description": "Helm Tiller JavaScript Client",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
