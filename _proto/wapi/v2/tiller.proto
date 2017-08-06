@@ -7,7 +7,6 @@ import "hapi/chart/config.proto";
 import "hapi/chart/metadata.proto";
 import "hapi/release/release.proto";
 import "hapi/release/info.proto";
-import "hapi/release/test_run.proto";
 import "hapi/release/status.proto";
 import "hapi/version/version.proto";
 

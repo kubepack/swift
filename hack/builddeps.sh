@@ -1,9 +1,7 @@
 #!/bin/bash
 
-set -x
-
-echo 'Setting up dependencies for compiling protos...'
-$(GO env GOPATH)/src/github.com/appscode/wheel/_proto/hack/builddeps.sh
+# echo 'Setting up dependencies for compiling protos...'
+# "$(go env GOPATH)"/src/github.com/appscode/wheel/_proto/hack/builddeps.sh
 
 echo '---'
 echo '--'

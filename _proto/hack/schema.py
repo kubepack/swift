@@ -63,8 +63,9 @@ def write_json(obj, name):
 
 
 def gen_assets():
-    call('go get github.com/jteeuwen/go-bindata/...')
-    call('go-bindata -ignore=\\.go -ignore=\\.DS_Store -mode=0644 -modtime=1453795200 -o meta/data.go -pkg meta meta/...')
+    # call('go get github.com/jteeuwen/go-bindata/...')
+    # call('go-bindata -ignore=\\.go -ignore=\\.DS_Store -mode=0644 -modtime=1453795200 -o meta/data.go -pkg meta meta/...')
+    return
 
 
 def fix_swagger_schema():
