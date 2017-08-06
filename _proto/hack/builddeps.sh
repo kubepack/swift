@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -x
 set -o errexit
 set -o nounset
 set -o pipefail
@@ -52,6 +53,7 @@ EOF
 
 setup_proxy() {
 	echo "Setting up grpc proxy"
+	GOPATH=$(go env GOPATH)
 	rm -rf $GOPATH/src/github.com/googleapis/googleapis
 	go get -u github.com/googleapis/googleapis || true
 	rm -rf $GOPATH/src/github.com/googleapis/googleapis/third_party
@@ -64,6 +66,7 @@ setup_proxy() {
 	popd
 	rm -rf $GOPATH/src/github.com/golang/protobuf
 	go get -u github.com/golang/protobuf/protoc-gen-go
+
 	mkdir -p $GOPATH/src/github.com/grpc-ecosystem
 	pushd $GOPATH/src/github.com/grpc-ecosystem
 	if [ ! -d grpc-gateway ]; then
@@ -79,6 +82,13 @@ setup_proxy() {
 	go install ./protoc-gen-grpc-gateway-cors/...
 	go install ./protoc-gen-grpc-js-client/...
 	go install ./protoc-gen-swagger/...
+
+	mkdir -p $GOPATH/src/k8s.io
+	cd $GOPATH/src/k8s.io
+	rm -rf helm
+	git clone https://github.com/appscode/helm.git
+	cd helm
+	git checkout 2.5.1-ac
 	popd
 }
 

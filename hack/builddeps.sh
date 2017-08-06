@@ -1,5 +1,7 @@
 #!/bin/bash
 
+$(GO env GOPATH)/src/github.com/appscode/wheel/_proto/hack/builddeps.sh
+
 # https://github.com/ellisonbg/antipackage
 pip install git+https://github.com/ellisonbg/antipackage.git#egg=antipackage
 
