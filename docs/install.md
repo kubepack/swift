@@ -1,5 +1,3 @@
-> New to Wheel? Please start [here](/docs/tutorial.md).
-
 # Installation Guide
 
 ## Using YAML

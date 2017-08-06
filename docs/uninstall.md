@@ -1,5 +1,3 @@
-> New to Wheel? Please start [here](/docs/tutorials/README.md).
-
 # Uninstall Wheel
 Please follow the steps below to uninstall Wheel:
 
