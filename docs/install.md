@@ -86,49 +86,9 @@ I0806 04:38:03.409506   20867 server.go:83] [GRPCSERVER] Starting gRPC Server at
 I0806 04:38:03.409737   20867 server.go:120] Registering server: *release.Server
 ```
 
-# Running PostgreSQL
-This tutorial will show you how to use KubeDB to run a PostgreSQL database.
-
-## Before You Begin
-At first, you need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. If you do not already have a cluster, you can create one by using [Minikube](https://github.com/kubernetes/minikube). 
-
-Now, install KubeDB cli on your workstation and KubeDB operator in your cluster following the steps [here](/docs/install.md).
-
-To keep things isolated, this tutorial uses a separate namespace called `demo` throughout this tutorial. This tutorial will also use a PGAdmin to connect and test PostgreSQL database, once it is running. Run the following command to prepare your cluster for this tutorial:
-
-```console
-$ kubectl create -f ./docs/examples/postgres/demo-0.yaml
-namespace "demo" created
-deployment "pgadmin" created
-service "pgadmin" created
-
-$ kubectl get pods -n demo --watch
-NAME                      READY     STATUS              RESTARTS   AGE
-pgadmin-538449054-s046r   0/1       ContainerCreating   0          13s
-pgadmin-538449054-s046r   1/1       Running   0          1m
-^C⏎                                                                                                                                                             
-
-$ kubectl get service -n demo
-NAME      CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-pgadmin   10.0.0.92    <pending>     80:31188/TCP   1m
-
-$ minikube ip
-192.168.99.100
-```
-
-Now, open your browser and go to the following URL: _http://{minikube-ip}:{pgadmin-svc-nodeport}_. According to the above example, this URL will be [http://192.168.99.100:31188](http://192.168.99.100:31188). To log into the PGAdmin, use username `admin` and password `admin`.
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## `direct` Connector
+Wheel can proxy Tiller server using in a remote Kubernetes cluster using `kubeconfig` connector. In this mode, Wheel open a tunnel between its own pod and Tiller server pod using Kubernetes api server. This is similar to how Helm cli connects to Tiller server today.
 
+For example, if you are running a [Minikube](https://github.com/kubernetes/minikube) cluster locally, you can use the steps below to connect to a Tiller server running inside minikjube cluster from your workstation.
+
+$ wheel run --v=3 --connector=direct --tiller-endpoint=http://127.0.0.1:44134

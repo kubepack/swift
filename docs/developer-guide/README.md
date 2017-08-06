@@ -22,7 +22,12 @@ $ cd $(go env GOPATH)/src/github.com/appscode/wheel
 
 #### Install Dev tools
 To install various dev tools for Wheel, run the following command:
+
 ```console
+# Setting up dependencies for compiling protos...
+$ ./_proto/hack/builddeps.sh
+
+# Setting up dependencies for compiling wheel...
 $ ./hack/builddeps.sh
 ```
 
