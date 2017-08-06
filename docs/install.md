@@ -88,5 +88,6 @@ I0806 04:38:03.409737   20867 server.go:120] Registering server: *release.Server
 
 ## `direct` Connector
 Wheel can proxy Tiller server by directly connecting to it using `direct` connector.
-
+```console
 $ wheel run --v=3 --connector=direct --tiller-endpoint=http://127.0.0.1:44134
+```
