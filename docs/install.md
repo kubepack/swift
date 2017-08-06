@@ -1,6 +1,6 @@
 # Installation Guide
 
-Wheel proxy server can connect to [Helm](https://github.com/kubernetes/helm) Tiller gRPC server in a number of different ways depending on the `--connector` flag.
+Wheel proxy server can connect to [Helm](https://github.com/kubernetes/helm) Tiller gRPC server in a number of different ways depending on the `[--connector](/docs/reference/wheel_run.md)` flag.
 
 
 ## `incluster` Connector
