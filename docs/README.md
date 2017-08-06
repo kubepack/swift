@@ -1,7 +1,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/appscode/wheel)](https://goreportcard.com/report/github.com/appscode/wheel)
 
 # wheel
-Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller service.
+Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller proxy.
 
 ## API Reference
 
