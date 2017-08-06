@@ -72,7 +72,7 @@ func (s *apiServer) ListenAndServe() {
 		grpcl = m.Match(cmux.HTTP2HeaderField("content-type", "application/grpc"))
 	}
 
-	// Otherwise, we match it againts HTTP1 methods. If matched,
+	// Otherwise, we match it against HTTP1 methods. If matched,
 	// it is sent through the "httpl" listener.
 	httpl := m.Match(cmux.Any())
 

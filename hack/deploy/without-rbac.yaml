@@ -15,6 +15,7 @@ spec:
       - args:
         - run
         - --v=3
+        - --connector=incluster
         env:
         - name: APPSCODE_ENV
           value: prod
