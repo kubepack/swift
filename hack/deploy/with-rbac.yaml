@@ -49,10 +49,8 @@ spec:
       - args:
         - run
         - --v=3
-        env:
-        - name: APPSCODE_ENV
-          value: prod
-        image: appscode/wheel:canary
+        - --connector=incluster
+        image: appscode/wheel:0.1.0
         imagePullPolicy: Always
         name: wheel
         ports:
