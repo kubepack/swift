@@ -1,61 +1,49 @@
-[Website](https://appscode.com) • [Slack](https://slack.appscode.com) • [Twitter](https://twitter.com/AppsCodeHQ)
+[![Go Report Card](https://goreportcard.com/badge/github.com/appscode/wheel)](https://goreportcard.com/report/github.com/appscode/wheel)
 
 # wheel
 Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller service.
-
-## Build and Run
-```sh
-# Install/Update dependency (needs glide)
-glide slow
-
-# build
-./hack/make.py
-
-# run server
-wheel run --v=10
-```
 
 ## API Reference
 
 - **Tiller Version** 
 ```
-GET http://127.0.0.1:50066/tiller/v2/version/json
+GET http://127.0.0.1:9855/tiller/v2/version/json
 ```
 
 - **Summarize releases** 
 ```
-GET http://127.0.0.1:50066/tiller/v2/releases/json
+GET http://127.0.0.1:9855/tiller/v2/releases/json
 ```
 
 - **List releases** 
 ```
-GET http://127.0.0.1:50066/tiller/v2/releases/list/json
+GET http://127.0.0.1:9855/tiller/v2/releases/list/json
 ```
 
 - **Release status**
 ```
-GET http://127.0.0.1:50066/tiller/v2/releases/my-release/status/json
+GET http://127.0.0.1:9855/tiller/v2/releases/my-release/status/json
 ```
 
 - **Release content**
 ```
-GET http://127.0.0.1:50066/tiller/v2/releases/my-release/content/json
+GET http://127.0.0.1:9855/tiller/v2/releases/my-release/content/json
 ```
 
 - **Release history**
 ```
-GET http://127.0.0.1:50066/tiller/v2/releases/my-release/json
+GET http://127.0.0.1:9855/tiller/v2/releases/my-release/json
 ```
 
 - **Rollback release**
 ```
-GET http://127.0.0.1:50066/tiller/v2/releases/my-release/rollback/json
+GET http://127.0.0.1:9855/tiller/v2/releases/my-release/rollback/json
 ```
 
 - **Install release from url**
 
 ```
-POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
+POST http://127.0.0.1:9855/tiller/v2/releases/my-release/json
 
 {
 	"chart_url": "https://github.com/tamalsaha/test-chart/raw/master/test-chart-0.1.0.tgz",
@@ -68,7 +56,7 @@ POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
 - **Install release from stable kubeapps (most recent version)**
 
 ```
-POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
+POST http://127.0.0.1:9855/tiller/v2/releases/my-release/json
 
 {
 	"chart_url": "stable/fluent-bit"
@@ -78,7 +66,7 @@ POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
 - **Install release from stable kubeapps (specific version)**
 
 ```
-POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
+POST http://127.0.0.1:9855/tiller/v2/releases/my-release/json
 
 {
 	"chart_url": "stable/fluent-bit/0.1.2"
@@ -88,7 +76,7 @@ POST http://127.0.0.1:50066/tiller/v2/releases/my-release/json
 - **Update release**
 
 ```
-PUT http://127.0.0.1:50066/tiller/v2/releases/my-release/json
+PUT http://127.0.0.1:9855/tiller/v2/releases/my-release/json
 
 {
 	"chart_url": "https://github.com/tamalsaha/test-chart/raw/master/test-chart-0.1.0.tgz",
@@ -101,14 +89,20 @@ PUT http://127.0.0.1:50066/tiller/v2/releases/my-release/json
 - **Uninstall release**
 
 ```
-DELETE http://127.0.0.1:50066/tiller/v2/releases/my-release/json
+DELETE http://127.0.0.1:9855/tiller/v2/releases/my-release/json
 ```
 
 - **Uninstall & purge release**
 
 ```
-DELETE http://127.0.0.1:50066/tiller/v2/releases/my-release/json?purge=true
+DELETE http://127.0.0.1:9855/tiller/v2/releases/my-release/json?purge=true
 ```
+
+## Supported Versions
+Kubernetes 1.5+
+
+## Installation
+To install Wheel, please follow the guide [here](/docs/install.md).
 
 ## Contribution guidelines
 Want to help improve Wheel? Please start [here](/CONTRIBUTING.md).
