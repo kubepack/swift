@@ -99,7 +99,11 @@ DELETE http://127.0.0.1:9855/tiller/v2/releases/my-release/json?purge=true
 ```
 
 ## Supported Versions
-Kubernetes 1.5+
+Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://github.com/kubernetes/helm/blob/master/pkg/version/compatible.go#L27). Please pick a version of Wheel that matches your Tiller server.
+
+| Wheel Version | Helm Version |
+|---------------|--------------|
+| 0.1.0         | 2.5.x        |
 
 ## Installation
 To install Wheel, please follow the guide [here](/docs/install.md).
