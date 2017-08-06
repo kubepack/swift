@@ -26,6 +26,9 @@ To install various dev tools for Wheel, run the following command:
 $ ./hack/builddeps.sh
 ```
 
+Please note that this replaces various tools with specific versions needed to compile wheel. You can find the full list here:
+[/_proto/hack/builddeps.sh#L54](/_proto/hack/builddeps.sh#L54).
+
 #### Build Binary
 ```
 $ ./hack/make.py
