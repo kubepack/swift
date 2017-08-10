@@ -29,7 +29,7 @@ var _ = require('lodash');
         content += "    require('./{}'),\n".format(api)
     content = content[:-2]
     content += '\n);\n'
-    content += 'module.exports = apis.wapi;\n'
+    content += 'module.exports = apis.appscode.wapi;\n'
     with open(root + '/index.js', 'w') as f:
         return f.write(content)
 
