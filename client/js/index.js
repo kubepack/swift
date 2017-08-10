@@ -10,4 +10,5 @@ var _ = require('lodash');
 var apis = _.merge({},
     require('./apis/wapi/v2/tiller.gw.js')
 );
-module.exports = apis.wapi;
+
+module.exports = apis.appscode.wapi;
