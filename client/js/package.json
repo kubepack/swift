@@ -1,6 +1,6 @@
 {
   "name": "@appscode/tiller-js-client",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Helm Tiller JavaScript Client",
   "main": "index.js",
   "scripts": {
