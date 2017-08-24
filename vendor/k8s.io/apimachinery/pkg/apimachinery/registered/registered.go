@@ -61,10 +61,10 @@ type APIRegistrationManager struct {
 	envRequestedVersions []schema.GroupVersion
 }
 
-// NewAPIRegistrationManager constructs a new manager. The argument ought to be
+// NeswiftRegistrationManager constructs a new manager. The argument ought to be
 // the value of the KUBE_API_VERSIONS env var, or a value of this which you
 // wish to test.
-func NewAPIRegistrationManager(kubeAPIVersions string) (*APIRegistrationManager, error) {
+func NeswiftRegistrationManager(kubeAPIVersions string) (*APIRegistrationManager, error) {
 	m := &APIRegistrationManager{
 		registeredVersions:      map[schema.GroupVersion]struct{}{},
 		thirdPartyGroupVersions: []schema.GroupVersion{},
@@ -87,7 +87,7 @@ func NewAPIRegistrationManager(kubeAPIVersions string) (*APIRegistrationManager,
 }
 
 func NewOrDie(kubeAPIVersions string) *APIRegistrationManager {
-	m, err := NewAPIRegistrationManager(kubeAPIVersions)
+	m, err := NeswiftRegistrationManager(kubeAPIVersions)
 	if err != nil {
 		glog.Fatalf("Could not construct version manager: %v (KUBE_API_VERSIONS=%q)", err, kubeAPIVersions)
 	}

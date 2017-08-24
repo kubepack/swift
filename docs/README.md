@@ -1,7 +1,7 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/appscode/wheel)](https://goreportcard.com/report/github.com/appscode/wheel)
+[![Go Report Card](https://goreportcard.com/badge/github.com/appscode/swift)](https://goreportcard.com/report/github.com/appscode/swift)
 
-# wheel
-Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller proxy using [grpc-gateway](https://github.com/grpc-ecosystem/grpc-gateway).
+# swift
+Swift is an Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller proxy using [grpc-gateway](https://github.com/grpc-ecosystem/grpc-gateway). It was previously called Wheel.
 
 ## API Reference
 
@@ -99,21 +99,21 @@ DELETE http://127.0.0.1:9855/tiller/v2/releases/my-release/json?purge=true
 ```
 
 ## Supported Versions
-Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://github.com/kubernetes/helm/blob/master/pkg/version/compatible.go#L27). Please pick a version of Wheel that matches your Tiller server.
+Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://github.com/kubernetes/helm/blob/master/pkg/version/compatible.go#L27). Please pick a version of Swift that matches your Tiller server.
 
-| Wheel Version | Helm Version |
-|---------------|--------------|
-| 0.1.0         | 2.5.x        |
+| Helm Version | Swift Version |
+|--------------|---------------|
+| 2.5.x        | 0.1.0         |
 
 ## Installation
-To install Wheel, please follow the guide [here](/docs/install.md).
+To install Swift, please follow the guide [here](/docs/install.md).
 
 ## Contribution guidelines
-Want to help improve Wheel? Please start [here](/CONTRIBUTING.md).
+Want to help improve Swift? Please start [here](/CONTRIBUTING.md).
 
 ---
 
-**The wheel server collects anonymous usage statistics to help us learn how the software is being used and how we can improve it. To disable stats collection, run the operator with the flag** `--analytics=false`.
+**The swift server collects anonymous usage statistics to help us learn how the software is being used and how we can improve it. To disable stats collection, run the operator with the flag** `--analytics=false`.
 
 ---
 
@@ -121,4 +121,3 @@ Want to help improve Wheel? Please start [here](/CONTRIBUTING.md).
 If you have any questions, you can reach out to us.
 * [Slack](https://slack.appscode.com)
 * [Twitter](https://twitter.com/AppsCodeHQ)
-* [Website](https://appscode.com)

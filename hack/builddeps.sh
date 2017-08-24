@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # echo 'Setting up dependencies for compiling protos...'
-# "$(go env GOPATH)"/src/github.com/appscode/wheel/_proto/hack/builddeps.sh
+# "$(go env GOPATH)"/src/github.com/appscode/swift/_proto/hack/builddeps.sh
 
 echo '---'
 echo '--'
 echo '.'
-echo 'Setting up dependencies for compiling wheel...'
+echo 'Setting up dependencies for compiling swift...'
 # https://github.com/ellisonbg/antipackage
 pip install git+https://github.com/ellisonbg/antipackage.git#egg=antipackage
 

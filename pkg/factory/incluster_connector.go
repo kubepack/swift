@@ -3,7 +3,7 @@ package factory
 import (
 	"fmt"
 
-	"github.com/appscode/wheel/pkg/extpoints"
+	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clientset "k8s.io/client-go/kubernetes"

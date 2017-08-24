@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	WHEEL_ARCHIVE = "/tmp/wheel-archive/"
+	WHEEL_ARCHIVE = "/tmp/swift-archive/"
 	INDEX_URL     = "https://kubernetes-charts.storage.googleapis.com/index.yaml"
 	INDEX_PATH    = WHEEL_ARCHIVE + "index.yaml"
 	STABLE_PREFIX = "stable/"

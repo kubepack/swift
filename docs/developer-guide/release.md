@@ -5,9 +5,9 @@ The following steps must be done from a Linux x64 bit machine.
 - Do a global replacement of tags so that docs point to the next release.
 - Push changes to the `release-x` branch and apply new tag.
 - Push all the changes to remote repo.
-- Build and push wheel docker image:
+- Build and push swift docker image:
 ```console
-$ cd ~/go/src/github.com/appscode/wheel
+$ cd ~/go/src/github.com/appscode/swift
 ./hack/docker/setup.sh; env APPSCODE_ENV=prod ./hack/docker/setup.sh release
 ```
 

@@ -2,23 +2,23 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: wheel
-  name: wheel
+    app: swift
+  name: swift
   namespace: kube-system
 spec:
   template:
     metadata:
       labels:
-        app: wheel
+        app: swift
     spec:
       containers:
       - args:
         - run
         - --v=3
         - --connector=incluster
-        image: appscode/wheel:0.1.0
+        image: appscode/swift:0.1.0
         imagePullPolicy: Always
-        name: wheel
+        name: swift
         ports:
         - containerPort: 9855
           name: pt
@@ -33,10 +33,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: wheel
+  name: swift
   namespace: kube-system
   labels:
-    app: wheel
+    app: swift
 spec:
   ports:
   - name: pt
@@ -49,4 +49,4 @@ spec:
     port: 56790
     targetPort: web
   selector:
-    app: wheel
+    app: swift
