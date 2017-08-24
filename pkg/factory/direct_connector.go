@@ -1,7 +1,7 @@
 package factory
 
 import (
-	"github.com/appscode/wheel/pkg/extpoints"
+	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
 )

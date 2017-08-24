@@ -8,28 +8,28 @@ GOPATH=$(go env GOPATH)
 SRC=$GOPATH/src
 BIN=$GOPATH/bin
 ROOT=$GOPATH
-REPO_ROOT=$GOPATH/src/github.com/appscode/wheel
+REPO_ROOT=$GOPATH/src/github.com/appscode/swift
 
 source "$REPO_ROOT/hack/libbuild/common/lib.sh"
 source "$REPO_ROOT/hack/libbuild/common/public_image.sh"
 
 APPSCODE_ENV=${APPSCODE_ENV:-dev}
-IMG=wheel
+IMG=swift
 
-DIST=$GOPATH/src/github.com/appscode/wheel/dist
+DIST=$GOPATH/src/github.com/appscode/swift/dist
 mkdir -p $DIST
 if [ -f "$DIST/.tag" ]; then
 	export $(cat $DIST/.tag | xargs)
 fi
 
 clean() {
-    pushd $GOPATH/src/github.com/appscode/wheel/hack/docker
-    rm wheel Dockerfile
+    pushd $GOPATH/src/github.com/appscode/swift/hack/docker
+    rm swift Dockerfile
     popd
 }
 
 build_binary() {
-    pushd $GOPATH/src/github.com/appscode/wheel
+    pushd $GOPATH/src/github.com/appscode/swift
     ./hack/builddeps.sh
     ./hack/make.py build
     detect_tag $DIST/.tag
@@ -37,9 +37,9 @@ build_binary() {
 }
 
 build_docker() {
-    pushd $GOPATH/src/github.com/appscode/wheel/hack/docker
-    cp $DIST/wheel/wheel-alpine-amd64 wheel
-    chmod 755 wheel
+    pushd $GOPATH/src/github.com/appscode/swift/hack/docker
+    cp $DIST/swift/swift-alpine-amd64 swift
+    chmod 755 swift
 
     cat >Dockerfile <<EOL
 FROM alpine
@@ -47,15 +47,15 @@ FROM alpine
 RUN set -x \
   && apk add --update --no-cache ca-certificates
 
-COPY wheel /usr/bin/wheel
+COPY swift /usr/bin/swift
 
 USER nobody:nobody
-ENTRYPOINT ["wheel"]
+ENTRYPOINT ["swift"]
 EOL
     local cmd="docker build -t appscode/$IMG:$TAG ."
     echo $cmd; $cmd
 
-    rm wheel Dockerfile
+    rm swift Dockerfile
     popd
 }
 

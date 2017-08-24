@@ -5,7 +5,7 @@
 # - ???
 # - Profit
 
-pushd $GOPATH/src/github.com/appscode/wheel
+pushd $GOPATH/src/github.com/appscode/swift
 
 glide up -v
 glide vc --only-code --no-tests

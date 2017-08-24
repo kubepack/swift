@@ -1,21 +1,21 @@
-## wheel run
+## swift run
 
-Run wheel apis
+Run swift apis
 
 ### Synopsis
 
 
-Run wheel apis
+Run swift apis
 
 ```
-wheel run [flags]
+swift run [flags]
 ```
 
 ### Options
 
 ```
       --analytics                     Send analytical events to Google Analytics (default true)
-      --api-domain string             Domain used to server wheel api
+      --api-domain string             Domain used to server swift api
       --caCertFile string             File containing CA certificate
       --certFile string               File container server TLS certificate
       --connector string              Name of connector used to connect to Tiller server. Valid values are: incluster, direct, kubeconfig, appscode
@@ -45,6 +45,6 @@ wheel run [flags]
 ```
 
 ### SEE ALSO
-* [wheel](wheel.md)	 - Wheel by Appscode - Ajax friendly Helm Tiller Proxy
+* [swift](swift.md)	 - Swift by Appscode - Ajax friendly Helm Tiller Proxy
 
 

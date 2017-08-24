@@ -2,8 +2,8 @@ package release
 
 import (
 	stringz "github.com/appscode/go/strings"
-	proto "github.com/appscode/wheel/pkg/apis/wapi/v2"
-	"github.com/appscode/wheel/pkg/extpoints"
+	proto "github.com/appscode/swift/pkg/apis/swift/v2"
+	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/metadata"
 	apiv1 "k8s.io/client-go/pkg/api/v1"

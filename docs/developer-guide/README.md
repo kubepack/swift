@@ -1,61 +1,61 @@
 ## Development Guide
-This document is intended to be the canonical source of truth for things like supported toolchain versions for building Wheel.
+This document is intended to be the canonical source of truth for things like supported toolchain versions for building Swift.
 If you find a requirement that this doc does not capture, please submit an issue on github.
 
 This document is intended to be relative to the branch in which it is found. It is guaranteed that requirements will change over time
-for the development branch, but release branches of Wheel should not change.
+for the development branch, but release branches of Swift should not change.
 
-### Build Wheel
-Some of the Wheel development helper scripts rely on a fairly up-to-date GNU tools environment, so most recent Linux distros should
+### Build Swift
+Some of the Swift development helper scripts rely on a fairly up-to-date GNU tools environment, so most recent Linux distros should
 work just fine out-of-the-box.
 
 #### Setup GO
-Wheel is written in Google's GO programming language. Currently, Wheel is developed and tested on **go 1.8.3**. If you haven't set up a GO
+Swift is written in Google's GO programming language. Currently, Swift is developed and tested on **go 1.8.3**. If you haven't set up a GO
 development environment, please follow [these instructions](https://golang.org/doc/code.html) to install GO.
 
 #### Download Source
 
 ```console
-$ go get github.com/appscode/wheel
-$ cd $(go env GOPATH)/src/github.com/appscode/wheel
+$ go get github.com/appscode/swift
+$ cd $(go env GOPATH)/src/github.com/appscode/swift
 ```
 
 #### Install Dev tools
-To install various dev tools for Wheel, run the following command:
+To install various dev tools for Swift, run the following command:
 
 ```console
 # setting up dependencies for compiling protobufs...
 $ ./_proto/hack/builddeps.sh
 
-# setting up dependencies for compiling wheel...
+# setting up dependencies for compiling swift...
 $ ./hack/builddeps.sh
 ```
 
-Please note that this replaces various tools with specific versions needed to compile wheel. You can find the full list here:
+Please note that this replaces various tools with specific versions needed to compile swift. You can find the full list here:
 [/_proto/hack/builddeps.sh#L54](/_proto/hack/builddeps.sh#L54).
 
 #### Build Binary
 ```
 $ ./hack/make.py
-$ wheel version
+$ swift version
 ```
 
 #### Dependency management
-Wheel uses [Glide](https://github.com/Masterminds/glide) to manage dependencies. Dependencies are already checked in the `vendor` folder.
+Swift uses [Glide](https://github.com/Masterminds/glide) to manage dependencies. Dependencies are already checked in the `vendor` folder.
 If you want to update/add dependencies, run:
 ```console
 $ glide slow
 ```
 
 #### Build Docker images
-To build and push your custom Docker image, follow the steps below. To release a new version of Wheel, please follow the [release guide](/docs/developer-guide/release.md).
+To build and push your custom Docker image, follow the steps below. To release a new version of Swift, please follow the [release guide](/docs/developer-guide/release.md).
 
 ```console
 # Build Docker image
-$ ./hack/docker/wheel/setup.sh; ./hack/docker/wheel/setup.sh push
+$ ./hack/docker/swift/setup.sh; ./hack/docker/swift/setup.sh push
 
 # Add docker tag for your repository
-$ docker tag appscode/wheel:<tag> <image>:<tag>
+$ docker tag appscode/swift:<tag> <image>:<tag>
 
 # Push Image
 $ docker push <image>:<tag>

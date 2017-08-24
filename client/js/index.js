@@ -8,6 +8,6 @@ This is a RSVP based Ajax client for gRPC gateway JSON APIs.
 var _ = require('lodash');
 
 var apis = _.merge({},
-    require('./apis/wapi/v2/tiller.gw.js')
+    require('./apis/swift/v2/tiller.gw.js')
 );
-module.exports = apis.appscode.wapi;
+module.exports = apis.appscode.swift;

@@ -1,36 +1,36 @@
 # Installation Guide
 
-Wheel proxy server can connect to [Helm](https://github.com/kubernetes/helm) Tiller gRPC server in a number of different ways depending on the [`--connector`](/docs/reference/wheel_run.md) flag.
+Swift proxy server can connect to [Helm](https://github.com/kubernetes/helm) Tiller gRPC server in a number of different ways depending on the [`--connector`](/docs/reference/wheel_run.md) flag.
 
 
 ## `incluster` Connector
-Wheel can proxy Tiller server running in the same Kubernetes cluster using `incluster` connector.
+Swift can proxy Tiller server running in the same Kubernetes cluster using `incluster` connector.
 
 ### Using YAML
-Wheel can be installed using YAML files includes in the [/hack/deploy](/hack/deploy) folder.
+Swift can be installed using YAML files includes in the [/hack/deploy](/hack/deploy) folder.
 
 ```console
 # Install without RBAC roles
-$ curl https://raw.githubusercontent.com/appscode/wheel/0.1.0/hack/deploy/without-rbac.yaml \
+$ curl https://raw.githubusercontent.com/appscode/swift/0.1.0/hack/deploy/without-rbac.yaml \
   | kubectl apply -f -
 
 
 # Install with RBAC roles
-$ curl https://raw.githubusercontent.com/appscode/wheel/0.1.0/hack/deploy/with-rbac.yaml \
+$ curl https://raw.githubusercontent.com/appscode/swift/0.1.0/hack/deploy/with-rbac.yaml \
   | kubectl apply -f -
 ```
 
 ### Verify installation
-To check if Wheel operator pods have started, run the following command:
+To check if Swift operator pods have started, run the following command:
 ```console
-$ kubectl get pods --all-namespaces -l app=wheel --watch
+$ kubectl get pods --all-namespaces -l app=swift --watch
 ```
 
 Once the operator pods are running, you can cancel the above command by typing `Ctrl+C`.
 
 
 ## `kubeconfig` Connector
-Wheel can proxy Tiller server running in a remote Kubernetes cluster using `kubeconfig` connector. In this mode, Wheel open a tunnel between its own pod and Tiller server pod using Kubernetes api server. This is similar to how Helm cli connects to Tiller server today.
+Swift can proxy Tiller server running in a remote Kubernetes cluster using `kubeconfig` connector. In this mode, Swift open a tunnel between its own pod and Tiller server pod using Kubernetes api server. This is similar to how Helm cli connects to Tiller server today.
 
 For example, if you are running a [Minikube](https://github.com/kubernetes/minikube) cluster locally, you can use the steps below to connect to a Tiller server running inside minikjube cluster from your workstation.
 
@@ -39,7 +39,7 @@ $ minikube start
 
 $ helm init
 
-$ wheel run --v=3 --connector=kubeconfig --kube-context=minikube
+$ swift run --v=3 --connector=kubeconfig --kube-context=minikube
 I0806 04:38:03.261749   20867 logs.go:19] FLAG: --alsologtostderr="false"
 I0806 04:38:03.261796   20867 logs.go:19] FLAG: --analytics="true"
 I0806 04:38:03.261809   20867 logs.go:19] FLAG: --api-domain=""
@@ -87,7 +87,7 @@ I0806 04:38:03.409737   20867 server.go:120] Registering server: *release.Server
 ```
 
 ## `direct` Connector
-Wheel can proxy Tiller server by directly connecting to it using `direct` connector.
+Swift can proxy Tiller server by directly connecting to it using `direct` connector.
 ```console
-$ wheel run --v=3 --connector=direct --tiller-endpoint=http://127.0.0.1:44134
+$ swift run --v=3 --connector=direct --tiller-endpoint=http://127.0.0.1:44134
 ```

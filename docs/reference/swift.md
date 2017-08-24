@@ -1,26 +1,17 @@
-## wheel version
+## swift
 
-Prints binary version number.
+Swift by Appscode - Ajax friendly Helm Tiller Proxy
 
 ### Synopsis
 
 
-Prints binary version number.
-
-```
-wheel version [flags]
-```
+Swift by Appscode - Ajax friendly Helm Tiller Proxy
 
 ### Options
 
 ```
-  -h, --help   help for version
-```
-
-### Options inherited from parent commands
-
-```
       --alsologtostderr                  log to standard error as well as files
+  -h, --help                             help for swift
       --log_backtrace_at traceLocation   when logging hits line file:N, emit a stack trace (default :0)
       --log_dir string                   If non-empty, write log files in this directory
       --logtostderr                      log to standard error instead of files
@@ -30,6 +21,7 @@ wheel version [flags]
 ```
 
 ### SEE ALSO
-* [wheel](wheel.md)	 - Wheel by Appscode - Ajax friendly Helm Tiller Proxy
+* [swift run](swift_run.md)	 - Run swift apis
+* [swift version](swift_version.md)	 - Prints binary version number.
 
 

@@ -1,7 +1,7 @@
 package factory
 
 import (
-	"github.com/appscode/wheel/pkg/extpoints"
+	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"

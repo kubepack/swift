@@ -29,7 +29,7 @@ var _ = require('lodash');
         content += "    require('./{}'),\n".format(api)
     content = content[:-2]
     content += '\n);\n'
-    content += 'module.exports = apis.appscode.wapi;\n'
+    content += 'module.exports = apis.appscode.swift;\n'
     with open(root + '/index.js', 'w') as f:
         return f.write(content)
 
@@ -38,4 +38,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         reindex(os.path.abspath(sys.argv[1]))
     else:
-        reindex(os.path.expandvars('$GOPATH') + '/src/github.com/appscode/wheel/client/js')
+        reindex(os.path.expandvars('$GOPATH') + '/src/github.com/appscode/swift/client/js')

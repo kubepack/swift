@@ -80,4 +80,4 @@ var services = {
     }
 };
 
-module.exports = {appscode: {wapi: {v2: services}}};
+module.exports = {appscode: {swift: {v2: services}}};
