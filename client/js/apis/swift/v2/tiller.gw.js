@@ -8,11 +8,6 @@ This is a RSVP based Ajax client for gRPC gateway JSON APIs.
 
 var xhr = require('grpc-xhr');
 
-function releaseServiceListReleases(p, conf) {
-    path = '/tiller/v2/releases/list/json'
-    return xhr(path, 'GET', conf, p);
-}
-
 function releaseServiceSummarizeReleases(p, conf) {
     path = '/tiller/v2/releases/json'
     return xhr(path, 'GET', conf, p);
@@ -67,7 +62,6 @@ function releaseServiceGetHistory(p, conf) {
 
 var services = {
     releaseService: {
-        listReleases: releaseServiceListReleases,
         summarizeReleases: releaseServiceSummarizeReleases,
         getReleaseStatus: releaseServiceGetReleaseStatus,
         getReleaseContent: releaseServiceGetReleaseContent,

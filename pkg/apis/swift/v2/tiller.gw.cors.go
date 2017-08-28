@@ -15,7 +15,6 @@ import "github.com/grpc-ecosystem/grpc-gateway/runtime"
 // ReleaseService service to enable CORS.
 func ExportReleaseServiceCorsPatterns() []runtime.Pattern {
 	return []runtime.Pattern{
-		pattern_ReleaseService_ListReleases_0,
 		pattern_ReleaseService_SummarizeReleases_0,
 		pattern_ReleaseService_GetReleaseStatus_0,
 		pattern_ReleaseService_GetReleaseContent_0,
