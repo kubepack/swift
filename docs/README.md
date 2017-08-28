@@ -15,11 +15,6 @@ GET http://127.0.0.1:9855/tiller/v2/version/json
 GET http://127.0.0.1:9855/tiller/v2/releases/json
 ```
 
-- **List releases** 
-```
-GET http://127.0.0.1:9855/tiller/v2/releases/list/json
-```
-
 - **Release status**
 ```
 GET http://127.0.0.1:9855/tiller/v2/releases/my-release/status/json
