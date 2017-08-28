@@ -24,42 +24,6 @@ func newContext() context.Context {
 	return metadata.NewContext(context.TODO(), md)
 }
 
-func (s *Server) ListReleases(req *proto.ListReleasesRequest, srv proto.ReleaseService_ListReleasesServer) error {
-	rlc, err := s.ClientFactory.Connect(srv.Context())
-	if err != nil {
-		return err
-	}
-	listReq := rls.ListReleasesRequest{
-		Filter:      req.Filter,
-		Limit:       req.Limit,
-		Namespace:   stringz.Val(req.Namespace, apiv1.NamespaceDefault),
-		Offset:      req.Offset,
-		SortBy:      rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
-		SortOrder:   rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
-		StatusCodes: req.StatusCodes,
-	}
-
-	listClient, err := rlc.ListReleases(newContext(), &listReq)
-	if err != nil {
-		return err
-	}
-
-	listRes, err := listClient.Recv()
-	if err != nil {
-		return err
-	}
-
-	res := proto.ListReleasesResponse{
-		Count:    listRes.Count,
-		Next:     listRes.Next,
-		Releases: listRes.Releases,
-		Total:    listRes.Total,
-	}
-
-	srv.Send(&res)
-	return nil
-}
-
 func (s *Server) SummarizeReleases(ctx context.Context, req *proto.ListReleasesRequest) (*proto.SummarizeReleasesResponse, error) {
 	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {

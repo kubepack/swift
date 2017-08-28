@@ -41,12 +41,6 @@
       "url": "/tiller/v2/releases/json"
     }
   },
-  "/tiller/v2/releases/list/json": {
-    "get": {
-      "file": "/swift/v2/tiller.proto",
-      "url": "/tiller/v2/releases/list/json"
-    }
-  },
   "/tiller/v2/version/json": {
     "get": {
       "file": "/swift/v2/tiller.proto",

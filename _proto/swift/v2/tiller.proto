@@ -34,20 +34,6 @@ option java_package = "com.appscode.swift.v2";
 //				 optionally parameterizable templates, and
 //				 zero or more charts (dependencies).
 service ReleaseService {
-	// ListReleases retrieves release history.
-	// TODO: Allow filtering the set of releases by
-	// release status. By default, ListAllReleases returns the releases who
-	// current status is "Active".
-	rpc ListReleases(ListReleasesRequest) returns (stream ListReleasesResponse) {
-		option (google.api.http) = {
-			get: "/tiller/v2/releases/list/json"
-		};
-		option (appscode.api.cors) = {
-			enable: true
-		};
-	}
-
-	// @appscode
 	// SummarizeReleases retrieves summary of release history.
 	// TODO: Allow filtering the set of releases by
 	// release status. By default, SummarizeReleases returns the releases who
