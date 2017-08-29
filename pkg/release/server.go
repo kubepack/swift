@@ -6,6 +6,7 @@ import (
 	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/metadata"
+	"k8s.io/apimachinery/pkg/util/yaml"
 	apiv1 "k8s.io/client-go/pkg/api/v1"
 	"k8s.io/helm/pkg/proto/hapi/chart"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
@@ -107,6 +108,17 @@ func (s *Server) GetReleaseContent(ctx context.Context, req *proto.GetReleaseCon
 	contentRes, err := rlc.GetReleaseContent(newContext(), &contentReq)
 	if err != nil {
 		return nil, err
+	}
+
+	// Format release config and values to JSON string
+	// If error found, skip formatting
+	if req.FormatRaw {
+		if config, err := yaml.ToJSON([]byte(contentRes.Release.Config.Raw)); err == nil {
+			contentRes.Release.Config.Raw = string(config)
+		}
+		if config, err := yaml.ToJSON([]byte(contentRes.Release.Chart.Values.Raw)); err == nil {
+			contentRes.Release.Chart.Values.Raw = string(config)
+		}
 	}
 
 	return &proto.GetReleaseContentResponse{
