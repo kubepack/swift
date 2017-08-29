@@ -8,6 +8,7 @@ import (
 	"google.golang.org/grpc/metadata"
 	apiv1 "k8s.io/client-go/pkg/api/v1"
 	"k8s.io/helm/pkg/proto/hapi/chart"
+	hrls "k8s.io/helm/pkg/proto/hapi/release"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
 	"k8s.io/helm/pkg/version"
 )
@@ -30,13 +31,23 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.ListReleasesR
 		return nil, err
 	}
 	listReq := rls.ListReleasesRequest{
-		Filter:      req.Filter,
-		Limit:       req.Limit,
-		Namespace:   stringz.Val(req.Namespace, apiv1.NamespaceDefault),
-		Offset:      req.Offset,
-		SortBy:      rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
-		SortOrder:   rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
-		StatusCodes: req.StatusCodes,
+		Filter:    req.Filter,
+		Limit:     req.Limit,
+		Namespace: stringz.Val(req.Namespace, apiv1.NamespaceDefault),
+		Offset:    req.Offset,
+		SortBy:    rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
+		SortOrder: rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
+		// StatusCodes: req.StatusCodes,
+	}
+
+	// list all releases
+	listReq.StatusCodes = []hrls.Status_Code{
+		hrls.Status_UNKNOWN,
+		hrls.Status_DEPLOYED,
+		hrls.Status_DELETED,
+		hrls.Status_SUPERSEDED,
+		hrls.Status_FAILED,
+		hrls.Status_DELETING,
 	}
 
 	listClient, err := rlc.ListReleases(newContext(), &listReq)
