@@ -112,7 +112,7 @@ func (s *Server) GetReleaseContent(ctx context.Context, req *proto.GetReleaseCon
 
 	// Format release config and values to JSON string
 	// If error found, skip formatting
-	if req.FormatRaw {
+	if req.FormatValuesAsJson {
 		if config, err := yaml.ToJSON([]byte(contentRes.Release.Config.Raw)); err == nil {
 			contentRes.Release.Config.Raw = string(config)
 		}

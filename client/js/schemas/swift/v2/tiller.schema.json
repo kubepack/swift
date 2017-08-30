@@ -230,7 +230,7 @@
     "v2GetReleaseContentRequest": {
       "description": "GetReleaseContentRequest is a request to get the contents of a release.",
       "properties": {
-        "format_raw": {
+        "format_values_as_json": {
           "title": "Format release config and values to JSON string",
           "type": "boolean"
         },

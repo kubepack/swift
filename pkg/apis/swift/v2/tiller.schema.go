@@ -642,7 +642,7 @@ func init() {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "description": "GetReleaseContentRequest is a request to get the contents of a release.",
   "properties": {
-    "format_raw": {
+    "format_values_as_json": {
       "title": "Format release config and values to JSON string",
       "type": "boolean"
     },
