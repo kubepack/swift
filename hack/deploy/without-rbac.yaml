@@ -29,6 +29,12 @@ spec:
         - containerPort: 56790
           name: web
           protocol: TCP
+        volumeMounts:
+            - mountPath: /tmp
+              name: chart-volume
+      volumes:
+        - name: chart-volume
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
