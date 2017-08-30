@@ -469,6 +469,11 @@
     "v2GetReleaseContentRequest": {
       "description": "GetReleaseContentRequest is a request to get the contents of a release.",
       "properties": {
+        "format_values_as_json": {
+          "format": "boolean",
+          "title": "Format release config and values to JSON string",
+          "type": "boolean"
+        },
         "name": {
           "title": "The name of the release",
           "type": "string"
@@ -972,6 +977,14 @@
             "name": "version",
             "required": false,
             "type": "integer"
+          },
+          {
+            "description": "Format release config and values to JSON string.",
+            "format": "boolean",
+            "in": "query",
+            "name": "format_values_as_json",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "responses": {
