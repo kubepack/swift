@@ -9,6 +9,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/yaml"
 	apiv1 "k8s.io/client-go/pkg/api/v1"
 	"k8s.io/helm/pkg/proto/hapi/chart"
+	hrls "k8s.io/helm/pkg/proto/hapi/release"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
 	"k8s.io/helm/pkg/version"
 )
@@ -25,7 +26,7 @@ func newContext() context.Context {
 	return metadata.NewContext(context.TODO(), md)
 }
 
-func (s *Server) SummarizeReleases(ctx context.Context, req *proto.ListReleasesRequest) (*proto.SummarizeReleasesResponse, error) {
+func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeReleasesRequest) (*proto.SummarizeReleasesResponse, error) {
 	rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
@@ -37,7 +38,24 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.ListReleasesR
 		Offset:      req.Offset,
 		SortBy:      rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
 		SortOrder:   rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
-		StatusCodes: req.StatusCodes,
+		StatusCodes: []hrls.Status_Code{},
+	}
+
+	if req.All { // list all releases
+		listReq.StatusCodes = []hrls.Status_Code{
+			hrls.Status_UNKNOWN,
+			hrls.Status_DEPLOYED,
+			hrls.Status_DELETED,
+			hrls.Status_SUPERSEDED,
+			hrls.Status_FAILED,
+			hrls.Status_DELETING,
+		}
+	} else { // convert status(string) to status-code(int32)
+		for _, status := range req.StatusCodes {
+			if val, ok := hrls.Status_Code_value[status]; ok {
+				listReq.StatusCodes = append(listReq.StatusCodes, hrls.Status_Code(val))
+			}
+		}
 	}
 
 	listClient, err := rlc.ListReleases(newContext(), &listReq)

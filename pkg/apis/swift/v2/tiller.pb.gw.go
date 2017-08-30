@@ -34,7 +34,7 @@ var (
 )
 
 func request_ReleaseService_SummarizeReleases_0(ctx context.Context, marshaler runtime.Marshaler, client ReleaseServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ListReleasesRequest
+	var protoReq SummarizeReleasesRequest
 	var metadata runtime.ServerMetadata
 
 	if err := runtime.PopulateQueryParameters(&protoReq, req.URL.Query(), filter_ReleaseService_SummarizeReleases_0); err != nil {
