@@ -88,6 +88,13 @@ func init() {
     "chartMetadata": {
       "description": "Metadata for a Chart file. This models the structure of a Chart.yaml file.\n\n\tSpec: https://k8s.io/helm/blob/master/docs/design/chart_format.md#the-chart-file",
       "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Annotations are additional mappings uninterpreted by Tiller,\nmade available for inspection by other applications.",
+          "type": "object"
+        },
         "apiVersion": {
           "description": "The API Version of this chart.",
           "type": "string"
@@ -397,6 +404,13 @@ func init() {
     "chartMetadata": {
       "description": "Metadata for a Chart file. This models the structure of a Chart.yaml file.\n\n\tSpec: https://k8s.io/helm/blob/master/docs/design/chart_format.md#the-chart-file",
       "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Annotations are additional mappings uninterpreted by Tiller,\nmade available for inspection by other applications.",
+          "type": "object"
+        },
         "apiVersion": {
           "description": "The API Version of this chart.",
           "type": "string"
@@ -563,6 +577,10 @@ func init() {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "description": "GetReleaseContentRequest is a request to get the contents of a release.",
   "properties": {
+    "format_values_as_json": {
+      "title": "Format release config and values to JSON string",
+      "type": "boolean"
+    },
     "name": {
       "maxLength": 63,
       "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
