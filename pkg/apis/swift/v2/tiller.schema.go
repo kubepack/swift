@@ -88,6 +88,13 @@ func init() {
     "chartMetadata": {
       "description": "Metadata for a Chart file. This models the structure of a Chart.yaml file.\n\n\tSpec: https://k8s.io/helm/blob/master/docs/design/chart_format.md#the-chart-file",
       "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Annotations are additional mappings uninterpreted by Tiller,\nmade available for inspection by other applications.",
+          "type": "object"
+        },
         "apiVersion": {
           "description": "The API Version of this chart.",
           "type": "string"
@@ -476,6 +483,13 @@ func init() {
     "chartMetadata": {
       "description": "Metadata for a Chart file. This models the structure of a Chart.yaml file.\n\n\tSpec: https://k8s.io/helm/blob/master/docs/design/chart_format.md#the-chart-file",
       "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Annotations are additional mappings uninterpreted by Tiller,\nmade available for inspection by other applications.",
+          "type": "object"
+        },
         "apiVersion": {
           "description": "The API Version of this chart.",
           "type": "string"
