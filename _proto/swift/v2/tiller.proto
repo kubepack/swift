@@ -38,7 +38,7 @@ service ReleaseService {
 	// TODO: Allow filtering the set of releases by
 	// release status. By default, SummarizeReleases returns the releases who
 	// current status is "Active".
-	rpc SummarizeReleases(ListReleasesRequest) returns (SummarizeReleasesResponse) {
+	rpc SummarizeReleases(SummarizeReleasesRequest) returns (SummarizeReleasesResponse) {
 		option (google.api.http) = {
 			get: "/tiller/v2/releases/json"
 		};
@@ -130,12 +130,12 @@ service ReleaseService {
 	}
 }
 
-// ListReleasesRequest requests a list of releases.
+// SummarizeReleasesRequest requests a list of releases.
 //
 // Releases can be retrieved in chunks by setting limit and offset.
 //
 // Releases can be sorted according to a few pre-determined sort stategies.
-message ListReleasesRequest {
+message SummarizeReleasesRequest {
 	// Limit is the maximum number of releases to be returned.
 	int64 limit  = 1;
 
@@ -157,9 +157,14 @@ message ListReleasesRequest {
 	// SortOrder is the ordering directive used for sorting.
 	ListSort.SortOrder sort_order = 5;
 
-	repeated hapi.release.Status.Code status_codes = 6;
+	// allowed values are UNKNOWN, DEPLOYED, DELETED, SUPERSEDED, FAILED, DELETING
+	repeated string status_codes = 6;
+
 	// Namespace is the filter to select releases only from a specific namespace.
 	string namespace = 7;
+
+	// if true, list releases with all status codes
+	bool all = 8;
 }
 
 // ListSort defines sorting fields on a release list.

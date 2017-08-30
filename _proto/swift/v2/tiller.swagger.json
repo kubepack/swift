@@ -4,14 +4,6 @@
     "application/json"
   ],
   "definitions": {
-    "HookDeletePolicy": {
-      "default": "SUCCEEDED",
-      "enum": [
-        "SUCCEEDED",
-        "FAILED"
-      ],
-      "type": "string"
-    },
     "HookEvent": {
       "default": "UNKNOWN",
       "enum": [
@@ -131,13 +123,6 @@
     "chartMetadata": {
       "description": "Metadata for a Chart file. This models the structure of a Chart.yaml file.\n\n\tSpec: https://k8s.io/helm/blob/master/docs/design/chart_format.md#the-chart-file",
       "properties": {
-        "annotations": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "Annotations are additional mappings uninterpreted by Tiller,\nmade available for inspection by other applications.",
-          "type": "object"
-        },
         "apiVersion": {
           "description": "The API Version of this chart.",
           "type": "string"
@@ -274,13 +259,6 @@
     "releaseHook": {
       "description": "Hook defines a hook object.",
       "properties": {
-        "delete_policies": {
-          "items": {
-            "$ref": "#/definitions/HookDeletePolicy"
-          },
-          "title": "DeletePolicies are the policies that indicate when to delete the hook",
-          "type": "array"
-        },
         "events": {
           "description": "Events are the events that this hook fires on.",
           "items": {
@@ -596,43 +574,6 @@
       },
       "type": "object"
     },
-    "v2ListReleasesRequest": {
-      "description": "ListReleasesRequest requests a list of releases.\n\nReleases can be retrieved in chunks by setting limit and offset.\n\nReleases can be sorted according to a few pre-determined sort stategies.",
-      "properties": {
-        "filter": {
-          "description": "Filter is a regular expression used to filter which releases should be listed.\n\nAnything that matches the regexp will be included in the results.",
-          "type": "string"
-        },
-        "limit": {
-          "description": "Limit is the maximum number of releases to be returned.",
-          "format": "int64",
-          "type": "integer"
-        },
-        "namespace": {
-          "description": "Namespace is the filter to select releases only from a specific namespace.",
-          "type": "string"
-        },
-        "offset": {
-          "description": "Offset is the last release name that was seen. The next listing\noperation will start with the name after this one.\nExample: If list one returns albert, bernie, carl, and sets 'next: dennis'.\ndennis is the offset. Supplying 'dennis' for the next request should\ncause the next batch to return a set of results starting with 'dennis'.",
-          "type": "string"
-        },
-        "sort_by": {
-          "$ref": "#/definitions/ListSortSortBy",
-          "description": "SortBy is the sort field that the ListReleases server should sort data before returning."
-        },
-        "sort_order": {
-          "$ref": "#/definitions/ListSortSortOrder",
-          "description": "SortOrder is the ordering directive used for sorting."
-        },
-        "status_codes": {
-          "items": {
-            "$ref": "#/definitions/StatusCode"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
     "v2ReleaseSummary": {
       "description": "ReleaseSummary summaries a deployment of a chart, together with the chart\nmetadata and the variables used to deploy that chart.",
       "properties": {
@@ -713,6 +654,49 @@
       "properties": {
         "release": {
           "$ref": "#/definitions/releaseRelease"
+        }
+      },
+      "type": "object"
+    },
+    "v2SummarizeReleasesRequest": {
+      "description": "SummarizeReleasesRequest requests a list of releases.\n\nReleases can be retrieved in chunks by setting limit and offset.\n\nReleases can be sorted according to a few pre-determined sort stategies.",
+      "properties": {
+        "all": {
+          "format": "boolean",
+          "title": "if true, list releases with all status codes",
+          "type": "boolean"
+        },
+        "filter": {
+          "description": "Filter is a regular expression used to filter which releases should be listed.\n\nAnything that matches the regexp will be included in the results.",
+          "type": "string"
+        },
+        "limit": {
+          "description": "Limit is the maximum number of releases to be returned.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "namespace": {
+          "description": "Namespace is the filter to select releases only from a specific namespace.",
+          "type": "string"
+        },
+        "offset": {
+          "description": "Offset is the last release name that was seen. The next listing\noperation will start with the name after this one.\nExample: If list one returns albert, bernie, carl, and sets 'next: dennis'.\ndennis is the offset. Supplying 'dennis' for the next request should\ncause the next batch to return a set of results starting with 'dennis'.",
+          "type": "string"
+        },
+        "sort_by": {
+          "$ref": "#/definitions/ListSortSortBy",
+          "description": "SortBy is the sort field that the ListReleases server should sort data before returning."
+        },
+        "sort_order": {
+          "$ref": "#/definitions/ListSortSortOrder",
+          "description": "SortOrder is the ordering directive used for sorting."
+        },
+        "status_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "allowed values are UNKNOWN, DEPLOYED, DELETED, SUPERSEDED, FAILED, DELETING",
+          "type": "array"
         }
       },
       "type": "object"
@@ -913,20 +897,9 @@
             "type": "string"
           },
           {
-            "description": " - UNKNOWN: Status_UNKNOWN indicates that a release is in an uncertain state.\n - DEPLOYED: Status_DEPLOYED indicates that the release has been pushed to Kubernetes.\n - DELETED: Status_DELETED indicates that a release has been deleted from Kubermetes.\n - SUPERSEDED: Status_SUPERSEDED indicates that this release object is outdated and a newer one exists.\n - FAILED: Status_FAILED indicates that the release was not successfully deployed.\n - DELETING: Status_DELETING indicates that a delete operation is underway.\n - PENDING_INSTALL: Status_PENDING_INSTALL indicates that an install operation is underway.\n - PENDING_UPGRADE: Status_PENDING_UPGRADE indicates that an upgrade operation is underway.\n - PENDING_ROLLBACK: Status_PENDING_ROLLBACK indicates that an rollback operation is underway.",
+            "description": "allowed values are UNKNOWN, DEPLOYED, DELETED, SUPERSEDED, FAILED, DELETING.",
             "in": "query",
             "items": {
-              "enum": [
-                "UNKNOWN",
-                "DEPLOYED",
-                "DELETED",
-                "SUPERSEDED",
-                "FAILED",
-                "DELETING",
-                "PENDING_INSTALL",
-                "PENDING_UPGRADE",
-                "PENDING_ROLLBACK"
-              ],
               "type": "string"
             },
             "name": "status_codes",
@@ -939,6 +912,14 @@
             "name": "namespace",
             "required": false,
             "type": "string"
+          },
+          {
+            "description": "if true, list releases with all status codes.",
+            "format": "boolean",
+            "in": "query",
+            "name": "all",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "responses": {

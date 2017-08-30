@@ -8,12 +8,12 @@ import (
 
 var updateReleaseRequestSchema *gojsonschema.Schema
 var getReleaseStatusRequestSchema *gojsonschema.Schema
-var listReleasesRequestSchema *gojsonschema.Schema
 var getVersionRequestSchema *gojsonschema.Schema
 var rollbackReleaseRequestSchema *gojsonschema.Schema
 var installReleaseRequestSchema *gojsonschema.Schema
 var getReleaseContentRequestSchema *gojsonschema.Schema
 var uninstallReleaseRequestSchema *gojsonschema.Schema
+var summarizeReleasesRequestSchema *gojsonschema.Schema
 var getHistoryRequestSchema *gojsonschema.Schema
 
 func init() {
@@ -88,13 +88,6 @@ func init() {
     "chartMetadata": {
       "description": "Metadata for a Chart file. This models the structure of a Chart.yaml file.\n\n\tSpec: https://k8s.io/helm/blob/master/docs/design/chart_format.md#the-chart-file",
       "properties": {
-        "annotations": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "Annotations are additional mappings uninterpreted by Tiller,\nmade available for inspection by other applications.",
-          "type": "object"
-        },
         "apiVersion": {
           "description": "The API Version of this chart.",
           "type": "string"
@@ -283,85 +276,6 @@ func init() {
 	if err != nil {
 		glog.Fatal(err)
 	}
-	listReleasesRequestSchema, err = gojsonschema.NewSchema(gojsonschema.NewStringLoader(`{
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "definitions": {
-    "ListSortSortBy": {
-      "default": "UNKNOWN",
-      "description": "SortBy defines sort operations.",
-      "enum": [
-        "UNKNOWN",
-        "NAME",
-        "LAST_RELEASED"
-      ],
-      "type": "string"
-    },
-    "ListSortSortOrder": {
-      "default": "ASC",
-      "description": "SortOrder defines sort orders to augment sorting operations.",
-      "enum": [
-        "ASC",
-        "DESC"
-      ],
-      "type": "string"
-    },
-    "StatusCode": {
-      "default": "UNKNOWN",
-      "description": " - UNKNOWN: Status_UNKNOWN indicates that a release is in an uncertain state.\n - DEPLOYED: Status_DEPLOYED indicates that the release has been pushed to Kubernetes.\n - DELETED: Status_DELETED indicates that a release has been deleted from Kubermetes.\n - SUPERSEDED: Status_SUPERSEDED indicates that this release object is outdated and a newer one exists.\n - FAILED: Status_FAILED indicates that the release was not successfully deployed.\n - DELETING: Status_DELETING indicates that a delete operation is underway.\n - PENDING_INSTALL: Status_PENDING_INSTALL indicates that an install operation is underway.\n - PENDING_UPGRADE: Status_PENDING_UPGRADE indicates that an upgrade operation is underway.\n - PENDING_ROLLBACK: Status_PENDING_ROLLBACK indicates that an rollback operation is underway.",
-      "enum": [
-        "UNKNOWN",
-        "DEPLOYED",
-        "DELETED",
-        "SUPERSEDED",
-        "FAILED",
-        "DELETING",
-        "PENDING_INSTALL",
-        "PENDING_UPGRADE",
-        "PENDING_ROLLBACK"
-      ],
-      "type": "string"
-    }
-  },
-  "description": "ListReleasesRequest requests a list of releases.\n\nReleases can be retrieved in chunks by setting limit and offset.\n\nReleases can be sorted according to a few pre-determined sort stategies.",
-  "properties": {
-    "filter": {
-      "description": "Filter is a regular expression used to filter which releases should be listed.\n\nAnything that matches the regexp will be included in the results.",
-      "type": "string"
-    },
-    "limit": {
-      "description": "Limit is the maximum number of releases to be returned.",
-      "type": "integer"
-    },
-    "namespace": {
-      "description": "Namespace is the filter to select releases only from a specific namespace.",
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
-      "type": "string"
-    },
-    "offset": {
-      "description": "Offset is the last release name that was seen. The next listing\noperation will start with the name after this one.\nExample: If list one returns albert, bernie, carl, and sets 'next: dennis'.\ndennis is the offset. Supplying 'dennis' for the next request should\ncause the next batch to return a set of results starting with 'dennis'.",
-      "type": "string"
-    },
-    "sort_by": {
-      "$ref": "#/definitions/ListSortSortBy",
-      "description": "SortBy is the sort field that the ListReleases server should sort data before returning."
-    },
-    "sort_order": {
-      "$ref": "#/definitions/ListSortSortOrder",
-      "description": "SortOrder is the ordering directive used for sorting."
-    },
-    "status_codes": {
-      "items": {
-        "$ref": "#/definitions/StatusCode"
-      },
-      "type": "array"
-    }
-  },
-  "type": "object"
-}`))
-	if err != nil {
-		glog.Fatal(err)
-	}
 	getVersionRequestSchema, err = gojsonschema.NewSchema(gojsonschema.NewStringLoader(`{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "description": "GetVersionRequest requests for version information.",
@@ -483,13 +397,6 @@ func init() {
     "chartMetadata": {
       "description": "Metadata for a Chart file. This models the structure of a Chart.yaml file.\n\n\tSpec: https://k8s.io/helm/blob/master/docs/design/chart_format.md#the-chart-file",
       "properties": {
-        "annotations": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "Annotations are additional mappings uninterpreted by Tiller,\nmade available for inspection by other applications.",
-          "type": "object"
-        },
         "apiVersion": {
           "description": "The API Version of this chart.",
           "type": "string"
@@ -700,6 +607,73 @@ func init() {
 	if err != nil {
 		glog.Fatal(err)
 	}
+	summarizeReleasesRequestSchema, err = gojsonschema.NewSchema(gojsonschema.NewStringLoader(`{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {
+    "ListSortSortBy": {
+      "default": "UNKNOWN",
+      "description": "SortBy defines sort operations.",
+      "enum": [
+        "UNKNOWN",
+        "NAME",
+        "LAST_RELEASED"
+      ],
+      "type": "string"
+    },
+    "ListSortSortOrder": {
+      "default": "ASC",
+      "description": "SortOrder defines sort orders to augment sorting operations.",
+      "enum": [
+        "ASC",
+        "DESC"
+      ],
+      "type": "string"
+    }
+  },
+  "description": "SummarizeReleasesRequest requests a list of releases.\n\nReleases can be retrieved in chunks by setting limit and offset.\n\nReleases can be sorted according to a few pre-determined sort stategies.",
+  "properties": {
+    "all": {
+      "title": "if true, list releases with all status codes",
+      "type": "boolean"
+    },
+    "filter": {
+      "description": "Filter is a regular expression used to filter which releases should be listed.\n\nAnything that matches the regexp will be included in the results.",
+      "type": "string"
+    },
+    "limit": {
+      "description": "Limit is the maximum number of releases to be returned.",
+      "type": "integer"
+    },
+    "namespace": {
+      "description": "Namespace is the filter to select releases only from a specific namespace.",
+      "maxLength": 63,
+      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
+      "type": "string"
+    },
+    "offset": {
+      "description": "Offset is the last release name that was seen. The next listing\noperation will start with the name after this one.\nExample: If list one returns albert, bernie, carl, and sets 'next: dennis'.\ndennis is the offset. Supplying 'dennis' for the next request should\ncause the next batch to return a set of results starting with 'dennis'.",
+      "type": "string"
+    },
+    "sort_by": {
+      "$ref": "#/definitions/ListSortSortBy",
+      "description": "SortBy is the sort field that the ListReleases server should sort data before returning."
+    },
+    "sort_order": {
+      "$ref": "#/definitions/ListSortSortOrder",
+      "description": "SortOrder is the ordering directive used for sorting."
+    },
+    "status_codes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "type": "object"
+}`))
+	if err != nil {
+		glog.Fatal(err)
+	}
 	getHistoryRequestSchema, err = gojsonschema.NewSchema(gojsonschema.NewStringLoader(`{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "description": "GetHistoryRequest requests a release's history.",
@@ -732,11 +706,6 @@ func (m *GetReleaseStatusRequest) IsValid() (*gojsonschema.Result, error) {
 }
 func (m *GetReleaseStatusRequest) IsRequest() {}
 
-func (m *ListReleasesRequest) IsValid() (*gojsonschema.Result, error) {
-	return listReleasesRequestSchema.Validate(gojsonschema.NewGoLoader(m))
-}
-func (m *ListReleasesRequest) IsRequest() {}
-
 func (m *GetVersionRequest) IsValid() (*gojsonschema.Result, error) {
 	return getVersionRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
@@ -761,6 +730,11 @@ func (m *UninstallReleaseRequest) IsValid() (*gojsonschema.Result, error) {
 	return uninstallReleaseRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *UninstallReleaseRequest) IsRequest() {}
+
+func (m *SummarizeReleasesRequest) IsValid() (*gojsonschema.Result, error) {
+	return summarizeReleasesRequestSchema.Validate(gojsonschema.NewGoLoader(m))
+}
+func (m *SummarizeReleasesRequest) IsRequest() {}
 
 func (m *GetHistoryRequest) IsValid() (*gojsonschema.Result, error) {
 	return getHistoryRequestSchema.Validate(gojsonschema.NewGoLoader(m))
