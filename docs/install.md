@@ -1,6 +1,6 @@
 # Installation Guide
 
-Swift proxy server can connect to [Helm](https://github.com/kubernetes/helm) Tiller gRPC server in a number of different ways depending on the [`--connector`](/docs/reference/wheel_run.md) flag.
+Swift proxy server can connect to [Helm](https://github.com/kubernetes/helm) Tiller gRPC server in a number of different ways depending on the [`--connector`](/docs/reference/swift_run.md) flag.
 
 
 ## `incluster` Connector
@@ -11,12 +11,12 @@ Swift can be installed using YAML files includes in the [/hack/deploy](/hack/dep
 
 ```console
 # Install without RBAC roles
-$ curl https://raw.githubusercontent.com/appscode/swift/0.1.0/hack/deploy/without-rbac.yaml \
+$ curl https://raw.githubusercontent.com/appscode/swift/0.2.0-rc.0/hack/deploy/without-rbac.yaml \
   | kubectl apply -f -
 
 
 # Install with RBAC roles
-$ curl https://raw.githubusercontent.com/appscode/swift/0.1.0/hack/deploy/with-rbac.yaml \
+$ curl https://raw.githubusercontent.com/appscode/swift/0.2.0-rc.0/hack/deploy/with-rbac.yaml \
   | kubectl apply -f -
 ```
 
