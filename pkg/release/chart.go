@@ -4,9 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/appscode/log"
@@ -16,24 +18,32 @@ import (
 )
 
 const (
-	WHEEL_ARCHIVE = "/tmp/swift-archive/"
+	TMP_DIR       = "/tmp"
+	DIR_PREFIX    = "swift"
 	INDEX_URL     = "https://kubernetes-charts.storage.googleapis.com/index.yaml"
-	INDEX_PATH    = WHEEL_ARCHIVE + "index.yaml"
+	INDEX_FILE    = "index.yaml"
 	STABLE_PREFIX = "stable/"
 )
 
 func prepareChart(chartUrl string, values *chart.Config) (*chart.Chart, error) {
+	// create tmp dir for kupbeapp index file and chart archive file
+	chartDir, err := ioutil.TempDir(TMP_DIR, DIR_PREFIX)
+	if err != nil {
+		return nil, err
+	}
+	defer os.RemoveAll(chartDir) // clean up tmp dir
+	log.Infoln("Chart dir:", chartDir)
+
 	if strings.HasPrefix(chartUrl, STABLE_PREFIX) {
-		stableUrl, err := kubeappUrl(chartUrl)
+		stableUrl, err := kubeappUrl(chartUrl, chartDir)
 		if err != nil {
 			return nil, err
 		}
 		chartUrl = stableUrl
 	}
-
 	log.Infoln("Chart url:", chartUrl)
 
-	chart, err := chartFromUrl(chartUrl, WHEEL_ARCHIVE)
+	chart, err := chartFromUrl(chartUrl, chartDir)
 	if err != nil {
 		return nil, err
 	}
@@ -57,9 +67,9 @@ func chartFromUrl(url string, dir string) (*chart.Chart, error) {
 	}
 
 	tokens := strings.Split(url, "/")
-	fileName := dir + tokens[len(tokens)-1]
+	fileName := filepath.Join(dir, tokens[len(tokens)-1])
 
-	err := downloadFile(url, fileName, false)
+	err := downloadFile(url, fileName, true)
 	if err != nil {
 		return nil, err
 	}
@@ -109,13 +119,14 @@ func checkDependencies(ch *chart.Chart, reqs *chartutil.Requirements) error {
 	return nil
 }
 
-func kubeappUrl(name string) (string, error) {
-	err := downloadFile(INDEX_URL, INDEX_PATH, true)
+func kubeappUrl(name string, dir string) (string, error) {
+	indexPath := filepath.Join(dir, INDEX_FILE)
+	err := downloadFile(INDEX_URL, indexPath, true)
 	if err != nil {
 		return "", err
 	}
 
-	index, err := repo.LoadIndexFile(INDEX_PATH)
+	index, err := repo.LoadIndexFile(indexPath)
 	if err != nil {
 		return "", err
 	}
@@ -139,6 +150,8 @@ func kubeappUrl(name string) (string, error) {
 	return chartVersion.URLs[0], nil
 }
 
+// filePath: /tmp/swift311308022/index.yaml
+// filePath: /tmp/swift311308022/test-chart-0.1.0.tgz
 func downloadFile(url, filePath string, replace bool) error {
 	if !replace {
 		if _, err := os.Stat(filePath); err == nil {
