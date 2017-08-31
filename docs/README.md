@@ -5,14 +5,23 @@ Swift is an Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller prox
 
 ## API Reference
 
-- **Tiller Version** 
+- **Tiller Version**
 ```
 GET http://127.0.0.1:9855/tiller/v2/version/json
 ```
 
-- **Summarize releases** 
+- **Summarize releases**
 ```
+
 GET http://127.0.0.1:9855/tiller/v2/releases/json
+GET http://127.0.0.1:9855/tiller/v2/releases/json?status_codes=DEPLOYED&&status_codes=DELETED
+
+Available query parameters:
+  sort_by=NAME|LAST_RELEASED
+  all=true|false
+  sort_order=ASC|DESC
+  status_codes=UNKNOWN, DEPLOYED, DELETED, SUPERSEDED, FAILED, DELETING
+
 ```
 
 - **Release status**
@@ -22,7 +31,10 @@ GET http://127.0.0.1:9855/tiller/v2/releases/my-release/status/json
 
 - **Release content**
 ```
+
 GET http://127.0.0.1:9855/tiller/v2/releases/my-release/content/json
+GET http://127.0.0.1:9855/tiller/v2/releases/my-release/content/json?format_values_as_json=true
+
 ```
 
 - **Release history**
@@ -96,9 +108,11 @@ DELETE http://127.0.0.1:9855/tiller/v2/releases/my-release/json?purge=true
 ## Supported Versions
 Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://github.com/kubernetes/helm/blob/master/pkg/version/compatible.go#L27). Please pick a version of Swift that matches your Tiller server.
 
-| Helm Version | Swift Version |
-|--------------|---------------|
-| 2.5.x        | 0.1.0         |
+| Swift Version | Helm/Tiller Version |
+|---------------|---------------------|
+| 0.1.0         | 2.5.x, 2.6.x        |
+| 0.2.0-rc.0    | 2.5.x, 2.6.x        |
+
 
 ## Installation
 To install Swift, please follow the guide [here](/docs/install.md).
