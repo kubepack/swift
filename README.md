@@ -108,10 +108,10 @@ DELETE http://127.0.0.1:9855/tiller/v2/releases/my-release/json?purge=true
 ## Supported Versions
 Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://github.com/kubernetes/helm/blob/master/pkg/version/compatible.go#L27). Please pick a version of Swift that matches your Tiller server.
 
-| Swift Version | Helm/Tiller Version |
-|---------------|---------------------|
-| 0.1.0         | 2.5.x, 2.6.x        |
-| 0.2.0-rc.0    | 2.5.x, 2.6.x        |
+| Swift Version                                                           | Helm/Tiller Version |
+|-------------------------------------------------------------------------|---------------------|
+| [0.2.0-rc.0](https://github.com/appscode/swift/releases/tag/0.2.0-rc.0) | 2.5.x, 2.6.x        |
+| [0.1.0](https://github.com/appscode/swift/releases/tag/0.1.0)           | 2.5.x, 2.6.x        |
 
 
 ## Installation
