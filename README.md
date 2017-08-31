@@ -12,7 +12,16 @@ GET http://127.0.0.1:9855/tiller/v2/version/json
 
 - **Summarize releases** 
 ```
+
 GET http://127.0.0.1:9855/tiller/v2/releases/json
+GET http://127.0.0.1:9855/tiller/v2/releases/json?status_codes=DEPLOYED&&status_codes=DELETED
+
+Available query parameters:
+  sort_by=NAME|LAST_RELEASED
+  all=true|false
+  sort_order=ASC|DESC
+  status_codes=UNKNOWN, DEPLOYED, DELETED, SUPERSEDED, FAILED, DELETING
+    
 ```
 
 - **Release status**
@@ -22,7 +31,10 @@ GET http://127.0.0.1:9855/tiller/v2/releases/my-release/status/json
 
 - **Release content**
 ```
+
 GET http://127.0.0.1:9855/tiller/v2/releases/my-release/content/json
+GET http://127.0.0.1:9855/tiller/v2/releases/my-release/content/json?format_values_as_json=true
+
 ```
 
 - **Release history**
