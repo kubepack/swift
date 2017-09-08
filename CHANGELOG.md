@@ -1,5 +1,8 @@
+## 0.2.0 / 2017.09.08
+0.2.0-rc.0 is now marked as 0.2.0.
+
 ## 0.2.0-rc.0 / 2017.08.31
-Wheel has been renamed to Swift, because it gets you Tiller Swift. :) Swift 0.2.0-rc.0 makes some backward incompatible api changes.
+Wheel has been renamed to Swift, because it gets you Tiller Swift. :) Swift 0.2.0 makes some backward incompatible api changes.
 
 - Removes `List Releases` API. The URL path for this api could conflict with the `GetHistory` api. The replacement should be to use `SummarizeReleases` api. #24
 - Changes `status_codes` parameter type to string in `SummarizeReleases` API. Supported values are `UNKNOWN, DEPLOYED, DELETED, SUPERSEDED, FAILED, DELETING`. `all` field has been added to request object of this proto. This allows to get all releases (including deleted but not purged ones) without specifying all the status codes. #33

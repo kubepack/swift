@@ -50,7 +50,7 @@ spec:
         - run
         - --v=3
         - --connector=incluster
-        image: appscode/swift:0.2.0-rc.0
+        image: appscode/swift:0.2.0
         imagePullPolicy: Always
         name: swift
         ports:
