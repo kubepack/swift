@@ -16,7 +16,6 @@ type Options struct {
 	CORSOriginHost           string
 	CORSOriginAllowSubdomain bool
 	WebAddr                  string
-	EnableAnalytics          bool
 
 	Connector      string // incluster, direct, kubeconfig, appscode
 	TillerEndpoint string
@@ -25,10 +24,9 @@ type Options struct {
 
 func New() *Options {
 	return &Options{
-		SecureAddr:      ":50055",
-		PlaintextAddr:   ":9855",
-		WebAddr:         ":56790",
-		EnableAnalytics: true,
+		SecureAddr:    ":50055",
+		PlaintextAddr: ":9855",
+		WebAddr:       ":56790",
 	}
 }
 
@@ -47,7 +45,6 @@ func (opt *Options) AddFlags(fs *pflag.FlagSet) {
 	fs.BoolVar(&opt.CORSOriginAllowSubdomain, "cors-origin-allow-subdomain", opt.CORSOriginAllowSubdomain, "Allow CORS request from subdomains of origin")
 
 	fs.StringVar(&opt.WebAddr, "web-addr", opt.WebAddr, "Address to listen on for web interface and telemetry.")
-	fs.BoolVar(&opt.EnableAnalytics, "analytics", opt.EnableAnalytics, "Send analytical events to Google Analytics")
 
 	fs.StringVar(&opt.Connector, "connector", opt.Connector, "Name of connector used to connect to Tiller server. Valid values are: incluster, direct, kubeconfig, appscode")
 	fs.StringVar(&opt.TillerEndpoint, "tiller-endpoint", opt.TillerEndpoint, "Endpoint of Tiller server, eg, [scheme://]host:port")

@@ -4,7 +4,6 @@ import (
 	_ "net/http/pprof"
 
 	"github.com/appscode/go/hold"
-	"github.com/appscode/swift/pkg/analytics"
 	"github.com/appscode/swift/pkg/extpoints"
 	"github.com/appscode/swift/pkg/factory"
 	_ "github.com/appscode/swift/pkg/release"
@@ -16,17 +15,9 @@ import (
 func NewCmdRun(version string) *cobra.Command {
 	opt := options.New()
 	cmd := &cobra.Command{
-		Use:   "run",
-		Short: "Run swift apis",
-		PreRun: func(cmd *cobra.Command, args []string) {
-			if opt.EnableAnalytics {
-				analytics.Enable()
-			}
-			analytics.SendEvent("swift", "started", version)
-		},
-		PostRun: func(cmd *cobra.Command, args []string) {
-			analytics.SendEvent("swift", "stopped", version)
-		},
+		Use:               "run",
+		Short:             "Run swift apis",
+		DisableAutoGenTag: true,
 		Run: func(cmd *cobra.Command, args []string) {
 			extpoints.Connectors.Register(&factory.InClusterConnector{}, factory.UIDInClusterConnector)
 			extpoints.Connectors.Register(&factory.DirectConnector{TillerEndpoint: opt.TillerEndpoint}, factory.UIDDirectConnector)

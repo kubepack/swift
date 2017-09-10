@@ -11,6 +11,7 @@ Swift by Appscode - Ajax friendly Helm Tiller Proxy
 
 ```
       --alsologtostderr                  log to standard error as well as files
+      --analytics                        Send analytical events to Google Analytics (default true)
   -h, --help                             help for swift
       --log_backtrace_at traceLocation   when logging hits line file:N, emit a stack trace (default :0)
       --log_dir string                   If non-empty, write log files in this directory
@@ -23,5 +24,4 @@ Swift by Appscode - Ajax friendly Helm Tiller Proxy
 ### SEE ALSO
 * [swift run](swift_run.md)	 - Run swift apis
 * [swift version](swift_version.md)	 - Prints binary version number.
-
 

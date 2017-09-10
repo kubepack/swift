@@ -14,7 +14,6 @@ swift run [flags]
 ### Options
 
 ```
-      --analytics                     Send analytical events to Google Analytics (default true)
       --api-domain string             Domain used to server swift api
       --caCertFile string             File containing CA certificate
       --certFile string               File container server TLS certificate
@@ -36,6 +35,7 @@ swift run [flags]
 
 ```
       --alsologtostderr                  log to standard error as well as files
+      --analytics                        Send analytical events to Google Analytics (default true)
       --log_backtrace_at traceLocation   when logging hits line file:N, emit a stack trace (default :0)
       --log_dir string                   If non-empty, write log files in this directory
       --logtostderr                      log to standard error instead of files
@@ -46,5 +46,4 @@ swift run [flags]
 
 ### SEE ALSO
 * [swift](swift.md)	 - Swift by Appscode - Ajax friendly Helm Tiller Proxy
-
 
