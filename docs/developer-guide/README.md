@@ -52,7 +52,7 @@ To build and push your custom Docker image, follow the steps below. To release a
 
 ```console
 # Build Docker image
-$ ./hack/docker/swift/setup.sh; ./hack/docker/swift/setup.sh push
+$ ./hack/docker/setup.sh; ./hack/docker/setup.sh push
 
 # Add docker tag for your repository
 $ docker tag appscode/swift:<tag> <image>:<tag>
