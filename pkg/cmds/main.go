@@ -20,8 +20,8 @@ func NewRootCmd(version string) *cobra.Command {
 		enableAnalytics = true
 	)
 	rootCmd := &cobra.Command{
-		Use:   "swift [command]",
-		Short: `Swift by Appscode - Ajax friendly Helm Tiller Proxy`,
+		Use:               "swift [command]",
+		Short:             `Swift by Appscode - Ajax friendly Helm Tiller Proxy`,
 		DisableAutoGenTag: true,
 		PersistentPreRun: func(c *cobra.Command, args []string) {
 			c.Flags().VisitAll(func(flag *pflag.Flag) {

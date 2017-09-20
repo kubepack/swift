@@ -8,13 +8,7 @@ Prints binary version number.
 Prints binary version number.
 
 ```
-swift version [flags]
-```
-
-### Options
-
-```
-  -h, --help   help for version
+swift version
 ```
 
 ### Options inherited from parent commands

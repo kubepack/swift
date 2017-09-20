@@ -8,7 +8,7 @@ Run swift apis
 Run swift apis
 
 ```
-swift run [flags]
+swift run
 ```
 
 ### Options
@@ -22,7 +22,6 @@ swift run [flags]
       --cors-origin-host string       Allowed CORS origin host e.g, domain[:port]
       --enable-cors                   Enable CORS support
       --enable-java-client            Set true to send SETTINGS frame from the server. Default set to false
-  -h, --help                          help for run
       --keyFile string                File containing server TLS private key
       --kube-context string           Kube context used by 'kubeconfig' connection
       --plaintext-addr string         host:port used to server plaintext apis (default ":9855")
