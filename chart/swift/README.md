@@ -38,14 +38,14 @@ The command removes all the Kubernetes components associated with the chart and 
 The following tables lists the configurable parameters of the swift chart and their default values.
 
 
-| Parameter                 | Description                                                         | Default            |
-| --------------------------| --------------------------------------------------------------------| ------------------ |
-| `replicaCount`            | Number of swift operator replicas to create (only 1 is supported) | `1`                |
-| `operator.image`          | operator container image                                            | `appscode/swift` |
-| `operator.tag`            | operator container image tag                                        | `0.4.1`            |
-| `operator.pullPolicy`     | operator container image pull policy                                | `IfNotPresent`     |
-| `rbac.create`             | install required rbac service account, roles and rolebindings       | `false`            |
-| `rbac.serviceAccountName` | ServiceAccount swift will use (ignored if rbac.create=true)       | `default`          |
+| Parameter                 | Description                                                       | Default          |
+| --------------------------| ------------------------------------------------------------------| -----------------|
+| `replicaCount`            | Number of swift operator replicas to create (only 1 is supported) | `1`              |
+| `operator.image`          | operator container image                                          | `appscode/swift` |
+| `operator.tag`            | operator container image tag                                      | `0.3.1`          |
+| `operator.pullPolicy`     | operator container image pull policy                              | `IfNotPresent`   |
+| `rbac.create`             | install required rbac service account, roles and rolebindings     | `false`          |
+| `rbac.serviceAccountName` | ServiceAccount swift will use (ignored if rbac.create=true)       | `default`        |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
