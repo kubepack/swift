@@ -1,10 +1,17 @@
+## 0.3.1 / 2017.09.21
+Swift 0.3.1 fixes RBAC issues with installer yamls. There is no user visible change in api.
+
+- Set service account name in RBAC mode. [\#48](https://github.com/appscode/swift/pull/48)
+- Update installer RBAC to support listing services [\#47](https://github.com/appscode/swift/pull/47)
+
+
 ## 0.3.0 / 2017.09.20
 Swift 0.3.0 updates dependencies `k8s.io/client-go` to 4.0.0 and `k8s.io/helm` to 2.6.1. There is no user visible change in api.
 
-- Check for returned pods or services before connecting. [\#45](https://github.com/appscode/swift/pull/45) ([tamalsaha](https://github.com/tamalsaha))
-- Use client-go 4.0.0 [\#43](https://github.com/appscode/swift/pull/43) ([tamalsaha](https://github.com/tamalsaha))
-- Fix command in Developer-guide [\#42](https://github.com/appscode/swift/pull/42) ([the-redback](https://github.com/the-redback))
-- Move analytics to common GA project [\#41](https://github.com/appscode/swift/pull/41) ([tamalsaha](https://github.com/tamalsaha))
+- Check for returned pods or services before connecting. [\#45](https://github.com/appscode/swift/pull/45)
+- Use client-go 4.0.0 [\#43](https://github.com/appscode/swift/pull/43)
+- Fix command in Developer-guide [\#42](https://github.com/appscode/swift/pull/42)
+- Move analytics to common GA project [\#41](https://github.com/appscode/swift/pull/41)
 
 
 ## 0.2.0 / 2017.09.08
