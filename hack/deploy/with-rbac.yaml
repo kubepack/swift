@@ -45,6 +45,7 @@ spec:
       labels:
         app: swift
     spec:
+      serviceAccountName: swift
       containers:
       - args:
         - run
