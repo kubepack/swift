@@ -9,14 +9,15 @@ metadata:
     heritage: "{{ .Release.Service }}"
 spec:
   ports:
-  - name: pushgateway
-    port: 56789
-    protocol: TCP
-    targetPort: pushgateway
-  - name: http
+  - name: pt
+    port: 9855
+    targetPort: pt
+  - name: tls
+    port: 50055
+    targetPort: web
+  - name: web
     port: 56790
-    protocol: TCP
-    targetPort: http
+    targetPort: web
   selector:
     app: "{{ template "name" . }}"
     release: "{{ .Release.Name }}"

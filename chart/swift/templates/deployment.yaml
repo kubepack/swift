@@ -22,11 +22,23 @@ spec:
       - args:
         - run
         - --v=3
+        - --connector=incluster
         image: {{ .Values.operator.image }}:{{ .Values.operator.tag }}
         imagePullPolicy: {{ .Values.operator.pullPolicy }}
-        name: operator
+        name: swift
         ports:
-        - containerPort: 56790
-          name: http
+        - containerPort: 9855
+          name: pt
           protocol: TCP
-        terminationMessagePolicy: File
+        - containerPort: 50055
+          name: tls
+          protocol: TCP
+        - containerPort: 56790
+          name: web
+          protocol: TCP
+        volumeMounts:
+            - mountPath: /tmp
+              name: chart-volume
+      volumes:
+        - name: chart-volume
+          emptyDir: {}
