@@ -1,7 +1,9 @@
 package factory
 
 import (
+	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
@@ -51,6 +53,16 @@ func (c *InClusterConnector) getTillerAddr(client clientset.Interface) (string, 
 	})
 	if err != nil {
 		return "", err
+	}
+	if len(svcList.Items) == 0 {
+		return "", errors.New("no tiller service found")
+	}
+	if len(svcList.Items) > 1 {
+		ids := make([]string, len(svcList.Items))
+		for i, svc := range svcList.Items {
+			ids[i] = svc.Namespace + "/" + svc.Name
+		}
+		return "", fmt.Errorf("multiple tiller services found: %s", strings.Join(ids, ", "))
 	}
 	return fmt.Sprintf("%s.%s:%d", svcList.Items[0].Name, svcList.Items[0].Namespace, defaultTillerPort), nil
 }
