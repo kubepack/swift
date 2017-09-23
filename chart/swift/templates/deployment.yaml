@@ -21,8 +21,8 @@ spec:
         - run
         - --v=3
         - --connector=incluster
-        image: {{ .Values.operator.image }}:{{ .Values.operator.tag }}
-        imagePullPolicy: {{ .Values.operator.pullPolicy }}
+        image: {{ .Values.swift.image }}:{{ .Values.swift.tag }}
+        imagePullPolicy: {{ .Values.swift.pullPolicy }}
         name: swift
         ports:
         - containerPort: 9855
