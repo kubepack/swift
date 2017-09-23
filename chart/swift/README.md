@@ -12,7 +12,7 @@ This chart bootstraps a [Helm Tiller Proxy](https://github.com/appscode/swift) d
 
 ## Prerequisites
 
-- Kubernetes 1.5+
+- Kubernetes 1.6+
 
 ## Installing the Chart
 To install the chart with the release name `my-release`:
