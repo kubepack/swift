@@ -1,5 +1,5 @@
 hash: a1a374536f6d3064f2e92a578094f0d6f69f67c878f737c025f01f3dcd52a145
-updated: 2017-10-16T10:03:43.191432333-07:00
+updated: 2017-10-16T11:09:17.863168121-07:00
 imports:
 - name: github.com/appscode/api
   version: 65e3cf97d02501c39b5c5a4378cb6b17189183b9
@@ -46,7 +46,7 @@ imports:
 - name: github.com/facebookgo/stack
   version: 751773369052141c013c6e827a71e8f35c07879c
 - name: github.com/ghodss/yaml
-  version: 73d445a93680fa1a78ae23a5839bad48f32ba1ee
+  version: 0ca9ea5df5451ffdf184b4428c902747c2c11cd7
 - name: github.com/go-openapi/jsonpointer
   version: 46af16f9f7b149af66e5d1bd010e3574dc06de98
 - name: github.com/go-openapi/jsonreference
@@ -176,7 +176,7 @@ imports:
   subpackages:
   - doc
 - name: github.com/spf13/pflag
-  version: 9ff6c6923cfffbcd502984b8e0c80539a94968b7
+  version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/xeipuuv/gojsonpointer
   version: 6fe8760cad3569743d51ddbb243b26f8456742dc
 - name: github.com/xeipuuv/gojsonreference
@@ -317,7 +317,6 @@ imports:
   - pkg/util/intstr
   - pkg/util/json
   - pkg/util/net
-  - pkg/util/remotecommand
   - pkg/util/runtime
   - pkg/util/sets
   - pkg/util/validation
@@ -369,11 +368,9 @@ imports:
   - tools/metrics
   - tools/portforward
   - tools/reference
-  - tools/remotecommand
   - transport
   - transport/spdy
   - util/cert
-  - util/exec
   - util/flowcontrol
   - util/homedir
   - util/integer

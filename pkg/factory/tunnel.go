@@ -5,11 +5,12 @@ import (
 	"io"
 	"io/ioutil"
 	"net"
+	"net/http"
 	"strconv"
 
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/portforward"
-	"k8s.io/client-go/tools/remotecommand"
+	"k8s.io/client-go/transport/spdy"
 )
 
 type tunnel struct {
@@ -44,10 +45,11 @@ func (t *tunnel) forwardPort() error {
 		Name(t.PodName).
 		SubResource("portforward").URL()
 
-	dialer, err := remotecommand.NewExecutor(t.config, "GET", u)
+	transport, upgrader, err := spdy.RoundTripperFor(t.config)
 	if err != nil {
 		return err
 	}
+	dialer := spdy.NewDialer(upgrader, &http.Client{Transport: transport}, "POST", u)
 
 	local, err := getAvailablePort()
 	if err != nil {
