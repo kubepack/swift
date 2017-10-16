@@ -1,3 +1,7 @@
+## 0.4.0-rc.0 / 2017.10.16
+Swift 0.4.0-rc.0 updates Helm dependency to 2.7.0-rc.1. There is no user visible change in api.
+
+
 ## 0.3.1 / 2017.09.21
 Swift 0.3.1 fixes RBAC issues with installer yamls. There is no user visible change in api.
 

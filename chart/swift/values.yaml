@@ -5,7 +5,7 @@ replicaCount: 1
 swift:
   image: appscode/swift
   pullPolicy: IfNotPresent
-  tag: 0.3.1
+  tag: 0.4.0-rc.0
 ## Install Default RBAC roles and bindings
 rbac:
   ## If true, create & use RBAC resources
