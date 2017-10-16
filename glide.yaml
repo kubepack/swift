@@ -21,13 +21,17 @@ import:
 - package: google.golang.org/grpc
   version: v1.3.0
 - package: google.golang.org/genproto
+- package: k8s.io/api
+  version: fe29995db37613b9c5b2a647544cf627bfa8d299
+- package: k8s.io/apiextensions-apiserver
+  version: a5bbfd114a9b122acd741c61d88c84812375d9e1
 - package: k8s.io/apimachinery
-  version: 1fd2e63a9a370677308a42f24fd40c86438afddf
+  version: 9d38e20d609d27e00d4ec18f7b9db67105a2bde0
 - package: k8s.io/client-go
-  version: v4.0.0
+  version: release-5.0
 - package: k8s.io/helm
   repo: https://github.com/appscode/helm.git
-  version: 2.6.1-ac
+  version: 2.7.0-ac
 - package: github.com/grpc-ecosystem/go-grpc-prometheus
   version: master
 - package: github.com/jpillora/go-ogle-analytics
