@@ -13,9 +13,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/appscode/go/log"
 	"github.com/appscode/go/runtime"
 	stringz "github.com/appscode/go/strings"
-	"github.com/appscode/log"
 	proto "github.com/appscode/swift/pkg/apis/swift/v2"
 	"github.com/appscode/swift/pkg/extpoints"
 	"github.com/appscode/swift/pkg/release"
