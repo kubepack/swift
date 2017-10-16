@@ -4,6 +4,14 @@
     "application/json"
   ],
   "definitions": {
+    "HookDeletePolicy": {
+      "default": "SUCCEEDED",
+      "enum": [
+        "SUCCEEDED",
+        "FAILED"
+      ],
+      "type": "string"
+    },
     "HookEvent": {
       "default": "UNKNOWN",
       "enum": [
@@ -123,6 +131,13 @@
     "chartMetadata": {
       "description": "Metadata for a Chart file. This models the structure of a Chart.yaml file.\n\n\tSpec: https://k8s.io/helm/blob/master/docs/design/chart_format.md#the-chart-file",
       "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Annotations are additional mappings uninterpreted by Tiller,\nmade available for inspection by other applications.",
+          "type": "object"
+        },
         "apiVersion": {
           "description": "The API Version of this chart.",
           "type": "string"
@@ -259,6 +274,13 @@
     "releaseHook": {
       "description": "Hook defines a hook object.",
       "properties": {
+        "delete_policies": {
+          "items": {
+            "$ref": "#/definitions/HookDeletePolicy"
+          },
+          "title": "DeletePolicies are the policies that indicate when to delete the hook",
+          "type": "array"
+        },
         "events": {
           "description": "Events are the events that this hook fires on.",
           "items": {

@@ -1,25 +1,24 @@
-hash: b1d6f22117eed59ac1cb6abeaec1a638db643136af16127108aaa2dbc9ea7db1
-updated: 2017-09-19T16:59:56.813017942-07:00
+hash: 639cd034876b480f8a0873a11de7685cbec45c1969d9a149e18da19c6f636840
+updated: 2017-10-16T09:57:59.613229572-07:00
 imports:
 - name: github.com/appscode/api
-  version: c05c4085e8ac84b7ee73a1b86d83f375abefbc09
+  version: 65e3cf97d02501c39b5c5a4378cb6b17189183b9
   subpackages:
   - dtypes
 - name: github.com/appscode/errors
   version: 748883e321a9f99fe901bd2663c7af3fcae43ea4
 - name: github.com/appscode/go
-  version: d1fbd14e5c6e78557c12f6d2c9c282b3c0d0c612
+  version: f719fe83ed5dd094e07c4456dc68e1227131d581
   subpackages:
   - container/serializer
+  - context
   - env
   - hold
+  - log
+  - log/golog
   - runtime
   - strings
   - version
-- name: github.com/appscode/log
-  version: 68e0e42e42c01371f3950571fc87c2298a51dd8f
-  subpackages:
-  - golog
 - name: github.com/beorn7/perks
   version: 3ac7bf7a47d159a033b107610db8a1b6575507a4
   subpackages:
@@ -97,6 +96,8 @@ imports:
   - ptypes/timestamp
 - name: github.com/google/gofuzz
   version: 44d81051d367757e1c7c6a5a86423ece9afcf63c
+- name: github.com/google/uuid
+  version: 7e072fc3a7be179aee6d3359e46015aa8c995314
 - name: github.com/grpc-ecosystem/go-grpc-prometheus
   version: 0dafe0d496ea71181bf2dd039e7e3f44b6bd11a7
 - name: github.com/grpc-ecosystem/grpc-gateway
@@ -176,11 +177,11 @@ imports:
   subpackages:
   - codec
 - name: github.com/xeipuuv/gojsonpointer
-  version: e0fe6f68307607d540ed8eac07a342c33fa1b54a
+  version: 6fe8760cad3569743d51ddbb243b26f8456742dc
 - name: github.com/xeipuuv/gojsonreference
   version: e02fc20de94c78484cd5ffb007f8af96be030a45
 - name: github.com/xeipuuv/gojsonschema
-  version: 93e72a773fade158921402d6a24c819b48aba29d
+  version: 3f523f4c14b6e925da10475eb0447c2f28614aac
 - name: golang.org/x/crypto
   version: d172538b2cfce0c13cee31e647d0367aa8cd2486
   subpackages:
@@ -222,7 +223,7 @@ imports:
   - unicode/norm
   - width
 - name: google.golang.org/genproto
-  version: 1e559d0a00eef8a9a43151db4665280bd8dd5886
+  version: f676e0f3ac6395ff1a529ae59a6670878a8371a6
   subpackages:
   - googleapis/api/annotations
   - googleapis/rpc/status
