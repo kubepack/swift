@@ -6,7 +6,7 @@ import (
 	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/metadata"
-	apiv1 "k8s.io/api/core/v1"
+	core "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/helm/pkg/proto/hapi/chart"
 	hrls "k8s.io/helm/pkg/proto/hapi/release"
@@ -34,7 +34,7 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeRele
 	listReq := rls.ListReleasesRequest{
 		Filter:      req.Filter,
 		Limit:       req.Limit,
-		Namespace:   stringz.Val(req.Namespace, apiv1.NamespaceDefault),
+		Namespace:   stringz.Val(req.Namespace, core.NamespaceDefault),
 		Offset:      req.Offset,
 		SortBy:      rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
 		SortOrder:   rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
@@ -212,7 +212,7 @@ func (s *Server) InstallRelease(ctx context.Context, req *proto.InstallReleaseRe
 		DryRun:       req.DryRun,
 		Values:       req.Values,
 		Wait:         req.Wait,
-		Namespace:    stringz.Val(req.Namespace, apiv1.NamespaceDefault),
+		Namespace:    stringz.Val(req.Namespace, core.NamespaceDefault),
 		ReuseName:    req.ReuseName,
 	}
 

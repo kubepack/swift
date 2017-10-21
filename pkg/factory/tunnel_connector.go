@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	apiv1 "k8s.io/api/core/v1"
+	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
@@ -14,7 +14,7 @@ type TunnelConnector struct {
 }
 
 func (s *TunnelConnector) GetTillerAddr(client clientset.Interface, config *rest.Config) (string, error) {
-	podList, err := client.CoreV1().Pods(apiv1.NamespaceAll).List(metav1.ListOptions{
+	podList, err := client.CoreV1().Pods(core.NamespaceAll).List(metav1.ListOptions{
 		LabelSelector: tillerLabelSelector,
 	})
 	if err != nil {
