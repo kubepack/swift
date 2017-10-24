@@ -1,3 +1,7 @@
+## 0.4.0 / 2017.10.24
+0.4.0-rc.0 is now marked as 0.4.0.
+
+
 ## 0.4.0-rc.0 / 2017.10.16
 Swift 0.4.0-rc.0 updates Helm dependency to 2.7.0-rc.1. There is no user visible change in api.
 
