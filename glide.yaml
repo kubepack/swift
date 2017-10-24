@@ -24,11 +24,13 @@ import:
 - package: k8s.io/api
   version: fe29995db37613b9c5b2a647544cf627bfa8d299
 - package: k8s.io/apiextensions-apiserver
-  version: a5bbfd114a9b122acd741c61d88c84812375d9e1
+  version: release-1.8
 - package: k8s.io/apimachinery
-  version: 9d38e20d609d27e00d4ec18f7b9db67105a2bde0
+  version: 019ae5ada31de202164b118aee88ee2d14075c31
 - package: k8s.io/client-go
-  version: release-5.0
+  version: v5.0.0
+- package: k8s.io/kubernetes
+  version: v1.8.0
 - package: k8s.io/helm
   repo: https://github.com/appscode/helm.git
   version: 2.7.0-ac
