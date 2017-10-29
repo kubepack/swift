@@ -29,6 +29,10 @@ $ kubectl patch deployment kube-dns -n kube-system -p '{"spec":{"template":{"spe
 
 # Wait for kube-dns pods to start running
 $ kubectl get pods -n kube-system --watch
+
+$ kubectl version --short
+Client Version: v1.7.6
+Server Version: v1.7.5
 ```
 
 ## Deploy Tiller
@@ -37,8 +41,12 @@ Now, install Tiller server in your cluster following the commands below.
 
 ```console
 $ kubectl create serviceaccount tiller --namespace kube-system
-$  kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+$ kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
 $ helm init --service-account tiller
+
+$ helm version --short
+Client: v2.7.0+g08c1144
+Server: v2.7.0+g08c1144
 ```
 
 Consult [Tiller and Service Accounts](https://github.com/kubernetes/helm/blob/master/docs/service_accounts.md) for other configurations.
