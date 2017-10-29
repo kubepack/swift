@@ -20,7 +20,7 @@ $ curl https://raw.githubusercontent.com/appscode/swift/0.4.0/hack/deploy/with-r
   | kubectl apply -f -
 ```
 
-For detailed instructions on how to deploy Swift in a RBAC enabled cluster, please visit [here](/docs/rbac.md).
+For detailed instructions on how to deploy __Swift in a RBAC enabled cluster__, please visit [here](/docs/rbac.md).
 
 ### Verify installation
 To check if Swift proxy pods have started, run the following command:
