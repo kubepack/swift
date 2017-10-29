@@ -90,6 +90,8 @@ $ minikube ip
 
 Now, open your browser and go to the following URL: _http://{minikube-ip}:{9855-nodeport}/tiller/v2/releases/json_.
 
+![release-list]()(/docs/images/release-list.png)
+
 
 ## Cleaning up
 
