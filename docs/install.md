@@ -21,12 +21,12 @@ $ curl https://raw.githubusercontent.com/appscode/swift/0.4.0/hack/deploy/with-r
 ```
 
 ### Verify installation
-To check if Swift operator pods have started, run the following command:
+To check if Swift proxy pods have started, run the following command:
 ```console
 $ kubectl get pods --all-namespaces -l app=swift --watch
 ```
 
-Once the operator pods are running, you can cancel the above command by typing `Ctrl+C`.
+Once the proxy pods are running, you can cancel the above command by typing `Ctrl+C`.
 
 
 ## `kubeconfig` Connector
