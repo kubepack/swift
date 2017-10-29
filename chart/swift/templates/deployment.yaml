@@ -32,7 +32,7 @@ spec:
           name: tls
           protocol: TCP
         - containerPort: 56790
-          name: web
+          name: ops
           protocol: TCP
         volumeMounts:
             - mountPath: /tmp

@@ -62,7 +62,7 @@ spec:
           name: tls
           protocol: TCP
         - containerPort: 56790
-          name: web
+          name: ops
           protocol: TCP
         volumeMounts:
             - mountPath: /tmp
@@ -85,9 +85,9 @@ spec:
     targetPort: pt
   - name: tls
     port: 50055
-    targetPort: web
-  - name: web
+    targetPort: tls
+  - name: ops
     port: 56790
-    targetPort: web
+    targetPort: ops
   selector:
     app: swift
