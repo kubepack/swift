@@ -13,7 +13,13 @@ GET http://127.0.0.1:9855/tiller/v2/version/json
 - **Summarize releases**
 ```
 
+# List releases from all namespaces
 GET http://127.0.0.1:9855/tiller/v2/releases/json
+
+# List releases from one namespace
+GET http://127.0.0.1:9855/tiller/v2/releases/json?namespace=default
+
+# List releases from all namespaces with list of statuses
 GET http://127.0.0.1:9855/tiller/v2/releases/json?status_codes=DEPLOYED&&status_codes=DELETED
 
 Available query parameters:

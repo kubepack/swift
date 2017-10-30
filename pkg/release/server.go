@@ -34,7 +34,7 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeRele
 	listReq := rls.ListReleasesRequest{
 		Filter:      req.Filter,
 		Limit:       req.Limit,
-		Namespace:   stringz.Val(req.Namespace, core.NamespaceDefault),
+		Namespace:   req.Namespace,
 		Offset:      req.Offset,
 		SortBy:      rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
 		SortOrder:   rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
