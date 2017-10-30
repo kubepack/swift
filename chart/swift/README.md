@@ -42,7 +42,7 @@ The following tables lists the configurable parameters of the swift chart and th
 | --------------------------| --------------------------------------------------------------| -----------------|
 | `replicaCount`            | Number of swift replicas to create (only 1 is supported)      | `1`              |
 | `swift.image`             | swift container image                                         | `appscode/swift` |
-| `swift.tag`               | swift container image tag                                     | `0.4.0`          |
+| `swift.tag`               | swift container image tag                                     | `0.5.0`          |
 | `swift.pullPolicy`        | swift container image pull policy                             | `IfNotPresent`   |
 | `rbac.create`             | install required rbac service account, roles and rolebindings | `false`          |
 | `rbac.serviceAccountName` | ServiceAccount swift will use (ignored if rbac.create=true)   | `default`        |

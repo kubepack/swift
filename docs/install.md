@@ -11,12 +11,12 @@ Swift can be installed using YAML files includes in the [/hack/deploy](/hack/dep
 
 ```console
 # Install without RBAC roles
-$ curl https://raw.githubusercontent.com/appscode/swift/0.4.0/hack/deploy/without-rbac.yaml \
+$ curl https://raw.githubusercontent.com/appscode/swift/0.5.0/hack/deploy/without-rbac.yaml \
   | kubectl apply -f -
 
 
 # Install with RBAC roles
-$ curl https://raw.githubusercontent.com/appscode/swift/0.4.0/hack/deploy/with-rbac.yaml \
+$ curl https://raw.githubusercontent.com/appscode/swift/0.5.0/hack/deploy/with-rbac.yaml \
   | kubectl apply -f -
 ```
 

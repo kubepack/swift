@@ -118,7 +118,7 @@ Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://
 
 | Swift Version                                                           | Docs                                                                 | Helm/Tiller Version |
 |-------------------------------------------------------------------------|----------------------------------------------------------------------|---------------------|
-| [0.4.0](https://github.com/appscode/swift/releases/tag/0.4.0)           | [User Guide](https://github.com/appscode/swift/tree/0.4.0/docs)      | 2.7.0               |
+| [0.5.0](https://github.com/appscode/swift/releases/tag/0.5.0)           | [User Guide](https://github.com/appscode/swift/tree/0.5.0/docs)      | 2.7.0               |
 | [0.3.1](https://github.com/appscode/swift/releases/tag/0.3.1)           | [User Guide](https://github.com/appscode/swift/tree/0.3.1/docs)      | 2.5.x, 2.6.x        |
 | [0.2.0](https://github.com/appscode/swift/releases/tag/0.2.0)           | [User Guide](https://github.com/appscode/swift/tree/0.2.0/docs)      | 2.5.x, 2.6.x        |
 | [0.1.0](https://github.com/appscode/swift/releases/tag/0.1.0)           | [User Guide](https://github.com/appscode/swift/tree/0.1.0/docs)      | 2.5.x, 2.6.x        |
