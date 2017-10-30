@@ -5,11 +5,6 @@ Swift is an Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller prox
 
 ## API Reference
 
-- **Tiller Version**
-```
-GET http://127.0.0.1:9855/tiller/v2/version/json
-```
-
 - **Summarize releases**
 ```
 # List releases with status `DEPLOYED` from all namespaces
@@ -24,12 +19,15 @@ GET http://127.0.0.1:9855/tiller/v2/releases/json?status_codes=DEPLOYED&&status_
 # List releases from `default` namespace for a list of statuses
 GET http://127.0.0.1:9855/tiller/v2/releases/json?namespace=default&status_codes=DEPLOYED&&status_codes=DELETED
 
+# List releases with any status from all namespaces
+GET http://127.0.0.1:9855/tiller/v2/releases/json?all=true
+
 Available query parameters:
+  namespace=<name of namespace>|EMPTY(for all namespaces)
   sort_by=NAME|LAST_RELEASED
   all=true|false
   sort_order=ASC|DESC
   status_codes=UNKNOWN, DEPLOYED, DELETED, SUPERSEDED, FAILED, DELETING
-
 ```
 
 - **Release status**
