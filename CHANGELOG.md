@@ -1,3 +1,11 @@
+## 0.5.0 / 2017.10.29
+Swift 0.5.0 makes backward incompatible change to `SummarizeReleases` api.
+
+- `SummarizeReleases` api will not set namespace to `default` by default any more. If no namespace is set, it will return releases from all namespaces. To get releases from a given namespace pass query parameter `all=<namespace>`. [\#61](https://github.com/appscode/swift/pull/61)
+- Add [tutorial](/docs/rbac.md) for RBAC enabled cluster [\#59](https://github.com/appscode/swift/pull/59)
+- Fix service port in installer yamls [\#58](https://github.com/appscode/swift/pull/58)
+
+
 ## 0.4.0 / 2017.10.24
 0.4.0-rc.0 is now marked as 0.4.0.
 
