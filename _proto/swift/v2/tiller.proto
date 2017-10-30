@@ -162,9 +162,6 @@ message SummarizeReleasesRequest {
 
 	// Namespace is the filter to select releases only from a specific namespace.
 	string namespace = 7;
-
-	// if true, list releases with all status codes
-	bool all = 8;
 }
 
 // ListSort defines sorting fields on a release list.
