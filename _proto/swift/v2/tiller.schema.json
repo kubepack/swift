@@ -350,10 +350,6 @@
     "v2SummarizeReleasesRequest": {
       "description": "SummarizeReleasesRequest requests a list of releases.\n\nReleases can be retrieved in chunks by setting limit and offset.\n\nReleases can be sorted according to a few pre-determined sort stategies.",
       "properties": {
-        "all": {
-          "title": "if true, list releases with all status codes",
-          "type": "boolean"
-        },
         "filter": {
           "description": "Filter is a regular expression used to filter which releases should be listed.\n\nAnything that matches the regexp will be included in the results.",
           "type": "string"

@@ -34,14 +34,14 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeRele
 	listReq := rls.ListReleasesRequest{
 		Filter:      req.Filter,
 		Limit:       req.Limit,
-		Namespace:   stringz.Val(req.Namespace, core.NamespaceDefault),
+		Namespace:   req.Namespace,
 		Offset:      req.Offset,
 		SortBy:      rls.ListSort_SortBy(rls.ListSort_SortBy_value[req.SortBy.String()]),
 		SortOrder:   rls.ListSort_SortOrder(rls.ListSort_SortOrder_value[req.SortOrder.String()]),
 		StatusCodes: []hrls.Status_Code{},
 	}
 
-	if req.All { // list all releases
+	if len(req.StatusCodes) == 0 { // list all releases
 		listReq.StatusCodes = []hrls.Status_Code{
 			hrls.Status_UNKNOWN,
 			hrls.Status_DEPLOYED,
