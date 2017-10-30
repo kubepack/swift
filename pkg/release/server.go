@@ -41,7 +41,7 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeRele
 		StatusCodes: []hrls.Status_Code{},
 	}
 
-	if len(req.StatusCodes) == 0 { // list all releases
+	if req.All { // list all releases
 		listReq.StatusCodes = []hrls.Status_Code{
 			hrls.Status_UNKNOWN,
 			hrls.Status_DEPLOYED,
