@@ -33,7 +33,6 @@ Available query parameters:
   all=true|false
   sort_order=ASC|DESC
   status_codes=UNKNOWN, DEPLOYED, DELETED, SUPERSEDED, FAILED, DELETING
-
 ```
 
 - **Release status**
