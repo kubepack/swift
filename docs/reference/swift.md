@@ -2,16 +2,16 @@
 title: Reference | Swift
 description: Swift Reference
 menu:
-  product_swift_0.4.0:
+  product_swift_0.6.0:
     identifier: reference-swift
     name: Swift
     parent: reference
     weight: 10
 product_name: swift
-left_menu: product_swift_0.4.0
+left_menu: product_swift_0.6.0
 section_menu_id: reference
 aliases:
-  - products/swift/0.4.0/reference/
+  - products/swift/0.6.0/reference/
 ---
 
 ## swift

@@ -2,14 +2,14 @@
 title:
 description:
 menu:
-  product_swift_0.4.0:
+  product_swift_0.6.0:
     identifier: developer-guide-readme
     name: Overview
     parent: developer-guide
     weight: 15
 product_name: swift
-left_menu: product_swift_0.4.0
-url: /products/swift/0.4.0/developer-guide/
+left_menu: product_swift_0.6.0
+url: /products/swift/0.6.0/developer-guide/
 section_menu_id: developer-guide
 ---
 
