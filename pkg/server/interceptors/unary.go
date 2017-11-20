@@ -2,8 +2,8 @@ package interceptors
 
 import (
 	"github.com/appscode/api/dtypes"
-	"github.com/appscode/errors"
 	"github.com/appscode/go/container/serializer"
+	"github.com/appscode/go/errors"
 	"github.com/appscode/go/log"
 	"github.com/appscode/swift/pkg/server/endpoints"
 	"golang.org/x/net/context"

@@ -3,8 +3,8 @@ package dtypes
 import (
 	"strings"
 
-	"github.com/appscode/errors"
 	_env "github.com/appscode/go/env"
+	"github.com/appscode/go/errors"
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/protobuf/ptypes/any"
 	"github.com/xeipuuv/gojsonschema"
