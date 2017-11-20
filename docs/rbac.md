@@ -1,3 +1,15 @@
+---
+title: RBAC | Swift
+description: RBAC for Swift v0.6.0
+menu:
+  product_swift:
+    identifier: rbac
+    name: RBAC
+    weight: 45
+left_menu: product_swift
+---
+
+
 # Using RBAC with Swift
 
 This tutorial will show you how to use Swift in a [RBAC](https://kubernetes.io/docs/admin/authorization/rbac/) enabled cluster.
