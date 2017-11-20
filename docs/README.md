@@ -13,6 +13,8 @@ aliases:
   - /products/swift/0.6.0/
 url: /products/swift/0.6.0/getting-started/
 section_menu_id: getting-started
+aliases:
+  -- /products/swift/0.6.0/
 ---
 
 
