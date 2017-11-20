@@ -4,13 +4,15 @@ description: RBAC of Swift
 menu:
   product_swift_0.6.0:
     identifier: rbac-0.6.0
-    name: RBAC 0.6.0
+    name: RBAC
     parent: getting-started
     weight: 45
 product_name: swift
 left_menu: product_swift_0.6.0
 url: /products/swift/0.6.0/getting-started/rbac/
 section_menu_id: getting-started
+aliases:
+  -- /products/swift/0.6.0/rbac/
 ---
 
 
