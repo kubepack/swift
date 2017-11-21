@@ -1,3 +1,16 @@
+---
+title:
+description:
+menu:
+  product_swift_0.6.0:
+    identifier: release    
+    name: Release
+    parent: developer-guide
+    weight: 15
+product_name: swift
+left_menu: product_swift_0.6.0
+section_menu_id: developer-guide
+---
 # Release Process
 
 The following steps must be done from a Linux x64 bit machine.

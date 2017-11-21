@@ -1,3 +1,16 @@
+---
+title: Swift Run | Reference 
+description: Swift run
+menu:
+  product_swift_0.6.0:
+    identifier: swift-run
+    name: Swift Run
+    parent: reference
+    weight: 14
+product_name: swift
+left_menu: product_swift_0.6.0 
+section_menu_id: reference
+---
 ## swift run
 
 Run swift apis

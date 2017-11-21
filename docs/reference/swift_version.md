@@ -1,3 +1,16 @@
+---
+title: Swift version | Reference | Swift
+description: Swift Version
+menu:
+  product_swift_0.6.0:
+    identifier: swift-version
+    name: Swift Version
+    parent: reference
+    weight: 20
+product_name: swift
+left_menu: product_swift_0.6.0
+section_menu_id: reference
+---
 ## swift version
 
 Prints binary version number.

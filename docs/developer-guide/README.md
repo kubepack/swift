@@ -1,3 +1,18 @@
+---
+title:
+description:
+menu:
+  product_swift_0.6.0:
+    identifier: developer-guide-readme
+    name: Overview
+    parent: developer-guide
+    weight: 15
+product_name: swift
+left_menu: product_swift_0.6.0
+url: /products/swift/0.6.0/developer-guide/
+section_menu_id: developer-guide
+---
+
 ## Development Guide
 This document is intended to be the canonical source of truth for things like supported toolchain versions for building Swift.
 If you find a requirement that this doc does not capture, please submit an issue on github.
