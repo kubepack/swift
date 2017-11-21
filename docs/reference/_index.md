@@ -1,6 +1,6 @@
 ---
-title:
-description:
+title: Reference | Swift
+description: Swift Reference
 menu:
   product_swift_0.5.0:
     identifier: reference

@@ -1,6 +1,6 @@
 ---
 title: Docs | Swift
-description: Swift Docs V0.5.0
+description: Swift Docs
 menu:
   product_swift_0.5.0:
     identifier: getting-started

@@ -1,16 +1,16 @@
 ---
-title: Installation Swift v0.5.0
-description: Installation of Swift v0.5.0
+title: Install | Swift
+description: Installation of Swift
 menu:
   product_swift_0.5.0:
-    identifier: install-0.5.0
-    name: Install 0.5.0
+    identifier: install
+    name: Install
     parent: getting-started
     weight: 30
 product_name: swift
 left_menu: product_swift_0.5.0
-url: /products/swift/0.5.0/getting-started/install/
 section_menu_id: getting-started
+url: /products/swift/0.5.0/getting-started/install/
 aliases:
   -- /products/swift/0.5.0/install/
 ---

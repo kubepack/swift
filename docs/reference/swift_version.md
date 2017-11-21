@@ -1,5 +1,5 @@
 ---
-title: Swift version | Reference | Swift
+title: Swift version | Reference
 description: Swift Version
 menu:
   product_swift_0.5.0:

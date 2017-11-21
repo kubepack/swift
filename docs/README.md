@@ -9,14 +9,11 @@ menu:
     weight: 20
 product_name: swift
 left_menu: product_swift_0.5.0
+section_menu_id: getting-started
+url: /products/swift/0.5.0/getting-started/
 aliases:
   - /products/swift/0.5.0/
-url: /products/swift/0.5.0/getting-started/
-section_menu_id: getting-started
-aliases:
-  -- /products/swift/0.5.0/
 ---
-
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/appscode/swift)](https://goreportcard.com/report/github.com/appscode/swift)
 

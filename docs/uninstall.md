@@ -1,16 +1,16 @@
 ---
-title: Uninstall Swift v0.5.0
-description: Uninstall of Swift v0.5.0
+title: Uninstall Swift
+description: Swift Uninstall
 menu:
   product_swift_0.5.0:
-    identifier: uninstall-0.5.0
-    name: Uninstall 0.5.0
+    identifier: uninstall
+    name: Uninstall
     parent: getting-started
     weight: 40
 product_name: swift
 left_menu: product_swift_0.5.0
-url: /products/swift/0.5.0/getting-started/uninstall/
 section_menu_id: getting-started
+url: /products/swift/0.5.0/getting-started/uninstall/
 aliases:
   -- /products/swift/0.5.0/uninstall/
 ---

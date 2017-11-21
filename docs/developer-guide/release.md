@@ -1,6 +1,6 @@
 ---
-title:
-description:
+title: Release | Swift
+description: Swift Release
 menu:
   product_swift_0.5.0:
     identifier: release    

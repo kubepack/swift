@@ -1,16 +1,16 @@
 ---
 title: RBAC | Swift
-description: RBAC of Swift
+description: Swift RBAC
 menu:
   product_swift_0.5.0:
-    identifier: rbac-0.5.0
+    identifier: rbac
     name: RBAC
     parent: getting-started
     weight: 45
 product_name: swift
 left_menu: product_swift_0.5.0
-url: /products/swift/0.5.0/getting-started/rbac/
 section_menu_id: getting-started
+url: /products/swift/0.5.0/getting-started/rbac/
 aliases:
   -- /products/swift/0.5.0/rbac/
 ---
