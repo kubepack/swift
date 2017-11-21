@@ -1,3 +1,19 @@
+---
+title: Reference | Swift
+description: Swift Reference
+menu:
+  product_swift_0.5.0:
+    identifier: reference-swift
+    name: Swift
+    parent: reference
+    weight: 10
+product_name: swift
+left_menu: product_swift_0.5.0
+section_menu_id: reference
+aliases:
+  - products/swift/0.5.0/reference/
+---
+
 ## swift
 
 Swift by Appscode - Ajax friendly Helm Tiller Proxy

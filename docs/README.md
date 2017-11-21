@@ -1,3 +1,20 @@
+---
+title: Readme | Swift
+description: Readme of Swift v0.5.0
+menu:
+  product_swift_0.5.0:
+    identifier: readme-0.5.0
+    name: Overview
+    parent: getting-started
+    weight: 20
+product_name: swift
+left_menu: product_swift_0.5.0
+section_menu_id: getting-started
+url: /products/swift/0.5.0/getting-started/
+aliases:
+  - /products/swift/0.5.0/
+---
+
 [![Go Report Card](https://goreportcard.com/badge/github.com/appscode/swift)](https://goreportcard.com/report/github.com/appscode/swift)
 
 # swift
