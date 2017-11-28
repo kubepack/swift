@@ -1,14 +1,12 @@
 ---
-title: Swift Run | Reference 
-description: Swift run
+title: Swift Run
 menu:
   product_swift_0.5.0:
     identifier: swift-run
     name: Swift Run
     parent: reference
-    weight: 14
 product_name: swift
-left_menu: product_swift_0.5.0 
+left_menu: product_swift_0.5.0
 section_menu_id: reference
 ---
 ## swift run
@@ -21,7 +19,7 @@ Run swift apis
 Run swift apis
 
 ```
-swift run
+swift run [flags]
 ```
 
 ### Options
@@ -35,6 +33,7 @@ swift run
       --cors-origin-host string       Allowed CORS origin host e.g, domain[:port]
       --enable-cors                   Enable CORS support
       --enable-java-client            Set true to send SETTINGS frame from the server. Default set to false
+  -h, --help                          help for run
       --keyFile string                File containing server TLS private key
       --kube-context string           Kube context used by 'kubeconfig' connection
       --plaintext-addr string         host:port used to server plaintext apis (default ":9855")
@@ -57,5 +56,5 @@ swift run
 ```
 
 ### SEE ALSO
-* [swift](swift.md)	 - Swift by Appscode - Ajax friendly Helm Tiller Proxy
+* [swift](/docs/reference/swift.md)	 - Swift by Appscode - Ajax friendly Helm Tiller Proxy
 

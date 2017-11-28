@@ -1,19 +1,19 @@
 ---
-title: Reference | Swift
-description: Swift Reference
+title: Swift
 menu:
   product_swift_0.5.0:
-    identifier: reference-swift
+    identifier: swift
     name: Swift
     parent: reference
-    weight: 10
+    weight: 0
+
 product_name: swift
 left_menu: product_swift_0.5.0
 section_menu_id: reference
 aliases:
   - products/swift/0.5.0/reference/
----
 
+---
 ## swift
 
 Swift by Appscode - Ajax friendly Helm Tiller Proxy
@@ -28,6 +28,7 @@ Swift by Appscode - Ajax friendly Helm Tiller Proxy
 ```
       --alsologtostderr                  log to standard error as well as files
       --analytics                        Send analytical events to Google Analytics (default true)
+  -h, --help                             help for swift
       --log_backtrace_at traceLocation   when logging hits line file:N, emit a stack trace (default :0)
       --log_dir string                   If non-empty, write log files in this directory
       --logtostderr                      log to standard error instead of files
@@ -37,6 +38,6 @@ Swift by Appscode - Ajax friendly Helm Tiller Proxy
 ```
 
 ### SEE ALSO
-* [swift run](swift_run.md)	 - Run swift apis
-* [swift version](swift_version.md)	 - Prints binary version number.
+* [swift run](/docs/reference/swift_run.md)	 - Run swift apis
+* [swift version](/docs/reference/swift_version.md)	 - Prints binary version number.
 

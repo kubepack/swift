@@ -7,6 +7,7 @@ import (
 
 	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
+	"google.golang.org/grpc"
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clientset "k8s.io/client-go/kubernetes"
@@ -27,24 +28,24 @@ func (c *InClusterConnector) UID() string {
 	return UIDInClusterConnector
 }
 
-func (c *InClusterConnector) Connect(ctx context.Context) (rls.ReleaseServiceClient, error) {
+func (c *InClusterConnector) Connect(ctx context.Context) (*grpc.ClientConn, rls.ReleaseServiceClient, error) {
 	config, err := restclient.InClusterConfig()
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	client, err := clientset.NewForConfig(config)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	addr, err := c.getTillerAddr(client)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	conn, err := Connect(addr)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return rls.NewReleaseServiceClient(conn), nil
+	return conn, rls.NewReleaseServiceClient(conn), nil
 }
 
 func (c *InClusterConnector) getTillerAddr(client clientset.Interface) (string, error) {
