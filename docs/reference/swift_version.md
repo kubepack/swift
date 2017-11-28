@@ -1,12 +1,12 @@
 ---
 title: Swift Version
 menu:
-  product_swift_0.5.0:
+  product_swift_0.5.1:
     identifier: swift-version
     name: Swift Version
     parent: reference
 product_name: swift
-left_menu: product_swift_0.5.0
+left_menu: product_swift_0.5.1
 section_menu_id: reference
 ---
 ## swift version

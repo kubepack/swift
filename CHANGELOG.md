@@ -1,3 +1,12 @@
+## 0.5.1 / 2017.11.27
+Swift 0.5.1 fixes connection leakage in proxy server. We recommend upgrading to this version. There is no user visible change in api.
+
+- Close connection after usage. [\#68](https://github.com/appscode/swift/pull/68)
+- Make chart namespaced [\#64](https://github.com/appscode/swift/pull/64)
+- Add front matter for swift cli [\#69](https://github.com/appscode/swift/pull/69)
+- Add Front matter of docs [\#65](https://github.com/appscode/swift/pull/65)
+
+
 ## 0.5.0 / 2017.10.29
 Swift 0.5.0 makes backward incompatible change to `SummarizeReleases` api.
 
