@@ -1,3 +1,20 @@
+---
+title: Install | Swift
+description: Installation of Swift
+menu:
+  product_swift_0.5.0:
+    identifier: install
+    name: Install
+    parent: getting-started
+    weight: 30
+product_name: swift
+left_menu: product_swift_0.5.0
+section_menu_id: getting-started
+url: /products/swift/0.5.0/getting-started/install/
+aliases:
+  -- /products/swift/0.5.0/install/
+---
+
 # Installation Guide
 
 Swift proxy server can connect to [Helm](https://github.com/kubernetes/helm) Tiller gRPC server in a number of different ways depending on the [`--connector`](/docs/reference/swift_run.md) flag.
