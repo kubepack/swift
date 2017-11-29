@@ -13,6 +13,7 @@ section_menu_id: getting-started
 url: /products/swift/0.5.1/getting-started/
 aliases:
   - /products/swift/0.5.1/
+  - /products/swift/0.5.1/README/
 ---
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/appscode/swift)](https://goreportcard.com/report/github.com/appscode/swift)
