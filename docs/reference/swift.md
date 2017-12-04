@@ -8,7 +8,7 @@ menu:
     weight: 0
 
 product_name: swift
-left_menu: product_swift_0.5.1
+menu_name: product_swift_0.5.1
 section_menu_id: reference
 aliases:
   - products/swift/0.5.1/reference/

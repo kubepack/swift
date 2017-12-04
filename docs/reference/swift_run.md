@@ -6,7 +6,7 @@ menu:
     name: Swift Run
     parent: reference
 product_name: swift
-left_menu: product_swift_0.5.1
+menu_name: product_swift_0.5.1
 section_menu_id: reference
 ---
 ## swift run
