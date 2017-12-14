@@ -1,6 +1,5 @@
 package: github.com/appscode/swift
 import:
-- package: github.com/appscode/api
 - package: github.com/appscode/go
 - package: github.com/golang/glog
 - package: golang.org/x/net

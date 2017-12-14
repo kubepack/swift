@@ -1,13 +1,14 @@
 package interceptors
 
 import (
-	"github.com/appscode/api/dtypes"
 	"github.com/appscode/go/container/serializer"
-	"github.com/appscode/go/errors"
 	"github.com/appscode/go/log"
 	"github.com/appscode/swift/pkg/server/endpoints"
 	"golang.org/x/net/context"
+	spb "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func NewUnaryInterceptor(enableCORS bool, allowHost string, allowSubdomain bool) grpc.UnaryServerInterceptor {
@@ -20,7 +21,11 @@ func NewUnaryInterceptor(enableCORS bool, allowHost string, allowSubdomain bool)
 
 		defer func() {
 			if r := recover(); r != nil {
-				err = dtypes.Internal(errors.New("Server crashed, :(").Err())
+				s := &spb.Status{
+					Code:    int32(codes.Internal),
+					Message: "Server crashed, :(",
+				}
+				err = status.FromProto(s).Err()
 				return
 			}
 		}()
