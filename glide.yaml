@@ -12,6 +12,10 @@ import:
   version: v1.2.2-ac
   repo: https://github.com/appscode/grpc-gateway.git
   vcs: git
+- package: github.com/hashicorp/go-version
+  repo: https://github.com/appscode/go-version.git
+  vcs: git
+  version: master
 - package: github.com/soheilhy/cmux
   version: v0.1.2
 - package: github.com/spf13/cobra

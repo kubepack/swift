@@ -1,18 +1,25 @@
-hash: bd332eb8f3f77b5e2e3d1a5989bf9fbc97a5f9210606bae41a9a73e6d34ba38e
-updated: 2017-12-14T04:01:22.743512881-08:00
+hash: 4f4b01eb59dbf415b94f6101bc8667d6480f962f0e7b961389b3857805227aa2
+updated: 2017-12-18T16:32:01.132147555-05:00
 imports:
 - name: github.com/appscode/go
   version: cb650d0b1a3c04a86595cf2a31fa704dbf1bc42a
   subpackages:
+  - analytics
   - container/serializer
   - context
   - env
   - hold
+  - homedir
   - log
   - log/golog
   - runtime
   - strings
   - version
+- name: github.com/appscode/kutil
+  version: 582273a0791d4d99ab1345d9e4867bec460aaf5a
+  subpackages:
+  - meta
+  - tools/analytics
 - name: github.com/beorn7/perks
   version: 3ac7bf7a47d159a033b107610db8a1b6575507a4
   subpackages:
@@ -102,6 +109,10 @@ imports:
   - runtime/internal
   - third_party/appscodeapis/appscode/api
   - utilities
+- name: github.com/hashicorp/go-version
+  version: ac737305c16432f4c660c6fc68cdcda4b5a0b5ae
+  repo: https://github.com/appscode/go-version.git
+  vcs: git
 - name: github.com/howeyc/gopass
   version: bf9dde6d0d2c004a008c27aaee91170c786f6db8
 - name: github.com/imdario/mergo
@@ -150,7 +161,9 @@ imports:
   - internal/bitbucket.org/ww/goautoneg
   - model
 - name: github.com/prometheus/procfs
-  version: 454a56f35412459b5e684fd5ec0f9211b94f002a
+  version: 65c1f6f8f0fc1e2185eb9863a3bc751496404259
+  subpackages:
+  - xfs
 - name: github.com/PuerkitoBio/purell
   version: 8a290539e2e8629dbc4e6bad948158f790ec31f4
 - name: github.com/PuerkitoBio/urlesc
@@ -162,7 +175,7 @@ imports:
 - name: github.com/soheilhy/cmux
   version: bf4a8ede9e87c006fe1d4278c6c7f2b8be1fa84c
 - name: github.com/spf13/cobra
-  version: ccaecb155a2177302cb56cae929251a256d0f646
+  version: 7b2c5ac9fc04fc5efafb60700713d4fa609b777b
   subpackages:
   - doc
 - name: github.com/spf13/pflag
@@ -215,7 +228,7 @@ imports:
   - unicode/norm
   - width
 - name: google.golang.org/genproto
-  version: a8101f21cf983e773d0c1133ebc5424792003214
+  version: 09f6ed296fc66555a25fe4ce95173148778dfa85
   subpackages:
   - googleapis/api/annotations
   - googleapis/rpc/status

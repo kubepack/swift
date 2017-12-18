@@ -6,7 +6,7 @@ metadata:
     app: swift
 rules:
 - apiGroups: [""]
-  resources: ["services"]
+  resources: ["nodes", "services"]
   verbs: ["list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
