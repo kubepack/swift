@@ -1,8 +1,8 @@
-hash: 4f4b01eb59dbf415b94f6101bc8667d6480f962f0e7b961389b3857805227aa2
-updated: 2017-12-18T16:32:01.132147555-05:00
+hash: 031020659a97a5bcced663582d9c588d7fb5d3e219a12a5fa315a9d4cb1d81c7
+updated: 2017-12-27T03:40:58.482123095-05:00
 imports:
 - name: github.com/appscode/go
-  version: cb650d0b1a3c04a86595cf2a31fa704dbf1bc42a
+  version: f08cee5a2aa53a1ab6d30e4ae11e381d1b265f81
   subpackages:
   - analytics
   - container/serializer
@@ -16,10 +16,11 @@ imports:
   - strings
   - version
 - name: github.com/appscode/kutil
-  version: 582273a0791d4d99ab1345d9e4867bec460aaf5a
+  version: abde09dce9a0c7227d97010865da9f52d1e1a359
   subpackages:
   - meta
   - tools/analytics
+  - tools/portforward
 - name: github.com/beorn7/perks
   version: 3ac7bf7a47d159a033b107610db8a1b6575507a4
   subpackages:
@@ -84,6 +85,13 @@ imports:
   - ptypes/timestamp
 - name: github.com/google/btree
   version: 7d79101e329e5a3adf994758c578dab82b90c017
+- name: github.com/google/go-cmp
+  version: 97a1ff3c48253a51c601f6e4420181273b6ca0ea
+  subpackages:
+  - cmp
+  - cmp/internal/diff
+  - cmp/internal/function
+  - cmp/internal/value
 - name: github.com/google/gofuzz
   version: 44d81051d367757e1c7c6a5a86423ece9afcf63c
 - name: github.com/google/uuid
@@ -175,7 +183,7 @@ imports:
 - name: github.com/soheilhy/cmux
   version: bf4a8ede9e87c006fe1d4278c6c7f2b8be1fa84c
 - name: github.com/spf13/cobra
-  version: 7b2c5ac9fc04fc5efafb60700713d4fa609b777b
+  version: ccaecb155a2177302cb56cae929251a256d0f646
   subpackages:
   - doc
 - name: github.com/spf13/pflag
@@ -228,7 +236,7 @@ imports:
   - unicode/norm
   - width
 - name: google.golang.org/genproto
-  version: 09f6ed296fc66555a25fe4ce95173148778dfa85
+  version: a8101f21cf983e773d0c1133ebc5424792003214
   subpackages:
   - googleapis/api/annotations
   - googleapis/rpc/status
