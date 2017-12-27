@@ -2,17 +2,16 @@
 title: Overview | Developer Guide
 description: Developer Guide Overview
 menu:
-  product_swift_0.5.1:
+  product_swift_0.5.2:
     identifier: developer-guide-readme
     name: Overview
     parent: developer-guide
-    weight: 15
+    weight: 10
 product_name: swift
-menu_name: product_swift_0.5.1
+menu_name: product_swift_0.5.2
 section_menu_id: developer-guide
-url: /products/swift/0.5.1/developer-guide/
 aliases:
-  - /products/swift/0.5.1/developer-guide/README/
+  - /products/swift/0.5.2/setup/developer-guide/
 ---
 
 ## Development Guide
@@ -65,7 +64,7 @@ $ glide slow
 ```
 
 #### Build Docker images
-To build and push your custom Docker image, follow the steps below. To release a new version of Swift, please follow the [release guide](/docs/developer-guide/release.md).
+To build and push your custom Docker image, follow the steps below. To release a new version of Swift, please follow the [release guide](/docs/setup/developer-guide/release.md).
 
 ```console
 # Build Docker image

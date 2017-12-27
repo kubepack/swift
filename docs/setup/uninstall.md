@@ -2,17 +2,14 @@
 title: Uninstall Swift
 description: Swift Uninstall
 menu:
-  product_swift_0.5.1:
+  product_swift_0.5.2:
     identifier: uninstall
     name: Uninstall
-    parent: getting-started
-    weight: 40
+    parent: setup
+    weight: 20
 product_name: swift
-menu_name: product_swift_0.5.1
-section_menu_id: getting-started
-url: /products/swift/0.5.1/getting-started/uninstall/
-aliases:
-  -- /products/swift/0.5.1/uninstall/
+menu_name: product_swift_0.5.2
+section_menu_id: setup
 ---
 
 # Uninstall Swift

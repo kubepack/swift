@@ -1,19 +1,19 @@
 ---
-title: Readme | Swift
-description: Readme of Swift v0.5.1
+title: Welcome | Swift
+description: Welcome to Swift
 menu:
-  product_swift_0.5.1:
-    identifier: readme-0.5.1
-    name: Overview
-    parent: getting-started
-    weight: 20
+  product_swift_0.5.2:
+    identifier: readme-0.5.2
+    name: Readme
+    parent: welcome
+    weight: -1
 product_name: swift
-menu_name: product_swift_0.5.1
-section_menu_id: getting-started
-url: /products/swift/0.5.1/getting-started/
+menu_name: product_swift_0.5.2
+section_menu_id: welcome
+url: /products/swift/0.5.2/welcome/
 aliases:
-  - /products/swift/0.5.1/
-  - /products/swift/0.5.1/README/
+  - /products/swift/0.5.2/
+  - /products/swift/0.5.2/README/
 ---
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/appscode/swift)](https://goreportcard.com/report/github.com/appscode/swift)
@@ -24,6 +24,7 @@ Swift is an Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller prox
 ## API Reference
 
 - **Summarize releases**
+
 ```
 # List releases with status `DEPLOYED` from all namespaces
 GET http://127.0.0.1:9855/tiller/v2/releases/json
@@ -49,24 +50,26 @@ Available query parameters:
 ```
 
 - **Release status**
+
 ```
 GET http://127.0.0.1:9855/tiller/v2/releases/my-release/status/json
 ```
 
 - **Release content**
-```
 
+```
 GET http://127.0.0.1:9855/tiller/v2/releases/my-release/content/json
 GET http://127.0.0.1:9855/tiller/v2/releases/my-release/content/json?format_values_as_json=true
-
 ```
 
 - **Release history**
+
 ```
 GET http://127.0.0.1:9855/tiller/v2/releases/my-release/json
 ```
 
 - **Rollback release**
+
 ```
 GET http://127.0.0.1:9855/tiller/v2/releases/my-release/rollback/json
 ```
@@ -141,10 +144,10 @@ Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://
 
 
 ## Installation
-To install Swift, please follow the guide [here](/docs/install.md).
+To install Swift, please follow the guide [here](/docs/setup/install.md).
 
 ## Contribution guidelines
-Want to help improve Swift? Please start [here](/CONTRIBUTING.md).
+Want to help improve Swift? Please start [here](/docs/CONTRIBUTING.md).
 
 ---
 

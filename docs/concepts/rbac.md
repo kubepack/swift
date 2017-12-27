@@ -2,17 +2,14 @@
 title: RBAC | Swift
 description: Swift RBAC
 menu:
-  product_swift_0.5.1:
+  product_swift_0.5.2:
     identifier: rbac
     name: RBAC
-    parent: getting-started
+    parent: concepts
     weight: 45
 product_name: swift
-menu_name: product_swift_0.5.1
-section_menu_id: getting-started
-url: /products/swift/0.5.1/getting-started/rbac/
-aliases:
-  -- /products/swift/0.5.1/rbac/
+menu_name: product_swift_0.5.2
+section_menu_id: concepts
 ---
 
 # Using RBAC with Swift
@@ -66,7 +63,7 @@ Client: v2.7.0+g08c1144
 Server: v2.7.0+g08c1144
 ```
 
-Consult [Tiller and Service Accounts](https://github.com/kubernetes/helm/blob/master/docs/service_accounts.md) for other configurations.
+Consult [Tiller and Role-based Access Control](https://github.com/kubernetes/helm/blob/master/docs/) for other configurations.
 
 ## Deploy Swift
 
@@ -112,4 +109,4 @@ Now, open your browser and go to the following URL: _http://{minikube-ip}:{9855-
 
 ## Cleaning up
 
-If you would like to uninstall Swift proxy, please follow the steps [here](/docs/uninstall.md).
+If you would like to uninstall Swift proxy, please follow the steps [here](/docs/setup/uninstall.md).

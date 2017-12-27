@@ -2,14 +2,14 @@
 title: Release | Swift
 description: Swift Release
 menu:
-  product_swift_0.5.1:
+  product_swift_0.5.2:
     identifier: release    
     name: Release
     parent: developer-guide
     weight: 15
 product_name: swift
-menu_name: product_swift_0.5.1
-section_menu_id: developer-guide
+menu_name: product_swift_0.5.2
+section_menu_id: setup
 ---
 # Release Process
 

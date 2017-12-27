@@ -1,6 +1,9 @@
 package: github.com/appscode/swift
 import:
 - package: github.com/appscode/go
+  version: master
+- package: github.com/appscode/kutil
+  version: release-5.0
 - package: github.com/golang/glog
 - package: golang.org/x/net
   version: da118f7b8e5954f39d0d2130ab35d4bf0e3cb344

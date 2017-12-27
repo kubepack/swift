@@ -2,17 +2,14 @@
 title: Install | Swift
 description: Installation of Swift
 menu:
-  product_swift_0.5.1:
+  product_swift_0.5.2:
     identifier: install
     name: Install
-    parent: getting-started
-    weight: 30
+    parent: setup
+    weight: 10
 product_name: swift
-menu_name: product_swift_0.5.1
-section_menu_id: getting-started
-url: /products/swift/0.5.1/getting-started/install/
-aliases:
-  -- /products/swift/0.5.1/install/
+menu_name: product_swift_0.5.2
+section_menu_id: setup
 ---
 
 # Installation Guide
@@ -24,27 +21,27 @@ Swift proxy server can connect to [Helm](https://github.com/kubernetes/helm) Til
 Swift can proxy Tiller server running in the same Kubernetes cluster using `incluster` connector.
 
 ### Using YAML
-Swift can be installed using YAML files includes in the [/hack/deploy](/hack/deploy) folder.
+Swift can be installed using YAML files includes in the [/hack/deploy](https://github.com/appscode/swift/tree/0.5.2/hack/deploy) folder.
 
 ```console
 # Install without RBAC roles
-$ kubectl apply -f https://raw.githubusercontent.com/appscode/swift/0.5.1/hack/deploy/without-rbac.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/appscode/swift/0.5.2/hack/deploy/without-rbac.yaml
 
 
 # Install with RBAC roles
-$ kubectl apply -f https://raw.githubusercontent.com/appscode/swift/0.5.1/hack/deploy/with-rbac.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/appscode/swift/0.5.2/hack/deploy/with-rbac.yaml
 ```
 
-For detailed instructions on how to deploy __Swift in a RBAC enabled cluster__, please visit [here](/docs/rbac.md).
+For detailed instructions on how to deploy __Swift in a RBAC enabled cluster__, please visit [here](/docs/concepts/rbac.md).
 
 
 ### Using Helm
-Swift can be installed via [Helm](https://helm.sh/) using the [chart](/chart/stable/swift) included in this repository or from official charts repository. To install the chart with the release name `my-release`:
+Swift can be installed via [Helm](https://helm.sh/) using the [chart](https://github.com/appscode/swift/tree/0.5.2/chart/stable/swift) included in this repository or from official charts repository. To install the chart with the release name `my-release`:
 ```console
 $ helm repo update
 $ helm install stable/swift --name my-release
 ```
-To see the detailed configuration options, visit [here](/chart/stable/swift/README.md).
+To see the detailed configuration options, visit [here](https://github.com/appscode/swift/tree/0.5.2/chart/stable/swift/).
 
 
 ### Verify installation

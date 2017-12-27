@@ -1,3 +1,20 @@
+---
+title: Contributing | Swift
+description: Contributing
+menu:
+  product_swift_0.5.2:
+    identifier: contributing-swift
+    name: Contributing
+    parent: welcome
+    weight: 10
+product_name: swift
+menu_name: product_swift_0.5.2
+section_menu_id: welcome
+url: /products/swift/0.5.2/welcome/contributing/
+aliases:
+  - /products/swift/0.5.2/CONTRIBUTING/
+---
+
 # How to Contribute
 
 AppsCode projects are [Apache 2.0 licensed](LICENSE) and accept contributions via
@@ -13,7 +30,7 @@ simple statement that you, as a contributor, have the legal right to make the
 contribution. See the [DCO](DCO) file for details.
 
 ## Developer Guide
-We have a [Developer Guide](/docs/developer-guide/README.md) that outlines everything you need to know from setting up your
+We have a [Developer Guide](/docs/setup/developer-guide/overview.md) that outlines everything you need to know from setting up your
 dev environment to how to build and test Swift. If you find something undocumented or incorrect along the way,
 please feel free to send a Pull Request.
 

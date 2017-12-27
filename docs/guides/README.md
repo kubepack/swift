@@ -1,0 +1,20 @@
+---
+title: Table of Contents | Guides
+description: Table of Contents | Guides
+menu:
+  product_swift_0.5.2:
+    identifier: guides-readme
+    name: Readme
+    parent: guides
+    weight: -1
+product_name: swift
+menu_name: product_swift_0.5.2
+section_menu_id: guides
+url: /products/swift/0.5.2/guides/
+aliases:
+  - /products/swift/0.5.2/guides/README/
+---
+
+# Guides
+
+This section contains guides on how to use Swift.

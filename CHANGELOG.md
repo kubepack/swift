@@ -11,7 +11,7 @@ Swift 0.5.1 fixes connection leakage in proxy server. We recommend upgrading to 
 Swift 0.5.0 makes backward incompatible change to `SummarizeReleases` api.
 
 - `SummarizeReleases` api will not set namespace to `default` by default any more. If no namespace is set, it will return releases from all namespaces. To get releases from a given namespace pass query parameter `namespace=<name>`. [\#61](https://github.com/appscode/swift/pull/61)
-- Add [tutorial](/docs/rbac.md) for RBAC enabled cluster [\#59](https://github.com/appscode/swift/pull/59)
+- Add [tutorial](/docs/concepts/rbac.md) for RBAC enabled cluster [\#59](https://github.com/appscode/swift/pull/59)
 - Fix service port in installer yamls [\#58](https://github.com/appscode/swift/pull/58)
 
 
@@ -53,9 +53,9 @@ Wheel has been renamed to Swift, because it gets you Tiller Swift. :) Swift 0.2.
 
 
 ## 0.1.0 / 2017.08.06
-First public release of Wheel. To install, please visit [here](/docs/install.md).
+First public release of Wheel. To install, please visit [here](/docs/setup/install.md).
 
  - JSON proxy for Helm Tiller apis. Tested with Helm 2.5.0 .
- - Supports connecting to Tiller server in [3 different modes](/docs/install.md).
+ - Supports connecting to Tiller server in [3 different modes](/docs/setup/install.md).
  - Install and update api uses chart tarballs instead of binary chart objects.
  - Includes a [npm ready](https://www.npmjs.com/package/@appscode/tiller-js-client) Javascript client using promises.

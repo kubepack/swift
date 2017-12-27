@@ -1,4 +1,4 @@
-package factory
+package portforward
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ import (
 	"k8s.io/client-go/transport/spdy"
 )
 
-type tunnel struct {
+type Tunnel struct {
 	Local     int
 	Remote    int
 	Namespace string
@@ -25,8 +25,8 @@ type tunnel struct {
 	client    rest.Interface
 }
 
-func newTunnel(client rest.Interface, config *rest.Config, namespace, podName string, remote int) *tunnel {
-	return &tunnel{
+func NewTunnel(client rest.Interface, config *rest.Config, namespace, podName string, remote int) *Tunnel {
+	return &Tunnel{
 		config:    config,
 		client:    client,
 		Namespace: namespace,
@@ -38,7 +38,7 @@ func newTunnel(client rest.Interface, config *rest.Config, namespace, podName st
 	}
 }
 
-func (t *tunnel) forwardPort() error {
+func (t *Tunnel) ForwardPort() error {
 	u := t.client.Post().
 		Resource("pods").
 		Namespace(t.Namespace).
@@ -75,6 +75,10 @@ func (t *tunnel) forwardPort() error {
 	case <-pf.Ready:
 		return nil
 	}
+}
+
+func (t *Tunnel) Close() {
+	close(t.stopChan)
 }
 
 func getAvailablePort() (int, error) {

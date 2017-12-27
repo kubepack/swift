@@ -128,10 +128,10 @@ Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://
 
 
 ## Installation
-To install Swift, please follow the guide [here](/docs/install.md).
+To install Swift, please follow the guide [here](/docs/setup/install.md).
 
 ## Contribution guidelines
-Want to help improve Swift? Please start [here](/CONTRIBUTING.md).
+Want to help improve Swift? Please start [here](/docs/CONTRIBUTING.md).
 
 ---
 
