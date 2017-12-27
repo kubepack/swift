@@ -2,7 +2,6 @@ package factory
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/appscode/kutil/tools/portforward"
 	core "k8s.io/api/core/v1"
@@ -14,20 +13,20 @@ import (
 type TunnelConnector struct {
 }
 
-func (s *TunnelConnector) GetTillerAddr(client clientset.Interface, config *rest.Config) (string, error) {
+func (s *TunnelConnector) GetTillerAddr(client clientset.Interface, config *rest.Config) (*portforward.Tunnel, error) {
 	podList, err := client.CoreV1().Pods(core.NamespaceAll).List(metav1.ListOptions{
 		LabelSelector: tillerLabelSelector,
 	})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if len(podList.Items) == 0 {
-		return "", errors.New("no tiller pod(s) found")
+		return nil, errors.New("no tiller pod(s) found")
 	}
 
 	tunnel := portforward.NewTunnel(client.CoreV1().RESTClient(), config, podList.Items[0].Namespace, podList.Items[0].Name, defaultTillerPort)
 	if err := tunnel.ForwardPort(); err != nil {
-		return "", err
+		return nil, err
 	}
-	return fmt.Sprintf("127.0.0.1:%d", tunnel.Local), nil
+	return tunnel, nil
 }
