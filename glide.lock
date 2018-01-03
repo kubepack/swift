@@ -1,5 +1,5 @@
 hash: 031020659a97a5bcced663582d9c588d7fb5d3e219a12a5fa315a9d4cb1d81c7
-updated: 2017-12-27T03:40:58.482123095-05:00
+updated: 2018-01-03T05:40:41.459972595-08:00
 imports:
 - name: github.com/appscode/go
   version: f08cee5a2aa53a1ab6d30e4ae11e381d1b265f81
@@ -16,7 +16,7 @@ imports:
   - strings
   - version
 - name: github.com/appscode/kutil
-  version: abde09dce9a0c7227d97010865da9f52d1e1a359
+  version: 4a8306c9183a0dbebfc98327238735a1fb015e6a
   subpackages:
   - meta
   - tools/analytics
@@ -28,7 +28,7 @@ imports:
 - name: github.com/BurntSushi/toml
   version: b26d9c308763d68093482582cea63d69be07a0f0
 - name: github.com/cpuguy83/go-md2man
-  version: 71acacd42f85e5e82f70a55327789582a5200a90
+  version: 8d868be6e9bf9d5350910bab97a050e49887600f
   subpackages:
   - md2man
 - name: github.com/davecgh/go-spew
@@ -183,7 +183,7 @@ imports:
 - name: github.com/soheilhy/cmux
   version: bf4a8ede9e87c006fe1d4278c6c7f2b8be1fa84c
 - name: github.com/spf13/cobra
-  version: ccaecb155a2177302cb56cae929251a256d0f646
+  version: 7b2c5ac9fc04fc5efafb60700713d4fa609b777b
   subpackages:
   - doc
 - name: github.com/spf13/pflag
@@ -193,7 +193,7 @@ imports:
 - name: github.com/xeipuuv/gojsonreference
   version: e02fc20de94c78484cd5ffb007f8af96be030a45
 - name: github.com/xeipuuv/gojsonschema
-  version: 93e72a773fade158921402d6a24c819b48aba29d
+  version: 511d08a359d14c0dd9c4302af52ee9abb6f93c2a
 - name: golang.org/x/crypto
   version: 81e90905daefcd6fd217b62423c0908922eadb30
   subpackages:
