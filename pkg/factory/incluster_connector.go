@@ -7,12 +7,10 @@ import (
 
 	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clientset "k8s.io/client-go/kubernetes"
 	restclient "k8s.io/client-go/rest"
-	rls "k8s.io/helm/pkg/proto/hapi/services"
 )
 
 type InClusterConnector struct {
@@ -28,24 +26,28 @@ func (c *InClusterConnector) UID() string {
 	return UIDInClusterConnector
 }
 
-func (c *InClusterConnector) Connect(ctx context.Context) (*grpc.ClientConn, rls.ReleaseServiceClient, error) {
+func (c *InClusterConnector) Connect(ctx context.Context) (context.Context, error) {
 	config, err := restclient.InClusterConfig()
 	if err != nil {
-		return nil, nil, err
+		return ctx, err
 	}
 	client, err := clientset.NewForConfig(config)
 	if err != nil {
-		return nil, nil, err
+		return ctx, err
 	}
 	addr, err := c.getTillerAddr(client)
 	if err != nil {
-		return nil, nil, err
+		return ctx, err
 	}
 	conn, err := Connect(addr)
 	if err != nil {
-		return nil, nil, err
+		return ctx, err
 	}
-	return conn, rls.NewReleaseServiceClient(conn), nil
+	return WithConnection(ctx, conn), nil
+}
+
+func (c *InClusterConnector) Close(ctx context.Context) error {
+	return Connection(ctx).Close()
 }
 
 func (c *InClusterConnector) getTillerAddr(client clientset.Interface) (string, error) {
