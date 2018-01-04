@@ -4,6 +4,14 @@
     "application/json"
   ],
   "definitions": {
+    "HookDeletePolicy": {
+      "default": "SUCCEEDED",
+      "enum": [
+        "SUCCEEDED",
+        "FAILED"
+      ],
+      "type": "string"
+    },
     "HookEvent": {
       "default": "UNKNOWN",
       "enum": [
@@ -42,14 +50,17 @@
     },
     "StatusCode": {
       "default": "UNKNOWN",
-      "description": " - UNKNOWN: Status_UNKNOWN indicates that a release is in an uncertain state.\n - DEPLOYED: Status_DEPLOYED indicates that the release has been pushed to Kubernetes.\n - DELETED: Status_DELETED indicates that a release has been deleted from Kubermetes.\n - SUPERSEDED: Status_SUPERSEDED indicates that this release object is outdated and a newer one exists.\n - FAILED: Status_FAILED indicates that the release was not successfully deployed.\n - DELETING: Status_DELETING indicates that a delete operation is underway.",
+      "description": " - UNKNOWN: Status_UNKNOWN indicates that a release is in an uncertain state.\n - DEPLOYED: Status_DEPLOYED indicates that the release has been pushed to Kubernetes.\n - DELETED: Status_DELETED indicates that a release has been deleted from Kubermetes.\n - SUPERSEDED: Status_SUPERSEDED indicates that this release object is outdated and a newer one exists.\n - FAILED: Status_FAILED indicates that the release was not successfully deployed.\n - DELETING: Status_DELETING indicates that a delete operation is underway.\n - PENDING_INSTALL: Status_PENDING_INSTALL indicates that an install operation is underway.\n - PENDING_UPGRADE: Status_PENDING_UPGRADE indicates that an upgrade operation is underway.\n - PENDING_ROLLBACK: Status_PENDING_ROLLBACK indicates that an rollback operation is underway.",
       "enum": [
         "UNKNOWN",
         "DEPLOYED",
         "DELETED",
         "SUPERSEDED",
         "FAILED",
-        "DELETING"
+        "DELETING",
+        "PENDING_INSTALL",
+        "PENDING_UPGRADE",
+        "PENDING_ROLLBACK"
       ],
       "type": "string"
     },
@@ -120,6 +131,13 @@
     "chartMetadata": {
       "description": "Metadata for a Chart file. This models the structure of a Chart.yaml file.\n\n\tSpec: https://k8s.io/helm/blob/master/docs/design/chart_format.md#the-chart-file",
       "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Annotations are additional mappings uninterpreted by Tiller,\nmade available for inspection by other applications.",
+          "type": "object"
+        },
         "apiVersion": {
           "description": "The API Version of this chart.",
           "type": "string"
@@ -256,6 +274,13 @@
     "releaseHook": {
       "description": "Hook defines a hook object.",
       "properties": {
+        "delete_policies": {
+          "items": {
+            "$ref": "#/definitions/HookDeletePolicy"
+          },
+          "title": "DeletePolicies are the policies that indicate when to delete the hook",
+          "type": "array"
+        },
         "events": {
           "description": "Events are the events that this hook fires on.",
           "items": {
