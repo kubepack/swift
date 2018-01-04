@@ -2,14 +2,14 @@
 title: RBAC | Swift
 description: Swift RBAC
 menu:
-  product_swift_0.5.2:
+  product_swift_0.5.1:
     identifier: rbac
     name: RBAC
-    parent: concepts
-    weight: 45
+    parent: setup
+    weight: 15
 product_name: swift
-menu_name: product_swift_0.5.2
-section_menu_id: concepts
+menu_name: product_swift_0.5.1
+section_menu_id: setup
 ---
 
 # Using RBAC with Swift
@@ -20,17 +20,20 @@ This tutorial will show you how to use Swift in a [RBAC](https://kubernetes.io/d
 
 At first, you need to have a RBAC enabled Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. If you do not already have a cluster, you can create one by using [Minikube](https://github.com/kubernetes/minikube). To create a RBAC enabled cluster using MiniKube, follow the instructions below:
 
-1. If you are currently running a Minukube cluster without RBAC, delete the cluster. This will delete any objects running in the cluster.
+- If you are currently running a Minukube cluster without RBAC, delete the cluster. This will delete any objects running in the cluster.
+
 ```console
 $ minikube delete
 ```
 
-2. Now, create a RBAC cluster with RBAC enabled.
+- Now, create a RBAC cluster with RBAC enabled.
+
 ```console
 $ minikube start --extra-config=apiserver.Authorization.Mode=RBAC
 ```
 
-3. Once the cluster is up and running, you need to set ServiceAccount for the `kube-dns` addon to successfully run it.
+- Once the cluster is up and running, you need to set ServiceAccount for the `kube-dns` addon to successfully run it.
+
 ```console
 # Wait for kube-dns deployment to be created.
 $  kubectl get deployment -n kube-system --watch
