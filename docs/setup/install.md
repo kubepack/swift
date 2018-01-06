@@ -32,7 +32,7 @@ $ kubectl apply -f https://raw.githubusercontent.com/appscode/swift/0.5.2/hack/d
 $ kubectl apply -f https://raw.githubusercontent.com/appscode/swift/0.5.2/hack/deploy/with-rbac.yaml
 ```
 
-For detailed instructions on how to deploy __Swift in a RBAC enabled cluster__, please visit [here](/docs/concepts/rbac.md).
+For detailed instructions on how to deploy __Swift in a RBAC enabled cluster__, please visit [here](/docs/setup/rbac.md).
 
 
 ### Using Helm
