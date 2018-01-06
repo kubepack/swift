@@ -2,20 +2,30 @@
 title: Changelog | Swift
 description: Changelog
 menu:
-  product_swift_0.5.1:
+  product_swift_0.5.2:
     identifier: changelog-swift
     name: Changelog
     parent: welcome
     weight: 10
 product_name: swift
-menu_name: product_swift_0.5.1
+menu_name: product_swift_0.5.2
 section_menu_id: welcome
-url: /products/swift/0.5.1/welcome/changelog/
+url: /products/swift/0.5.2/welcome/changelog/
 aliases:
-  - /products/swift/0.5.1/CHANGELOG/
+  - /products/swift/0.5.2/CHANGELOG/
 ---
 
 # Change Log
+
+## [0.5.2](https://github.com/appscode/swift/releases/tag/0.5.2) / 2018.01.06
+Swift 0.5.2 closes tunnel after api call for `kubeconfig` connector. We recommend upgrading to this version. There is no user visible change in api.
+
+- Close tunnel after api call [\#79](https://github.com/appscode/swift/pull/79)
+- Add front matter for docs [\#81](https://github.com/appscode/swift/pull/81)
+- Fix analytics client id detection [\#80](https://github.com/appscode/swift/pull/80)
+- Use tunnel tools from kutil [\#78](https://github.com/appscode/swift/pull/78)
+- Set ClientID for analytics [\#77](https://github.com/appscode/swift/pull/77)
+
 
 ## [0.5.1](https://github.com/appscode/swift/releases/tag/0.5.1) / 2017.11.27
 Swift 0.5.1 fixes connection leakage in proxy server. We recommend upgrading to this version. There is no user visible change in api.
