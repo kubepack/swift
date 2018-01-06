@@ -1,7 +1,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/appscode/swift)](https://goreportcard.com/report/github.com/appscode/swift)
 
 # Swift
-Swift is an Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller proxy using [grpc-gateway](https://github.com/grpc-ecosystem/grpc-gateway). It was previously called Wheel.
+Swift is an Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller proxy using [grpc-gateway](https://github.com/grpc-ecosystem/grpc-gateway).
 
 
 ## Supported Versions

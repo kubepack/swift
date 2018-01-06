@@ -17,7 +17,7 @@ aliases:
 ---
 
 # Swift
-Swift (pronounced Cube-Dee) by AppsCode is a Kubernetes Cluster Operator Daemon. From here you can learn all about Swift's architecture and how to deploy and use Swift.
+Swift is an Ajax friendly Helm Tiller proxy using grpc-gateway. From here you can learn all about Swift's architecture and how to deploy and use Swift.
 
 - [Concepts](/docs/concepts/). Concepts explain some significant aspect of Swift. This is where you can learn about what Swift does and how it does it.
 
