@@ -5,6 +5,7 @@ menu:
   product_swift_0.5.1:
     identifier: developer-guide
     name: Developer Guide
-    weight: 30
+    parent: setup
+    weight: 25
 menu_name: product_swift_0.5.1
 ---

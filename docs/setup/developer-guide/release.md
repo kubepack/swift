@@ -1,16 +1,17 @@
 ---
 title: Release | Swift
-description: Swift Release
+description: swift Release
 menu:
   product_swift_0.5.1:
-    identifier: release    
+    identifier: release
     name: Release
     parent: developer-guide
     weight: 15
 product_name: swift
 menu_name: product_swift_0.5.1
-section_menu_id: developer-guide
+section_menu_id: setup
 ---
+
 # Release Process
 
 The following steps must be done from a Linux x64 bit machine.
@@ -19,9 +20,10 @@ The following steps must be done from a Linux x64 bit machine.
 - Push changes to the `release-x` branch and apply new tag.
 - Push all the changes to remote repo.
 - Build and push swift docker image:
+
 ```console
 $ cd ~/go/src/github.com/appscode/swift
-./hack/docker/setup.sh; env APPSCODE_ENV=prod ./hack/docker/setup.sh release
+./hack/release.sh
 ```
 
 - Now, update the release notes in Github. See previous release notes to get an idea what to include there.

@@ -9,10 +9,7 @@ menu:
     weight: 15
 product_name: swift
 menu_name: product_swift_0.5.1
-section_menu_id: developer-guide
-url: /products/swift/0.5.1/developer-guide/
-aliases:
-  - /products/swift/0.5.1/developer-guide/README/
+section_menu_id: setup
 ---
 
 ## Development Guide
@@ -48,11 +45,10 @@ $ ./_proto/hack/builddeps.sh
 $ ./hack/builddeps.sh
 ```
 
-Please note that this replaces various tools with specific versions needed to compile swift. You can find the full list here:
-[/_proto/hack/builddeps.sh#L54](/_proto/hack/builddeps.sh#L54).
+Please note that this replaces various tools with specific versions needed to compile swift. You can find the full list [here](https://github.com/appscode/swift/blob/0.5.1/_proto/hack/builddeps.sh#L54.
 
 #### Build Binary
-```
+```console
 $ ./hack/make.py
 $ swift version
 ```
@@ -60,12 +56,13 @@ $ swift version
 #### Dependency management
 Swift uses [Glide](https://github.com/Masterminds/glide) to manage dependencies. Dependencies are already checked in the `vendor` folder.
 If you want to update/add dependencies, run:
+
 ```console
 $ glide slow
 ```
 
 #### Build Docker images
-To build and push your custom Docker image, follow the steps below. To release a new version of Swift, please follow the [release guide](/docs/developer-guide/release.md).
+To build and push your custom Docker image, follow the steps below. To release a new version of Swift, please follow the [release guide](/docs/setup/developer-guide/release.md).
 
 ```console
 # Build Docker image
