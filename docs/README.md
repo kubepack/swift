@@ -2,18 +2,18 @@
 title: Weclome | Swift
 description: Welcome to Swift
 menu:
-  product_swift_0.5.1:
+  product_swift_0.5.2:
     identifier: readme-swift
     name: Readme
     parent: welcome
     weight: -1
 product_name: swift
-menu_name: product_swift_0.5.1
+menu_name: product_swift_0.5.2
 section_menu_id: welcome
-url: /products/swift/0.5.1/welcome/
+url: /products/swift/0.5.2/welcome/
 aliases:
-  - /products/swift/0.5.1/
-  - /products/swift/0.5.1/README/
+  - /products/swift/0.5.2/
+  - /products/swift/0.5.2/README/
 ---
 
 # Swift
