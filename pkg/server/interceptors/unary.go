@@ -13,7 +13,6 @@ import (
 
 func NewUnaryInterceptor(enableCORS bool, allowHost string, allowSubdomain bool) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
-		log.V(12).Infoln("Called unary with context", ctx)
 		if enableCORS {
 			endpoints.SetCORSHeaders(ctx, allowHost, allowSubdomain)
 		}
