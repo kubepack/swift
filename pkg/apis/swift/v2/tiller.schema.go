@@ -81,6 +81,10 @@ func init() {
         "name": {
           "title": "Name is a user name or organization name",
           "type": "string"
+        },
+        "url": {
+          "title": "Url is an optional URL to an address for the named maintainer",
+          "type": "string"
         }
       },
       "type": "object"
@@ -133,6 +137,10 @@ func init() {
           },
           "title": "A list of string keywords",
           "type": "array"
+        },
+        "kubeVersion": {
+          "description": "KubeVersion is a SemVer constraint specifying the version of Kubernetes required.",
+          "type": "string"
         },
         "maintainers": {
           "items": {
@@ -397,6 +405,10 @@ func init() {
         "name": {
           "title": "Name is a user name or organization name",
           "type": "string"
+        },
+        "url": {
+          "title": "Url is an optional URL to an address for the named maintainer",
+          "type": "string"
         }
       },
       "type": "object"
@@ -449,6 +461,10 @@ func init() {
           },
           "title": "A list of string keywords",
           "type": "array"
+        },
+        "kubeVersion": {
+          "description": "KubeVersion is a SemVer constraint specifying the version of Kubernetes required.",
+          "type": "string"
         },
         "maintainers": {
           "items": {

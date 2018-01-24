@@ -3,6 +3,7 @@ package procfs
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 )
 
 // ProcIO models the content of /proc/<pid>/io.
@@ -29,7 +30,7 @@ type ProcIO struct {
 func (p Proc) NewIO() (ProcIO, error) {
 	pio := ProcIO{}
 
-	f, err := p.open("io")
+	f, err := os.Open(p.path("io"))
 	if err != nil {
 		return pio, err
 	}
@@ -46,9 +47,6 @@ func (p Proc) NewIO() (ProcIO, error) {
 
 	_, err = fmt.Sscanf(string(data), ioFormat, &pio.RChar, &pio.WChar, &pio.SyscR,
 		&pio.SyscW, &pio.ReadBytes, &pio.WriteBytes, &pio.CancelledWriteBytes)
-	if err != nil {
-		return pio, err
-	}
 
-	return pio, nil
+	return pio, err
 }
