@@ -23,13 +23,13 @@ At first, you need to have a RBAC enabled Kubernetes cluster, and the kubectl co
 - If you are currently running a Minukube cluster without RBAC, delete the cluster. This will delete any objects running in the cluster.
 
 ```console
-$ minikube delete
+minikube delete
 ```
 
 - Now, create a RBAC cluster with RBAC enabled.
 
 ```console
-$ minikube start --extra-config=apiserver.Authorization.Mode=RBAC
+minikube start --extra-config=apiserver.Authorization.Mode=RBAC
 ```
 
 - Once the cluster is up and running, you need to set ServiceAccount for the `kube-dns` addon to successfully run it.
@@ -73,12 +73,12 @@ Consult [Tiller and Role-based Access Control](https://github.com/kubernetes/hel
 Now deploy Swift with necessary RBAc permissions using the following command:
 
 ```console
-$ kubectl apply -f ./hack/deploy/with-rbac.yaml
+kubectl apply -f https://raw.githubusercontent.com/appscode/swift/0.6.0/hack/deploy/with-rbac.yaml
 ```
 
 To check if Swift proxy pods have started, run the following command:
 ```console
-$ kubectl get pods --all-namespaces -l app=swift --watch
+kubectl get pods --all-namespaces -l app=swift --watch
 ```
 
 Once the proxy pods are running, you can cancel the above command by typing `Ctrl+C`.
@@ -89,14 +89,14 @@ Once the proxy pods are running, you can cancel the above command by typing `Ctr
 To test Swift server, let's deploy a test chart included in this repo:
 
 ```console
-$ helm install test/hello --name=tester
-$ helm ls
+helm install test/hello --name=tester
+helm ls
 ```
 
 Now, to expose Swift proxy using a NodePort service, run the following command:
 
 ```console
-$ kubectl patch svc swift -n kube-system -p '{"spec":{"type":"NodePort"}}'
+kubectl patch svc swift -n kube-system -p '{"spec":{"type":"NodePort"}}'
 ```
 
 Find out the ip address for the minikube cluster.
