@@ -3,7 +3,7 @@ import:
 - package: github.com/appscode/go
   version: master
 - package: github.com/appscode/kutil
-  version: release-5.0
+  version: release-6.0
 - package: github.com/golang/glog
 - package: golang.org/x/net
   version: da118f7b8e5954f39d0d2130ab35d4bf0e3cb344
@@ -28,18 +28,18 @@ import:
   version: v1.3.0
 - package: google.golang.org/genproto
 - package: k8s.io/api
-  version: fe29995db37613b9c5b2a647544cf627bfa8d299
+  version: kubernetes-1.9.0
 - package: k8s.io/apiextensions-apiserver
-  version: release-1.8
+  version: kubernetes-1.9.0
 - package: k8s.io/apimachinery
-  version: 019ae5ada31de202164b118aee88ee2d14075c31
+  version: kubernetes-1.9.0
 - package: k8s.io/client-go
-  version: v5.0.0
+  version: v6.0.0
 - package: k8s.io/kubernetes
-  version: v1.8.0
+  version: v1.9.0
 - package: k8s.io/helm
   repo: https://github.com/appscode/helm.git
-  version: 2.7.0-ac
+  version: 2.8.0-ac
 - package: github.com/grpc-ecosystem/go-grpc-prometheus
   version: master
 - package: github.com/jpillora/go-ogle-analytics
