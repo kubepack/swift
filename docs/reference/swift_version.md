@@ -1,12 +1,12 @@
 ---
 title: Swift Version
 menu:
-  product_swift_0.5.2:
+  product_swift_0.6.0:
     identifier: swift-version
     name: Swift Version
     parent: reference
 product_name: swift
-menu_name: product_swift_0.5.2
+menu_name: product_swift_0.6.0
 section_menu_id: reference
 ---
 ## swift version
@@ -14,7 +14,6 @@ section_menu_id: reference
 Prints binary version number.
 
 ### Synopsis
-
 
 Prints binary version number.
 
@@ -42,5 +41,6 @@ swift version [flags]
 ```
 
 ### SEE ALSO
+
 * [swift](/docs/reference/swift.md)	 - Swift by Appscode - Ajax friendly Helm Tiller Proxy
 

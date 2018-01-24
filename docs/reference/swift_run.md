@@ -1,12 +1,12 @@
 ---
 title: Swift Run
 menu:
-  product_swift_0.5.2:
+  product_swift_0.6.0:
     identifier: swift-run
     name: Swift Run
     parent: reference
 product_name: swift
-menu_name: product_swift_0.5.2
+menu_name: product_swift_0.6.0
 section_menu_id: reference
 ---
 ## swift run
@@ -14,7 +14,6 @@ section_menu_id: reference
 Run swift apis
 
 ### Synopsis
-
 
 Run swift apis
 
@@ -56,5 +55,6 @@ swift run [flags]
 ```
 
 ### SEE ALSO
+
 * [swift](/docs/reference/swift.md)	 - Swift by Appscode - Ajax friendly Helm Tiller Proxy
 
