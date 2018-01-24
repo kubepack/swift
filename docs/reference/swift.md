@@ -1,17 +1,17 @@
 ---
 title: Swift
 menu:
-  product_swift_0.5.2:
+  product_swift_0.6.0:
     identifier: swift
     name: Swift
     parent: reference
     weight: 0
 
 product_name: swift
-menu_name: product_swift_0.5.2
+menu_name: product_swift_0.6.0
 section_menu_id: reference
 aliases:
-  - products/swift/0.5.2/reference/
+  - products/swift/0.6.0/reference/
 
 ---
 ## swift
@@ -19,7 +19,6 @@ aliases:
 Swift by Appscode - Ajax friendly Helm Tiller Proxy
 
 ### Synopsis
-
 
 Swift by Appscode - Ajax friendly Helm Tiller Proxy
 
@@ -38,6 +37,7 @@ Swift by Appscode - Ajax friendly Helm Tiller Proxy
 ```
 
 ### SEE ALSO
+
 * [swift run](/docs/reference/swift_run.md)	 - Run swift apis
 * [swift version](/docs/reference/swift_version.md)	 - Prints binary version number.
 

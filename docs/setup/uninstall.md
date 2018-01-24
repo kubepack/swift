@@ -2,13 +2,13 @@
 title: Uninstall Swift
 description: Swift Uninstall
 menu:
-  product_swift_0.5.2:
+  product_swift_0.6.0:
     identifier: uninstall
     name: Uninstall
     parent: setup
     weight: 20
 product_name: swift
-menu_name: product_swift_0.5.2
+menu_name: product_swift_0.6.0
 section_menu_id: setup
 ---
 
@@ -18,7 +18,7 @@ Please follow the steps below to uninstall Swift:
 - Delete the various objects created for Swift operator.
 
 ```console
-$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.5.2/hack/deploy/uninstall.sh | bash
+$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.6.0/hack/deploy/uninstall.sh | bash
 
 + kubectl delete deployment -l app=swift -n kube-system
 deployment "swift" deleted

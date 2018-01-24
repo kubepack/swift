@@ -2,20 +2,26 @@
 title: Changelog | Swift
 description: Changelog
 menu:
-  product_swift_0.5.2:
+  product_swift_0.6.0:
     identifier: changelog-swift
     name: Changelog
     parent: welcome
     weight: 10
 product_name: swift
-menu_name: product_swift_0.5.2
+menu_name: product_swift_0.6.0
 section_menu_id: welcome
-url: /products/swift/0.5.2/welcome/changelog/
+url: /products/swift/0.6.0/welcome/changelog/
 aliases:
-  - /products/swift/0.5.2/CHANGELOG/
+  - /products/swift/0.6.0/CHANGELOG/
 ---
 
 # Change Log
+
+## [0.6.0](https://github.com/appscode/swift/releases/tag/0.6.0) / 2018.01.23
+Swift 0.6.0 updates Helm dependency to 2.8.0. There is no user visible change in api.
+
+- Revendor to Helm 2.8 [\#83](https://github.com/appscode/swift/pull/83)
+
 
 ## [0.5.2](https://github.com/appscode/swift/releases/tag/0.5.2) / 2018.01.06
 Swift 0.5.2 closes tunnel after api call for `kubeconfig` connector. We recommend upgrading to this version. There is no user visible change in api.

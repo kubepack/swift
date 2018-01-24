@@ -51,7 +51,7 @@ spec:
         - run
         - --v=3
         - --connector=incluster
-        image: appscode/swift:0.5.2
+        image: appscode/swift:0.6.0
         imagePullPolicy: Always
         name: swift
         ports:
