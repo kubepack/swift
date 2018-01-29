@@ -24,7 +24,7 @@ var _ proto.ReleaseServiceServer = &Server{}
 // NewContext creates a versioned context.
 func newContext() context.Context {
 	md := metadata.Pairs("x-helm-api-client", version.GetVersion())
-	return metadata.NewContext(context.TODO(), md)
+	return metadata.NewOutgoingContext(context.TODO(), md)
 }
 
 func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeReleasesRequest) (*proto.SummarizeReleasesResponse, error) {
