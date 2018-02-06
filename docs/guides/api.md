@@ -59,7 +59,7 @@ GET http://127.0.0.1:9855/tiller/v2/releases/my-release/content/json?format_valu
 
 ## Release history
 ```
-GET http://127.0.0.1:9855/tiller/v2/releases/my-release/json
+GET http://127.0.0.1:9855/tiller/v2/releases/my-release/json?max=10
 ```
 
 ## Rollback release
