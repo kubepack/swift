@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	urllib "net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -63,7 +64,7 @@ func prepareChart(chartUrl string, values *chart.Config) (*chart.Chart, error) {
 
 func chartFromUrl(url string, dir string) (*chart.Chart, error) {
 	if url == "" {
-		return nil, errors.New("Url not specified")
+		return nil, errors.New("url not specified")
 	}
 
 	tokens := strings.Split(url, "/")
@@ -176,7 +177,22 @@ func downloadFile(url, filePath string, replace bool) error {
 	}
 	defer output.Close()
 
-	response, err := http.Get(url)
+	u, err := urllib.Parse(url)
+	if err != nil {
+		log.Infoln("failed to parse url. reason: %s", err)
+		return err
+	}
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		return err
+	}
+	if u.User != nil {
+		user := u.User.Username()
+		pass, _ := u.User.Password()
+		req.SetBasicAuth(user, pass)
+	}
+	req.Header.Set("Accept-Encoding", "gzip, deflate")
+	response, err := http.DefaultClient.Do(req)
 	if err != nil {
 		log.Infoln("Error while downloading", url, "-", err)
 		return err
