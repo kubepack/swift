@@ -191,7 +191,7 @@ func downloadFile(url, filePath string, replace bool) error {
 		pass, _ := u.User.Password()
 		req.SetBasicAuth(user, pass)
 	}
-
+	req.Header.Set("Accept-Encoding", "gzip, deflate")
 	response, err := http.DefaultClient.Do(req)
 	if err != nil {
 		log.Infoln("Error while downloading", url, "-", err)
