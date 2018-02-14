@@ -18,7 +18,19 @@ aliases:
 # Change Log
 
 ## [0.7.0](https://github.com/appscode/swift/releases/tag/0.7.0) / 2018.01.23
-Swift 0.7.0 updates Helm dependency to 2.8.0. There is no user visible change in api.
+Swift 0.7.0 adds support for SSL enable Tiller. `InstallRelease` and `UpdateRelease` apis have been updated in backward compatible manner to support downloading charts from secure chart repository.
+
+- Update installer script [\#95](https://github.com/appscode/swift/pull/95)
+- Document Swift SSL options [\#93](https://github.com/appscode/swift/pull/93)
+- Support self-signed ca certificate for Tiller [\#92](https://github.com/appscode/swift/pull/92)
+- Do not write SETTINGS in response to ACKs in Cmux [\#91](https://github.com/appscode/swift/pull/91)
+- Support SSL for chart repository [\#90](https://github.com/appscode/swift/pull/90)
+- Pass username/password in chart URL as basic auth header [\#89](https://github.com/appscode/swift/pull/89)
+- Update grpc-go to v1.9.2 [\#85](https://github.com/appscode/swift/pull/85)
+
+
+## [0.6.0](https://github.com/appscode/swift/releases/tag/0.6.0) / 2018.01.23
+Swift 0.6.0 updates Helm dependency to 2.8.0. There is no user visible change in api.
 
 - Revendor to Helm 2.8 [\#83](https://github.com/appscode/swift/pull/83)
 
