@@ -1,0 +1,66 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: swift
+  namespace: ${SWIFT_NAMESPACE}
+  labels:
+    app: swift
+  initializers:
+    pending: []
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: swift
+  template:
+    metadata:
+      labels:
+        app: swift
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+    spec:
+      serviceAccountName: ${SWIFT_SERVICE_ACCOUNT}
+      imagePullSecrets: [${SWIFT_IMAGE_PULL_SECRET}]
+      containers:
+      - name: swift
+        image: ${SWIFT_DOCKER_REGISTRY}/swift:0.6.0
+        imagePullPolicy: IfNotPresent
+        args:
+        - run
+        - --v=3
+        - --connector=incluster
+        - --tiller-insecure-skip-verify=true
+        ports:
+        - containerPort: 9855
+        - containerPort: 50055
+        - containerPort: 56790
+        volumeMounts:
+        - mountPath: /tmp
+          name: chart-volume
+      volumes:
+      - name: chart-volume
+        emptyDir: {}
+      tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: swift
+  namespace: ${SWIFT_NAMESPACE}
+  labels:
+    app: swift
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 9855
+  - name: https
+    port: 443
+    targetPort: 50055
+  - name: ops
+    port: 56790
+    targetPort: 56790
+  selector:
+    app: swift
