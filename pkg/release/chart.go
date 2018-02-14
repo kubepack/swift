@@ -1,16 +1,21 @@
 package release
 
 import (
+	"crypto/tls"
+	"crypto/x509"
+	"encoding/base64"
 	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net"
 	"net/http"
 	urllib "net/url"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/appscode/go/log"
 	"k8s.io/helm/pkg/chartutil"
@@ -26,7 +31,17 @@ const (
 	STABLE_PREFIX = "stable/"
 )
 
-func prepareChart(chartUrl string, values *chart.Config) (*chart.Chart, error) {
+type chartInfo struct {
+	ChartURL          string
+	CaBundle          []byte
+	Username          string
+	Password          string
+	Token             string
+	ClientCertificate []byte
+	ClientKey         []byte
+}
+
+func prepareChart(repo chartInfo, values *chart.Config) (*chart.Chart, error) {
 	// create tmp dir for kupbeapp index file and chart archive file
 	chartDir, err := ioutil.TempDir(TMP_DIR, DIR_PREFIX)
 	if err != nil {
@@ -35,16 +50,16 @@ func prepareChart(chartUrl string, values *chart.Config) (*chart.Chart, error) {
 	defer os.RemoveAll(chartDir) // clean up tmp dir
 	log.Infoln("Chart dir:", chartDir)
 
-	if strings.HasPrefix(chartUrl, STABLE_PREFIX) {
-		stableUrl, err := kubeappUrl(chartUrl, chartDir)
+	if strings.HasPrefix(repo.ChartURL, STABLE_PREFIX) {
+		stableUrl, err := kubeappUrl(repo.ChartURL, chartDir)
 		if err != nil {
 			return nil, err
 		}
-		chartUrl = stableUrl
+		repo.ChartURL = stableUrl
 	}
-	log.Infoln("Chart url:", chartUrl)
+	log.Infoln("Chart url:", repo.ChartURL)
 
-	chart, err := chartFromUrl(chartUrl, chartDir)
+	chart, err := pullChart(repo, chartDir)
 	if err != nil {
 		return nil, err
 	}
@@ -62,15 +77,15 @@ func prepareChart(chartUrl string, values *chart.Config) (*chart.Chart, error) {
 	return chart, nil
 }
 
-func chartFromUrl(url string, dir string) (*chart.Chart, error) {
-	if url == "" {
+func pullChart(repo chartInfo, dir string) (*chart.Chart, error) {
+	if repo.ChartURL == "" {
 		return nil, errors.New("url not specified")
 	}
 
-	tokens := strings.Split(url, "/")
+	tokens := strings.Split(repo.ChartURL, "/")
 	fileName := filepath.Join(dir, tokens[len(tokens)-1])
 
-	err := downloadFile(url, fileName, true)
+	err := downloadFile(repo, fileName, true)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +137,7 @@ func checkDependencies(ch *chart.Chart, reqs *chartutil.Requirements) error {
 
 func kubeappUrl(name string, dir string) (string, error) {
 	indexPath := filepath.Join(dir, INDEX_FILE)
-	err := downloadFile(INDEX_URL, indexPath, true)
+	err := downloadFile(chartInfo{ChartURL: INDEX_URL}, indexPath, true)
 	if err != nil {
 		return "", err
 	}
@@ -153,7 +168,7 @@ func kubeappUrl(name string, dir string) (string, error) {
 
 // filePath: /tmp/swift311308022/index.yaml
 // filePath: /tmp/swift311308022/test-chart-0.1.0.tgz
-func downloadFile(url, filePath string, replace bool) error {
+func downloadFile(repo chartInfo, filePath string, replace bool) error {
 	if !replace {
 		if _, err := os.Stat(filePath); err == nil {
 			log.Infoln("File already exists:", filePath)
@@ -168,7 +183,7 @@ func downloadFile(url, filePath string, replace bool) error {
 		}
 	}
 
-	log.Infoln("Downloading", url, "to", filePath)
+	log.Infoln("Downloading", repo.ChartURL, "to", filePath)
 
 	output, err := os.Create(filePath)
 	if err != nil {
@@ -177,31 +192,75 @@ func downloadFile(url, filePath string, replace bool) error {
 	}
 	defer output.Close()
 
-	u, err := urllib.Parse(url)
+	u, err := urllib.Parse(repo.ChartURL)
 	if err != nil {
 		log.Infoln("failed to parse url. reason: %s", err)
 		return err
 	}
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+
+	var auth string
+	if repo.Token != "" {
+		auth = "Bearer " + repo.Token
+	} else if repo.Username != "" && repo.Password != "" {
+		auth = "Basic " + base64.StdEncoding.EncodeToString([]byte(repo.Username+":"+repo.Password))
+	} else if u.User != nil {
+		username := u.User.Username()
+		password, _ := u.User.Password()
+		auth = "Basic " + base64.StdEncoding.EncodeToString([]byte(username+":"+password))
+		u.User = nil
+	}
+
+	req, err := http.NewRequest(http.MethodGet, u.String(), nil)
 	if err != nil {
 		return err
 	}
-	if u.User != nil {
-		user := u.User.Username()
-		pass, _ := u.User.Password()
-		req.SetBasicAuth(user, pass)
+	if auth != "" {
+		req.Header.Set("Authorization", auth)
 	}
 	req.Header.Set("Accept-Encoding", "gzip, deflate")
-	response, err := http.DefaultClient.Do(req)
+
+	client := http.DefaultClient
+	if len(repo.CaBundle) > 0 {
+		pool := x509.NewCertPool()
+		pool.AppendCertsFromPEM(repo.CaBundle)
+		tlsConfig := &tls.Config{
+			RootCAs: pool,
+		}
+		if len(repo.ClientCertificate) > 0 && len(repo.ClientKey) > 0 {
+			if cert, err := tls.X509KeyPair(repo.ClientCertificate, repo.ClientKey); err != nil {
+				return fmt.Errorf("invalid client cert pair. reason: %s", err)
+			} else {
+				tlsConfig.Certificates = []tls.Certificate{cert}
+			}
+		}
+
+		// ref: https://github.com/golang/go/blob/release-branch.go1.9/src/net/http/transport.go#L40
+		var transport = &http.Transport{
+			Proxy: http.ProxyFromEnvironment,
+			DialContext: (&net.Dialer{
+				Timeout:   30 * time.Second,
+				KeepAlive: 30 * time.Second,
+				DualStack: true,
+			}).DialContext,
+			MaxIdleConns:          100,
+			IdleConnTimeout:       90 * time.Second,
+			TLSHandshakeTimeout:   10 * time.Second,
+			ExpectContinueTimeout: 1 * time.Second,
+			TLSClientConfig:       tlsConfig,
+		}
+		client = &http.Client{Transport: transport}
+	}
+
+	resp, err := client.Do(req)
 	if err != nil {
-		log.Infoln("Error while downloading", url, "-", err)
+		log.Infoln("Error while downloading", u.String(), "-", err)
 		return err
 	}
-	defer response.Body.Close()
+	defer resp.Body.Close()
 
-	n, err := io.Copy(output, response.Body)
+	n, err := io.Copy(output, resp.Body)
 	if err != nil {
-		log.Infoln("Error while downloading", url, "-", err)
+		log.Infoln("Error while downloading", u.String(), "-", err)
 		return err
 	}
 

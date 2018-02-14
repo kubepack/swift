@@ -290,9 +290,26 @@ message UpdateReleaseRequest {
 	bool reuse_values = 10;
 	// Force resource update through delete/recreate if needed.
 	bool force = 11;
-
 	// url to download char tar file @appscode
 	string chart_url = 12;
+	// `ca_bundle` is a PEM encoded CA bundle used to sign server certificate of chart repository.
+	// +optional
+	bytes ca_bundle = 13;
+	// Username is the username for basic authentication to the kubernetes cluster.
+	// +optional
+	string username = 14;
+	// Password is the password for basic authentication to the kubernetes cluster.
+	// +optional
+	string password = 15;
+	// Token is the bearer token for authentication to the kubernetes cluster.
+	// +optional
+	string token = 16;
+	// ClientCertificate contains PEM-encoded data from a client cert file for TLS.
+	// +optional
+	bytes client_certificate = 17;
+	// ClientKey contains PEM-encoded data from a client key file for TLS.
+	// +optional
+	bytes client_key = 18;
 }
 
 // UpdateReleaseResponse is the response to an update request.
@@ -335,29 +352,41 @@ message InstallReleaseRequest {
 	// a release object nor deploy to Kubernetes. The release object returned
 	// in the response will be fake.
 	bool dry_run = 3;
-
 	// Name is the candidate release name. This must be unique to the
 	// namespace, otherwise the server will return an error. If it is not
 	// supplied, the server will autogenerate one.
 	string name = 4;
-
 	// DisableHooks causes the server to skip running any hooks for the install.
 	bool disable_hooks = 5;
-
 	// Namepace is the kubernetes namespace of the release.
 	string namespace = 6;
-
 	// ReuseName requests that Tiller re-uses a name, instead of erroring out.
 	bool reuse_name = 7;
-
 	// timeout specifies the max amount of time any kubernetes client command can run.
 	int64 timeout = 8;
 	// wait, if true, will wait until all Pods, PVCs, and Services are in a ready state
 	// before marking the release as successful. It will wait for as long as timeout
 	bool wait = 9;
-
 	// url to download char tar file @appscode
 	string chart_url = 10;
+	// `ca_bundle` is a PEM encoded CA bundle used to sign server certificate of chart repository.
+	// +optional
+	bytes ca_bundle = 11;
+	// Username is the username for basic authentication to the kubernetes cluster.
+	// +optional
+	string username = 12;
+	// Password is the password for basic authentication to the kubernetes cluster.
+	// +optional
+	string password = 13;
+	// Token is the bearer token for authentication to the kubernetes cluster.
+	// +optional
+	string token = 14;
+	// ClientCertificate contains PEM-encoded data from a client cert file for TLS.
+	// +optional
+	bytes client_certificate = 15;
+	// ClientKey contains PEM-encoded data from a client key file for TLS.
+	// +optional
+	bytes client_key = 16;
 }
 
 // InstallReleaseResponse is the response from a release installation.

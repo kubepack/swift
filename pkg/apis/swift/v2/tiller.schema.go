@@ -215,12 +215,24 @@ func init() {
   },
   "description": "UpdateReleaseRequest updates a release.",
   "properties": {
+    "ca_bundle": {
+      "title": "` + "`" + `ca_bundle` + "`" + ` is a PEM encoded CA bundle used to sign server certificate of chart repository.\n+optional",
+      "type": "string"
+    },
     "chart": {
       "$ref": "#/definitions/chartChart",
       "description": "Chart is the protobuf representation of a chart."
     },
     "chart_url": {
       "title": "url to download char tar file @appscode",
+      "type": "string"
+    },
+    "client_certificate": {
+      "title": "ClientCertificate contains PEM-encoded data from a client cert file for TLS.\n+optional",
+      "type": "string"
+    },
+    "client_key": {
+      "title": "ClientKey contains PEM-encoded data from a client key file for TLS.\n+optional",
       "type": "string"
     },
     "disable_hooks": {
@@ -241,6 +253,10 @@ func init() {
       "title": "The name of the release",
       "type": "string"
     },
+    "password": {
+      "title": "Password is the password for basic authentication to the kubernetes cluster.\n+optional",
+      "type": "string"
+    },
     "recreate": {
       "title": "Performs pods restart for resources if applicable",
       "type": "boolean"
@@ -256,6 +272,14 @@ func init() {
     "timeout": {
       "description": "timeout specifies the max amount of time any kubernetes client command can run.",
       "type": "integer"
+    },
+    "token": {
+      "title": "Token is the bearer token for authentication to the kubernetes cluster.\n+optional",
+      "type": "string"
+    },
+    "username": {
+      "title": "Username is the username for basic authentication to the kubernetes cluster.\n+optional",
+      "type": "string"
     },
     "values": {
       "$ref": "#/definitions/chartConfig",
@@ -539,12 +563,24 @@ func init() {
   },
   "description": "InstallReleaseRequest is the request for an installation of a chart.",
   "properties": {
+    "ca_bundle": {
+      "title": "` + "`" + `ca_bundle` + "`" + ` is a PEM encoded CA bundle used to sign server certificate of chart repository.\n+optional",
+      "type": "string"
+    },
     "chart": {
       "$ref": "#/definitions/chartChart",
       "description": "Chart is the protobuf representation of a chart."
     },
     "chart_url": {
       "title": "url to download char tar file @appscode",
+      "type": "string"
+    },
+    "client_certificate": {
+      "title": "ClientCertificate contains PEM-encoded data from a client cert file for TLS.\n+optional",
+      "type": "string"
+    },
+    "client_key": {
+      "title": "ClientKey contains PEM-encoded data from a client key file for TLS.\n+optional",
       "type": "string"
     },
     "disable_hooks": {
@@ -567,6 +603,10 @@ func init() {
       "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
       "type": "string"
     },
+    "password": {
+      "title": "Password is the password for basic authentication to the kubernetes cluster.\n+optional",
+      "type": "string"
+    },
     "reuse_name": {
       "description": "ReuseName requests that Tiller re-uses a name, instead of erroring out.",
       "type": "boolean"
@@ -574,6 +614,14 @@ func init() {
     "timeout": {
       "description": "timeout specifies the max amount of time any kubernetes client command can run.",
       "type": "integer"
+    },
+    "token": {
+      "title": "Token is the bearer token for authentication to the kubernetes cluster.\n+optional",
+      "type": "string"
+    },
+    "username": {
+      "title": "Username is the username for basic authentication to the kubernetes cluster.\n+optional",
+      "type": "string"
     },
     "values": {
       "$ref": "#/definitions/chartConfig",
