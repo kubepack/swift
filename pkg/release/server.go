@@ -164,7 +164,16 @@ func (s *Server) UpdateRelease(ctx context.Context, req *proto.UpdateReleaseRequ
 	}
 
 	if req.Chart == nil {
-		req.Chart, err = prepareChart(req.ChartUrl, req.Values)
+		repo := chartInfo{
+			ChartURL:          req.ChartUrl,
+			CaBundle:          req.CaBundle,
+			Username:          req.Username,
+			Password:          req.Password,
+			Token:             req.Token,
+			ClientCertificate: req.ClientCertificate,
+			ClientKey:         req.ClientKey,
+		}
+		req.Chart, err = prepareChart(repo, req.Values)
 		if err != nil {
 			return nil, err
 		}
@@ -208,7 +217,16 @@ func (s *Server) InstallRelease(ctx context.Context, req *proto.InstallReleaseRe
 	}
 
 	if req.Chart == nil {
-		req.Chart, err = prepareChart(req.ChartUrl, req.Values)
+		repo := chartInfo{
+			ChartURL:          req.ChartUrl,
+			CaBundle:          req.CaBundle,
+			Username:          req.Username,
+			Password:          req.Password,
+			Token:             req.Token,
+			ClientCertificate: req.ClientCertificate,
+			ClientKey:         req.ClientKey,
+		}
+		req.Chart, err = prepareChart(repo, req.Values)
 		if err != nil {
 			return nil, err
 		}
