@@ -2,13 +2,13 @@
 title: API Reference
 description: API Reference
 menu:
-  product_swift_0.6.0:
+  product_swift_0.7.0:
     identifier: guides-apiserver
     name: API Reference
     parent: guides
     weight: 10
 product_name: swift
-menu_name: product_swift_0.6.0
+menu_name: product_swift_0.7.0
 section_menu_id: guides
 ---
 
