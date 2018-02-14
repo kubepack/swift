@@ -95,7 +95,7 @@ Swift can download charts from Chart repository using basic auth, bearer auth an
 
 | Parameter              |            | Description                                                                |
 |------------------------|------------| ---------------------------------------------------------------------------|
-| `chart_url`            | `Required` | URL to download char archive.                                              |
+| `chart_url`            | `Required` | URL to download chart archive.                                              |
 | `ca_bundle`            | `Optional` | PEM encoded CA bundle used to sign server certificate of chart repository. |
 | `username`             | `Optional` | Username for basic authentication to the chart repository.                 |
 | `password`             | `Optional` | Password for basic authentication to the chart repository.                 |
