@@ -480,24 +480,24 @@ type UpdateReleaseRequest struct {
 	ReuseValues bool `protobuf:"varint,10,opt,name=reuse_values,json=reuseValues" json:"reuse_values,omitempty"`
 	// Force resource update through delete/recreate if needed.
 	Force bool `protobuf:"varint,11,opt,name=force" json:"force,omitempty"`
-	// url to download char tar file @appscode
+	// URL to download chart archive
 	ChartUrl string `protobuf:"bytes,12,opt,name=chart_url,json=chartUrl" json:"chart_url,omitempty"`
 	// `ca_bundle` is a PEM encoded CA bundle used to sign server certificate of chart repository.
 	// +optional
 	CaBundle []byte `protobuf:"bytes,13,opt,name=ca_bundle,json=caBundle,proto3" json:"ca_bundle,omitempty"`
-	// Username is the username for basic authentication to the kubernetes cluster.
+	// Username is the username for basic authentication to the chart repository.
 	// +optional
 	Username string `protobuf:"bytes,14,opt,name=username" json:"username,omitempty"`
-	// Password is the password for basic authentication to the kubernetes cluster.
+	// Password is the password for basic authentication to the chart repository.
 	// +optional
 	Password string `protobuf:"bytes,15,opt,name=password" json:"password,omitempty"`
-	// Token is the bearer token for authentication to the kubernetes cluster.
+	// Token is the bearer token for authentication to the chart repository.
 	// +optional
 	Token string `protobuf:"bytes,16,opt,name=token" json:"token,omitempty"`
-	// ClientCertificate contains PEM-encoded data from a client cert file for TLS.
+	// ClientCertificate contains PEM-encoded data passed as a client cert to chart repository.
 	// +optional
 	ClientCertificate []byte `protobuf:"bytes,17,opt,name=client_certificate,json=clientCertificate,proto3" json:"client_certificate,omitempty"`
-	// ClientKey contains PEM-encoded data from a client key file for TLS.
+	// ClientKey contains PEM-encoded data passed as a client key to chart repository.
 	// +optional
 	ClientKey []byte `protobuf:"bytes,18,opt,name=client_key,json=clientKey,proto3" json:"client_key,omitempty"`
 }
@@ -773,24 +773,24 @@ type InstallReleaseRequest struct {
 	// wait, if true, will wait until all Pods, PVCs, and Services are in a ready state
 	// before marking the release as successful. It will wait for as long as timeout
 	Wait bool `protobuf:"varint,9,opt,name=wait" json:"wait,omitempty"`
-	// url to download char tar file @appscode
+	// URL to download chart archive
 	ChartUrl string `protobuf:"bytes,10,opt,name=chart_url,json=chartUrl" json:"chart_url,omitempty"`
 	// `ca_bundle` is a PEM encoded CA bundle used to sign server certificate of chart repository.
 	// +optional
 	CaBundle []byte `protobuf:"bytes,11,opt,name=ca_bundle,json=caBundle,proto3" json:"ca_bundle,omitempty"`
-	// Username is the username for basic authentication to the kubernetes cluster.
+	// Username is the username for basic authentication to the chart repository.
 	// +optional
 	Username string `protobuf:"bytes,12,opt,name=username" json:"username,omitempty"`
-	// Password is the password for basic authentication to the kubernetes cluster.
+	// Password is the password for basic authentication to the chart repository.
 	// +optional
 	Password string `protobuf:"bytes,13,opt,name=password" json:"password,omitempty"`
-	// Token is the bearer token for authentication to the kubernetes cluster.
+	// Token is the bearer token for authentication to the chart repository.
 	// +optional
 	Token string `protobuf:"bytes,14,opt,name=token" json:"token,omitempty"`
-	// ClientCertificate contains PEM-encoded data from a client cert file for TLS.
+	// ClientCertificate contains PEM-encoded data passed as a client cert to chart repository.
 	// +optional
 	ClientCertificate []byte `protobuf:"bytes,15,opt,name=client_certificate,json=clientCertificate,proto3" json:"client_certificate,omitempty"`
-	// ClientKey contains PEM-encoded data from a client key file for TLS.
+	// ClientKey contains PEM-encoded data passed as a client key to chart repository.
 	// +optional
 	ClientKey []byte `protobuf:"bytes,16,opt,name=client_key,json=clientKey,proto3" json:"client_key,omitempty"`
 }

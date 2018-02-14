@@ -51,6 +51,7 @@ spec:
         - run
         - --v=3
         - --connector=incluster
+        - --tiller-insecure-skip-verify=true
         image: appscode/swift:0.6.0
         imagePullPolicy: Always
         name: swift

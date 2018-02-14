@@ -290,24 +290,24 @@ message UpdateReleaseRequest {
 	bool reuse_values = 10;
 	// Force resource update through delete/recreate if needed.
 	bool force = 11;
-	// url to download char tar file @appscode
+	// URL to download chart archive
 	string chart_url = 12;
 	// `ca_bundle` is a PEM encoded CA bundle used to sign server certificate of chart repository.
 	// +optional
 	bytes ca_bundle = 13;
-	// Username is the username for basic authentication to the kubernetes cluster.
+	// Username is the username for basic authentication to the chart repository.
 	// +optional
 	string username = 14;
-	// Password is the password for basic authentication to the kubernetes cluster.
+	// Password is the password for basic authentication to the chart repository.
 	// +optional
 	string password = 15;
-	// Token is the bearer token for authentication to the kubernetes cluster.
+	// Token is the bearer token for authentication to the chart repository.
 	// +optional
 	string token = 16;
-	// ClientCertificate contains PEM-encoded data from a client cert file for TLS.
+	// ClientCertificate contains PEM-encoded data passed as a client cert to chart repository.
 	// +optional
 	bytes client_certificate = 17;
-	// ClientKey contains PEM-encoded data from a client key file for TLS.
+	// ClientKey contains PEM-encoded data passed as a client key to chart repository.
 	// +optional
 	bytes client_key = 18;
 }
@@ -367,24 +367,24 @@ message InstallReleaseRequest {
 	// wait, if true, will wait until all Pods, PVCs, and Services are in a ready state
 	// before marking the release as successful. It will wait for as long as timeout
 	bool wait = 9;
-	// url to download char tar file @appscode
+	// URL to download chart archive
 	string chart_url = 10;
 	// `ca_bundle` is a PEM encoded CA bundle used to sign server certificate of chart repository.
 	// +optional
 	bytes ca_bundle = 11;
-	// Username is the username for basic authentication to the kubernetes cluster.
+	// Username is the username for basic authentication to the chart repository.
 	// +optional
 	string username = 12;
-	// Password is the password for basic authentication to the kubernetes cluster.
+	// Password is the password for basic authentication to the chart repository.
 	// +optional
 	string password = 13;
-	// Token is the bearer token for authentication to the kubernetes cluster.
+	// Token is the bearer token for authentication to the chart repository.
 	// +optional
 	string token = 14;
-	// ClientCertificate contains PEM-encoded data from a client cert file for TLS.
+	// ClientCertificate contains PEM-encoded data passed as a client cert to chart repository.
 	// +optional
 	bytes client_certificate = 15;
-	// ClientKey contains PEM-encoded data from a client key file for TLS.
+	// ClientKey contains PEM-encoded data passed as a client key to chart repository.
 	// +optional
 	bytes client_key = 16;
 }

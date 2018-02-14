@@ -6,8 +6,11 @@ import (
 )
 
 type DirectConnector struct {
-	TillerEndpoint   string
-	TillerCACertFile string
+	TillerEndpoint       string
+	TillerCACertFile     string
+	TillerClientCertFile string
+	TillerClientKeyFile  string
+	InsecureSkipVerify   bool
 }
 
 var _ extpoints.Connector = &DirectConnector{}
@@ -21,7 +24,7 @@ func (c *DirectConnector) UID() string {
 }
 
 func (c *DirectConnector) Connect(ctx context.Context) (context.Context, error) {
-	conn, err := Connect(c.TillerEndpoint, c.TillerCACertFile)
+	conn, err := Connect(c.TillerEndpoint, c.TillerCACertFile, c.TillerClientCertFile, c.TillerClientKeyFile, c.InsecureSkipVerify)
 	if err != nil {
 		return ctx, err
 	}

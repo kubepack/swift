@@ -1,7 +1,10 @@
 package factory
 
 import (
+	"crypto/tls"
+	"crypto/x509"
 	"fmt"
+	"io/ioutil"
 	"time"
 
 	"golang.org/x/net/context"
@@ -23,20 +26,39 @@ var (
 
 // connect returns a grpc connection to tiller or error. The grpc dial options
 // are constructed here.
-func Connect(target string, tillerCACertFile string) (conn *grpc.ClientConn, err error) {
+func Connect(addr string, caCertFile, clientCertFile, clientKeyFile string, insecureSkipVerify bool) (conn *grpc.ClientConn, err error) {
 	opts := []grpc.DialOption{
 		grpc.WithBlock(), // required for timeout
 	}
-	if tillerCACertFile == "" {
+	if insecureSkipVerify {
 		opts = append(opts, grpc.WithInsecure())
 	} else {
-		cred, err := credentials.NewClientTLSFromFile(tillerCACertFile, "")
-		if err != nil {
-			return nil, fmt.Errorf("failed load tiller ca cert file. Reson: %s", err)
+		tlsConfig := &tls.Config{}
+
+		// load cacert
+		if caCertFile != "" {
+			caCert, err := ioutil.ReadFile(caCertFile)
+			if err != nil {
+				return nil, fmt.Errorf("failed to load ca cert. reason: %s", err)
+				return nil, err
+			}
+			pool := x509.NewCertPool()
+			pool.AppendCertsFromPEM(caCert)
+			tlsConfig.RootCAs = pool
 		}
-		opts = append(opts, grpc.WithTransportCredentials(cred))
+
+		// load client cert/key
+		if clientCertFile != "" && clientKeyFile != "" {
+			pair, err := tls.LoadX509KeyPair(clientCertFile, clientKeyFile)
+			if err != nil {
+				return nil, fmt.Errorf("load client cert/key. reason %s", err)
+			}
+			tlsConfig.Certificates = []tls.Certificate{pair}
+		}
+
+		opts = append(opts, grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)))
 	}
 
 	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
-	return grpc.DialContext(ctx, target, opts...)
+	return grpc.DialContext(ctx, addr, opts...)
 }
