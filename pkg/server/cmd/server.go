@@ -260,9 +260,9 @@ func Run(opt *options.Options) {
 
 	// Run Monitoring Server with both /metric and /debug
 	go func() {
-		if opt.WebAddr != "" {
+		if opt.OpsAddr != "" {
 			http.Handle("/metrics", promhttp.Handler())
-			log.Errorln("Failed to start monitoring server, cause", http.ListenAndServe(opt.WebAddr, nil))
+			log.Errorln("Failed to start monitoring server, cause", http.ListenAndServe(opt.OpsAddr, nil))
 		}
 	}()
 }

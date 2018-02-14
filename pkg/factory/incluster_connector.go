@@ -14,6 +14,7 @@ import (
 )
 
 type InClusterConnector struct {
+	TillerCACertFile string
 }
 
 var _ extpoints.Connector = &InClusterConnector{}
@@ -39,7 +40,7 @@ func (c *InClusterConnector) Connect(ctx context.Context) (context.Context, erro
 	if err != nil {
 		return ctx, err
 	}
-	conn, err := Connect(addr)
+	conn, err := Connect(addr, c.TillerCACertFile)
 	if err != nil {
 		return ctx, err
 	}
