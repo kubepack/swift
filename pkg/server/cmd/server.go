@@ -39,7 +39,6 @@ type apiServer struct {
 	CACertFile               string
 	CertFile                 string
 	KeyFile                  string
-	EnableJavaClient         bool
 	EnableCORS               bool
 	CORSOriginHost           string
 	CORSOriginAllowSubdomain bool
@@ -65,12 +64,8 @@ func (s *apiServer) ListenAndServe() {
 
 	// We first match the connection against HTTP2 fields. If matched, the
 	// connection will be sent through the "grpcl" listener.
-	var grpcl net.Listener
-	if s.EnableJavaClient {
-		grpcl = m.MatchWithWriters(cmux.HTTP2MatchHeaderFieldSendSettings("content-type", "application/grpc"))
-	} else {
-		grpcl = m.Match(cmux.HTTP2HeaderField("content-type", "application/grpc"))
-	}
+	// ref: https://github.com/soheilhy/cmux/issues/42#issuecomment-361287090
+	grpcl := m.MatchWithWriters(cmux.HTTP2MatchHeaderFieldSendSettings("content-type", "application/grpc"))
 
 	// Otherwise, we match it against HTTP1 methods. If matched,
 	// it is sent through the "httpl" listener.
@@ -255,7 +250,6 @@ func Run(opt *options.Options) {
 		CACertFile:               opt.CACertFile,
 		CertFile:                 opt.CertFile,
 		KeyFile:                  opt.KeyFile,
-		EnableJavaClient:         opt.EnableJavaClient,
 		EnableCORS:               opt.EnableCORS,
 		CORSOriginHost:           opt.CORSOriginHost,
 		CORSOriginAllowSubdomain: opt.CORSOriginAllowSubdomain,

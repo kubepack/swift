@@ -20,7 +20,7 @@ import:
   vcs: git
   version: master
 - package: github.com/soheilhy/cmux
-  version: v0.1.2
+  version: e09e9389d85d8492d313d73d1469c029e710623f
 - package: github.com/spf13/cobra
 - package: github.com/spf13/pflag
 - package: github.com/xeipuuv/gojsonschema

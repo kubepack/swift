@@ -31,7 +31,6 @@ swift run [flags]
       --cors-origin-allow-subdomain   Allow CORS request from subdomains of origin
       --cors-origin-host string       Allowed CORS origin host e.g, domain[:port]
       --enable-cors                   Enable CORS support
-      --enable-java-client            Set true to send SETTINGS frame from the server. Default set to false
   -h, --help                          help for run
       --keyFile string                File containing server TLS private key
       --kube-context string           Kube context used by 'kubeconfig' connection
