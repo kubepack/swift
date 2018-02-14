@@ -20,3 +20,5 @@ aliases:
 This section contains guides on how to use Swift.
 
 - [API Reference](/docs/guides/api.md): This article documents various aspects of Swift proxy api.
+
+- [Securing Swift](/docs/guides/security.md): This article documents various aspects of securing Swift.
