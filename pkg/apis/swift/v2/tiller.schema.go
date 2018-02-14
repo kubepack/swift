@@ -224,15 +224,15 @@ func init() {
       "description": "Chart is the protobuf representation of a chart."
     },
     "chart_url": {
-      "title": "url to download char tar file @appscode",
+      "title": "URL to download chart archive",
       "type": "string"
     },
     "client_certificate": {
-      "title": "ClientCertificate contains PEM-encoded data from a client cert file for TLS.\n+optional",
+      "title": "ClientCertificate contains PEM-encoded data passed as a client cert to chart repository.\n+optional",
       "type": "string"
     },
     "client_key": {
-      "title": "ClientKey contains PEM-encoded data from a client key file for TLS.\n+optional",
+      "title": "ClientKey contains PEM-encoded data passed as a client key to chart repository.\n+optional",
       "type": "string"
     },
     "disable_hooks": {
@@ -247,6 +247,10 @@ func init() {
       "description": "Force resource update through delete/recreate if needed.",
       "type": "boolean"
     },
+    "insecure_skip_verify": {
+      "title": "Skip certificate verification for chart repository.\n+optional",
+      "type": "boolean"
+    },
     "name": {
       "maxLength": 63,
       "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
@@ -254,7 +258,7 @@ func init() {
       "type": "string"
     },
     "password": {
-      "title": "Password is the password for basic authentication to the kubernetes cluster.\n+optional",
+      "title": "Password is the password for basic authentication to the chart repository.\n+optional",
       "type": "string"
     },
     "recreate": {
@@ -274,11 +278,11 @@ func init() {
       "type": "integer"
     },
     "token": {
-      "title": "Token is the bearer token for authentication to the kubernetes cluster.\n+optional",
+      "title": "Token is the bearer token for authentication to the chart repository.\n+optional",
       "type": "string"
     },
     "username": {
-      "title": "Username is the username for basic authentication to the kubernetes cluster.\n+optional",
+      "title": "Username is the username for basic authentication to the chart repository.\n+optional",
       "type": "string"
     },
     "values": {
@@ -572,15 +576,15 @@ func init() {
       "description": "Chart is the protobuf representation of a chart."
     },
     "chart_url": {
-      "title": "url to download char tar file @appscode",
+      "title": "URL to download chart archive",
       "type": "string"
     },
     "client_certificate": {
-      "title": "ClientCertificate contains PEM-encoded data from a client cert file for TLS.\n+optional",
+      "title": "ClientCertificate contains PEM-encoded data passed as a client cert to chart repository.\n+optional",
       "type": "string"
     },
     "client_key": {
-      "title": "ClientKey contains PEM-encoded data from a client key file for TLS.\n+optional",
+      "title": "ClientKey contains PEM-encoded data passed as a client key to chart repository.\n+optional",
       "type": "string"
     },
     "disable_hooks": {
@@ -589,6 +593,10 @@ func init() {
     },
     "dry_run": {
       "description": "DryRun, if true, will run through the release logic, but neither create\na release object nor deploy to Kubernetes. The release object returned\nin the response will be fake.",
+      "type": "boolean"
+    },
+    "insecure_skip_verify": {
+      "title": "Skip certificate verification for chart repository.\n+optional",
       "type": "boolean"
     },
     "name": {
@@ -604,7 +612,7 @@ func init() {
       "type": "string"
     },
     "password": {
-      "title": "Password is the password for basic authentication to the kubernetes cluster.\n+optional",
+      "title": "Password is the password for basic authentication to the chart repository.\n+optional",
       "type": "string"
     },
     "reuse_name": {
@@ -616,11 +624,11 @@ func init() {
       "type": "integer"
     },
     "token": {
-      "title": "Token is the bearer token for authentication to the kubernetes cluster.\n+optional",
+      "title": "Token is the bearer token for authentication to the chart repository.\n+optional",
       "type": "string"
     },
     "username": {
-      "title": "Username is the username for basic authentication to the kubernetes cluster.\n+optional",
+      "title": "Username is the username for basic authentication to the chart repository.\n+optional",
       "type": "string"
     },
     "values": {

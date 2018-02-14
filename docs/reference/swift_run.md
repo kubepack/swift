@@ -24,21 +24,24 @@ swift run [flags]
 ### Options
 
 ```
-      --api-domain string             Domain used to server swift api
-      --cacert-file string            File containing CA certificate
-      --cert-file string              File container server TLS certificate
-      --connector string              Name of connector used to connect to Tiller server. Valid values are: incluster, direct, kubeconfig, appscode
-      --cors-origin-allow-subdomain   Allow CORS request from subdomains of origin
-      --cors-origin-host string       Allowed CORS origin host e.g, domain[:port]
-      --enable-cors                   Enable CORS support
-  -h, --help                          help for run
-      --key-file string               File containing server TLS private key
-      --kube-context string           Kube context used by 'kubeconfig' connection
-      --ops-addr string               Address to listen on for web interface and telemetry. (default ":56790")
-      --plaintext-addr string         host:port used to server plaintext apis (default ":9855")
-      --secure-addr string            host:port used to server secure apis (default ":50055")
-      --tiller-cacert-file string     File containing CA certificate for Tiller server
-      --tiller-endpoint string        Endpoint of Tiller server, eg, [scheme://]host:port
+      --api-domain string                Domain used to server swift api
+      --cacert-file string               File containing CA certificate
+      --cert-file string                 File container server TLS certificate
+      --connector string                 Name of connector used to connect to Tiller server. Valid values are: incluster, direct, kubeconfig, appscode
+      --cors-origin-allow-subdomain      Allow CORS request from subdomains of origin
+      --cors-origin-host string          Allowed CORS origin host e.g, domain[:port]
+      --enable-cors                      Enable CORS support
+  -h, --help                             help for run
+      --key-file string                  File containing server TLS private key
+      --kube-context string              Kube context used by 'kubeconfig' connection
+      --ops-addr string                  Address to listen on for web interface and telemetry. (default ":56790")
+      --plaintext-addr string            host:port used to server plaintext apis (default ":9855")
+      --secure-addr string               host:port used to server secure apis (default ":50055")
+      --tiller-cacert-file string        File containing CA certificate for Tiller server
+      --tiller-client-cert-file string   File container client TLS certificate for Tiller server
+      --tiller-client-key-file string    File containing client TLS private key for Tiller server
+      --tiller-endpoint string           Endpoint of Tiller server, eg, [scheme://]host:port
+      --tiller-insecure-skip-verify      Skip certificate verification for Tiller server
 ```
 
 ### Options inherited from parent commands

@@ -165,13 +165,14 @@ func (s *Server) UpdateRelease(ctx context.Context, req *proto.UpdateReleaseRequ
 
 	if req.Chart == nil {
 		repo := chartInfo{
-			ChartURL:          req.ChartUrl,
-			CaBundle:          req.CaBundle,
-			Username:          req.Username,
-			Password:          req.Password,
-			Token:             req.Token,
-			ClientCertificate: req.ClientCertificate,
-			ClientKey:         req.ClientKey,
+			ChartURL:           req.ChartUrl,
+			CaBundle:           req.CaBundle,
+			Username:           req.Username,
+			Password:           req.Password,
+			Token:              req.Token,
+			ClientCertificate:  req.ClientCertificate,
+			ClientKey:          req.ClientKey,
+			InsecureSkipVerify: req.InsecureSkipVerify,
 		}
 		req.Chart, err = prepareChart(repo, req.Values)
 		if err != nil {
@@ -218,13 +219,14 @@ func (s *Server) InstallRelease(ctx context.Context, req *proto.InstallReleaseRe
 
 	if req.Chart == nil {
 		repo := chartInfo{
-			ChartURL:          req.ChartUrl,
-			CaBundle:          req.CaBundle,
-			Username:          req.Username,
-			Password:          req.Password,
-			Token:             req.Token,
-			ClientCertificate: req.ClientCertificate,
-			ClientKey:         req.ClientKey,
+			ChartURL:           req.ChartUrl,
+			CaBundle:           req.CaBundle,
+			Username:           req.Username,
+			Password:           req.Password,
+			Token:              req.Token,
+			ClientCertificate:  req.ClientCertificate,
+			ClientKey:          req.ClientKey,
+			InsecureSkipVerify: req.InsecureSkipVerify,
 		}
 		req.Chart, err = prepareChart(repo, req.Values)
 		if err != nil {

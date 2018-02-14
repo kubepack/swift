@@ -13,7 +13,8 @@ import (
 type KubeconfigConnector struct {
 	*TunnelConnector
 
-	Context string
+	Context            string
+	InsecureSkipVerify bool
 }
 
 var _ extpoints.Connector = &KubeconfigConnector{}
@@ -42,7 +43,7 @@ func (c *KubeconfigConnector) Connect(ctx context.Context) (context.Context, err
 	ctx = WithTunnel(ctx, tunnel)
 
 	addr := fmt.Sprintf("127.0.0.1:%d", tunnel.Local)
-	conn, err := Connect(addr, "")
+	conn, err := Connect(addr, "", "", "", c.InsecureSkipVerify)
 	if err != nil {
 		return ctx, err
 	}
