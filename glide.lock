@@ -1,5 +1,5 @@
-hash: 8a4606dfb71b1fb556b1e3526866167e53bb64255721e6259bbc9ebe356fc867
-updated: 2018-02-13T13:34:19.967742474-08:00
+hash: bda3ea02280eee5dc3b8affc81a620cc0f0b21f965b94d8310a85eadbb48f3b0
+updated: 2018-02-13T23:55:01.073337402-08:00
 imports:
 - name: github.com/appscode/go
   version: 1be9b0441d73831aaa93df76e42a751caa5dba88
@@ -163,7 +163,7 @@ imports:
   subpackages:
   - go
 - name: github.com/prometheus/common
-  version: 3233b24a36715a2fe36d162260457857a56d672d
+  version: 13ba4ddd0caa9c28ca7b7bffe1dfa9ed8d5ef207
   subpackages:
   - expfmt
   - internal/bitbucket.org/ww/goautoneg
@@ -185,7 +185,7 @@ imports:
 - name: github.com/shurcooL/sanitized_anchor_name
   version: 10ef21a441db47d8b13ebcc5fd2310f636973c77
 - name: github.com/soheilhy/cmux
-  version: bf4a8ede9e87c006fe1d4278c6c7f2b8be1fa84c
+  version: e09e9389d85d8492d313d73d1469c029e710623f
 - name: github.com/spf13/cobra
   version: be77323fc05148ef091e83b3866c0d47c8e74a8b
   subpackages:
