@@ -18,7 +18,8 @@ Please follow the steps below to uninstall Swift:
 - Delete the various objects created for Swift operator.
 
 ```console
-$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.6.0/hack/deploy/uninstall.sh | bash
+$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.6.0/hack/deploy/swift.sh \
+    | bash -s -- --uninstall [--namespace=NAMESPACE]
 
 + kubectl delete deployment -l app=swift -n kube-system
 deployment "swift" deleted
