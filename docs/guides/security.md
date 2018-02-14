@@ -93,15 +93,16 @@ secret "swift-ssl" created
 
 Swift can download charts from Chart repository using basic auth, bearer auth and/or client cert auth. `InstallRelease` and `UpdateRelease` api support the following input parameters with their respectie api calls:
 
-| Parameter            |            | Description                                                                |
-|----------------------|------------| ---------------------------------------------------------------------------|
-| `chart_url`          | `Required` | URL to download char archive.                                              |
-| `ca_bundle`          | `Optional` | PEM encoded CA bundle used to sign server certificate of chart repository. |
-| `username`           | `Optional` | Username for basic authentication to the chart repository.                 |
-| `password`           | `Optional` | Password for basic authentication to the chart repository.                 |
-| `token`              | `Optional` | Bearer token for authentication to the chart repository.                   |
-| `client_certificate` | `Optional` | PEM-encoded data passed as a client cert to chart repository.              |
-| `client_key`         | `Optional` | PEM-encoded data passed as a client key to chart repository.               |
+| Parameter              |            | Description                                                                |
+|------------------------|------------| ---------------------------------------------------------------------------|
+| `chart_url`            | `Required` | URL to download char archive.                                              |
+| `ca_bundle`            | `Optional` | PEM encoded CA bundle used to sign server certificate of chart repository. |
+| `username`             | `Optional` | Username for basic authentication to the chart repository.                 |
+| `password`             | `Optional` | Password for basic authentication to the chart repository.                 |
+| `token`                | `Optional` | Bearer token for authentication to the chart repository.                   |
+| `client_certificate`   | `Optional` | PEM-encoded data passed as a client cert to chart repository.              |
+| `client_key`           | `Optional` | PEM-encoded data passed as a client key to chart repository.               |
+| `insecure_skip_verify` | `Optional` | Skip certificate verification for chart repository.                        |
 
 
 ## Securely connecting to Tiller Server

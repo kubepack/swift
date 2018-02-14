@@ -247,6 +247,10 @@ func init() {
       "description": "Force resource update through delete/recreate if needed.",
       "type": "boolean"
     },
+    "insecure_skip_verify": {
+      "title": "Skip certificate verification for chart repository.\n+optional",
+      "type": "boolean"
+    },
     "name": {
       "maxLength": 63,
       "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
@@ -589,6 +593,10 @@ func init() {
     },
     "dry_run": {
       "description": "DryRun, if true, will run through the release logic, but neither create\na release object nor deploy to Kubernetes. The release object returned\nin the response will be fake.",
+      "type": "boolean"
+    },
+    "insecure_skip_verify": {
+      "title": "Skip certificate verification for chart repository.\n+optional",
       "type": "boolean"
     },
     "name": {

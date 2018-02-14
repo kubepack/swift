@@ -310,6 +310,9 @@ message UpdateReleaseRequest {
 	// ClientKey contains PEM-encoded data passed as a client key to chart repository.
 	// +optional
 	bytes client_key = 18;
+	// Skip certificate verification for chart repository.
+	// +optional
+	bool insecure_skip_verify = 19;
 }
 
 // UpdateReleaseResponse is the response to an update request.
@@ -387,6 +390,9 @@ message InstallReleaseRequest {
 	// ClientKey contains PEM-encoded data passed as a client key to chart repository.
 	// +optional
 	bytes client_key = 16;
+	// Skip certificate verification for chart repository.
+	// +optional
+	bool insecure_skip_verify = 17;
 }
 
 // InstallReleaseResponse is the response from a release installation.

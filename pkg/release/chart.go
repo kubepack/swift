@@ -32,13 +32,14 @@ const (
 )
 
 type chartInfo struct {
-	ChartURL          string
-	CaBundle          []byte
-	Username          string
-	Password          string
-	Token             string
-	ClientCertificate []byte
-	ClientKey         []byte
+	ChartURL           string
+	CaBundle           []byte
+	Username           string
+	Password           string
+	Token              string
+	ClientCertificate  []byte
+	ClientKey          []byte
+	InsecureSkipVerify bool
 }
 
 func prepareChart(repo chartInfo, values *chart.Config) (*chart.Chart, error) {
@@ -219,38 +220,39 @@ func downloadFile(repo chartInfo, filePath string, replace bool) error {
 	}
 	req.Header.Set("Accept-Encoding", "gzip, deflate")
 
-	client := http.DefaultClient
-	if len(repo.CaBundle) > 0 {
-		pool := x509.NewCertPool()
-		pool.AppendCertsFromPEM(repo.CaBundle)
-		tlsConfig := &tls.Config{
-			RootCAs: pool,
+	tlsConfig := &tls.Config{}
+	if repo.InsecureSkipVerify {
+		tlsConfig.InsecureSkipVerify = true
+	} else {
+		if len(repo.CaBundle) > 0 {
+			pool := x509.NewCertPool()
+			pool.AppendCertsFromPEM(repo.CaBundle)
+			tlsConfig.RootCAs = pool
 		}
 		if len(repo.ClientCertificate) > 0 && len(repo.ClientKey) > 0 {
-			if cert, err := tls.X509KeyPair(repo.ClientCertificate, repo.ClientKey); err != nil {
+			pair, err := tls.X509KeyPair(repo.ClientCertificate, repo.ClientKey)
+			if err != nil {
 				return fmt.Errorf("invalid client cert pair. reason: %s", err)
-			} else {
-				tlsConfig.Certificates = []tls.Certificate{cert}
 			}
+			tlsConfig.Certificates = []tls.Certificate{pair}
 		}
-
-		// ref: https://github.com/golang/go/blob/release-branch.go1.9/src/net/http/transport.go#L40
-		var transport = &http.Transport{
-			Proxy: http.ProxyFromEnvironment,
-			DialContext: (&net.Dialer{
-				Timeout:   30 * time.Second,
-				KeepAlive: 30 * time.Second,
-				DualStack: true,
-			}).DialContext,
-			MaxIdleConns:          100,
-			IdleConnTimeout:       90 * time.Second,
-			TLSHandshakeTimeout:   10 * time.Second,
-			ExpectContinueTimeout: 1 * time.Second,
-			TLSClientConfig:       tlsConfig,
-		}
-		client = &http.Client{Transport: transport}
 	}
 
+	// ref: https://github.com/golang/go/blob/release-branch.go1.9/src/net/http/transport.go#L40
+	var transport = &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+		DialContext: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+			DualStack: true,
+		}).DialContext,
+		MaxIdleConns:          100,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+		TLSClientConfig:       tlsConfig,
+	}
+	client := &http.Client{Transport: transport}
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Infoln("Error while downloading", u.String(), "-", err)
