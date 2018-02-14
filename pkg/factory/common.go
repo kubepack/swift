@@ -1,9 +1,12 @@
 package factory
 
 import (
+	"fmt"
 	"time"
 
+	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"k8s.io/apimachinery/pkg/labels"
 )
 
@@ -20,22 +23,20 @@ var (
 
 // connect returns a grpc connection to tiller or error. The grpc dial options
 // are constructed here.
-func Connect(target string) (conn *grpc.ClientConn, err error) {
+func Connect(target string, tillerCACertFile string) (conn *grpc.ClientConn, err error) {
 	opts := []grpc.DialOption{
-		grpc.WithTimeout(5 * time.Second),
-		grpc.WithBlock(),
+		grpc.WithBlock(), // required for timeout
 	}
-	opts = append(opts, grpc.WithInsecure())
-
-	/*switch {
-	case h.opts.useTLS:
-		opts = append(opts, grpc.WithTransportCredentials(credentials.NewTLS(h.opts.tlsConfig)))
-	default:
+	if tillerCACertFile == "" {
 		opts = append(opts, grpc.WithInsecure())
-	}*/
-
-	if conn, err = grpc.Dial(target, opts...); err != nil {
-		return nil, err
+	} else {
+		cred, err := credentials.NewClientTLSFromFile(tillerCACertFile, "")
+		if err != nil {
+			return nil, fmt.Errorf("failed load tiller ca cert file. Reson: %s", err)
+		}
+		opts = append(opts, grpc.WithTransportCredentials(cred))
 	}
-	return conn, nil
+
+	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	return grpc.DialContext(ctx, target, opts...)
 }

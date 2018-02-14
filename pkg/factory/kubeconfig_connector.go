@@ -42,7 +42,7 @@ func (c *KubeconfigConnector) Connect(ctx context.Context) (context.Context, err
 	ctx = WithTunnel(ctx, tunnel)
 
 	addr := fmt.Sprintf("127.0.0.1:%d", tunnel.Local)
-	conn, err := Connect(addr)
+	conn, err := Connect(addr, "")
 	if err != nil {
 		return ctx, err
 	}
