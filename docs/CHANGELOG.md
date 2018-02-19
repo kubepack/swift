@@ -20,8 +20,8 @@ aliases:
 ## [0.7.1](https://github.com/appscode/swift/releases/tag/0.7.1) / 2018.02.19
 Swift 0.7.1 adds --tiller-timeout flag with default 5 min deadline. There is no user visible change in api.
 
-- Add --tiller-timeout flag with default 5 min deadline [\#97](https://github.com/appscode/swift/pull/97) ([tamalsaha](https://github.com/tamalsaha))
-- Rename factory package to connectors [\#96](https://github.com/appscode/swift/pull/96) ([tamalsaha](https://github.com/tamalsaha))
+- Add --tiller-timeout flag with default 5 min deadline [\#97](https://github.com/appscode/swift/pull/97)
+- Rename factory package to connectors [\#96](https://github.com/appscode/swift/pull/96)
 
 
 ## [0.7.0](https://github.com/appscode/swift/releases/tag/0.7.0) / 2018.02.12
