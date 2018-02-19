@@ -1,4 +1,4 @@
-package factory
+package connectors
 
 import (
 	"github.com/appscode/swift/pkg/extpoints"
