@@ -1,6 +1,8 @@
 package options
 
 import (
+	"time"
+
 	"github.com/spf13/pflag"
 )
 
@@ -22,6 +24,7 @@ type Options struct {
 	TillerClientCertFile string
 	TillerClientKeyFile  string
 	InsecureSkipVerify   bool
+	Timeout              time.Duration
 	KubeContext          string
 }
 
@@ -30,6 +33,7 @@ func New() *Options {
 		SecureAddr:    ":50055",
 		PlaintextAddr: ":9855",
 		OpsAddr:       ":56790",
+		Timeout:       5 * time.Minute,
 	}
 }
 
@@ -54,5 +58,6 @@ func (opt *Options) AddFlags(fs *pflag.FlagSet) {
 	fs.StringVar(&opt.TillerClientCertFile, "tiller-client-cert-file", opt.TillerClientCertFile, "File container client TLS certificate for Tiller server")
 	fs.StringVar(&opt.TillerClientKeyFile, "tiller-client-key-file", opt.TillerClientKeyFile, "File containing client TLS private key for Tiller server")
 	fs.BoolVar(&opt.InsecureSkipVerify, "tiller-insecure-skip-verify", opt.InsecureSkipVerify, "Skip certificate verification for Tiller server")
+	fs.DurationVar(&opt.Timeout, "tiller-timeout", opt.Timeout, "Timeout used to connect to Tiller server")
 	fs.StringVar(&opt.KubeContext, "kube-context", opt.KubeContext, "Kube context used by 'kubeconfig' connection")
 }

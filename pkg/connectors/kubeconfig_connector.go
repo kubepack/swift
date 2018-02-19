@@ -2,6 +2,7 @@ package connectors
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
@@ -15,6 +16,7 @@ type KubeconfigConnector struct {
 
 	Context            string
 	InsecureSkipVerify bool
+	Timeout            time.Duration
 }
 
 var _ extpoints.Connector = &KubeconfigConnector{}
@@ -43,7 +45,7 @@ func (c *KubeconfigConnector) Connect(ctx context.Context) (context.Context, err
 	ctx = WithTunnel(ctx, tunnel)
 
 	addr := fmt.Sprintf("127.0.0.1:%d", tunnel.Local)
-	conn, err := Connect(addr, "", "", "", c.InsecureSkipVerify)
+	conn, err := Connect(addr, "", "", "", c.InsecureSkipVerify, c.Timeout)
 	if err != nil {
 		return ctx, err
 	}

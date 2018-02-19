@@ -26,7 +26,7 @@ var (
 
 // connect returns a grpc connection to tiller or error. The grpc dial options
 // are constructed here.
-func Connect(addr string, caCertFile, clientCertFile, clientKeyFile string, insecureSkipVerify bool) (conn *grpc.ClientConn, err error) {
+func Connect(addr string, caCertFile, clientCertFile, clientKeyFile string, insecureSkipVerify bool, timeout time.Duration) (conn *grpc.ClientConn, err error) {
 	opts := []grpc.DialOption{
 		grpc.WithBlock(), // required for timeout
 	}
@@ -59,6 +59,6 @@ func Connect(addr string, caCertFile, clientCertFile, clientKeyFile string, inse
 		opts = append(opts, grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)))
 	}
 
-	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), timeout)
 	return grpc.DialContext(ctx, addr, opts...)
 }
