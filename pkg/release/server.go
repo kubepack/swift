@@ -3,8 +3,8 @@ package release
 import (
 	stringz "github.com/appscode/go/strings"
 	proto "github.com/appscode/swift/pkg/apis/swift/v2"
+	"github.com/appscode/swift/pkg/connectors"
 	"github.com/appscode/swift/pkg/extpoints"
-	"github.com/appscode/swift/pkg/factory"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/metadata"
 	core "k8s.io/api/core/v1"
@@ -60,7 +60,7 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeRele
 		}
 	}
 
-	rlc := rls.NewReleaseServiceClient(factory.Connection(ctx))
+	rlc := rls.NewReleaseServiceClient(connectors.Connection(ctx))
 	listClient, err := rlc.ListReleases(newContext(), &listReq)
 	if err != nil {
 		return nil, err
@@ -103,7 +103,7 @@ func (s *Server) GetReleaseStatus(ctx context.Context, req *proto.GetReleaseStat
 		Version: req.Version,
 	}
 
-	rlc := rls.NewReleaseServiceClient(factory.Connection(ctx))
+	rlc := rls.NewReleaseServiceClient(connectors.Connection(ctx))
 	statusRes, err := rlc.GetReleaseStatus(newContext(), &statusReq)
 	if err != nil {
 		return nil, err
@@ -129,7 +129,7 @@ func (s *Server) GetReleaseContent(ctx context.Context, req *proto.GetReleaseCon
 		Version: req.Version,
 	}
 
-	rlc := rls.NewReleaseServiceClient(factory.Connection(ctx))
+	rlc := rls.NewReleaseServiceClient(connectors.Connection(ctx))
 	contentRes, err := rlc.GetReleaseContent(newContext(), &contentReq)
 	if err != nil {
 		return nil, err
@@ -194,7 +194,7 @@ func (s *Server) UpdateRelease(ctx context.Context, req *proto.UpdateReleaseRequ
 		Wait:         req.Wait,
 	}
 
-	rlc := rls.NewReleaseServiceClient(factory.Connection(ctx))
+	rlc := rls.NewReleaseServiceClient(connectors.Connection(ctx))
 	updateRes, err := rlc.UpdateRelease(newContext(), &updateReq)
 	if err != nil {
 		return nil, err
@@ -246,7 +246,7 @@ func (s *Server) InstallRelease(ctx context.Context, req *proto.InstallReleaseRe
 		ReuseName:    req.ReuseName,
 	}
 
-	rlc := rls.NewReleaseServiceClient(factory.Connection(ctx))
+	rlc := rls.NewReleaseServiceClient(connectors.Connection(ctx))
 	installRes, err := rlc.InstallRelease(newContext(), &installReq)
 	if err != nil {
 		return nil, err
@@ -272,7 +272,7 @@ func (s *Server) UninstallRelease(ctx context.Context, req *proto.UninstallRelea
 		Purge:        req.Purge,
 	}
 
-	rlc := rls.NewReleaseServiceClient(factory.Connection(ctx))
+	rlc := rls.NewReleaseServiceClient(connectors.Connection(ctx))
 	uninstallRes, err := rlc.UninstallRelease(newContext(), &uninstallReq)
 	if err != nil {
 		return nil, err
@@ -294,7 +294,7 @@ func (s *Server) GetVersion(ctx context.Context, req *proto.GetVersionRequest) (
 
 	versionReq := rls.GetVersionRequest{}
 
-	rlc := rls.NewReleaseServiceClient(factory.Connection(ctx))
+	rlc := rls.NewReleaseServiceClient(connectors.Connection(ctx))
 	versionRes, err := rlc.GetVersion(newContext(), &versionReq)
 	if err != nil {
 		return nil, err
@@ -324,7 +324,7 @@ func (s *Server) RollbackRelease(ctx context.Context, req *proto.RollbackRelease
 		Version:      req.Version,
 	}
 
-	rlc := rls.NewReleaseServiceClient(factory.Connection(ctx))
+	rlc := rls.NewReleaseServiceClient(connectors.Connection(ctx))
 	rollbackRes, err := rlc.RollbackRelease(newContext(), &rollbackReq)
 	if err != nil {
 		return nil, err
@@ -348,7 +348,7 @@ func (s *Server) GetHistory(ctx context.Context, req *proto.GetHistoryRequest) (
 		Max:  req.Max,
 	}
 
-	rlc := rls.NewReleaseServiceClient(factory.Connection(ctx))
+	rlc := rls.NewReleaseServiceClient(connectors.Connection(ctx))
 	historyRes, err := rlc.GetHistory(newContext(), &historyReq)
 	if err != nil {
 		return nil, err
