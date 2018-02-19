@@ -2,13 +2,13 @@
 title: Install | Swift
 description: Installation of Swift
 menu:
-  product_swift_0.7.0:
+  product_swift_0.7.1:
     identifier: install
     name: Install
     parent: setup
     weight: 10
 product_name: swift
-menu_name: product_swift_0.7.0
+menu_name: product_swift_0.7.1
 section_menu_id: setup
 ---
 
@@ -21,10 +21,10 @@ Swift proxy server can connect to [Helm](https://github.com/kubernetes/helm) Til
 Swift can proxy Tiller server running in the same Kubernetes cluster using `incluster` connector.
 
 ### Using YAML
-Swift can be installed via installer script included in the [/hack/deploy](https://github.com/appscode/swift/tree/0.7.0/hack/deploy) folder.
+Swift can be installed via installer script included in the [/hack/deploy](https://github.com/appscode/swift/tree/0.7.1/hack/deploy) folder.
 
 ```console
-$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.0/hack/deploy/swift.sh | bash -s -- -h
+$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.1/hack/deploy/swift.sh | bash -s -- -h
 swift.sh - install Ajax friendly Helm Tiller Proxy
 
 swift.sh [options]
@@ -39,18 +39,18 @@ options:
     --uninstall                    uninstall swift
 
 # install without RBAC roles
-$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.0/hack/deploy/swift.sh \
+$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.1/hack/deploy/swift.sh \
     | bash
 
 # Install with RBAC roles
-$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.0/hack/deploy/swift.sh \
+$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.1/hack/deploy/swift.sh \
     | bash -s -- --rbac
 ```
 
 If you would like to run Swift operator pod in `master` instances, pass the `--run-on-master` flag:
 
 ```console
-$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.0/hack/deploy/swift.sh \
+$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.1/hack/deploy/swift.sh \
     | bash -s -- --run-on-master [--rbac]
 ```
 
@@ -58,7 +58,7 @@ Swift operator will be installed in a `kube-system` namespace by default. If you
 
 ```console
 $ kubectl create namespace swift
-$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.0/hack/deploy/swift.sh \
+$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.1/hack/deploy/swift.sh \
     | bash -s -- --namespace=swift [--run-on-master] [--rbac]
 ```
 
@@ -70,7 +70,7 @@ To pass the address of your private registry and optionally a image pull secret 
 
 ```console
 $ kubectl create namespace swift
-$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.0/hack/deploy/swift.sh \
+$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.1/hack/deploy/swift.sh \
     | bash -s -- --docker-registry=MY_REGISTRY [--image-pull-secret=SECRET_NAME] [--rbac]
 ```
 
@@ -78,14 +78,14 @@ For detailed instructions on how to deploy __Swift in a RBAC enabled cluster__, 
 
 
 ### Using Helm
-Swift can be installed via [Helm](https://helm.sh/) using the [chart](https://github.com/appscode/swift/tree/0.7.0/chart/stable/swift) included in this repository or from official charts repository. To install the chart with the release name `my-release`:
+Swift can be installed via [Helm](https://helm.sh/) using the [chart](https://github.com/appscode/swift/tree/0.7.1/chart/stable/swift) included in this repository or from official charts repository. To install the chart with the release name `my-release`:
 
 ```console
 $ helm repo update
 $ helm install stable/swift --name my-release
 ```
 
-To see the detailed configuration options, visit [here](https://github.com/appscode/swift/tree/0.7.0/chart/stable/swift/).
+To see the detailed configuration options, visit [here](https://github.com/appscode/swift/tree/0.7.1/chart/stable/swift/).
 
 
 ### Verify installation
