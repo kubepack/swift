@@ -17,7 +17,14 @@ aliases:
 
 # Change Log
 
-## [0.7.0](https://github.com/appscode/swift/releases/tag/0.7.0) / 2018.01.23
+## [0.7.1](https://github.com/appscode/swift/releases/tag/0.7.1) / 2018.02.19
+Swift 0.7.1 adds --tiller-timeout flag with default 5 min deadline. There is no user visible change in api.
+
+- Add --tiller-timeout flag with default 5 min deadline [\#97](https://github.com/appscode/swift/pull/97) ([tamalsaha](https://github.com/tamalsaha))
+- Rename factory package to connectors [\#96](https://github.com/appscode/swift/pull/96) ([tamalsaha](https://github.com/tamalsaha))
+
+
+## [0.7.0](https://github.com/appscode/swift/releases/tag/0.7.0) / 2018.02.12
 Swift 0.7.0 adds support for SSL enable Tiller. `InstallRelease` and `UpdateRelease` apis have been updated in backward compatible manner to support downloading charts from secure chart repository.
 
 - Update installer script [\#95](https://github.com/appscode/swift/pull/95)
