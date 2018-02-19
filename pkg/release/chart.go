@@ -4,8 +4,6 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/base64"
-	"errors"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"net"
@@ -18,6 +16,7 @@ import (
 	"time"
 
 	"github.com/appscode/go/log"
+	"github.com/pkg/errors"
 	"k8s.io/helm/pkg/chartutil"
 	"k8s.io/helm/pkg/proto/hapi/chart"
 	"k8s.io/helm/pkg/repo"
@@ -106,7 +105,7 @@ func chartFromPath(path string) (*chart.Chart, error) {
 			return nil, err
 		}
 	} else if err != chartutil.ErrRequirementsNotFound {
-		return nil, fmt.Errorf("cannot load requirements: %v", err)
+		return nil, errors.Wrap(err, "cannot load requirements")
 	}
 
 	return chartRequested, nil
@@ -131,7 +130,7 @@ func checkDependencies(ch *chart.Chart, reqs *chartutil.Requirements) error {
 	}
 
 	if len(missing) > 0 {
-		return fmt.Errorf("found in requirements.yaml, but missing in charts/ directory: %s", strings.Join(missing, ", "))
+		return errors.Errorf("found in requirements.yaml, but missing in charts/ directory: %s", strings.Join(missing, ", "))
 	}
 	return nil
 }
@@ -232,7 +231,7 @@ func downloadFile(repo chartInfo, filePath string, replace bool) error {
 		if len(repo.ClientCertificate) > 0 && len(repo.ClientKey) > 0 {
 			pair, err := tls.X509KeyPair(repo.ClientCertificate, repo.ClientKey)
 			if err != nil {
-				return fmt.Errorf("invalid client cert pair. reason: %s", err)
+				return errors.Wrap(err, "invalid client cert pair")
 			}
 			tlsConfig.Certificates = []tls.Certificate{pair}
 		}

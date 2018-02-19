@@ -3,10 +3,10 @@ package connectors
 import (
 	"crypto/tls"
 	"crypto/x509"
-	"fmt"
 	"io/ioutil"
 	"time"
 
+	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -39,7 +39,7 @@ func Connect(addr string, caCertFile, clientCertFile, clientKeyFile string, inse
 		if caCertFile != "" {
 			caCert, err := ioutil.ReadFile(caCertFile)
 			if err != nil {
-				return nil, fmt.Errorf("failed to load ca cert. reason: %s", err)
+				return nil, errors.Wrap(err, "failed to load ca cert")
 				return nil, err
 			}
 			pool := x509.NewCertPool()
@@ -51,7 +51,7 @@ func Connect(addr string, caCertFile, clientCertFile, clientKeyFile string, inse
 		if clientCertFile != "" && clientKeyFile != "" {
 			pair, err := tls.LoadX509KeyPair(clientCertFile, clientKeyFile)
 			if err != nil {
-				return nil, fmt.Errorf("load client cert/key. reason %s", err)
+				return nil, errors.Wrap(err, "load client cert/key.")
 			}
 			tlsConfig.Certificates = []tls.Certificate{pair}
 		}

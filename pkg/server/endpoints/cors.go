@@ -1,8 +1,6 @@
 package endpoints
 
 import (
-	"errors"
-	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -10,6 +8,7 @@ import (
 	_env "github.com/appscode/go/env"
 	"github.com/appscode/go/log"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
@@ -102,7 +101,7 @@ func SetCORSHeaders(ctx context.Context, allowHost string, allowSubdomain bool) 
 		ok := u.Host == allowHost ||
 			(allowSubdomain && strings.HasSuffix(u.Host, "."+allowHost))
 		if !ok {
-			return fmt.Errorf("CORS request from prohibited domain %v", origin)
+			return errors.Errorf("CORS request from prohibited domain %v", origin)
 		}
 		if !_env.FromHost().DevMode() {
 			u.Scheme = "https"

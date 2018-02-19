@@ -1,12 +1,12 @@
 package connectors
 
 import (
-	"errors"
 	"fmt"
 	"strings"
 	"time"
 
 	"github.com/appscode/swift/pkg/extpoints"
+	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -71,7 +71,7 @@ func (c *InClusterConnector) getTillerAddr(client clientset.Interface) (string, 
 		for i, svc := range svcList.Items {
 			ids[i] = svc.Namespace + "/" + svc.Name
 		}
-		return "", fmt.Errorf("multiple tiller services found: %s", strings.Join(ids, ", "))
+		return "", errors.Errorf("multiple tiller services found: %s", strings.Join(ids, ", "))
 	}
 	return fmt.Sprintf("%s.%s:%d", svcList.Items[0].Name, svcList.Items[0].Namespace, defaultTillerPort), nil
 }

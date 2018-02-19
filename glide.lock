@@ -1,8 +1,8 @@
 hash: bda3ea02280eee5dc3b8affc81a620cc0f0b21f965b94d8310a85eadbb48f3b0
-updated: 2018-02-13T23:55:01.073337402-08:00
+updated: 2018-02-19T11:47:39.257378549-08:00
 imports:
 - name: github.com/appscode/go
-  version: 1be9b0441d73831aaa93df76e42a751caa5dba88
+  version: 8367769380cf93a12b381d957941ddf2a19d0356
   subpackages:
   - analytics
   - container/serializer
@@ -16,7 +16,7 @@ imports:
   - strings
   - version
 - name: github.com/appscode/kutil
-  version: 579ddb8cc946c9e5f09d59863a3c5fe27cdc56f5
+  version: 71bf6eda11a39a1b6bd3705f65a02e4901665d32
   subpackages:
   - meta
   - tools/analytics
@@ -153,6 +153,8 @@ imports:
   - signal
 - name: github.com/peterbourgon/diskv
   version: 5f041e8faa004a95c88a202771f4cc3e991971e6
+- name: github.com/pkg/errors
+  version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/prometheus/client_golang
   version: c5b7fccd204277076155f10851dad72b76a49317
   subpackages:
@@ -163,7 +165,7 @@ imports:
   subpackages:
   - go
 - name: github.com/prometheus/common
-  version: 13ba4ddd0caa9c28ca7b7bffe1dfa9ed8d5ef207
+  version: 3233b24a36715a2fe36d162260457857a56d672d
   subpackages:
   - expfmt
   - internal/bitbucket.org/ww/goautoneg
