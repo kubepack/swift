@@ -42,6 +42,7 @@ swift run [flags]
       --tiller-client-key-file string    File containing client TLS private key for Tiller server
       --tiller-endpoint string           Endpoint of Tiller server, eg, [scheme://]host:port
       --tiller-insecure-skip-verify      Skip certificate verification for Tiller server
+      --tiller-timeout duration          Timeout used to connect to Tiller server (default 5m0s)
 ```
 
 ### Options inherited from parent commands

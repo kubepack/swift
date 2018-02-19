@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
@@ -18,6 +19,7 @@ type InClusterConnector struct {
 	TillerClientCertFile string
 	TillerClientKeyFile  string
 	InsecureSkipVerify   bool
+	Timeout              time.Duration
 }
 
 var _ extpoints.Connector = &InClusterConnector{}
@@ -43,7 +45,7 @@ func (c *InClusterConnector) Connect(ctx context.Context) (context.Context, erro
 	if err != nil {
 		return ctx, err
 	}
-	conn, err := Connect(addr, c.TillerCACertFile, c.TillerClientCertFile, c.TillerClientKeyFile, c.InsecureSkipVerify)
+	conn, err := Connect(addr, c.TillerCACertFile, c.TillerClientCertFile, c.TillerClientKeyFile, c.InsecureSkipVerify, c.Timeout)
 	if err != nil {
 		return ctx, err
 	}

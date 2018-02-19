@@ -24,6 +24,7 @@ func NewCmdRun(version string) *cobra.Command {
 				TillerClientCertFile: opt.TillerClientCertFile,
 				TillerClientKeyFile:  opt.TillerClientKeyFile,
 				InsecureSkipVerify:   opt.InsecureSkipVerify,
+				Timeout:              opt.Timeout,
 			}, connectors.UIDInClusterConnector)
 
 			extpoints.Connectors.Register(&connectors.DirectConnector{
@@ -32,11 +33,13 @@ func NewCmdRun(version string) *cobra.Command {
 				TillerClientCertFile: opt.TillerClientCertFile,
 				TillerClientKeyFile:  opt.TillerClientKeyFile,
 				InsecureSkipVerify:   opt.InsecureSkipVerify,
+				Timeout:              opt.Timeout,
 			}, connectors.UIDDirectConnector)
 
 			extpoints.Connectors.Register(&connectors.KubeconfigConnector{
 				Context:            opt.KubeContext,
 				InsecureSkipVerify: opt.InsecureSkipVerify,
+				Timeout:            opt.Timeout,
 			}, connectors.UIDKubeconfigConnector)
 
 			apiCmd.Run(opt)
