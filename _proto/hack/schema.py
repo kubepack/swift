@@ -250,7 +250,7 @@ def render_schema_go(pkg, schemas):
         contents += '}\n\n'
 
     for key in schemas['requests'].keys():
-        contents += 'func (m *' + key + ') IsValid() (*gojsonschema.Result, error) {\n'
+        contents += 'func (m *' + key + ') Valid() (*gojsonschema.Result, error) {\n'
         contents += '	return {}Schema.Validate(gojsonschema.NewGoLoader(m))\n'.format(key[0:1].lower() + key[1:])
         contents += '}\n'
         contents += 'func (m *' + key + ') IsRequest() {}\n\n'
