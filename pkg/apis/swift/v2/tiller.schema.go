@@ -786,47 +786,47 @@ func init() {
 	}
 }
 
-func (m *UpdateReleaseRequest) IsValid() (*gojsonschema.Result, error) {
+func (m *UpdateReleaseRequest) Valid() (*gojsonschema.Result, error) {
 	return updateReleaseRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *UpdateReleaseRequest) IsRequest() {}
 
-func (m *GetReleaseStatusRequest) IsValid() (*gojsonschema.Result, error) {
+func (m *GetReleaseStatusRequest) Valid() (*gojsonschema.Result, error) {
 	return getReleaseStatusRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *GetReleaseStatusRequest) IsRequest() {}
 
-func (m *GetVersionRequest) IsValid() (*gojsonschema.Result, error) {
+func (m *GetVersionRequest) Valid() (*gojsonschema.Result, error) {
 	return getVersionRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *GetVersionRequest) IsRequest() {}
 
-func (m *RollbackReleaseRequest) IsValid() (*gojsonschema.Result, error) {
+func (m *RollbackReleaseRequest) Valid() (*gojsonschema.Result, error) {
 	return rollbackReleaseRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *RollbackReleaseRequest) IsRequest() {}
 
-func (m *InstallReleaseRequest) IsValid() (*gojsonschema.Result, error) {
+func (m *InstallReleaseRequest) Valid() (*gojsonschema.Result, error) {
 	return installReleaseRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *InstallReleaseRequest) IsRequest() {}
 
-func (m *GetReleaseContentRequest) IsValid() (*gojsonschema.Result, error) {
+func (m *GetReleaseContentRequest) Valid() (*gojsonschema.Result, error) {
 	return getReleaseContentRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *GetReleaseContentRequest) IsRequest() {}
 
-func (m *UninstallReleaseRequest) IsValid() (*gojsonschema.Result, error) {
+func (m *UninstallReleaseRequest) Valid() (*gojsonschema.Result, error) {
 	return uninstallReleaseRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *UninstallReleaseRequest) IsRequest() {}
 
-func (m *SummarizeReleasesRequest) IsValid() (*gojsonschema.Result, error) {
+func (m *SummarizeReleasesRequest) Valid() (*gojsonschema.Result, error) {
 	return summarizeReleasesRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *SummarizeReleasesRequest) IsRequest() {}
 
-func (m *GetHistoryRequest) IsValid() (*gojsonschema.Result, error) {
+func (m *GetHistoryRequest) Valid() (*gojsonschema.Result, error) {
 	return getHistoryRequestSchema.Validate(gojsonschema.NewGoLoader(m))
 }
 func (m *GetHistoryRequest) IsRequest() {}
