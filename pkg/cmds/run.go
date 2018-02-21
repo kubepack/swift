@@ -3,50 +3,34 @@ package cmds
 import (
 	_ "net/http/pprof"
 
-	"github.com/appscode/go/hold"
-	"github.com/appscode/swift/pkg/connectors"
-	"github.com/appscode/swift/pkg/extpoints"
+	"github.com/appscode/swift/pkg/cmds/server"
 	_ "github.com/appscode/swift/pkg/release"
-	apiCmd "github.com/appscode/swift/pkg/server/cmd"
-	"github.com/appscode/swift/pkg/server/cmd/options"
 	"github.com/spf13/cobra"
 )
 
-func NewCmdRun(version string) *cobra.Command {
-	opt := options.New()
+func NewCmdRun(stopCh <-chan struct{}) *cobra.Command {
+	o := server.NewSwiftOptions()
+
 	cmd := &cobra.Command{
 		Use:               "run",
 		Short:             "Run swift apis",
 		DisableAutoGenTag: true,
-		Run: func(cmd *cobra.Command, args []string) {
-			extpoints.Connectors.Register(&connectors.InClusterConnector{
-				TillerCACertFile:     opt.TillerCACertFile,
-				TillerClientCertFile: opt.TillerClientCertFile,
-				TillerClientKeyFile:  opt.TillerClientKeyFile,
-				InsecureSkipVerify:   opt.InsecureSkipVerify,
-				Timeout:              opt.Timeout,
-			}, connectors.UIDInClusterConnector)
-
-			extpoints.Connectors.Register(&connectors.DirectConnector{
-				TillerEndpoint:       opt.TillerEndpoint,
-				TillerCACertFile:     opt.TillerCACertFile,
-				TillerClientCertFile: opt.TillerClientCertFile,
-				TillerClientKeyFile:  opt.TillerClientKeyFile,
-				InsecureSkipVerify:   opt.InsecureSkipVerify,
-				Timeout:              opt.Timeout,
-			}, connectors.UIDDirectConnector)
-
-			extpoints.Connectors.Register(&connectors.KubeconfigConnector{
-				Context:            opt.KubeContext,
-				InsecureSkipVerify: opt.InsecureSkipVerify,
-				Timeout:            opt.Timeout,
-			}, connectors.UIDKubeconfigConnector)
-
-			apiCmd.Run(opt)
-			hold.Hold()
+		RunE: func(c *cobra.Command, args []string) error {
+			if err := o.Complete(); err != nil {
+				return err
+			}
+			if err := o.Validate(args); err != nil {
+				return err
+			}
+			if err := o.RunServer(stopCh); err != nil {
+				return err
+			}
+			return nil
 		},
 	}
 
-	opt.AddFlags(cmd.Flags())
+	flags := cmd.Flags()
+	o.AddFlags(flags)
+
 	return cmd
 }

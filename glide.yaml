@@ -2,47 +2,41 @@ package: github.com/appscode/swift
 import:
 - package: github.com/appscode/go
   version: master
+- package: github.com/appscode/grpc-go-addons
+  version: master
 - package: github.com/appscode/kutil
   version: release-6.0
 - package: github.com/golang/glog
-- package: golang.org/x/net
-  version: da118f7b8e5954f39d0d2130ab35d4bf0e3cb344
-- package: golang.org/x/text
-  version: 470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4
 - package: github.com/golang/protobuf
-  version: 6e4cc92cc905d5f4a73041c1b8228ea08f4c6147
+  version: v1.0.0
+- package: github.com/grpc-ecosystem/go-grpc-middleware
+  version: master
+- package: github.com/grpc-ecosystem/go-grpc-prometheus
+  version: v1.1
 - package: github.com/grpc-ecosystem/grpc-gateway
   version: v1.3.1-ac
   repo: https://github.com/appscode/grpc-gateway.git
   vcs: git
-- package: github.com/hashicorp/go-version
-  repo: https://github.com/appscode/go-version.git
-  vcs: git
-  version: master
-- package: github.com/soheilhy/cmux
-  version: e09e9389d85d8492d313d73d1469c029e710623f
+- package: github.com/jpillora/go-ogle-analytics
+- package: github.com/pkg/errors
+  version: v0.8.0
+- package: github.com/sirupsen/logrus
+  version: v1.0.4
 - package: github.com/spf13/cobra
+  version: master
 - package: github.com/spf13/pflag
+  version: v1.0.0
 - package: github.com/xeipuuv/gojsonschema
+- package: golang.org/x/net
+- package: google.golang.org/genproto
 - package: google.golang.org/grpc
   version: v1.9.2
-- package: google.golang.org/genproto
 - package: k8s.io/api
-  version: kubernetes-1.9.0
-- package: k8s.io/apiextensions-apiserver
   version: kubernetes-1.9.0
 - package: k8s.io/apimachinery
   version: kubernetes-1.9.0
 - package: k8s.io/client-go
   version: v6.0.0
-- package: k8s.io/kubernetes
-  version: v1.9.0
 - package: k8s.io/helm
   repo: https://github.com/appscode/helm.git
   version: 2.8.0-ac
-- package: github.com/grpc-ecosystem/go-grpc-prometheus
-  version: master
-- package: github.com/jpillora/go-ogle-analytics
-testImport:
-- package: github.com/stretchr/testify
-  version: v1.1.4
