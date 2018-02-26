@@ -5,6 +5,8 @@ import (
 	"crypto/x509"
 	"io/ioutil"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/glog"
+	"github.com/grpc-ecosystem/go-grpc-middleware/tags/glog"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -26,8 +28,11 @@ var (
 // connect returns a grpc connection to tiller or error. The grpc dial options
 // are constructed here.
 func Connect(cfg Config) (conn *grpc.ClientConn, err error) {
+	glogEntry := ctx_glog.NewEntry(ctx_glog.Logger)
 	opts := []grpc.DialOption{
 		grpc.WithBlock(), // required for timeout
+		grpc.WithUnaryInterceptor(grpc_glog.UnaryClientInterceptor(glogEntry)),
+		grpc.WithStreamInterceptor(grpc_glog.StreamClientInterceptor(glogEntry)),
 	}
 	if cfg.InsecureSkipVerify {
 		opts = append(opts, grpc.WithInsecure())
