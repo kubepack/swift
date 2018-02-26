@@ -23,7 +23,7 @@ spec:
       imagePullSecrets: [${SWIFT_IMAGE_PULL_SECRET}]
       containers:
       - name: swift
-        image: ${SWIFT_DOCKER_REGISTRY}/swift:0.7.1
+        image: ${SWIFT_DOCKER_REGISTRY}/swift:0.7.2
         imagePullPolicy: IfNotPresent
         args:
         - run
