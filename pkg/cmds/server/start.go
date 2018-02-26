@@ -68,28 +68,19 @@ func (o SwiftOptions) Config() (*server.Config, error) {
 		return nil, err
 	}
 
-	extpoints.Connectors.Register(&connectors.InClusterConnector{
-		TillerCACertFile:     o.TillerOptions.CACertFile,
-		TillerClientCertFile: o.TillerOptions.ClientCertFile,
-		TillerClientKeyFile:  o.TillerOptions.ClientPrivateKeyFile,
+	cc := connectors.Config{
+		Endpoint:             o.TillerOptions.Endpoint,
+		CACertFile:           o.TillerOptions.CACertFile,
+		ClientCertFile:       o.TillerOptions.ClientCertFile,
+		ClientPrivateKeyFile: o.TillerOptions.ClientPrivateKeyFile,
 		InsecureSkipVerify:   o.TillerOptions.InsecureSkipVerify,
 		Timeout:              o.TillerOptions.Timeout,
-	}, connectors.UIDInClusterConnector)
-
-	extpoints.Connectors.Register(&connectors.DirectConnector{
-		TillerEndpoint:       o.TillerOptions.TillerEndpoint,
-		TillerCACertFile:     o.TillerOptions.CACertFile,
-		TillerClientCertFile: o.TillerOptions.ClientCertFile,
-		TillerClientKeyFile:  o.TillerOptions.ClientPrivateKeyFile,
-		InsecureSkipVerify:   o.TillerOptions.InsecureSkipVerify,
-		Timeout:              o.TillerOptions.Timeout,
-	}, connectors.UIDDirectConnector)
-
-	extpoints.Connectors.Register(&connectors.KubeconfigConnector{
-		Context:            o.TillerOptions.KubeContext,
-		InsecureSkipVerify: o.TillerOptions.InsecureSkipVerify,
-		Timeout:            o.TillerOptions.Timeout,
-	}, connectors.UIDKubeconfigConnector)
+		KubeContext:          o.TillerOptions.KubeContext,
+		LogRPC:               o.LogRPC,
+	}
+	extpoints.Connectors.Register(connectors.NewInClusterConnector(cc), connectors.UIDInClusterConnector)
+	extpoints.Connectors.Register(connectors.NewDirectConnector(cc), connectors.UIDDirectConnector)
+	extpoints.Connectors.Register(connectors.NewKubeconfigConnector(cc), connectors.UIDKubeconfigConnector)
 
 	clientFactory := extpoints.Connectors.Lookup(o.TillerOptions.Connector)
 	if clientFactory == nil {

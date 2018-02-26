@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"io/ioutil"
-	"time"
 
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
@@ -26,18 +25,18 @@ var (
 
 // connect returns a grpc connection to tiller or error. The grpc dial options
 // are constructed here.
-func Connect(addr string, caCertFile, clientCertFile, clientKeyFile string, insecureSkipVerify bool, timeout time.Duration) (conn *grpc.ClientConn, err error) {
+func Connect(cfg Config) (conn *grpc.ClientConn, err error) {
 	opts := []grpc.DialOption{
 		grpc.WithBlock(), // required for timeout
 	}
-	if insecureSkipVerify {
+	if cfg.InsecureSkipVerify {
 		opts = append(opts, grpc.WithInsecure())
 	} else {
 		tlsConfig := &tls.Config{}
 
 		// load cacert
-		if caCertFile != "" {
-			caCert, err := ioutil.ReadFile(caCertFile)
+		if cfg.CACertFile != "" {
+			caCert, err := ioutil.ReadFile(cfg.CACertFile)
 			if err != nil {
 				return nil, errors.Wrap(err, "failed to load ca cert")
 				return nil, err
@@ -48,8 +47,8 @@ func Connect(addr string, caCertFile, clientCertFile, clientKeyFile string, inse
 		}
 
 		// load client cert/key
-		if clientCertFile != "" && clientKeyFile != "" {
-			pair, err := tls.LoadX509KeyPair(clientCertFile, clientKeyFile)
+		if cfg.ClientCertFile != "" && cfg.ClientPrivateKeyFile != "" {
+			pair, err := tls.LoadX509KeyPair(cfg.ClientCertFile, cfg.ClientPrivateKeyFile)
 			if err != nil {
 				return nil, errors.Wrap(err, "load client cert/key.")
 			}
@@ -59,6 +58,6 @@ func Connect(addr string, caCertFile, clientCertFile, clientKeyFile string, inse
 		opts = append(opts, grpc.WithTransportCredentials(credentials.NewTLS(tlsConfig)))
 	}
 
-	ctx, _ := context.WithTimeout(context.Background(), timeout)
-	return grpc.DialContext(ctx, addr, opts...)
+	ctx, _ := context.WithTimeout(context.Background(), cfg.Timeout)
+	return grpc.DialContext(ctx, cfg.Endpoint, opts...)
 }

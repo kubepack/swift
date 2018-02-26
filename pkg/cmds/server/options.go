@@ -8,7 +8,7 @@ import (
 
 type TillerOptions struct {
 	Connector            string // incluster, direct, kubeconfig, appscode
-	TillerEndpoint       string
+	Endpoint             string
 	CACertFile           string
 	ClientCertFile       string
 	ClientPrivateKeyFile string
@@ -25,7 +25,7 @@ func NewTillerOptions() *TillerOptions {
 
 func (opt *TillerOptions) AddFlags(fs *pflag.FlagSet) {
 	fs.StringVar(&opt.Connector, "connector", opt.Connector, "Name of connector used to connect to Tiller server. Valid values are: incluster, direct, kubeconfig, appscode")
-	fs.StringVar(&opt.TillerEndpoint, "tiller-endpoint", opt.TillerEndpoint, "Endpoint of Tiller server, eg, [scheme://]host:port")
+	fs.StringVar(&opt.Endpoint, "tiller-endpoint", opt.Endpoint, "Endpoint of Tiller server, eg, [scheme://]host:port")
 	fs.StringVar(&opt.CACertFile, "tiller-ca-file", opt.CACertFile, "File containing CA certificate for Tiller server")
 	fs.StringVar(&opt.ClientCertFile, "tiller-client-cert-file", opt.ClientCertFile, "File container client TLS certificate for Tiller server")
 	fs.StringVar(&opt.ClientPrivateKeyFile, "tiller-client-private-key-file", opt.ClientPrivateKeyFile, "File containing client TLS private key for Tiller server")

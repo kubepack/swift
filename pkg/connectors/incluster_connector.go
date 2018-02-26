@@ -3,7 +3,6 @@ package connectors
 import (
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/appscode/swift/pkg/extpoints"
 	"github.com/pkg/errors"
@@ -15,11 +14,7 @@ import (
 )
 
 type InClusterConnector struct {
-	TillerCACertFile     string
-	TillerClientCertFile string
-	TillerClientKeyFile  string
-	InsecureSkipVerify   bool
-	Timeout              time.Duration
+	cfg Config
 }
 
 var _ extpoints.Connector = &InClusterConnector{}
@@ -27,6 +22,10 @@ var _ extpoints.Connector = &InClusterConnector{}
 const (
 	UIDInClusterConnector = "incluster"
 )
+
+func NewInClusterConnector(cfg Config) extpoints.Connector {
+	return &InClusterConnector{cfg: cfg}
+}
 
 func (c *InClusterConnector) UID() string {
 	return UIDInClusterConnector
@@ -41,11 +40,12 @@ func (c *InClusterConnector) Connect(ctx context.Context) (context.Context, erro
 	if err != nil {
 		return ctx, err
 	}
-	addr, err := c.getTillerAddr(client)
+	cfgCopy := c.cfg
+	cfgCopy.Endpoint, err = c.getTillerAddr(client)
 	if err != nil {
 		return ctx, err
 	}
-	conn, err := Connect(addr, c.TillerCACertFile, c.TillerClientCertFile, c.TillerClientKeyFile, c.InsecureSkipVerify, c.Timeout)
+	conn, err := Connect(cfgCopy)
 	if err != nil {
 		return ctx, err
 	}

@@ -2,7 +2,6 @@ package connectors
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
@@ -14,9 +13,7 @@ import (
 type KubeconfigConnector struct {
 	*TunnelConnector
 
-	Context            string
-	InsecureSkipVerify bool
-	Timeout            time.Duration
+	cfg Config
 }
 
 var _ extpoints.Connector = &KubeconfigConnector{}
@@ -24,6 +21,10 @@ var _ extpoints.Connector = &KubeconfigConnector{}
 const (
 	UIDKubeconfigConnector = "kubeconfig"
 )
+
+func NewKubeconfigConnector(cfg Config) extpoints.Connector {
+	return &KubeconfigConnector{cfg: cfg}
+}
 
 func (c *KubeconfigConnector) UID() string {
 	return UIDKubeconfigConnector
@@ -44,8 +45,9 @@ func (c *KubeconfigConnector) Connect(ctx context.Context) (context.Context, err
 	}
 	ctx = WithTunnel(ctx, tunnel)
 
-	addr := fmt.Sprintf("127.0.0.1:%d", tunnel.Local)
-	conn, err := Connect(addr, "", "", "", c.InsecureSkipVerify, c.Timeout)
+	cfgCopy := c.cfg
+	cfgCopy.Endpoint = fmt.Sprintf("127.0.0.1:%d", tunnel.Local)
+	conn, err := Connect(cfgCopy)
 	if err != nil {
 		return ctx, err
 	}
@@ -62,7 +64,7 @@ func (c *KubeconfigConnector) getConfig() (*rest.Config, error) {
 	rules.DefaultClientConfig = &clientcmd.DefaultClientConfig
 
 	overrides := &clientcmd.ConfigOverrides{
-		CurrentContext:  c.Context,
+		CurrentContext:  c.cfg.KubeContext,
 		ClusterDefaults: clientcmd.ClusterDefaults,
 	}
 	return clientcmd.NewNonInteractiveDeferredLoadingClientConfig(rules, overrides).ClientConfig()
