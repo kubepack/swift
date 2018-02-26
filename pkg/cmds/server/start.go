@@ -16,14 +16,14 @@ import (
 	"github.com/appscode/swift/pkg/extpoints"
 	"github.com/appscode/swift/pkg/release"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
-	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/glog"
 	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
+	"github.com/grpc-ecosystem/go-grpc-middleware/tags/glog"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
 	"github.com/grpc-ecosystem/go-grpc-prometheus"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -68,28 +68,19 @@ func (o SwiftOptions) Config() (*server.Config, error) {
 		return nil, err
 	}
 
-	extpoints.Connectors.Register(&connectors.InClusterConnector{
-		TillerCACertFile:     o.TillerOptions.CACertFile,
-		TillerClientCertFile: o.TillerOptions.ClientCertFile,
-		TillerClientKeyFile:  o.TillerOptions.ClientPrivateKeyFile,
+	cc := connectors.Config{
+		Endpoint:             o.TillerOptions.Endpoint,
+		CACertFile:           o.TillerOptions.CACertFile,
+		ClientCertFile:       o.TillerOptions.ClientCertFile,
+		ClientPrivateKeyFile: o.TillerOptions.ClientPrivateKeyFile,
 		InsecureSkipVerify:   o.TillerOptions.InsecureSkipVerify,
 		Timeout:              o.TillerOptions.Timeout,
-	}, connectors.UIDInClusterConnector)
-
-	extpoints.Connectors.Register(&connectors.DirectConnector{
-		TillerEndpoint:       o.TillerOptions.TillerEndpoint,
-		TillerCACertFile:     o.TillerOptions.CACertFile,
-		TillerClientCertFile: o.TillerOptions.ClientCertFile,
-		TillerClientKeyFile:  o.TillerOptions.ClientPrivateKeyFile,
-		InsecureSkipVerify:   o.TillerOptions.InsecureSkipVerify,
-		Timeout:              o.TillerOptions.Timeout,
-	}, connectors.UIDDirectConnector)
-
-	extpoints.Connectors.Register(&connectors.KubeconfigConnector{
-		Context:            o.TillerOptions.KubeContext,
-		InsecureSkipVerify: o.TillerOptions.InsecureSkipVerify,
-		Timeout:            o.TillerOptions.Timeout,
-	}, connectors.UIDKubeconfigConnector)
+		KubeContext:          o.TillerOptions.KubeContext,
+		LogRPC:               o.LogRPC,
+	}
+	extpoints.Connectors.Register(connectors.NewInClusterConnector(cc), connectors.UIDInClusterConnector)
+	extpoints.Connectors.Register(connectors.NewDirectConnector(cc), connectors.UIDDirectConnector)
+	extpoints.Connectors.Register(connectors.NewKubeconfigConnector(cc), connectors.UIDKubeconfigConnector)
 
 	clientFactory := extpoints.Connectors.Lookup(o.TillerOptions.Connector)
 	if clientFactory == nil {
@@ -108,20 +99,24 @@ func (o SwiftOptions) Config() (*server.Config, error) {
 	corsRegistry.Register(proto.ExportReleaseServiceCorsPatterns())
 	config.SetCORSRegistry(corsRegistry)
 
-	optsLogrus := []grpc_logrus.Option{
-		grpc_logrus.WithDecider(func(methodFullName string, err error) bool {
+	optsGLog := []grpc_glog.Option{
+		grpc_glog.WithDecider(func(methodFullName string, err error) bool {
 			return o.LogRPC
 		}),
 	}
-	logrusEntry := logrus.NewEntry(logrus.New())
-	grpc_logrus.ReplaceGrpcLogger(logrusEntry)
+	payloadDecider := func(ctx context.Context, fullMethodName string, servingObject interface{}) bool {
+		return o.LogRPC
+	}
+	glogEntry := ctx_glog.NewEntry(ctx_glog.Logger)
+	grpc_glog.ReplaceGrpcLogger()
 
 	config.GRPCServerOption(
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
 			grpc_ctxtags.StreamServerInterceptor(),
 			grpc_opentracing.StreamServerInterceptor(),
 			grpc_prometheus.StreamServerInterceptor,
-			grpc_logrus.StreamServerInterceptor(logrusEntry, optsLogrus...),
+			grpc_glog.PayloadStreamServerInterceptor(glogEntry, payloadDecider),
+			grpc_glog.StreamServerInterceptor(glogEntry, optsGLog...),
 			grpc_cors.StreamServerInterceptor(grpc_cors.OriginHost(config.CORSOriginHost), grpc_cors.AllowSubdomain(config.CORSAllowSubdomain)),
 			grpc_security.StreamServerInterceptor(),
 			grpc_recovery.StreamServerInterceptor(),
@@ -130,7 +125,8 @@ func (o SwiftOptions) Config() (*server.Config, error) {
 			grpc_ctxtags.UnaryServerInterceptor(),
 			grpc_opentracing.UnaryServerInterceptor(),
 			grpc_prometheus.UnaryServerInterceptor,
-			grpc_logrus.UnaryServerInterceptor(logrusEntry, optsLogrus...),
+			grpc_glog.PayloadUnaryServerInterceptor(glogEntry, payloadDecider),
+			grpc_glog.UnaryServerInterceptor(glogEntry, optsGLog...),
 			grpc_cors.UnaryServerInterceptor(grpc_cors.OriginHost(config.CORSOriginHost), grpc_cors.AllowSubdomain(config.CORSAllowSubdomain)),
 			grpc_security.UnaryServerInterceptor(),
 			grpc_recovery.UnaryServerInterceptor(),

@@ -1,13 +1,13 @@
-// Copyright 2017 Michal Witkowski. All Rights Reserved.
+// Copyright 2018 AppsCode Inc. All Rights Reserved.
 // See LICENSE for licensing terms.
 
-package grpc_logrus
+package grpc_glog
 
 import (
 	"time"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging"
-	"github.com/sirupsen/logrus"
+	"github.com/grpc-ecosystem/go-grpc-middleware/tags/glog"
 	"google.golang.org/grpc/codes"
 )
 
@@ -50,7 +50,7 @@ func evaluateClientOpt(opts []Option) *options {
 type Option func(*options)
 
 // CodeToLevel function defines the mapping between gRPC return codes and interceptor log level.
-type CodeToLevel func(code codes.Code) logrus.Level
+type CodeToLevel func(code codes.Code) ctx_glog.Severity
 
 // DurationToField function defines how to produce duration fields for logging
 type DurationToField func(duration time.Duration) (key string, value interface{})
@@ -84,86 +84,86 @@ func WithDurationField(f DurationToField) Option {
 }
 
 // DefaultCodeToLevel is the default implementation of gRPC return codes to log levels for server side.
-func DefaultCodeToLevel(code codes.Code) logrus.Level {
+func DefaultCodeToLevel(code codes.Code) ctx_glog.Severity {
 	switch code {
 	case codes.OK:
-		return logrus.InfoLevel
+		return ctx_glog.InfoLevel
 	case codes.Canceled:
-		return logrus.InfoLevel
+		return ctx_glog.InfoLevel
 	case codes.Unknown:
-		return logrus.ErrorLevel
+		return ctx_glog.ErrorLevel
 	case codes.InvalidArgument:
-		return logrus.InfoLevel
+		return ctx_glog.InfoLevel
 	case codes.DeadlineExceeded:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	case codes.NotFound:
-		return logrus.InfoLevel
+		return ctx_glog.InfoLevel
 	case codes.AlreadyExists:
-		return logrus.InfoLevel
+		return ctx_glog.InfoLevel
 	case codes.PermissionDenied:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	case codes.Unauthenticated:
-		return logrus.InfoLevel // unauthenticated requests can happen
+		return ctx_glog.InfoLevel // unauthenticated requests can happen
 	case codes.ResourceExhausted:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	case codes.FailedPrecondition:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	case codes.Aborted:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	case codes.OutOfRange:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	case codes.Unimplemented:
-		return logrus.ErrorLevel
+		return ctx_glog.ErrorLevel
 	case codes.Internal:
-		return logrus.ErrorLevel
+		return ctx_glog.ErrorLevel
 	case codes.Unavailable:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	case codes.DataLoss:
-		return logrus.ErrorLevel
+		return ctx_glog.ErrorLevel
 	default:
-		return logrus.ErrorLevel
+		return ctx_glog.ErrorLevel
 	}
 }
 
 // DefaultClientCodeToLevel is the default implementation of gRPC return codes to log levels for client side.
-func DefaultClientCodeToLevel(code codes.Code) logrus.Level {
+func DefaultClientCodeToLevel(code codes.Code) ctx_glog.Severity {
 	switch code {
 	case codes.OK:
-		return logrus.DebugLevel
+		return ctx_glog.DebugLevel
 	case codes.Canceled:
-		return logrus.DebugLevel
+		return ctx_glog.DebugLevel
 	case codes.Unknown:
-		return logrus.InfoLevel
+		return ctx_glog.InfoLevel
 	case codes.InvalidArgument:
-		return logrus.DebugLevel
+		return ctx_glog.DebugLevel
 	case codes.DeadlineExceeded:
-		return logrus.InfoLevel
+		return ctx_glog.InfoLevel
 	case codes.NotFound:
-		return logrus.DebugLevel
+		return ctx_glog.DebugLevel
 	case codes.AlreadyExists:
-		return logrus.DebugLevel
+		return ctx_glog.DebugLevel
 	case codes.PermissionDenied:
-		return logrus.InfoLevel
+		return ctx_glog.InfoLevel
 	case codes.Unauthenticated:
-		return logrus.InfoLevel // unauthenticated requests can happen
+		return ctx_glog.InfoLevel // unauthenticated requests can happen
 	case codes.ResourceExhausted:
-		return logrus.DebugLevel
+		return ctx_glog.DebugLevel
 	case codes.FailedPrecondition:
-		return logrus.DebugLevel
+		return ctx_glog.DebugLevel
 	case codes.Aborted:
-		return logrus.DebugLevel
+		return ctx_glog.DebugLevel
 	case codes.OutOfRange:
-		return logrus.DebugLevel
+		return ctx_glog.DebugLevel
 	case codes.Unimplemented:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	case codes.Internal:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	case codes.Unavailable:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	case codes.DataLoss:
-		return logrus.WarnLevel
+		return ctx_glog.WarningLevel
 	default:
-		return logrus.InfoLevel
+		return ctx_glog.InfoLevel
 	}
 }
 

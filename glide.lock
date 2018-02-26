@@ -1,5 +1,5 @@
-hash: e6f696a39c0b4b6b11d0cfdc95d710b8acf8a45519835df7c3311a8300a05fae
-updated: 2018-02-20T21:49:19.937377638-08:00
+hash: a924ab5233b85a1070b7066352b78e13f78028dd68b4bb90729ba8310cfa7354
+updated: 2018-02-26T15:26:43.459000769-08:00
 imports:
 - name: github.com/appscode/go
   version: 83e7fc1967ed737eedfc87da60c42e9fc4dc684c
@@ -16,7 +16,7 @@ imports:
   - util/errors
   - version
 - name: github.com/appscode/grpc-go-addons
-  version: 6820c4fb55a23d7edb564505112f543bf507360f
+  version: 46e304aa77852491cd09bc8a4867900038159f6d
   subpackages:
   - cors
   - endpoints
@@ -24,7 +24,7 @@ imports:
   - server
   - server/options
 - name: github.com/appscode/kutil
-  version: 20ffc2be6a1d88387bc6f6babe7bfe312c58b509
+  version: 6a5c108367b50c78b783e51490f015d03ce62259
   subpackages:
   - meta
   - tools/analytics
@@ -115,13 +115,15 @@ imports:
   subpackages:
   - diskcache
 - name: github.com/grpc-ecosystem/go-grpc-middleware
-  version: d0c54e68681ec7999ac17864470f3bee6521ba2b
+  version: 606e44dc6300178dc323ecb9243b8c976d4b9765
+  repo: https://github.com/tamalsaha/go-grpc-middleware.git
+  vcs: git
   subpackages:
   - logging
-  - logging/logrus
+  - logging/glog
   - recovery
   - tags
-  - tags/logrus
+  - tags/glog
   - tracing/opentracing
   - util/metautils
 - name: github.com/grpc-ecosystem/go-grpc-prometheus
@@ -203,7 +205,7 @@ imports:
 - name: github.com/soheilhy/cmux
   version: e09e9389d85d8492d313d73d1469c029e710623f
 - name: github.com/spf13/cobra
-  version: be77323fc05148ef091e83b3866c0d47c8e74a8b
+  version: a1e4933ab784095895e33dbe9f001ba10cfe2060
   subpackages:
   - doc
 - name: github.com/spf13/pflag
