@@ -11,6 +11,8 @@ import:
   version: v1.0.0
 - package: github.com/grpc-ecosystem/go-grpc-middleware
   version: master
+  repo: https://github.com/tamalsaha/go-grpc-middleware.git
+  vcs: git
 - package: github.com/grpc-ecosystem/go-grpc-prometheus
   version: v1.1
 - package: github.com/grpc-ecosystem/grpc-gateway

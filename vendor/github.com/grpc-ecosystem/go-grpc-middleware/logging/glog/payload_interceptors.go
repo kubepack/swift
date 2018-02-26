@@ -1,4 +1,7 @@
-package grpc_logrus
+// Copyright 2018 AppsCode Inc. All Rights Reserved.
+// See LICENSE for licensing terms.
+
+package grpc_glog
 
 import (
 	"bytes"
@@ -7,8 +10,7 @@ import (
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/proto"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging"
-	"github.com/grpc-ecosystem/go-grpc-middleware/tags/logrus"
-	"github.com/sirupsen/logrus"
+	"github.com/grpc-ecosystem/go-grpc-middleware/tags/glog"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
@@ -20,15 +22,15 @@ var (
 
 // PayloadUnaryServerInterceptor returns a new unary server interceptors that logs the payloads of requests.
 //
-// This *only* works when placed *after* the `grpc_logrus.UnaryServerInterceptor`. However, the logging can be done to a
+// This *only* works when placed *after* the `grpc_glog.UnaryServerInterceptor`. However, the logging can be done to a
 // separate instance of the logger.
-func PayloadUnaryServerInterceptor(entry *logrus.Entry, decider grpc_logging.ServerPayloadLoggingDecider) grpc.UnaryServerInterceptor {
+func PayloadUnaryServerInterceptor(entry *ctx_glog.Entry, decider grpc_logging.ServerPayloadLoggingDecider) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 		if !decider(ctx, info.FullMethod, info.Server) {
 			return handler(ctx, req)
 		}
-		// Use the provided logrus.Entry for logging but use the fields from context.
-		logEntry := entry.WithFields(ctx_logrus.Extract(ctx).Data)
+		// Use the provided ctx_glog.Entry for logging but use the fields from context.
+		logEntry := entry.WithFields(ctx_glog.Extract(ctx).Data)
 		logProtoMessageAsJson(logEntry, req, "grpc.request.content", "server request payload logged as grpc.request.content field")
 		resp, err := handler(ctx, req)
 		if err == nil {
@@ -40,14 +42,14 @@ func PayloadUnaryServerInterceptor(entry *logrus.Entry, decider grpc_logging.Ser
 
 // PayloadUnaryServerInterceptor returns a new server server interceptors that logs the payloads of requests.
 //
-// This *only* works when placed *after* the `grpc_logrus.StreamServerInterceptor`. However, the logging can be done to a
+// This *only* works when placed *after* the `grpc_glog.StreamServerInterceptor`. However, the logging can be done to a
 // separate instance of the logger.
-func PayloadStreamServerInterceptor(entry *logrus.Entry, decider grpc_logging.ServerPayloadLoggingDecider) grpc.StreamServerInterceptor {
+func PayloadStreamServerInterceptor(entry *ctx_glog.Entry, decider grpc_logging.ServerPayloadLoggingDecider) grpc.StreamServerInterceptor {
 	return func(srv interface{}, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		if !decider(stream.Context(), info.FullMethod, srv) {
 			return handler(srv, stream)
 		}
-		// Use the provided logrus.Entry for logging but use the fields from context.
+		// Use the provided ctx_glog.Entry for logging but use the fields from context.
 		logEntry := entry.WithFields(Extract(stream.Context()).Data)
 		newStream := &loggingServerStream{ServerStream: stream, entry: logEntry}
 		return handler(srv, newStream)
@@ -55,7 +57,7 @@ func PayloadStreamServerInterceptor(entry *logrus.Entry, decider grpc_logging.Se
 }
 
 // PayloadUnaryClientInterceptor returns a new unary client interceptor that logs the paylods of requests and responses.
-func PayloadUnaryClientInterceptor(entry *logrus.Entry, decider grpc_logging.ClientPayloadLoggingDecider) grpc.UnaryClientInterceptor {
+func PayloadUnaryClientInterceptor(entry *ctx_glog.Entry, decider grpc_logging.ClientPayloadLoggingDecider) grpc.UnaryClientInterceptor {
 	return func(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
 		if !decider(ctx, method) {
 			return invoker(ctx, method, req, reply, cc, opts...)
@@ -71,7 +73,7 @@ func PayloadUnaryClientInterceptor(entry *logrus.Entry, decider grpc_logging.Cli
 }
 
 // PayloadStreamServerInterceptor returns a new streaming client interceptor that logs the paylods of requests and responses.
-func PayloadStreamClientInterceptor(entry *logrus.Entry, decider grpc_logging.ClientPayloadLoggingDecider) grpc.StreamClientInterceptor {
+func PayloadStreamClientInterceptor(entry *ctx_glog.Entry, decider grpc_logging.ClientPayloadLoggingDecider) grpc.StreamClientInterceptor {
 	return func(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer, opts ...grpc.CallOption) (grpc.ClientStream, error) {
 		if !decider(ctx, method) {
 			return streamer(ctx, desc, cc, method, opts...)
@@ -85,7 +87,7 @@ func PayloadStreamClientInterceptor(entry *logrus.Entry, decider grpc_logging.Cl
 
 type loggingClientStream struct {
 	grpc.ClientStream
-	entry *logrus.Entry
+	entry *ctx_glog.Entry
 }
 
 func (l *loggingClientStream) SendMsg(m interface{}) error {
@@ -106,7 +108,7 @@ func (l *loggingClientStream) RecvMsg(m interface{}) error {
 
 type loggingServerStream struct {
 	grpc.ServerStream
-	entry *logrus.Entry
+	entry *ctx_glog.Entry
 }
 
 func (l *loggingServerStream) SendMsg(m interface{}) error {
@@ -125,7 +127,7 @@ func (l *loggingServerStream) RecvMsg(m interface{}) error {
 	return err
 }
 
-func logProtoMessageAsJson(entry *logrus.Entry, pbMsg interface{}, key string, msg string) {
+func logProtoMessageAsJson(entry *ctx_glog.Entry, pbMsg interface{}, key string, msg string) {
 	if p, ok := pbMsg.(proto.Message); ok {
 		entry.WithField(key, &jsonpbMarshalleble{p}).Info(msg)
 	}

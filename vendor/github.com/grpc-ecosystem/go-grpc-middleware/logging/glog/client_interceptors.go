@@ -1,19 +1,19 @@
-// Copyright 2017 Michal Witkowski. All Rights Reserved.
+// Copyright 2018 AppsCode Inc. All Rights Reserved.
 // See LICENSE for licensing terms.
 
-package grpc_logrus
+package grpc_glog
 
 import (
 	"path"
 	"time"
 
-	"github.com/sirupsen/logrus"
+	"github.com/grpc-ecosystem/go-grpc-middleware/tags/glog"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
 // UnaryClientInterceptor returns a new unary client interceptor that optionally logs the execution of external gRPC calls.
-func UnaryClientInterceptor(entry *logrus.Entry, opts ...Option) grpc.UnaryClientInterceptor {
+func UnaryClientInterceptor(entry *ctx_glog.Entry, opts ...Option) grpc.UnaryClientInterceptor {
 	o := evaluateClientOpt(opts)
 	return func(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
 		fields := newClientLoggerFields(ctx, method)
@@ -25,7 +25,7 @@ func UnaryClientInterceptor(entry *logrus.Entry, opts ...Option) grpc.UnaryClien
 }
 
 // StreamServerInterceptor returns a new streaming client interceptor that optionally logs the execution of external gRPC calls.
-func StreamClientInterceptor(entry *logrus.Entry, opts ...Option) grpc.StreamClientInterceptor {
+func StreamClientInterceptor(entry *ctx_glog.Entry, opts ...Option) grpc.StreamClientInterceptor {
 	o := evaluateClientOpt(opts)
 	return func(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer, opts ...grpc.CallOption) (grpc.ClientStream, error) {
 		fields := newClientLoggerFields(ctx, method)
@@ -36,16 +36,16 @@ func StreamClientInterceptor(entry *logrus.Entry, opts ...Option) grpc.StreamCli
 	}
 }
 
-func logFinalClientLine(o *options, entry *logrus.Entry, startTime time.Time, err error, msg string) {
+func logFinalClientLine(o *options, entry *ctx_glog.Entry, startTime time.Time, err error, msg string) {
 	code := o.codeFunc(err)
 	level := o.levelFunc(code)
 	durField, durVal := o.durationFunc(time.Now().Sub(startTime))
-	fields := logrus.Fields{
+	fields := ctx_glog.Fields{
 		"grpc.code": code.String(),
 		durField:    durVal,
 	}
 	if err != nil {
-		fields[logrus.ErrorKey] = err
+		fields[ctx_glog.ErrorKey] = err
 	}
 	levelLogf(
 		entry.WithFields(fields),
@@ -53,10 +53,10 @@ func logFinalClientLine(o *options, entry *logrus.Entry, startTime time.Time, er
 		msg)
 }
 
-func newClientLoggerFields(ctx context.Context, fullMethodString string) logrus.Fields {
+func newClientLoggerFields(ctx context.Context, fullMethodString string) ctx_glog.Fields {
 	service := path.Dir(fullMethodString)[1:]
 	method := path.Base(fullMethodString)
-	return logrus.Fields{
+	return ctx_glog.Fields{
 		SystemField:    "grpc",
 		KindField:      "client",
 		"grpc.service": service,
