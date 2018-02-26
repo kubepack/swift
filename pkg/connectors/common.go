@@ -28,11 +28,16 @@ var (
 // connect returns a grpc connection to tiller or error. The grpc dial options
 // are constructed here.
 func Connect(cfg Config) (conn *grpc.ClientConn, err error) {
+	optsGLog := []grpc_glog.Option{
+		grpc_glog.WithDecider(func(methodFullName string, err error) bool {
+			return cfg.LogRPC
+		}),
+	}
 	glogEntry := ctx_glog.NewEntry(ctx_glog.Logger)
 	opts := []grpc.DialOption{
 		grpc.WithBlock(), // required for timeout
-		grpc.WithUnaryInterceptor(grpc_glog.UnaryClientInterceptor(glogEntry)),
-		grpc.WithStreamInterceptor(grpc_glog.StreamClientInterceptor(glogEntry)),
+		grpc.WithUnaryInterceptor(grpc_glog.UnaryClientInterceptor(glogEntry, optsGLog...)),
+		grpc.WithStreamInterceptor(grpc_glog.StreamClientInterceptor(glogEntry, optsGLog...)),
 	}
 	if cfg.InsecureSkipVerify {
 		opts = append(opts, grpc.WithInsecure())
