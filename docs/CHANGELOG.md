@@ -17,6 +17,14 @@ aliases:
 
 # Change Log
 
+## [0.7.2](https://github.com/appscode/swift/releases/tag/0.7.2) / 2018.02.19
+Swift 0.7.2 uses various grpc middlewares from grpc-ecosystem/go-grpc-middleware inlcuding `--log-rpc` flag to log request and response playloads. There is no user visible change in api.
+
+- Use glog middleware for logging [\#102](https://github.com/appscode/swift/pull/102)
+- Rename validator method [\#101](https://github.com/appscode/swift/pull/101)
+- Use appscode/grpc-go-addons [\#100](https://github.com/appscode/swift/pull/100)
+
+
 ## [0.7.1](https://github.com/appscode/swift/releases/tag/0.7.1) / 2018.02.19
 Swift 0.7.1 adds --tiller-timeout flag with default 5 min deadline. There is no user visible change in api.
 
