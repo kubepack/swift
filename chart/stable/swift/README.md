@@ -47,8 +47,9 @@ The following tables lists the configurable parameters of the swift chart and th
 | `imagePullPolicy`         | Image pull policy                                             | `IfNotPresent`   |
 | `logLevel`                | Log level for proxy                                           | `3`              |
 | `nodeSelector`            | Node labels for pod assignment                                | `{}`             |
-| `rbac.create`             | install required rbac service account, roles and rolebindings | `false`          |
-| `rbac.serviceAccountName` | ServiceAccount swift will use (ignored if rbac.create=true)   | `default`        |
+| `rbac.create`             | If `true`, create and use RBAC resources                      | `true`           |
+| `serviceAccount.create`   | If `true`, create a new service account                       | `true`           |
+| `serviceAccount.name`     | Service account to be used. If not set and `serviceAccount.create` is `true`, a name is generated using the fullname template | `` |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
