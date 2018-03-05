@@ -5,29 +5,34 @@ echo "checking kubeconfig context"
 kubectl config current-context || { echo "Set a context (kubectl use-context <context>) out of the following:"; echo; kubectl config get-contexts; exit 1; }
 echo ""
 
-# ref: https://stackoverflow.com/a/27776822/244009
-case "$(uname -s)" in
-    Darwin)
-        curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.1.0/onessl-darwin-amd64
-        chmod +x onessl
-        export ONESSL=./onessl
-        ;;
+# https://stackoverflow.com/a/677212/244009
+if [ -x "$(command -v onessl >/dev/null 2>&1)" ]; then
+    export ONESSL=onessl
+else
+    # ref: https://stackoverflow.com/a/27776822/244009
+    case "$(uname -s)" in
+        Darwin)
+            curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.1.0/onessl-darwin-amd64
+            chmod +x onessl
+            export ONESSL=./onessl
+            ;;
 
-    Linux)
-        curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.1.0/onessl-linux-amd64
-        chmod +x onessl
-        export ONESSL=./onessl
-        ;;
+        Linux)
+            curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.1.0/onessl-linux-amd64
+            chmod +x onessl
+            export ONESSL=./onessl
+            ;;
 
-    CYGWIN*|MINGW32*|MSYS*)
-        curl -fsSL -o onessl.exe https://github.com/kubepack/onessl/releases/download/0.1.0/onessl-windows-amd64.exe
-        chmod +x onessl.exe
-        export ONESSL=./onessl.exe
-        ;;
-    *)
-        echo 'other OS'
-        ;;
-esac
+        CYGWIN*|MINGW32*|MSYS*)
+            curl -fsSL -o onessl.exe https://github.com/kubepack/onessl/releases/download/0.1.0/onessl-windows-amd64.exe
+            chmod +x onessl.exe
+            export ONESSL=./onessl.exe
+            ;;
+        *)
+            echo 'other OS'
+            ;;
+    esac
+fi
 
 # http://redsymbol.net/articles/bash-exit-traps/
 function cleanup {
@@ -40,8 +45,8 @@ trap cleanup EXIT
 # ref: http://tldp.org/LDP/abs/html/comparison-ops.html
 
 export SWIFT_NAMESPACE=kube-system
-export SWIFT_SERVICE_ACCOUNT=default
-export SWIFT_ENABLE_RBAC=false
+export SWIFT_SERVICE_ACCOUNT=swift
+export SWIFT_ENABLE_RBAC=true
 export SWIFT_RUN_ON_MASTER=0
 export SWIFT_DOCKER_REGISTRY=appscode
 export SWIFT_IMAGE_PULL_SECRET=
@@ -55,7 +60,7 @@ show_help() {
     echo "options:"
     echo "-h, --help                         show brief help"
     echo "-n, --namespace=NAMESPACE          specify namespace (default: kube-system)"
-    echo "    --rbac                         create RBAC roles and bindings"
+    echo "    --rbac                         create RBAC roles and bindings (default: true)"
     echo "    --docker-registry              docker registry used to pull swift images (default: appscode)"
     echo "    --image-pull-secret            name of secret used to pull swift docker images"
     echo "    --run-on-master                run swift operator on master"
@@ -91,9 +96,12 @@ while test $# -gt 0; do
             export SWIFT_IMAGE_PULL_SECRET="name: '$secret'"
             shift
             ;;
-        --rbac)
-            export SWIFT_SERVICE_ACCOUNT=swift
-            export SWIFT_ENABLE_RBAC=true
+        --rbac*)
+            val=`echo $1 | sed -e 's/^[^=]*=//g'`
+            if [ "$val" = "false" ]; then
+                export SWIFT_SERVICE_ACCOUNT=default
+                export SWIFT_ENABLE_RBAC=false
+            fi
             shift
             ;;
         --run-on-master)
@@ -138,3 +146,6 @@ if [ "$SWIFT_RUN_ON_MASTER" -eq 1 ]; then
     kubectl patch deploy swift -n $SWIFT_NAMESPACE \
       --patch="$(curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.2/hack/deploy/run-on-master.yaml)"
 fi
+
+echo
+echo "Successfully installed Swift!"
