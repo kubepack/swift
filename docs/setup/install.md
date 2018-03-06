@@ -24,6 +24,15 @@ Swift can proxy Tiller server running in the same Kubernetes cluster using `incl
 Swift can be installed via installer script included in the [/hack/deploy](https://github.com/appscode/swift/tree/0.7.2/hack/deploy) folder.
 
 ```console
+$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.2/hack/deploy/swift.sh \
+    | bash
+```
+
+#### Customizing Installer
+
+You can see the full list of flags available to installer using `-h` flag.
+
+```console
 $ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.2/hack/deploy/swift.sh | bash -s -- -h
 swift.sh - install Ajax friendly Helm Tiller Proxy
 
@@ -37,12 +46,7 @@ options:
     --image-pull-secret            name of secret used to pull swift operator images
     --run-on-master                run swift operator on master
     --uninstall                    uninstall swift
-
-$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.2/hack/deploy/swift.sh \
-    | bash
 ```
-
-### Customizing Installer
 
 If you would like to run Swift operator pod in `master` instances, pass the `--run-on-master` flag:
 
