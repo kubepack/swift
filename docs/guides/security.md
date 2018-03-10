@@ -23,12 +23,12 @@ There are 3 aspects to securing swift connections:
 
 ## Serve Swift api over SSL
 
-To serve Swift api over SSL connections, you provide a server certificate pair via `--cert-file` and `--key-file` flags. If you use a self-signed certificate pair, pass the CA certificate via `--cacert-file` flag.
+To serve Swift api over SSL connections, you provide a server certificate pair via `--tls-cert-file` and `--tls-private-key-file` flags. If you use a self-signed certificate pair, pass the CA certificate via `--tls-ca-file` flag.
 
 ```
-  --cacert-file string            File containing CA certificate
-  --cert-file string              File container server TLS certificate
-  --key-file string               File containing server TLS private key
+  --tls-ca-file string                      File containing CA certificate
+  --tls-cert-file string                    File container server TLS certificate
+  --tls-private-key-file string             File containing server TLS private key
 ```
 
 You can generate certificate pair using tools like [onessl](https://github.com/kubepack/onessl), openssl, cfssl. Below are instructions for generating certificate pairs using onessl:
@@ -112,9 +112,9 @@ You can run Swift server in the same pod as the Tiller server and connect over l
 If you are using [SSL with your Tiller Server](https://github.com/kubernetes/helm/blob/master/docs/tiller_ssl.md), you can pass the ca certificate and/or client certificate pair to Swift server to secure connect to Tiller server over TLS.
 
 ```
-  --tiller-cacert-file string        File containing CA certificate for Tiller server
-  --tiller-client-cert-file string   File container client TLS certificate for Tiller server
-  --tiller-client-key-file string    File containing client TLS private key for Tiller server
-  --tiller-endpoint string           Endpoint of Tiller server, eg, [scheme://]host:port
-  --tiller-insecure-skip-verify      Skip certificate verification for Tiller server
+  --tiller-ca-file string                   File containing CA certificate for Tiller server
+  --tiller-client-cert-file string          File container client TLS certificate for Tiller server
+  --tiller-client-private-key-file string   File containing client TLS private key for Tiller server
+  --tiller-endpoint string                  Endpoint of Tiller server, eg, [scheme://]host:port
+  --tiller-insecure-skip-verify             Skip certificate verification for Tiller server
 ```
