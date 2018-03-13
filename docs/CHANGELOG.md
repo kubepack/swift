@@ -17,7 +17,19 @@ aliases:
 
 # Change Log
 
-## [0.7.2](https://github.com/appscode/swift/releases/tag/0.7.2) / 2018.02.19
+## [0.7.3](https://github.com/appscode/swift/releases/tag/0.7.3) / 2018.03.13
+Swift 0.7.3 improves TLS support for Tiller and corrects documentation. There is no user visible change in api.
+
+- Search for tiller in self namespace before searching cluster. [\#111](https://github.com/appscode/swift/pull/111)
+- Update flags for tiller [\#110](https://github.com/appscode/swift/pull/110)
+- Make it clear that installer is a single command [\#108](https://github.com/appscode/swift/pull/108)
+- Fix installer [\#107](https://github.com/appscode/swift/pull/107)
+- Update chart to match RBAC best practices for charts [\#106](https://github.com/appscode/swift/pull/106)
+- Update chart version [\#105](https://github.com/appscode/swift/pull/105)
+- Add OWNERS file for chart [\#104](https://github.com/appscode/swift/pull/104)
+
+
+## [0.7.2](https://github.com/appscode/swift/releases/tag/0.7.2) / 2018.02.27
 Swift 0.7.2 uses various grpc middlewares from grpc-ecosystem/go-grpc-middleware inlcuding `--log-rpc` flag to log request and response playloads. There is no user visible change in api.
 
 - Use glog middleware for logging [\#102](https://github.com/appscode/swift/pull/102)

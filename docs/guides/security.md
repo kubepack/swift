@@ -2,13 +2,13 @@
 title: Securing Swift
 description: Securing Swift
 menu:
-  product_swift_0.7.2:
+  product_swift_0.7.3:
     identifier: guides-security
     name: Securing Swift
     parent: guides
     weight: 15
 product_name: swift
-menu_name: product_swift_0.7.2
+menu_name: product_swift_0.7.3
 section_menu_id: guides
 ---
 
@@ -121,8 +121,8 @@ If you are using [SSL with your Tiller Server](https://github.com/kubernetes/hel
 
 The server certificate used with Tiller should have the following Subject Alternative Names (SANS) to ensure that Swift can connect to it whether running in the same namespace or in different namespaces.
 
-```
-- <tiller-svc>
-- <tiller-svc>.<tiller-namespace>
-- <tiller-svc>.<tiller-namespace>.svc
-```
+| Subject Alternative Name (SANS) | Usage                                                    |
+|---------------------------------|----------------------------------------------------------|
+| tiller-svc                      | When tiller and swift both running in same namespace     |
+| tiller-svc.tiller-namespace     |                                                          |
+| tiller-svc.tiller-namespace.svc | When tiller and swift are running in different namespace |
