@@ -118,3 +118,11 @@ If you are using [SSL with your Tiller Server](https://github.com/kubernetes/hel
   --tiller-endpoint string                  Endpoint of Tiller server, eg, [scheme://]host:port
   --tiller-insecure-skip-verify             Skip certificate verification for Tiller server
 ```
+
+The server certificate used with Tiller should have the following Subject Alternative Names (SANS) to ensure that Swift can connect to it whether running in the same namespace or in different namespaces.
+
+```
+- <tiller-svc>
+- <tiller-svc>.<tiller-namespace>
+- <tiller-svc>.<tiller-namespace>.svc
+```
