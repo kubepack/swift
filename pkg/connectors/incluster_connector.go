@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/appscode/kutil"
+	"github.com/appscode/kutil/meta"
 	"github.com/appscode/swift/pkg/extpoints"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
@@ -14,7 +16,8 @@ import (
 )
 
 type InClusterConnector struct {
-	cfg Config
+	cfg       Config
+	namespace string
 }
 
 var _ extpoints.Connector = &InClusterConnector{}
@@ -24,7 +27,10 @@ const (
 )
 
 func NewInClusterConnector(cfg Config) extpoints.Connector {
-	return &InClusterConnector{cfg: cfg}
+	return &InClusterConnector{
+		cfg:       cfg,
+		namespace: meta.Namespace(),
+	}
 }
 
 func (c *InClusterConnector) UID() string {
@@ -57,21 +63,36 @@ func (c *InClusterConnector) Close(ctx context.Context) error {
 }
 
 func (c *InClusterConnector) getTillerAddr(client clientset.Interface) (string, error) {
-	svcList, err := client.CoreV1().Services(core.NamespaceAll).List(metav1.ListOptions{
+	svc, err := c.findTillerService(client, c.namespace)
+	if err == kutil.ErrNotFound {
+		svc, err = c.findTillerService(client, core.NamespaceAll)
+	}
+	if err != nil {
+		return "", errors.Wrap(err, "failed to detect tiller address")
+	}
+
+	if svc.Namespace == c.namespace {
+		return fmt.Sprintf("%s:%d", svc.Name, defaultTillerPort), nil
+	}
+	return fmt.Sprintf("%s.%s.svc:%d", svc.Name, svc.Namespace, defaultTillerPort), nil
+}
+
+func (c *InClusterConnector) findTillerService(client clientset.Interface, namespace string) (*core.Service, error) {
+	svcList, err := client.CoreV1().Services(namespace).List(metav1.ListOptions{
 		LabelSelector: tillerLabelSelector,
 	})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	if len(svcList.Items) == 0 {
-		return "", errors.New("no tiller service found")
+		return nil, kutil.ErrNotFound
 	}
 	if len(svcList.Items) > 1 {
 		ids := make([]string, len(svcList.Items))
 		for i, svc := range svcList.Items {
 			ids[i] = svc.Namespace + "/" + svc.Name
 		}
-		return "", errors.Errorf("multiple tiller services found: %s", strings.Join(ids, ", "))
+		return nil, errors.Errorf("multiple tiller services found: %s", strings.Join(ids, ", "))
 	}
-	return fmt.Sprintf("%s.%s:%d", svcList.Items[0].Name, svcList.Items[0].Namespace, defaultTillerPort), nil
+	return &svcList.Items[0], nil
 }
