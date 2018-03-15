@@ -1,5 +1,5 @@
 hash: a924ab5233b85a1070b7066352b78e13f78028dd68b4bb90729ba8310cfa7354
-updated: 2018-03-15T18:32:19.734435838Z
+updated: 2018-03-15T14:06:00.164634195-07:00
 imports:
 - name: github.com/appscode/go
   version: f8f2e1c7d2d10789cdd0540468b487d14421dbf9
@@ -24,7 +24,7 @@ imports:
   - server
   - server/options
 - name: github.com/appscode/jsonpatch
-  version: 3e75a56b8967932466984d4432401e1c1a7ff61e
+  version: ee757872f6aca6d412d0d80543725bd4cf48f793
 - name: github.com/appscode/kutil
   version: 3e1d387015c275db5fd3d605fcf1f61af6ab6866
   subpackages:
@@ -38,7 +38,7 @@ imports:
 - name: github.com/BurntSushi/toml
   version: b26d9c308763d68093482582cea63d69be07a0f0
 - name: github.com/cpuguy83/go-md2man
-  version: 48d8747a2ca13185e7cc8efe6e9fc196a83f71a5
+  version: 71acacd42f85e5e82f70a55327789582a5200a90
   subpackages:
   - md2man
 - name: github.com/davecgh/go-spew
@@ -81,7 +81,7 @@ imports:
   - proto
   - sortkeys
 - name: github.com/golang/glog
-  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
+  version: 44145f04b68cf362d9c4df2182967c2275eaefed
 - name: github.com/golang/protobuf
   version: 925541529c1fa6821df4e44ce2723319eb2be768
   subpackages:
@@ -213,11 +213,11 @@ imports:
 - name: github.com/spf13/pflag
   version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/xeipuuv/gojsonpointer
-  version: 4e3ac2762d5f479393488629ee9370b50873b3a6
+  version: e0fe6f68307607d540ed8eac07a342c33fa1b54a
 - name: github.com/xeipuuv/gojsonreference
-  version: bd5ef7bd5415a7ac448318e64f11a24cd21e594b
+  version: e02fc20de94c78484cd5ffb007f8af96be030a45
 - name: github.com/xeipuuv/gojsonschema
-  version: 8bcffc811467a5f691810420385be6e66b35a317
+  version: 93e72a773fade158921402d6a24c819b48aba29d
 - name: github.com/yudai/gojsondiff
   version: 7b1b7adf999dab73a6eb02669c3d82dbb27a3dd6
   subpackages:
