@@ -1,4 +1,9 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/appscode/swift)](https://goreportcard.com/report/github.com/appscode/swift)
+[![Build Status](https://travis-ci.org/appscode/swift.svg?branch=master)](https://travis-ci.org/appscode/swift)
+[![codecov](https://codecov.io/gh/appscode/swift/branch/master/graph/badge.svg)](https://codecov.io/gh/appscode/swift)
+[![Docker Pulls](https://img.shields.io/docker/pulls/appscode/swift.svg)](https://hub.docker.com/r/appscode/swift/)
+[![Slack](https://slack.appscode.com/badge.svg)](https://slack.appscode.com)
+[![Twitter](https://img.shields.io/twitter/follow/appscodehq.svg?style=social&logo=twitter&label=Follow)](https://twitter.com/intent/follow?screen_name=AppsCodeHQ)
 
 # Swift
 Swift is an Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller proxy using [grpc-gateway](https://github.com/grpc-ecosystem/grpc-gateway).
