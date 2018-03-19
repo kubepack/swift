@@ -49,7 +49,7 @@ Available query parameters:
 GET http://127.0.0.1:9855/tiller/v2/releases/my-release/status/json
 ```
 
-## Release conte
+## Release content
 ```
 
 GET http://127.0.0.1:9855/tiller/v2/releases/my-release/content/json
