@@ -24,8 +24,7 @@ Swift can proxy Tiller server running in the same Kubernetes cluster using `incl
 Swift can be installed via installer script included in the [/hack/deploy](https://github.com/appscode/swift/tree/0.7.3/hack/deploy) folder.
 
 ```console
-$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.3/hack/deploy/swift.sh \
-    | bash
+$ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.3/hack/deploy/swift.sh | bash
 ```
 
 #### Customizing Installer

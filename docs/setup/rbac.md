@@ -73,7 +73,7 @@ Consult [Tiller and Role-based Access Control](https://github.com/kubernetes/hel
 Now deploy Swift with necessary RBAc permissions using the following command:
 
 ```console
-kubectl apply -f https://raw.githubusercontent.com/appscode/swift/0.7.3/hack/deploy/with-rbac.yaml
+curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.3/hack/deploy/swift.sh | bash
 ```
 
 To check if Swift proxy pods have started, run the following command:
