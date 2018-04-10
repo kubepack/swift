@@ -52,6 +52,12 @@ export SWIFT_DOCKER_REGISTRY=appscode
 export SWIFT_IMAGE_PULL_SECRET=
 export SWIFT_UNINSTALL=0
 
+export APPSCODE_ENV=${APPSCODE_ENV:-prod}
+export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.3/"
+if [ "$APPSCODE_ENV" = "dev" ]; then
+    export SCRIPT_LOCATION="cat "
+fi
+
 show_help() {
     echo "swift.sh - install Ajax friendly Helm Tiller Proxy"
     echo " "
@@ -134,17 +140,17 @@ fi
 env | sort | grep SWIFT*
 echo ""
 
-curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.3/hack/deploy/server.yaml | $ONESSL envsubst | kubectl apply -f -
+${SCRIPT_LOCATION}hack/deploy/server.yaml | $ONESSL envsubst | kubectl apply -f -
 
 if [ "$SWIFT_ENABLE_RBAC" = true ]; then
     kubectl create serviceaccount $SWIFT_SERVICE_ACCOUNT --namespace $SWIFT_NAMESPACE
     kubectl label serviceaccount $SWIFT_SERVICE_ACCOUNT app=swift --namespace $SWIFT_NAMESPACE
-    curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.3/hack/deploy/rbac-list.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
+    ${SCRIPT_LOCATION}hack/deploy/rbac-list.yaml | $ONESSL envsubst | kubectl auth reconcile -f -
 fi
 
 if [ "$SWIFT_RUN_ON_MASTER" -eq 1 ]; then
     kubectl patch deploy swift -n $SWIFT_NAMESPACE \
-      --patch="$(curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.3/hack/deploy/run-on-master.yaml)"
+      --patch="$(${SCRIPT_LOCATION}hack/deploy/run-on-master.yaml)"
 fi
 
 echo
