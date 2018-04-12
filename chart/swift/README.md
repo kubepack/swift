@@ -3,7 +3,9 @@
 ## TL;DR;
 
 ```console
-$ helm install stable/swift
+$ helm repo add appscode https://charts.appscode.com/stable/
+$ helm repo update
+$ helm install appscode/swift
 ```
 
 ## Introduction
@@ -16,9 +18,11 @@ This chart bootstraps a [Helm Tiller Proxy](https://github.com/appscode/swift) d
 
 ## Installing the Chart
 To install the chart with the release name `my-release`:
+
 ```console
-$ helm install stable/swift --name my-release
+$ helm install appscode/swift --name my-release
 ```
+
 The command deploys Swift proxy on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
@@ -55,14 +59,14 @@ The following tables lists the configurable parameters of the swift chart and th
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:
 
 ```console
-$ helm install --name my-release --set image.tag=v0.2.1 stable/swift
+$ helm install --name my-release --set image.tag=v0.2.1 appscode/swift
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while
 installing the chart. For example:
 
 ```console
-$ helm install --name my-release --values values.yaml stable/swift
+$ helm install --name my-release --values values.yaml appscode/swift
 ```
 
 ## RBAC
@@ -83,5 +87,5 @@ If the output contains "beta", you may install the chart with RBAC enabled (see 
 To enable the creation of RBAC resources (On clusters with RBAC). Do the following:
 
 ```console
-$ helm install --name my-release stable/swift --set rbac.create=true
+$ helm install --name my-release appscode/swift --set rbac.create=true
 ```
