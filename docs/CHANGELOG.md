@@ -2,13 +2,13 @@
 title: Changelog | Swift
 description: Changelog
 menu:
-  product_swift_0.7.0:
+  product_swift_0.7.3:
     identifier: changelog-swift
     name: Changelog
     parent: welcome
     weight: 10
 product_name: swift
-menu_name: product_swift_0.7.0
+menu_name: product_swift_0.7.3
 section_menu_id: welcome
 url: /products/swift/0.7.0/welcome/changelog/
 aliases:
