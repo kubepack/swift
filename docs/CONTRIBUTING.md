@@ -2,17 +2,17 @@
 title: Contributing | Swift
 description: Contributing
 menu:
-  product_swift_0.7.3:
+  product_swift_0.8.0:
     identifier: contributing-swift
     name: Contributing
     parent: welcome
     weight: 15
 product_name: swift
-menu_name: product_swift_0.7.3
+menu_name: product_swift_0.8.0
 section_menu_id: welcome
-url: /products/swift/0.7.3/welcome/contributing/
+url: /products/swift/0.8.0/welcome/contributing/
 aliases:
-  - /products/swift/0.7.3/CONTRIBUTING/
+  - /products/swift/0.8.0/CONTRIBUTING/
 ---
 
 # Contribution Guidelines
