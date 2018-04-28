@@ -8,7 +8,8 @@
       "default": "SUCCEEDED",
       "enum": [
         "SUCCEEDED",
-        "FAILED"
+        "FAILED",
+        "BEFORE_HOOK_CREATION"
       ],
       "type": "string"
     },
