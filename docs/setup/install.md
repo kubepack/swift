@@ -44,6 +44,7 @@ options:
     --docker-registry              docker registry used to pull swift images (default: appscode)
     --image-pull-secret            name of secret used to pull swift operator images
     --run-on-master                run swift operator on master
+    --enable-analytics             send usage events to Google Analytics (default: true)
     --uninstall                    uninstall swift
 ```
 

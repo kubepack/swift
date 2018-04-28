@@ -23,13 +23,14 @@ spec:
       imagePullSecrets: [${SWIFT_IMAGE_PULL_SECRET}]
       containers:
       - name: swift
-        image: ${SWIFT_DOCKER_REGISTRY}/swift:0.8.0
-        imagePullPolicy: IfNotPresent
+        image: ${SWIFT_DOCKER_REGISTRY}/swift:${SWIFT_SERVER_TAG}
+        imagePullPolicy: ${SWIFT_IMAGE_PULL_POLICY}
         args:
         - run
         - --v=3
         - --connector=incluster
         - --tiller-insecure-skip-verify=true
+        - --enable-analytics=${SWIFT_ENABLE_ANALYTICS}
         ports:
         - containerPort: 9855
         - containerPort: 50055

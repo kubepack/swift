@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ template "swift.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: "{{ template "swift.name" . }}"
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
