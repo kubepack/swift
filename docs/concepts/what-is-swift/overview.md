@@ -2,13 +2,13 @@
 title: Swift Overview
 description: Swift Overview
 menu:
-  product_swift_0.7.3:
+  product_swift_0.8.0:
     identifier: overview-concepts
     name: Overview
     parent: what-is-swift
     weight: 10
 product_name: swift
-menu_name: product_swift_0.7.3
+menu_name: product_swift_0.8.0
 section_menu_id: concepts
 ---
 

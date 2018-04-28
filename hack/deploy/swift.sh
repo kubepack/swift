@@ -53,7 +53,7 @@ export SWIFT_IMAGE_PULL_SECRET=
 export SWIFT_UNINSTALL=0
 
 export APPSCODE_ENV=${APPSCODE_ENV:-prod}
-export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.7.3/"
+export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.8.0/"
 if [ "$APPSCODE_ENV" = "dev" ]; then
     export SCRIPT_LOCATION="cat "
 fi
