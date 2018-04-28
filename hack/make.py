@@ -45,7 +45,7 @@ from os.path import expandvars
 
 # Debian package
 # https://gist.github.com/rcrowley/3728417
-libbuild.REPO_ROOT = expandvars('$GOPATH') + '/src/github.com/appscode/swift'
+libbuild.REPO_ROOT = libbuild.GOPATH + '/src/github.com/appscode/swift'
 BUILD_METADATA = libbuild.metadata(libbuild.REPO_ROOT)
 libbuild.BIN_MATRIX = {
     'swift': {

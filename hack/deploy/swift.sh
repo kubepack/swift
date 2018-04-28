@@ -11,8 +11,48 @@ function cleanup {
 }
 trap cleanup EXIT
 
+# ref: https://github.com/appscodelabs/libbuild/blob/master/common/lib.sh#L55
+inside_git_repo() {
+    git rev-parse --is-inside-work-tree > /dev/null 2>&1
+    inside_git=$?
+    if [ "$inside_git" -ne 0 ]; then
+        echo "Not inside a git repository"
+        exit 1
+    fi
+}
+
+detect_tag() {
+    inside_git_repo
+
+    # http://stackoverflow.com/a/1404862/3476121
+    git_tag=$(git describe --exact-match --abbrev=0 2>/dev/null || echo '')
+
+    commit_hash=$(git rev-parse --verify HEAD)
+    git_branch=$(git rev-parse --abbrev-ref HEAD)
+    commit_timestamp=$(git show -s --format=%ct)
+
+    if [ "$git_tag" != '' ]; then
+        TAG=$git_tag
+        TAG_STRATEGY='git_tag'
+    elif [ "$git_branch" != 'master' ] && [ "$git_branch" != 'HEAD' ] && [[ "$git_branch" != release-* ]]; then
+        TAG=$git_branch
+        TAG_STRATEGY='git_branch'
+    else
+        hash_ver=$(git describe --tags --always --dirty)
+        TAG="${hash_ver}"
+        TAG_STRATEGY='commit_hash'
+    fi
+
+    export TAG
+    export TAG_STRATEGY
+    export git_tag
+    export git_branch
+    export commit_hash
+    export commit_timestamp
+}
+
 # https://stackoverflow.com/a/677212/244009
-if [ -x "$(command -v onessl >/dev/null 2>&1)" ]; then
+if [ -x "$(command -v onessl)" ]; then
     export ONESSL=onessl
 else
     # ref: https://stackoverflow.com/a/27776822/244009
@@ -49,13 +89,19 @@ export SWIFT_SERVICE_ACCOUNT=swift
 export SWIFT_ENABLE_RBAC=true
 export SWIFT_RUN_ON_MASTER=0
 export SWIFT_DOCKER_REGISTRY=appscode
+export SWIFT_SERVER_TAG=0.8.0
 export SWIFT_IMAGE_PULL_SECRET=
+export SWIFT_IMAGE_PULL_POLICY=IfNotPresent
+export SWIFT_ENABLE_ANALYTICS=true
 export SWIFT_UNINSTALL=0
 
 export APPSCODE_ENV=${APPSCODE_ENV:-prod}
 export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.8.0/"
 if [ "$APPSCODE_ENV" = "dev" ]; then
+    detect_tag
     export SCRIPT_LOCATION="cat "
+    export SWIFT_SERVER_TAG=$TAG
+    export SWIFT_IMAGE_PULL_POLICY=Always
 fi
 
 show_help() {
@@ -70,6 +116,7 @@ show_help() {
     echo "    --docker-registry              docker registry used to pull swift images (default: appscode)"
     echo "    --image-pull-secret            name of secret used to pull swift docker images"
     echo "    --run-on-master                run swift operator on master"
+    echo "    --enable-analytics             send usage events to Google Analytics (default: true)"
     echo "    --uninstall                    uninstall swift"
 }
 

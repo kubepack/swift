@@ -1,5 +1,6 @@
 # swift
 [swift by AppsCode](https://github.com/appscode/swift) - Ajax friendly Helm Tiller Proxy
+
 ## TL;DR;
 
 ```console
@@ -45,8 +46,9 @@ The following tables lists the configurable parameters of the swift chart and th
 | Parameter                 | Description                                                   | Default          |
 | --------------------------| --------------------------------------------------------------| -----------------|
 | `replicaCount`            | Number of swift replicas to create (only 1 is supported)      | `1`              |
-| `swift.image`             | swift container image                                         | `appscode/swift` |
-| `swift.tag`               | swift container image tag                                     | `0.8.0`          |
+| `swift.registry`          | Docker registry used to pull Swift image                      | `appscode`       |
+| `swift.repository`        | Swift container image                                         | `swift`          |
+| `swift.tag`               | Swift container image tag                                     | `0.8.0`          |
 | `imagePullSecrets`        | Specify image pull secrets                                    | `nil` (does not add image pull secrets to deployed pods) |
 | `imagePullPolicy`         | Image pull policy                                             | `IfNotPresent`   |
 | `logLevel`                | Log level for proxy                                           | `3`              |
@@ -54,6 +56,7 @@ The following tables lists the configurable parameters of the swift chart and th
 | `rbac.create`             | If `true`, create and use RBAC resources                      | `true`           |
 | `serviceAccount.create`   | If `true`, create a new service account                       | `true`           |
 | `serviceAccount.name`     | Service account to be used. If not set and `serviceAccount.create` is `true`, a name is generated using the fullname template | `` |
+| `enableAnalytics`         | Send usage events to Google Analytics                         | `true`           |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example:

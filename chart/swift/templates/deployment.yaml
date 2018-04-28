@@ -2,6 +2,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: {{ template "swift.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     app: "{{ template "swift.name" . }}"
@@ -17,18 +18,18 @@ spec:
     spec:
       serviceAccountName: {{ template "swift.serviceAccountName" . }}
       containers:
-      - args:
+      - name: swift
+        image: {{ .Values.swift.registry }}/{{ .Values.swift.repository }}:{{ .Values.swift.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        args:
         - run
         - --v={{ .Values.logLevel }}
         - --connector=incluster
         - --tiller-insecure-skip-verify=true
-        image: {{ .Values.swift.image }}:{{ .Values.swift.tag }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
         {{- if .Values.imagePullSecrets }}
         imagePullSecrets:
 {{ toYaml .Values.imagePullSecrets | indent 8 }}
         {{- end }}
-        name: swift
         ports:
         - containerPort: 9855
           name: pt
