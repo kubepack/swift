@@ -201,4 +201,4 @@ if [ "$SWIFT_RUN_ON_MASTER" -eq 1 ]; then
 fi
 
 echo
-echo "Successfully installed Swift!"
+echo "Successfully installed Swift in $SWIFT_NAMESPACE namespace!"
