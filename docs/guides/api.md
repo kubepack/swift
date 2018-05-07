@@ -70,12 +70,52 @@ GET http://127.0.0.1:9855/tiller/v2/releases/my-release/rollback/json
 ## Install release from url
 
 ```
+# Install chart in default namespace
 POST http://127.0.0.1:9855/tiller/v2/releases/my-release/json
 
 {
 	"chart_url": "https://github.com/tamalsaha/test-chart/raw/master/test-chart-0.1.0.tgz",
 	"values": {
 		"raw": "{\"ns\":\"c10\",\"clusterName\":\"h505\"}"
+	}
+}
+
+# Install chart in custom "kube-system" namespace
+POST http://127.0.0.1:9855/tiller/v2/releases/my-release/json
+
+{
+	"chart_url": "https://github.com/tamalsaha/test-chart/raw/master/test-chart-0.1.0.tgz",
+	"namespace": "kube-system",
+	"values": {
+		"raw": "{\"ns\":\"c10\",\"clusterName\":\"h505\"}"
+	}
+}
+
+# Install chart in custom "kube-system" namespace with custom values.yaml
+
+## values.yaml
+proxy:
+  secretToken: mytoken
+rbac:
+   enabled: false
+
+## convert values.yaml to json format and pass as string in "values.raw"
+{
+  "proxy": {
+    "secretToken": "mytoken"
+  },
+  "rbac": {
+    "enabled": false
+  }
+}
+
+POST http://127.0.0.1:9855/tiller/v2/releases/my-release/json
+
+{
+	"chart_url": "https://github.com/tamalsaha/test-chart/raw/master/test-chart-0.1.0.tgz",
+	"namespace": "kube-system",
+	"values": {
+		"raw": "{ \"proxy\": { \"secretToken\": \"mytoken\" }, \"rbac\": { \"enabled\": false } }"
 	}
 }
 ```
