@@ -33,7 +33,7 @@ Want to help improve Swift? Please start [here](https://appscode.com/products/sw
 
 ---
 
-**Swift server collects anonymous usage statistics to help us learn how the software is being used and how we can improve it. To disable stats collection, run the operator with the flag** `--analytics=false`.
+**Swift server collects anonymous usage statistics to help us learn how the software is being used and how we can improve it. To disable stats collection, run the operator with the flag** `--enable-analytics=false`.
 
 ---
 
