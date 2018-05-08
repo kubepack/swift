@@ -112,7 +112,7 @@ $ helm init
 
 $ swift run --v=3 --connector=kubeconfig --kube-context=minikube
 I0806 04:38:03.261749   20867 logs.go:19] FLAG: --alsologtostderr="false"
-I0806 04:38:03.261796   20867 logs.go:19] FLAG: --analytics="true"
+I0806 04:38:03.261796   20867 logs.go:19] FLAG: --enable-analytics="true"
 I0806 04:38:03.261809   20867 logs.go:19] FLAG: --api-domain=""
 I0806 04:38:03.261826   20867 logs.go:19] FLAG: --caCertFile=""
 I0806 04:38:03.261835   20867 logs.go:19] FLAG: --certFile=""
