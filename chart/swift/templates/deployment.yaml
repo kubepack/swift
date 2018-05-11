@@ -17,6 +17,10 @@ spec:
         release: "{{ .Release.Name }}"
     spec:
       serviceAccountName: {{ template "swift.serviceAccountName" . }}
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 6 }}
+      {{- end }}
       containers:
       - name: swift
         image: {{ .Values.swift.registry }}/{{ .Values.swift.repository }}:{{ .Values.swift.tag }}
@@ -26,10 +30,7 @@ spec:
         - --v={{ .Values.logLevel }}
         - --connector=incluster
         - --tiller-insecure-skip-verify=true
-        {{- if .Values.imagePullSecrets }}
-        imagePullSecrets:
-{{ toYaml .Values.imagePullSecrets | indent 8 }}
-        {{- end }}
+        - --enable-analytics={{ .Values.enableAnalytics }}
         ports:
         - containerPort: 9855
           name: pt
