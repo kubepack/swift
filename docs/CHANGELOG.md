@@ -2,26 +2,43 @@
 title: Changelog | Swift
 description: Changelog
 menu:
-  product_swift_0.8.0:
+  product_swift_0.8.1:
     identifier: changelog-swift
     name: Changelog
     parent: welcome
     weight: 10
 product_name: swift
-menu_name: product_swift_0.8.0
+menu_name: product_swift_0.8.1
 section_menu_id: welcome
-url: /products/swift/0.8.0/welcome/changelog/
+url: /products/swift/0.8.1/welcome/changelog/
 aliases:
-  - /products/swift/0.8.0/CHANGELOG/
+  - /products/swift/0.8.1/CHANGELOG/
 ---
 
 # Change Log
+
+## [Unreleased](https://github.com/appscode/swift/tree/HEAD)
+
+[Full Changelog](https://github.com/appscode/swift/compare/0.8.0...HEAD)
+
+**Closed issues:**
+
+- Improve docs [\#120](https://github.com/appscode/swift/issues/120)
+
+**Merged pull requests:**
+
+- Fix chart flags [\#130](https://github.com/appscode/swift/pull/130) ([tamalsaha](https://github.com/tamalsaha))
+- Rename analytics to enable-analytics [\#127](https://github.com/appscode/swift/pull/127) ([diptadas](https://github.com/diptadas))
+- Document how to deploy in custom namespace [\#126](https://github.com/appscode/swift/pull/126) ([tamalsaha](https://github.com/tamalsaha))
+- Print swift installer namespace [\#125](https://github.com/appscode/swift/pull/125) ([tamalsaha](https://github.com/tamalsaha))
 
 ## [0.8.0](https://github.com/appscode/swift/tree/0.8.0) (2018-04-28)
 [Full Changelog](https://github.com/appscode/swift/compare/0.7.3...0.8.0)
 
 **Merged pull requests:**
 
+- Fix installer [\#124](https://github.com/appscode/swift/pull/124) ([tamalsaha](https://github.com/tamalsaha))
+- Prepare docs for 0.8.0 [\#123](https://github.com/appscode/swift/pull/123) ([tamalsaha](https://github.com/tamalsaha))
 - Vendor Helm 2.9.0 [\#122](https://github.com/appscode/swift/pull/122) ([tamalsaha](https://github.com/tamalsaha))
 
 ## [0.7.3](https://github.com/appscode/swift/tree/0.7.3) (2018-04-21)

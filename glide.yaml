@@ -21,7 +21,7 @@ import:
   vcs: git
 - package: github.com/jpillora/go-ogle-analytics
 - package: github.com/pkg/errors
-  version: v0.8.0
+  version: v0.8.1
 - package: github.com/sirupsen/logrus
   version: v1.0.4
 - package: github.com/spf13/cobra
