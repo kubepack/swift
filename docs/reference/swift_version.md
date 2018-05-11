@@ -1,12 +1,12 @@
 ---
 title: Swift Version
 menu:
-  product_swift_0.8.0:
+  product_swift_0.8.1:
     identifier: swift-version
     name: Swift Version
     parent: reference
 product_name: swift
-menu_name: product_swift_0.8.0
+menu_name: product_swift_0.8.1
 section_menu_id: reference
 ---
 ## swift version
@@ -24,7 +24,8 @@ swift version [flags]
 ### Options
 
 ```
-  -h, --help   help for version
+  -h, --help    help for version
+      --short   Print just the version number.
 ```
 
 ### Options inherited from parent commands
