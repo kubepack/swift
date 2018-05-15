@@ -27,10 +27,11 @@ func newContext() context.Context {
 }
 
 func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeReleasesRequest) (*proto.SummarizeReleasesResponse, error) {
-	rlc, err := s.ClientFactory.Connect(ctx)
+	conn, rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
+	defer conn.Close()
 	listReq := rls.ListReleasesRequest{
 		Filter:      req.Filter,
 		Limit:       req.Limit,
@@ -89,11 +90,11 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeRele
 
 // GetReleasesStatus retrieves status information for the specified release.
 func (s *Server) GetReleaseStatus(ctx context.Context, req *proto.GetReleaseStatusRequest) (*proto.GetReleaseStatusResponse, error) {
-	rlc, err := s.ClientFactory.Connect(ctx)
+	conn, rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
-
+	defer conn.Close()
 	statusReq := rls.GetReleaseStatusRequest{
 		Name:    req.Name,
 		Version: req.Version,
@@ -113,11 +114,11 @@ func (s *Server) GetReleaseStatus(ctx context.Context, req *proto.GetReleaseStat
 
 // GetReleaseContent retrieves the release content (chart + value) for the specified release.
 func (s *Server) GetReleaseContent(ctx context.Context, req *proto.GetReleaseContentRequest) (*proto.GetReleaseContentResponse, error) {
-	rlc, err := s.ClientFactory.Connect(ctx)
+	conn, rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
-
+	defer conn.Close()
 	contentReq := rls.GetReleaseContentRequest{
 		Name:    req.Name,
 		Version: req.Version,
@@ -146,11 +147,11 @@ func (s *Server) GetReleaseContent(ctx context.Context, req *proto.GetReleaseCon
 
 // UpdateRelease updates release content.
 func (s *Server) UpdateRelease(ctx context.Context, req *proto.UpdateReleaseRequest) (*proto.UpdateReleaseResponse, error) {
-	rlc, err := s.ClientFactory.Connect(ctx)
+	conn, rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
-
+	defer conn.Close()
 	if req.Values == nil { // (req.Values == nil) causes render error
 		req.Values = &chart.Config{}
 	}
@@ -188,11 +189,11 @@ func (s *Server) UpdateRelease(ctx context.Context, req *proto.UpdateReleaseRequ
 
 // InstallRelease requests installation of a chart as a new release.
 func (s *Server) InstallRelease(ctx context.Context, req *proto.InstallReleaseRequest) (*proto.InstallReleaseResponse, error) {
-	rlc, err := s.ClientFactory.Connect(ctx)
+	conn, rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
-
+	defer conn.Close()
 	if req.Values == nil { // (req.Values == nil) causes render error
 		req.Values = &chart.Config{}
 	}
@@ -228,11 +229,11 @@ func (s *Server) InstallRelease(ctx context.Context, req *proto.InstallReleaseRe
 
 // UninstallRelease requests deletion of a named release.
 func (s *Server) UninstallRelease(ctx context.Context, req *proto.UninstallReleaseRequest) (*proto.UninstallReleaseResponse, error) {
-	rlc, err := s.ClientFactory.Connect(ctx)
+	conn, rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
-
+	defer conn.Close()
 	uninstallReq := rls.UninstallReleaseRequest{
 		Name:         req.Name,
 		Timeout:      req.Timeout,
@@ -253,11 +254,11 @@ func (s *Server) UninstallRelease(ctx context.Context, req *proto.UninstallRelea
 
 // GetVersion returns the current version of the server.
 func (s *Server) GetVersion(ctx context.Context, req *proto.GetVersionRequest) (*proto.GetVersionResponse, error) {
-	rlc, err := s.ClientFactory.Connect(ctx)
+	conn, rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
-
+	defer conn.Close()
 	versionReq := rls.GetVersionRequest{}
 
 	versionRes, err := rlc.GetVersion(newContext(), &versionReq)
@@ -272,11 +273,11 @@ func (s *Server) GetVersion(ctx context.Context, req *proto.GetVersionRequest) (
 
 // RollbackRelease rolls back a release to a previous version.
 func (s *Server) RollbackRelease(ctx context.Context, req *proto.RollbackReleaseRequest) (*proto.RollbackReleaseResponse, error) {
-	rlc, err := s.ClientFactory.Connect(ctx)
+	conn, rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
-
+	defer conn.Close()
 	rollbackReq := rls.RollbackReleaseRequest{
 		Name:         req.Name,
 		Timeout:      req.Timeout,
@@ -300,11 +301,11 @@ func (s *Server) RollbackRelease(ctx context.Context, req *proto.RollbackRelease
 
 // ReleaseHistory retrieves a release's history.
 func (s *Server) GetHistory(ctx context.Context, req *proto.GetHistoryRequest) (*proto.GetHistoryResponse, error) {
-	rlc, err := s.ClientFactory.Connect(ctx)
+	conn, rlc, err := s.ClientFactory.Connect(ctx)
 	if err != nil {
 		return nil, err
 	}
-
+	defer conn.Close()
 	historyReq := rls.GetHistoryRequest{
 		Name: req.Name,
 		Max:  req.Max,
