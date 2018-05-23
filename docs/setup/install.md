@@ -84,7 +84,11 @@ Swift can be installed via [Helm](https://helm.sh/) using the [chart](https://gi
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
 $ helm repo update
-$ helm install appscode/swift --name my-release
+$ helm search appscode/swift
+NAME            CHART VERSION APP VERSION DESCRIPTION
+appscode/swift  0.8.1         0.8.1       Swift by AppsCode - Ajax friendly Helm Tiller Proxy
+
+$ helm install appscode/swift --name swift --version 0.8.1
 ```
 
 To see the detailed configuration options, visit [here](https://github.com/appscode/swift/tree/0.8.1/chart/swift/).
