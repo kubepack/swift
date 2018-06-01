@@ -37,17 +37,17 @@ You can generate certificate pair using tools like [onessl](https://github.com/k
 
 ```console
 # Linux amd64:
-curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.1.0/onessl-linux-amd64 \
+curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.3.0/onessl-linux-amd64 \
   && chmod +x onessl \
   && sudo mv onessl /usr/local/bin/
 
 # Linux arm64:
-curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.1.0/onessl-linux-arm64 \
+curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.3.0/onessl-linux-arm64 \
   && chmod +x onessl \
   && sudo mv onessl /usr/local/bin/
 
 # Mac OSX amd64:
-curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.1.0/onessl-darwin-amd64 \
+curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.3.0/onessl-darwin-amd64 \
   && chmod +x onessl \
   && sudo mv onessl /usr/local/bin/
 ```
