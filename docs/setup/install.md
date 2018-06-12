@@ -20,6 +20,19 @@ Swift proxy server can connect to [Helm](https://github.com/kubernetes/helm) Til
 ## `incluster` Connector
 Swift can proxy Tiller server running in the same Kubernetes cluster using `incluster` connector.
 
+Swift operator can be installed via a script or as a Helm chart.
+
+<ul class="nav nav-tabs" id="installerTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="script-tab" data-toggle="tab" href="#script" role="tab" aria-controls="script" aria-selected="true">Script</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="helm-tab" data-toggle="tab" href="#helm" role="tab" aria-controls="helm" aria-selected="false">Helm</a>
+  </li>
+</ul>
+<div class="tab-content" id="installerTabContent">
+  <div class="tab-pane fade show active" id="script" role="tabpanel" aria-labelledby="script-tab">
+
 ### Using Script
 Swift can be installed via installer script included in the [/hack/deploy](https://github.com/appscode/swift/tree/0.8.1/hack/deploy) folder.
 
@@ -77,6 +90,8 @@ $ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.8.1/hack/deploy/
 
 For detailed instructions on how to deploy __Swift in a RBAC enabled cluster__, please visit [here](/docs/setup/rbac.md).
 
+</div>
+<div class="tab-pane fade" id="helm" role="tabpanel" aria-labelledby="helm-tab">
 
 ### Using Helm
 Swift can be installed via [Helm](https://helm.sh/) using the [chart](https://github.com/appscode/swift/tree/0.8.1/chart/swift) from [AppsCode Charts Repository](https://github.com/appscode/charts). To install the chart with the release name `my-release`:
@@ -93,6 +108,7 @@ $ helm install appscode/swift --name swift --version 0.8.1
 
 To see the detailed configuration options, visit [here](https://github.com/appscode/swift/tree/0.8.1/chart/swift/).
 
+</div>
 
 ### Verify installation
 To check if Swift proxy pods have started, run the following command:
