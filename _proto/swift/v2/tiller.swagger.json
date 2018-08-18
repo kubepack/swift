@@ -26,7 +26,8 @@
         "PRE_ROLLBACK",
         "POST_ROLLBACK",
         "RELEASE_TEST_SUCCESS",
-        "RELEASE_TEST_FAILURE"
+        "RELEASE_TEST_FAILURE",
+        "CRD_INSTALL"
       ],
       "type": "string"
     },

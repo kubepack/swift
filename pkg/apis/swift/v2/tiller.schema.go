@@ -252,8 +252,6 @@ func init() {
       "type": "boolean"
     },
     "name": {
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
       "title": "The name of the release",
       "type": "string"
     },
@@ -304,8 +302,6 @@ func init() {
   "description": "GetReleaseStatusRequest is a request to get the status of a release.",
   "properties": {
     "name": {
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
       "title": "Name is the name of the release",
       "type": "string"
     },
@@ -343,8 +339,6 @@ func init() {
       "type": "boolean"
     },
     "name": {
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
       "title": "The name of the release",
       "type": "string"
     },
@@ -601,14 +595,10 @@ func init() {
     },
     "name": {
       "description": "Name is the candidate release name. This must be unique to the\nnamespace, otherwise the server will return an error. If it is not\nsupplied, the server will autogenerate one.",
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
       "type": "string"
     },
     "namespace": {
       "description": "Namepace is the kubernetes namespace of the release.",
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
       "type": "string"
     },
     "password": {
@@ -654,8 +644,6 @@ func init() {
       "type": "boolean"
     },
     "name": {
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
       "title": "The name of the release",
       "type": "string"
     },
@@ -679,8 +667,6 @@ func init() {
     },
     "name": {
       "description": "Name is the name of the release to delete.",
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
       "type": "string"
     },
     "purge": {
@@ -736,8 +722,6 @@ func init() {
     },
     "namespace": {
       "description": "Namespace is the filter to select releases only from a specific namespace.",
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
       "type": "string"
     },
     "offset": {
@@ -756,6 +740,7 @@ func init() {
       "items": {
         "type": "string"
       },
+      "title": "allowed values are UNKNOWN, DEPLOYED, DELETED, SUPERSEDED, FAILED, DELETING",
       "type": "array"
     }
   },
@@ -774,8 +759,6 @@ func init() {
     },
     "name": {
       "description": "The name of the release.",
-      "maxLength": 63,
-      "pattern": "^[a-z0-9](?:[a-z0-9\\-]{0,61}[a-z0-9])?$",
       "type": "string"
     }
   },
