@@ -21,7 +21,56 @@ package meta
 import (
 	"fmt"
 	"strings"
+
+	"github.com/golang/glog"
 )
+
+func UpsertArgumentList(baseArgs []string, overrideArgs []string, protectedFlags ...string) []string {
+	out := make([]string, 0, len(baseArgs)+len(overrideArgs))
+
+	baseMap := make(map[string]int, len(baseArgs))
+	for i, arg := range baseArgs {
+		out = append(out, arg) // copy to out
+
+		if !strings.HasPrefix(arg, "--") {
+			continue
+		}
+		idx := strings.IndexRune(arg, '=')
+		if idx < 0 {
+			continue
+		}
+		baseMap[arg[:idx]] = i
+	}
+
+	protectedSet := make(map[string]string, len(protectedFlags))
+	for _, flag := range protectedFlags {
+		protectedSet[flag] = ""
+	}
+
+	var idx int
+	for _, arg := range overrideArgs {
+		if !strings.HasPrefix(arg, "--") {
+			goto Append
+		}
+		idx = strings.IndexRune(arg, '=')
+		if idx < 0 {
+			goto Append
+		}
+
+		if _, found := protectedSet[arg[:idx]]; found {
+			continue
+		}
+
+		if idx, found := baseMap[arg[:idx]]; found {
+			out[idx] = arg // overwrite
+			continue
+		}
+
+	Append:
+		out = append(out, arg) // append to out
+	}
+	return out
+}
 
 // BuildArgumentListFromMap takes two string-string maps, one with the base arguments and one with optional override arguments
 func BuildArgumentListFromMap(baseArguments map[string]string, overrideArguments map[string]string) []string {
@@ -48,7 +97,7 @@ func ParseArgumentListToMap(arguments []string) map[string]string {
 		// Warn in all other cases, but don't error out. This can happen only if the user has edited the argument list by hand, so they might know what they are doing
 		if err != nil {
 			if i != 0 {
-				fmt.Printf("[kubeadm] WARNING: The component argument %q could not be parsed correctly. The argument must be of the form %q. Skipping...", arg, "--")
+				glog.Warningf("WARNING: The component argument %q could not be parsed correctly. The argument must be of the form %q. Skipping...", arg, "--")
 			}
 			continue
 		}
