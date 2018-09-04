@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "swift.fullname" . }}
@@ -8,8 +8,16 @@ metadata:
     app: "{{ template "swift.name" . }}"
     heritage: "{{ .Release.Service }}"
     release: "{{ .Release.Name }}"
+{{- if .Values.annotations }}
+  annotations:
+{{ toYaml .Values.annotations | indent 4 }}
+{{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "{{ template "swift.name" . }}"
+      release: "{{ .Release.Name }}"
   template:
     metadata:
       labels:
@@ -47,6 +55,14 @@ spec:
       volumes:
         - name: chart-volume
           emptyDir: {}
+{{- if .Values.tolerations }}
+      tolerations:
+{{ toYaml .Values.tolerations | indent 8 }}
+{{- end -}}
+{{- if .Values.affinity }}
+      affinity:
+{{ toYaml .Values.affinity | indent 8 }}
+{{- end -}}
 {{- if .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}

@@ -52,7 +52,10 @@ The following tables lists the configurable parameters of the swift chart and th
 | `imagePullSecrets`        | Specify image pull secrets                                    | `nil` (does not add image pull secrets to deployed pods) |
 | `imagePullPolicy`         | Image pull policy                                             | `IfNotPresent`   |
 | `logLevel`                | Log level for proxy                                           | `3`              |
+| `affinity`                | Affinity rules for pod assignment                             | `{}`             |
+| `annotations`             | Annotations applied to operator pod(s)                        | `{}`             |
 | `nodeSelector`            | Node labels for pod assignment                                | `{}`             |
+| `tolerations`             | Tolerations used pod assignment                               | `{}`             |
 | `rbac.create`             | If `true`, create and use RBAC resources                      | `true`           |
 | `serviceAccount.create`   | If `true`, create a new service account                       | `true`           |
 | `serviceAccount.name`     | Service account to be used. If not set and `serviceAccount.create` is `true`, a name is generated using the fullname template | `` |
