@@ -1,22 +1,25 @@
-hash: ed082b53c2c7fa6b60d96d70ee917b4286b4f079d8f16aa926f1795e56ca30fb
-updated: 2018-08-18T11:09:06.352130315-07:00
+hash: fd6fcaa14b197d98cb085cf2ef25509eedf54edf65fbeb0991281d440e295c3d
+updated: 2018-09-13T08:52:57.397878413-07:00
 imports:
 - name: github.com/appscode/go
-  version: df3c57fca2bef0e5b7fd085507deb20f18c790df
+  version: 0499c350ad263174dc8c1e3006b2d3300ff398e6
   subpackages:
   - analytics
   - context
+  - encoding/json/types
   - env
   - homedir
   - log
   - log/golog
   - runtime
+  - sets
   - signals
   - strings
+  - types
   - util/errors
   - version
 - name: github.com/appscode/grpc-go-addons
-  version: f65186df6d394d8f3950819c77234ee7ebcab221
+  version: 32346c858afd280e535db539118b998cfc19b7d5
   subpackages:
   - cors
   - endpoints
@@ -24,9 +27,9 @@ imports:
   - server
   - server/options
 - name: github.com/appscode/jsonpatch
-  version: 1359b374de83fa14fd58ab10aa8ea4935f84d249
+  version: 5af499cf01c842bfdd7761a433fc90525ccd6836
 - name: github.com/appscode/kutil
-  version: 569ee52ec2c8bb3c151daa20a8433cfa6cc1bfce
+  version: bd85e3e1c4d9dcec96249e0dee148bbe6c3c6092
   subpackages:
   - meta
   - tools/analytics
@@ -38,7 +41,7 @@ imports:
 - name: github.com/BurntSushi/toml
   version: b26d9c308763d68093482582cea63d69be07a0f0
 - name: github.com/cpuguy83/go-md2man
-  version: 71acacd42f85e5e82f70a55327789582a5200a90
+  version: 20f5889cbdc3c73dbd2862796665e7c465ade7d1
   subpackages:
   - md2man
 - name: github.com/davecgh/go-spew
@@ -50,7 +53,9 @@ imports:
   subpackages:
   - spdy
 - name: github.com/evanphx/json-patch
-  version: 94e38aa1586e8a6c8a75770bddf5ff84c48a106b
+  version: afac545df32f2287a079e2dfb7ba2745a643747e
+- name: github.com/fatih/structs
+  version: ebf56d35bba727c68ac77f56f2fcf90b181851aa
 - name: github.com/ghodss/yaml
   version: 73d445a93680fa1a78ae23a5839bad48f32ba1ee
 - name: github.com/gobwas/glob
@@ -84,7 +89,7 @@ imports:
 - name: github.com/google/btree
   version: 7d79101e329e5a3adf994758c578dab82b90c017
 - name: github.com/google/go-cmp
-  version: 5411ab924f9ffa6566244a9e504bc347edacffd3
+  version: 3af367b6b30c263d47e8895973edcca9a49cf029
   subpackages:
   - cmp
   - cmp/internal/diff
@@ -93,7 +98,7 @@ imports:
 - name: github.com/google/gofuzz
   version: 44d81051d367757e1c7c6a5a86423ece9afcf63c
 - name: github.com/google/uuid
-  version: 064e2069ce9c359c118179501254f67d7d37ba24
+  version: 8c31c18f31ede9fc8eae72290a7e7a8064e9b3e3
 - name: github.com/googleapis/gnostic
   version: 0c5108395e2debce0d731cf0287ddf7242066aba
   subpackages:
@@ -146,7 +151,7 @@ imports:
 - name: github.com/modern-go/reflect2
   version: 05fbef0ca5da472bbf96c9322b84a53edc03c9fd
 - name: github.com/opentracing/opentracing-go
-  version: bd9c3193394760d98b2fa6ebb2291f0cd1d06a7d
+  version: 6aa6febac7b98f836100ecaea478c04f30b6dbd0
   subpackages:
   - ext
   - log
@@ -175,8 +180,7 @@ imports:
 - name: github.com/russross/blackfriday
   version: 300106c228d52c8941d4b3de6054a6062a86dda3
 - name: github.com/sergi/go-diff
-  version: 24e2351369ec4949b2ed0dc5c477afdd4c4034e8
-  repo: https://github.com/sergi/go-diff
+  version: 97b2266dfe4bd4ea1b81a463322f04f8b724801e
   subpackages:
   - diffmatchpatch
 - name: github.com/shurcooL/sanitized_anchor_name
@@ -190,20 +194,19 @@ imports:
   subpackages:
   - doc
 - name: github.com/spf13/pflag
-  version: 9a97c102cda95a86cec2345a6f09f55a939babf5
+  version: 583c0c0531f06d5278b7d917446061adc344b5cd
 - name: github.com/xeipuuv/gojsonpointer
-  version: 4e3ac2762d5f479393488629ee9370b50873b3a6
+  version: e0fe6f68307607d540ed8eac07a342c33fa1b54a
 - name: github.com/xeipuuv/gojsonreference
-  version: bd5ef7bd5415a7ac448318e64f11a24cd21e594b
+  version: e02fc20de94c78484cd5ffb007f8af96be030a45
 - name: github.com/xeipuuv/gojsonschema
   version: da425ebb7609ba06a0f395fc8a254d1c303364a0
 - name: github.com/yudai/gojsondiff
-  version: 0525c875b75ca60b9e67ddc44496aa16f21066b0
+  version: 7b1b7adf999dab73a6eb02669c3d82dbb27a3dd6
   subpackages:
   - formatter
 - name: github.com/yudai/golcs
   version: d1c525dea8ce39ea9a783d33cf08932305373f2c
-  repo: https://github.com/yudai/golcs
 - name: golang.org/x/crypto
   version: 49796115aa4b964c318aad4f3084fdb41e9aa067
   subpackages:
@@ -276,7 +279,7 @@ imports:
 - name: gopkg.in/yaml.v2
   version: 670d4cfef0544295bc27a114dbac37980d83185a
 - name: k8s.io/api
-  version: 072894a440bdee3a891dea811fe42902311cd2a3
+  version: 4e7be11eab3ffcfc1876898b8272df53785a9504
   subpackages:
   - admissionregistration/v1alpha1
   - admissionregistration/v1beta1
@@ -308,7 +311,9 @@ imports:
   - storage/v1alpha1
   - storage/v1beta1
 - name: k8s.io/apimachinery
-  version: 103fd098999dc9c0c88536f5c9ad2e5da39373ae
+  version: cbad0ea24d3adbf8cc3c0c1b4077b79828119584
+  repo: https://github.com/pharmer/apimachinery.git
+  vcs: git
   subpackages:
   - pkg/api/errors
   - pkg/api/meta
@@ -352,7 +357,9 @@ imports:
   - third_party/forked/golang/netutil
   - third_party/forked/golang/reflect
 - name: k8s.io/client-go
-  version: 7d04d0e2a0a1a4d4a1cd6baa432a2301492e4e65
+  version: 805859b028aa45844e5d3b699d1dfad9eed753ad
+  repo: https://github.com/pharmer/client-go.git
+  vcs: git
   subpackages:
   - discovery
   - kubernetes

@@ -19,7 +19,7 @@ type Handler struct {
 }
 
 func NewHandler(r PatternRegistry, opts ...Option) *Handler {
-	return &Handler{options: evaluateOptions(opts)}
+	return &Handler{reg: r, options: evaluateOptions(opts)}
 }
 
 func (r *Handler) RegisterHandler(mux *runtime.ServeMux) {
