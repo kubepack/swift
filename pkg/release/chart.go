@@ -194,7 +194,7 @@ func downloadFile(repo chartInfo, filePath string, replace bool) error {
 
 	u, err := urllib.Parse(repo.ChartURL)
 	if err != nil {
-		log.Infoln("failed to parse url. reason: %s", err)
+		log.Infof("failed to parse url. reason: %s", err)
 		return err
 	}
 
