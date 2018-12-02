@@ -53,9 +53,9 @@ func (o *SwiftOptions) AddFlags(fs *pflag.FlagSet) {
 }
 
 func (o SwiftOptions) Validate(args []string) error {
-	var errors []error
-	errors = append(errors, o.RecommendedOptions.Validate()...)
-	return utilerrors.NewAggregate(errors)
+	var errs []error
+	errs = append(errs, o.RecommendedOptions.Validate()...)
+	return utilerrors.NewAggregate(errs)
 }
 
 func (o *SwiftOptions) Complete() error {

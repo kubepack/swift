@@ -1,8 +1,8 @@
 hash: fd6fcaa14b197d98cb085cf2ef25509eedf54edf65fbeb0991281d440e295c3d
-updated: 2018-09-13T08:52:57.397878413-07:00
+updated: 2018-12-01T21:59:25.341637082-08:00
 imports:
 - name: github.com/appscode/go
-  version: 0499c350ad263174dc8c1e3006b2d3300ff398e6
+  version: a6d58457b39324ead2ffb1f24be7a0a638c9f112
   subpackages:
   - analytics
   - context
@@ -11,6 +11,7 @@ imports:
   - homedir
   - log
   - log/golog
+  - net
   - runtime
   - sets
   - signals
@@ -29,23 +30,24 @@ imports:
 - name: github.com/appscode/jsonpatch
   version: 5af499cf01c842bfdd7761a433fc90525ccd6836
 - name: github.com/appscode/kutil
-  version: bd85e3e1c4d9dcec96249e0dee148bbe6c3c6092
+  version: 976eec83810191fcc3778a884480361205535df9
   subpackages:
   - meta
   - tools/analytics
+  - tools/cli
   - tools/portforward
 - name: github.com/beorn7/perks
   version: 3ac7bf7a47d159a033b107610db8a1b6575507a4
   subpackages:
   - quantile
 - name: github.com/BurntSushi/toml
-  version: b26d9c308763d68093482582cea63d69be07a0f0
+  version: 3012a1dbe2e4bd1391d42b32f0577cb7bbc7f005
 - name: github.com/cpuguy83/go-md2man
   version: 20f5889cbdc3c73dbd2862796665e7c465ade7d1
   subpackages:
   - md2man
 - name: github.com/davecgh/go-spew
-  version: 782f4967f2dc4564575ca782fe2d04090b5faca8
+  version: 8991bc29aa16c548c550c7ff78260e27b9ab7c73
   subpackages:
   - spew
 - name: github.com/docker/spdystream
@@ -55,7 +57,7 @@ imports:
 - name: github.com/evanphx/json-patch
   version: afac545df32f2287a079e2dfb7ba2745a643747e
 - name: github.com/fatih/structs
-  version: ebf56d35bba727c68ac77f56f2fcf90b181851aa
+  version: 878a968ab22548362a09bdb3322f98b00f470d46
 - name: github.com/ghodss/yaml
   version: 73d445a93680fa1a78ae23a5839bad48f32ba1ee
 - name: github.com/gobwas/glob
@@ -143,7 +145,7 @@ imports:
 - name: github.com/Masterminds/semver
   version: 517734cc7d6470c0d07130e40fd40bdeb9bcd3fd
 - name: github.com/matttproud/golang_protobuf_extensions
-  version: fc2b8d3a73c4867e51861bbdd5ae3c1f0869dd6a
+  version: c12348ce28de40eed0136aa2b644d0ee0650e56c
   subpackages:
   - pbutil
 - name: github.com/modern-go/concurrent
@@ -151,7 +153,7 @@ imports:
 - name: github.com/modern-go/reflect2
   version: 05fbef0ca5da472bbf96c9322b84a53edc03c9fd
 - name: github.com/opentracing/opentracing-go
-  version: 6aa6febac7b98f836100ecaea478c04f30b6dbd0
+  version: 8b5a441dc60e8d9bb9bf9d22060b6d94fa599983
   subpackages:
   - ext
   - log
@@ -178,13 +180,11 @@ imports:
   subpackages:
   - xfs
 - name: github.com/russross/blackfriday
-  version: 300106c228d52c8941d4b3de6054a6062a86dda3
+  version: 05f3235734ad95d0016f6a23902f06461fcf567a
 - name: github.com/sergi/go-diff
   version: 97b2266dfe4bd4ea1b81a463322f04f8b724801e
   subpackages:
   - diffmatchpatch
-- name: github.com/shurcooL/sanitized_anchor_name
-  version: 10ef21a441db47d8b13ebcc5fd2310f636973c77
 - name: github.com/sirupsen/logrus
   version: d682213848ed68c0a260ca37d6dd5ace8423f5ba
 - name: github.com/soheilhy/cmux
@@ -200,7 +200,7 @@ imports:
 - name: github.com/xeipuuv/gojsonreference
   version: e02fc20de94c78484cd5ffb007f8af96be030a45
 - name: github.com/xeipuuv/gojsonschema
-  version: da425ebb7609ba06a0f395fc8a254d1c303364a0
+  version: ac52e6811b56ee2b7730a88915e956afe2cc0d69
 - name: github.com/yudai/gojsondiff
   version: 7b1b7adf999dab73a6eb02669c3d82dbb27a3dd6
   subpackages:
@@ -277,7 +277,7 @@ imports:
 - name: gopkg.in/inf.v0
   version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
 - name: gopkg.in/yaml.v2
-  version: 670d4cfef0544295bc27a114dbac37980d83185a
+  version: 5420a8b6744d3b0345ab293f6fcba19c978f1183
 - name: k8s.io/api
   version: 4e7be11eab3ffcfc1876898b8272df53785a9504
   subpackages:
