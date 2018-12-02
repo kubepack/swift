@@ -2,24 +2,54 @@
 title: Changelog | Swift
 description: Changelog
 menu:
-  product_swift_0.8.1:
+  product_swift_0.9.0:
     identifier: changelog-swift
     name: Changelog
     parent: welcome
     weight: 10
 product_name: swift
-menu_name: product_swift_0.8.1
+menu_name: product_swift_0.9.0
 section_menu_id: welcome
-url: /products/swift/0.8.1/welcome/changelog/
+url: /products/swift/0.9.0/welcome/changelog/
 aliases:
-  - /products/swift/0.8.1/CHANGELOG/
+  - /products/swift/0.9.0/CHANGELOG/
 ---
 
 # Change Log
 
 ## [Unreleased](https://github.com/appscode/swift/tree/HEAD)
 
-[Full Changelog](https://github.com/appscode/swift/compare/0.8.0...HEAD)
+[Full Changelog](https://github.com/appscode/swift/compare/0.3.2...HEAD)
+
+**Closed issues:**
+
+- version 0.3.2\(6f289cc\) after 0.8.1 [\#142](https://github.com/appscode/swift/issues/142)
+- Support Helm 2.10.0 [\#138](https://github.com/appscode/swift/issues/138)
+- Does swift do authentication? [\#137](https://github.com/appscode/swift/issues/137)
+- err with too many colons [\#135](https://github.com/appscode/swift/issues/135)
+- Timeout when installing chart which takes longer then 45 secs [\#128](https://github.com/appscode/swift/issues/128)
+
+**Merged pull requests:**
+
+- Set periodic analytics [\#147](https://github.com/appscode/swift/pull/147) ([tamalsaha](https://github.com/tamalsaha))
+- Use kubernetes-1.11.3 [\#143](https://github.com/appscode/swift/pull/143) ([tamalsaha](https://github.com/tamalsaha))
+- Various fixes to chart [\#141](https://github.com/appscode/swift/pull/141) ([tamalsaha](https://github.com/tamalsaha))
+- Upgrade dependencies to Helm v2.10.0 [\#140](https://github.com/appscode/swift/pull/140) ([tamalsaha](https://github.com/tamalsaha))
+- Format shell scripts [\#139](https://github.com/appscode/swift/pull/139) ([tamalsaha](https://github.com/tamalsaha))
+- Add togglable tabs for Installation: Script & Helm [\#136](https://github.com/appscode/swift/pull/136) ([sajibcse68](https://github.com/sajibcse68))
+- Improve installer [\#134](https://github.com/appscode/swift/pull/134) ([tamalsaha](https://github.com/tamalsaha))
+- Install correct version of swift chart [\#133](https://github.com/appscode/swift/pull/133) ([tamalsaha](https://github.com/tamalsaha))
+- Update swift version for Helm 2.6.x to 0.3.2 [\#132](https://github.com/appscode/swift/pull/132) ([tamalsaha](https://github.com/tamalsaha))
+
+## [0.3.2](https://github.com/appscode/swift/tree/0.3.2) (2018-05-15)
+[Full Changelog](https://github.com/appscode/swift/compare/0.8.1...0.3.2)
+
+**Merged pull requests:**
+
+- Solve connection leak. [\#131](https://github.com/appscode/swift/pull/131) ([YangYongZhi](https://github.com/YangYongZhi))
+
+## [0.8.1](https://github.com/appscode/swift/tree/0.8.1) (2018-05-11)
+[Full Changelog](https://github.com/appscode/swift/compare/0.8.0...0.8.1)
 
 **Closed issues:**
 
@@ -28,6 +58,7 @@ aliases:
 **Merged pull requests:**
 
 - Fix chart flags [\#130](https://github.com/appscode/swift/pull/130) ([tamalsaha](https://github.com/tamalsaha))
+- Prepare docs for 0.8.1 release [\#129](https://github.com/appscode/swift/pull/129) ([tamalsaha](https://github.com/tamalsaha))
 - Rename analytics to enable-analytics [\#127](https://github.com/appscode/swift/pull/127) ([diptadas](https://github.com/diptadas))
 - Document how to deploy in custom namespace [\#126](https://github.com/appscode/swift/pull/126) ([tamalsaha](https://github.com/tamalsaha))
 - Print swift installer namespace [\#125](https://github.com/appscode/swift/pull/125) ([tamalsaha](https://github.com/tamalsaha))

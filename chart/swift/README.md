@@ -48,7 +48,7 @@ The following tables lists the configurable parameters of the swift chart and th
 | `replicaCount`            | Number of swift replicas to create (only 1 is supported)      | `1`              |
 | `swift.registry`          | Docker registry used to pull Swift image                      | `appscode`       |
 | `swift.repository`        | Swift container image                                         | `swift`          |
-| `swift.tag`               | Swift container image tag                                     | `0.8.1`          |
+| `swift.tag`               | Swift container image tag                                     | `0.9.0`          |
 | `imagePullSecrets`        | Specify image pull secrets                                    | `nil` (does not add image pull secrets to deployed pods) |
 | `imagePullPolicy`         | Image pull policy                                             | `IfNotPresent`   |
 | `logLevel`                | Log level for proxy                                           | `3`              |

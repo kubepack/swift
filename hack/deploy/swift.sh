@@ -56,26 +56,38 @@ detect_tag() {
   export commit_timestamp
 }
 
-# https://stackoverflow.com/a/677212/244009
-if [ -x "$(command -v onessl)" ]; then
-  export ONESSL=onessl
-else
+onessl_found() {
+  # https://stackoverflow.com/a/677212/244009
+  if [ -x "$(command -v onessl)" ]; then
+    onessl wait-until-has -h >/dev/null 2>&1 || {
+      # old version of onessl found
+      echo "Found outdated onessl"
+      return 1
+    }
+    export ONESSL=onessl
+    return 0
+  fi
+  return 1
+}
+
+onessl_found || {
+  echo "Downloading onessl ..."
   # ref: https://stackoverflow.com/a/27776822/244009
   case "$(uname -s)" in
     Darwin)
-      curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.3.0/onessl-darwin-amd64
+      curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.9.0/onessl-darwin-amd64
       chmod +x onessl
       export ONESSL=./onessl
       ;;
 
     Linux)
-      curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.3.0/onessl-linux-amd64
+      curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.9.0/onessl-linux-amd64
       chmod +x onessl
       export ONESSL=./onessl
       ;;
 
     CYGWIN* | MINGW32* | MSYS*)
-      curl -fsSL -o onessl.exe https://github.com/kubepack/onessl/releases/download/0.3.0/onessl-windows-amd64.exe
+      curl -fsSL -o onessl.exe https://github.com/kubepack/onessl/releases/download/0.9.0/onessl-windows-amd64.exe
       chmod +x onessl.exe
       export ONESSL=./onessl.exe
       ;;
@@ -83,7 +95,7 @@ else
       echo 'other OS'
       ;;
   esac
-fi
+}
 
 # ref: https://stackoverflow.com/a/7069755/244009
 # ref: https://jonalmeida.com/posts/2013/05/26/different-ways-to-implement-flags-in-bash/
@@ -94,14 +106,14 @@ export SWIFT_SERVICE_ACCOUNT=swift
 export SWIFT_ENABLE_RBAC=true
 export SWIFT_RUN_ON_MASTER=0
 export SWIFT_DOCKER_REGISTRY=appscode
-export SWIFT_SERVER_TAG=0.8.1
+export SWIFT_SERVER_TAG=0.9.0
 export SWIFT_IMAGE_PULL_SECRET=
 export SWIFT_IMAGE_PULL_POLICY=IfNotPresent
 export SWIFT_ENABLE_ANALYTICS=true
 export SWIFT_UNINSTALL=0
 
 export APPSCODE_ENV=${APPSCODE_ENV:-prod}
-export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.8.1/"
+export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.9.0/"
 if [ "$APPSCODE_ENV" = "dev" ]; then
   detect_tag
   export SCRIPT_LOCATION="cat "

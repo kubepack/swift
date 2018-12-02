@@ -2,17 +2,17 @@
 title: Table of Contents | Setup
 description: Table of Contents | Setup
 menu:
-  product_swift_0.8.1:
+  product_swift_0.9.0:
     identifier: setup-readme
     name: Readme
     parent: setup
     weight: -1
 product_name: swift
-menu_name: product_swift_0.8.1
+menu_name: product_swift_0.9.0
 section_menu_id: setup
-url: /products/swift/0.8.1/setup/
+url: /products/swift/0.9.0/setup/
 aliases:
-  - /products/swift/0.8.1/setup/README/
+  - /products/swift/0.9.0/setup/README/
 ---
 
 # Setup
