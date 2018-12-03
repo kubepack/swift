@@ -2,13 +2,13 @@
 title: Release | Swift
 description: swift Release
 menu:
-  product_swift_0.8.1:
+  product_swift_0.9.0:
     identifier: release
     name: Release
     parent: developer-guide
     weight: 15
 product_name: swift
-menu_name: product_swift_0.8.1
+menu_name: product_swift_0.9.0
 section_menu_id: setup
 ---
 
