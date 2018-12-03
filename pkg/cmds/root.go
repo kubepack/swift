@@ -2,13 +2,12 @@ package cmds
 
 import (
 	"flag"
-	"log"
 
+	"github.com/appscode/go/flags"
 	"github.com/appscode/go/signals"
 	v "github.com/appscode/go/version"
 	"github.com/appscode/kutil/tools/cli"
 	"github.com/spf13/cobra"
-	"github.com/spf13/pflag"
 )
 
 func NewRootCmd() *cobra.Command {
@@ -17,9 +16,7 @@ func NewRootCmd() *cobra.Command {
 		Short:             `Swift by Appscode - Ajax friendly Helm Tiller Proxy`,
 		DisableAutoGenTag: true,
 		PersistentPreRun: func(c *cobra.Command, args []string) {
-			c.Flags().VisitAll(func(flag *pflag.Flag) {
-				log.Printf("FLAG: --%s=%q", flag.Name, flag.Value)
-			})
+			flags.DumpAll(c.Flags())
 			cli.SendAnalytics(c, v.Version.Version)
 		},
 	}
