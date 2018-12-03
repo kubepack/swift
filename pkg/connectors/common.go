@@ -5,8 +5,8 @@ import (
 	"crypto/x509"
 	"io/ioutil"
 
-	"github.com/grpc-ecosystem/go-grpc-middleware/logging/glog"
-	"github.com/grpc-ecosystem/go-grpc-middleware/tags/glog"
+	grpc_glog "github.com/grpc-ecosystem/go-grpc-middleware/logging/glog"
+	ctx_glog "github.com/grpc-ecosystem/go-grpc-middleware/tags/glog"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
