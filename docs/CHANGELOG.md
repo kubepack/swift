@@ -17,9 +17,8 @@ aliases:
 
 # Change Log
 
-## [Unreleased](https://github.com/appscode/swift/tree/HEAD)
-
-[Full Changelog](https://github.com/appscode/swift/compare/0.3.2...HEAD)
+## [0.9.0](https://github.com/appscode/swift/tree/0.9.0) (2018-12-03)
+[Full Changelog](https://github.com/appscode/swift/compare/0.3.2...0.9.0)
 
 **Closed issues:**
 
@@ -31,6 +30,7 @@ aliases:
 
 **Merged pull requests:**
 
+- Prepare docs for 0.9.0 release [\#148](https://github.com/appscode/swift/pull/148) ([tamalsaha](https://github.com/tamalsaha))
 - Set periodic analytics [\#147](https://github.com/appscode/swift/pull/147) ([tamalsaha](https://github.com/tamalsaha))
 - Use kubernetes-1.11.3 [\#143](https://github.com/appscode/swift/pull/143) ([tamalsaha](https://github.com/tamalsaha))
 - Various fixes to chart [\#141](https://github.com/appscode/swift/pull/141) ([tamalsaha](https://github.com/tamalsaha))
