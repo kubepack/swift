@@ -2,26 +2,36 @@
 title: Changelog | Swift
 description: Changelog
 menu:
-  product_swift_0.9.0:
+  product_swift_0.10.0:
     identifier: changelog-swift
     name: Changelog
     parent: welcome
     weight: 10
 product_name: swift
-menu_name: product_swift_0.9.0
+menu_name: product_swift_0.10.0
 section_menu_id: welcome
-url: /products/swift/0.9.0/welcome/changelog/
+url: /products/swift/0.10.0/welcome/changelog/
 aliases:
-  - /products/swift/0.9.0/CHANGELOG/
+  - /products/swift/0.10.0/CHANGELOG/
 ---
 
 # Change Log
+
+## [0.10.0](https://github.com/appscode/swift/tree/0.10.0) (2018-12-08)
+[Full Changelog](https://github.com/appscode/swift/compare/0.9.0...0.10.0)
+
+**Merged pull requests:**
+
+- Use flags.DumpAll to dump flags [\#150](https://github.com/appscode/swift/pull/150) ([tamalsaha](https://github.com/tamalsaha))
+- Update kubernetes client libraries to 1.12.0 [\#146](https://github.com/appscode/swift/pull/146) ([tamalsaha](https://github.com/tamalsaha))
 
 ## [0.9.0](https://github.com/appscode/swift/tree/0.9.0) (2018-12-03)
 [Full Changelog](https://github.com/appscode/swift/compare/0.3.2...0.9.0)
 
 **Closed issues:**
 
+- Dependabot couldn't find a Gopkg.toml for this project [\#145](https://github.com/appscode/swift/issues/145)
+- Need the release supporting Helm 2.10.0 [\#144](https://github.com/appscode/swift/issues/144)
 - version 0.3.2\(6f289cc\) after 0.8.1 [\#142](https://github.com/appscode/swift/issues/142)
 - Support Helm 2.10.0 [\#138](https://github.com/appscode/swift/issues/138)
 - Does swift do authentication? [\#137](https://github.com/appscode/swift/issues/137)
@@ -30,6 +40,7 @@ aliases:
 
 **Merged pull requests:**
 
+- Update Helm dependency to v2.11.0 [\#149](https://github.com/appscode/swift/pull/149) ([tamalsaha](https://github.com/tamalsaha))
 - Prepare docs for 0.9.0 release [\#148](https://github.com/appscode/swift/pull/148) ([tamalsaha](https://github.com/tamalsaha))
 - Set periodic analytics [\#147](https://github.com/appscode/swift/pull/147) ([tamalsaha](https://github.com/tamalsaha))
 - Use kubernetes-1.11.3 [\#143](https://github.com/appscode/swift/pull/143) ([tamalsaha](https://github.com/tamalsaha))

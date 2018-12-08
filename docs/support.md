@@ -2,17 +2,17 @@
 title: Support | Swift
 description: Support
 menu:
-  product_swift_0.9.0:
+  product_swift_0.10.0:
     identifier: support-swift
     name: Support
     parent: welcome
     weight: 25
 product_name: swift
-menu_name: product_swift_0.9.0
+menu_name: product_swift_0.10.0
 section_menu_id: welcome
-url: /products/swift/0.9.0/welcome/support/
+url: /products/swift/0.10.0/welcome/support/
 aliases:
-  - /products/swift/0.9.0/support/
+  - /products/swift/0.10.0/support/
 ---
 
 # Support

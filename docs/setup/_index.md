@@ -1,9 +1,9 @@
 ---
 title: Setup | Swift
 menu:
-  product_swift_0.9.0:
+  product_swift_0.10.0:
     identifier: setup
     name: Setup
     weight: 30
-menu_name: product_swift_0.9.0
+menu_name: product_swift_0.10.0
 ---
