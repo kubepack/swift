@@ -75,19 +75,19 @@ onessl_found || {
   # ref: https://stackoverflow.com/a/27776822/244009
   case "$(uname -s)" in
     Darwin)
-      curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.9.0/onessl-darwin-amd64
+      curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.10.0/onessl-darwin-amd64
       chmod +x onessl
       export ONESSL=./onessl
       ;;
 
     Linux)
-      curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.9.0/onessl-linux-amd64
+      curl -fsSL -o onessl https://github.com/kubepack/onessl/releases/download/0.10.0/onessl-linux-amd64
       chmod +x onessl
       export ONESSL=./onessl
       ;;
 
     CYGWIN* | MINGW32* | MSYS*)
-      curl -fsSL -o onessl.exe https://github.com/kubepack/onessl/releases/download/0.9.0/onessl-windows-amd64.exe
+      curl -fsSL -o onessl.exe https://github.com/kubepack/onessl/releases/download/0.10.0/onessl-windows-amd64.exe
       chmod +x onessl.exe
       export ONESSL=./onessl.exe
       ;;
@@ -106,14 +106,14 @@ export SWIFT_SERVICE_ACCOUNT=swift
 export SWIFT_ENABLE_RBAC=true
 export SWIFT_RUN_ON_MASTER=0
 export SWIFT_DOCKER_REGISTRY=appscode
-export SWIFT_SERVER_TAG=0.9.0
+export SWIFT_SERVER_TAG=0.10.0
 export SWIFT_IMAGE_PULL_SECRET=
 export SWIFT_IMAGE_PULL_POLICY=IfNotPresent
 export SWIFT_ENABLE_ANALYTICS=true
 export SWIFT_UNINSTALL=0
 
 export APPSCODE_ENV=${APPSCODE_ENV:-prod}
-export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.9.0/"
+export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.10.0/"
 if [ "$APPSCODE_ENV" = "dev" ]; then
   detect_tag
   export SCRIPT_LOCATION="cat "

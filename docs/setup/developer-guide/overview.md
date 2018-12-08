@@ -2,13 +2,13 @@
 title: Overview | Developer Guide
 description: Developer Guide Overview
 menu:
-  product_swift_0.9.0:
+  product_swift_0.10.0:
     identifier: developer-guide-readme
     name: Overview
     parent: developer-guide
     weight: 15
 product_name: swift
-menu_name: product_swift_0.9.0
+menu_name: product_swift_0.10.0
 section_menu_id: setup
 ---
 
@@ -45,7 +45,7 @@ $ ./_proto/hack/builddeps.sh
 $ ./hack/builddeps.sh
 ```
 
-Please note that this replaces various tools with specific versions needed to compile swift. You can find the full list [here](https://github.com/appscode/swift/blob/0.9.0/_proto/hack/builddeps.sh#L54.
+Please note that this replaces various tools with specific versions needed to compile swift. You can find the full list [here](https://github.com/appscode/swift/blob/0.10.0/_proto/hack/builddeps.sh#L54.
 
 #### Build Binary
 ```console
