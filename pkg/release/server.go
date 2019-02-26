@@ -51,6 +51,9 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeRele
 			hrls.Status_SUPERSEDED,
 			hrls.Status_FAILED,
 			hrls.Status_DELETING,
+			hrls.Status_PENDING_INSTALL,
+			hrls.Status_PENDING_UPGRADE,
+			hrls.Status_PENDING_ROLLBACK,
 		}
 	} else { // convert status(string) to status-code(int32)
 		for _, status := range req.StatusCodes {
