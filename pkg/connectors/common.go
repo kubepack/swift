@@ -16,6 +16,10 @@ import (
 
 const (
 	defaultTillerPort = 44134
+	// maxReceiveMsgSize uses 20MB as the default message size limit.
+	// the gRPC's default size is 4MB.
+	// Since Tiller has been change the messages' size to 20MB, so we should make this value to 20MB.
+	maxReceiveMsgSize = 1024 * 1024 * 20
 )
 
 var (
@@ -38,6 +42,7 @@ func Connect(cfg Config) (conn *grpc.ClientConn, err error) {
 		grpc.WithBlock(), // required for timeout
 		grpc.WithUnaryInterceptor(grpc_glog.UnaryClientInterceptor(glogEntry, optsGLog...)),
 		grpc.WithStreamInterceptor(grpc_glog.StreamClientInterceptor(glogEntry, optsGLog...)),
+		grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(maxReceiveMsgSize)),
 	}
 	if cfg.InsecureSkipVerify {
 		opts = append(opts, grpc.WithInsecure())
