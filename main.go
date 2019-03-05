@@ -4,8 +4,8 @@ package main
 import (
 	"os"
 
-	logs "github.com/appscode/go/log/golog"
 	"github.com/appscode/swift/pkg/cmds"
+	"kmodules.xyz/client-go/logs"
 )
 
 func main() {
@@ -15,5 +15,4 @@ func main() {
 	if err := cmds.NewRootCmd().Execute(); err != nil {
 		os.Exit(1)
 	}
-	os.Exit(0)
 }

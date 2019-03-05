@@ -4,10 +4,10 @@ import (
 	_ "net/http/pprof"
 
 	v "github.com/appscode/go/version"
-	"github.com/appscode/kutil/tools/cli"
 	"github.com/appscode/swift/pkg/cmds/server"
 	_ "github.com/appscode/swift/pkg/release"
 	"github.com/spf13/cobra"
+	"kmodules.xyz/client-go/tools/cli"
 )
 
 func NewCmdRun(stopCh <-chan struct{}) *cobra.Command {

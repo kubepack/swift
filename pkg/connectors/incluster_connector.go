@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/appscode/kutil"
-	"github.com/appscode/kutil/meta"
 	"github.com/appscode/swift/pkg/extpoints"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
@@ -13,6 +11,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clientset "k8s.io/client-go/kubernetes"
 	restclient "k8s.io/client-go/rest"
+	kutil "kmodules.xyz/client-go"
+	"kmodules.xyz/client-go/meta"
 )
 
 type InClusterConnector struct {
