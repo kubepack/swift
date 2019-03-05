@@ -2,26 +2,40 @@
 title: Changelog | Swift
 description: Changelog
 menu:
-  product_swift_0.10.0:
+  product_swift_0.11.0:
     identifier: changelog-swift
     name: Changelog
     parent: welcome
     weight: 10
 product_name: swift
-menu_name: product_swift_0.10.0
+menu_name: product_swift_0.11.0
 section_menu_id: welcome
-url: /products/swift/0.10.0/welcome/changelog/
+url: /products/swift/0.11.0/welcome/changelog/
 aliases:
-  - /products/swift/0.10.0/CHANGELOG/
+  - /products/swift/0.11.0/CHANGELOG/
 ---
 
 # Change Log
+
+## [0.11.0](https://github.com/appscode/swift/tree/0.11.0) (2019-03-05)
+[Full Changelog](https://github.com/appscode/swift/compare/0.10.0...0.11.0)
+
+**Closed issues:**
+
+- Dependabot couldn't find a Gopkg.toml for this project [\#151](https://github.com/appscode/swift/issues/151)
+
+**Merged pull requests:**
+
+- Update Kubernetes client libraries to 1.13.0 [\#155](https://github.com/appscode/swift/pull/155) ([tamalsaha](https://github.com/tamalsaha))
+- Something needs to be updated because of new Helm version [\#154](https://github.com/appscode/swift/pull/154) ([joy717](https://github.com/joy717))
+- Update appscode/go/log [\#153](https://github.com/appscode/swift/pull/153) ([tamalsaha](https://github.com/tamalsaha))
 
 ## [0.10.0](https://github.com/appscode/swift/tree/0.10.0) (2018-12-08)
 [Full Changelog](https://github.com/appscode/swift/compare/0.9.0...0.10.0)
 
 **Merged pull requests:**
 
+- Prepare docs for 0.10.0 release [\#152](https://github.com/appscode/swift/pull/152) ([tamalsaha](https://github.com/tamalsaha))
 - Use flags.DumpAll to dump flags [\#150](https://github.com/appscode/swift/pull/150) ([tamalsaha](https://github.com/tamalsaha))
 - Update kubernetes client libraries to 1.12.0 [\#146](https://github.com/appscode/swift/pull/146) ([tamalsaha](https://github.com/tamalsaha))
 

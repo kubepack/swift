@@ -106,14 +106,14 @@ export SWIFT_SERVICE_ACCOUNT=swift
 export SWIFT_ENABLE_RBAC=true
 export SWIFT_RUN_ON_MASTER=0
 export SWIFT_DOCKER_REGISTRY=appscode
-export SWIFT_SERVER_TAG=0.10.0
+export SWIFT_SERVER_TAG=0.11.0
 export SWIFT_IMAGE_PULL_SECRET=
 export SWIFT_IMAGE_PULL_POLICY=IfNotPresent
 export SWIFT_ENABLE_ANALYTICS=true
 export SWIFT_UNINSTALL=0
 
 export APPSCODE_ENV=${APPSCODE_ENV:-prod}
-export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.10.0/"
+export SCRIPT_LOCATION="curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.11.0/"
 if [ "$APPSCODE_ENV" = "dev" ]; then
   detect_tag
   export SCRIPT_LOCATION="cat "
