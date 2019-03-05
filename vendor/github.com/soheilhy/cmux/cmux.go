@@ -116,9 +116,8 @@ type cMux struct {
 func matchersToMatchWriters(matchers []Matcher) []MatchWriter {
 	mws := make([]MatchWriter, 0, len(matchers))
 	for _, m := range matchers {
-		cm := m
 		mws = append(mws, func(w io.Writer, r io.Reader) bool {
-			return cm(r)
+			return m(r)
 		})
 	}
 	return mws

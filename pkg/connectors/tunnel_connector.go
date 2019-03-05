@@ -1,12 +1,12 @@
 package connectors
 
 import (
-	"github.com/appscode/kutil/tools/portforward"
 	"github.com/pkg/errors"
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
+	"kmodules.xyz/client-go/tools/portforward"
 )
 
 type TunnelConnector struct {

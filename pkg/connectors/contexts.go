@@ -3,8 +3,8 @@ package connectors
 import (
 	"context"
 
-	"github.com/appscode/kutil/tools/portforward"
 	"google.golang.org/grpc"
+	"kmodules.xyz/client-go/tools/portforward"
 )
 
 type paramConn struct{}

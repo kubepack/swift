@@ -1,5 +1,5 @@
-hash: 64b58fd72932227246c01c030d073e0c0fcb6efa654ee4f51e2ee2dc1c4aa915
-updated: 2019-01-13T00:43:02.205378364-08:00
+hash: 5fb9a7d7fde5d4fbdd8dc88ad87ea89587e540e0b7bb5fa5fdc415596d24d615
+updated: 2019-03-04T22:50:30.992920847-08:00
 imports:
 - name: github.com/appscode/go
   version: 52eaa8008e2e5fe8df77ac6fb2fd45e3ea2ae47c
@@ -30,13 +30,6 @@ imports:
   - server/options
 - name: github.com/appscode/jsonpatch
   version: 7c0e3b262f30165a8ec3d0b4c6059fd92703bfb2
-- name: github.com/appscode/kutil
-  version: c2edb24c3c1c6f97bbe8d0616dc2eee59a11c665
-  subpackages:
-  - meta
-  - tools/analytics
-  - tools/cli
-  - tools/portforward
 - name: github.com/beorn7/perks
   version: 3ac7bf7a47d159a033b107610db8a1b6575507a4
   subpackages:
@@ -47,6 +40,8 @@ imports:
   version: 20f5889cbdc3c73dbd2862796665e7c465ade7d1
   subpackages:
   - md2man
+- name: github.com/cyphar/filepath-securejoin
+  version: a261ee33d7a517f054effbf451841abaafe3e0fd
 - name: github.com/davecgh/go-spew
   version: 8991bc29aa16c548c550c7ff78260e27b9ab7c73
   subpackages:
@@ -56,11 +51,11 @@ imports:
   subpackages:
   - spdy
 - name: github.com/evanphx/json-patch
-  version: afac545df32f2287a079e2dfb7ba2745a643747e
+  version: 36442dbdb585210f8d5a1b45e67aa323c197d5c4
 - name: github.com/fatih/structs
   version: 878a968ab22548362a09bdb3322f98b00f470d46
 - name: github.com/ghodss/yaml
-  version: 0ca9ea5df5451ffdf184b4428c902747c2c11cd7
+  version: 73d445a93680fa1a78ae23a5839bad48f32ba1ee
 - name: github.com/go-ini/ini
   version: a9da9309fb4822643ceebb765f80025c35ac19a1
 - name: github.com/gobwas/glob
@@ -74,14 +69,14 @@ imports:
   - util/runes
   - util/strings
 - name: github.com/gogo/protobuf
-  version: c0656edd0d9eab7c66d1eb0c568f9039345796f7
+  version: 342cbe0a04158f6dcb03ca0079991a51a4248c02
   subpackages:
   - proto
   - sortkeys
 - name: github.com/golang/glog
   version: 44145f04b68cf362d9c4df2182967c2275eaefed
 - name: github.com/golang/protobuf
-  version: 925541529c1fa6821df4e44ce2723319eb2be768
+  version: b4deda0973fb4c70b50d226b1af49f3da59f5265
   subpackages:
   - jsonpb
   - proto
@@ -94,7 +89,7 @@ imports:
 - name: github.com/google/btree
   version: 7d79101e329e5a3adf994758c578dab82b90c017
 - name: github.com/google/go-cmp
-  version: 2248b49eaa8e1c8c0963ee77b40841adbc19d4ca
+  version: c81281657ad99ba22e14fda7c4dfaaf2974c454e
   subpackages:
   - cmp
   - cmp/internal/diff
@@ -103,7 +98,7 @@ imports:
 - name: github.com/google/gofuzz
   version: 44d81051d367757e1c7c6a5a86423ece9afcf63c
 - name: github.com/google/uuid
-  version: 8c31c18f31ede9fc8eae72290a7e7a8064e9b3e3
+  version: 064e2069ce9c359c118179501254f67d7d37ba24
 - name: github.com/googleapis/gnostic
   version: 0c5108395e2debce0d731cf0287ddf7242066aba
   subpackages:
@@ -147,6 +142,8 @@ imports:
   version: 14b04e0594ef6a9fd943363b135656f0ec8c9d0e
 - name: github.com/json-iterator/go
   version: 1624edc4454b8682399def8740d46db5e4362ba4
+- name: github.com/mailru/easyjson
+  version: 2f5df55504ebc322e4d52d34df6a1f5b503bf26d
 - name: github.com/Masterminds/semver
   version: 517734cc7d6470c0d07130e40fd40bdeb9bcd3fd
 - name: github.com/matttproud/golang_protobuf_extensions
@@ -158,9 +155,9 @@ imports:
 - name: github.com/modern-go/concurrent
   version: bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94
 - name: github.com/modern-go/reflect2
-  version: 05fbef0ca5da472bbf96c9322b84a53edc03c9fd
+  version: 94122c33edd36123c84d5368cfb2b69df93a0ec8
 - name: github.com/opentracing/opentracing-go
-  version: 8b5a441dc60e8d9bb9bf9d22060b6d94fa599983
+  version: 25a84ff92183e2f8ac018ba1db54f8a07b3c0e04
   subpackages:
   - ext
   - log
@@ -195,7 +192,7 @@ imports:
 - name: github.com/sirupsen/logrus
   version: d682213848ed68c0a260ca37d6dd5ace8423f5ba
 - name: github.com/soheilhy/cmux
-  version: e09e9389d85d8492d313d73d1469c029e710623f
+  version: bb79a83465015a27a175925ebd155e660f55e9f1
 - name: github.com/spf13/cobra
   version: ef82de70bb3f60c65fb8eebacbb2d122ef517385
   subpackages:
@@ -203,9 +200,9 @@ imports:
 - name: github.com/spf13/pflag
   version: 298182f68c66c05229eb03ac171abe6e309ee79a
 - name: github.com/xeipuuv/gojsonpointer
-  version: e0fe6f68307607d540ed8eac07a342c33fa1b54a
+  version: 4e3ac2762d5f479393488629ee9370b50873b3a6
 - name: github.com/xeipuuv/gojsonreference
-  version: e02fc20de94c78484cd5ffb007f8af96be030a45
+  version: bd5ef7bd5415a7ac448318e64f11a24cd21e594b
 - name: github.com/xeipuuv/gojsonschema
   version: f971f3cd73b2899de6923801c147f075263e0c50
 - name: github.com/yudai/gojsondiff
@@ -227,7 +224,7 @@ imports:
   - openpgp/s2k
   - ssh/terminal
 - name: golang.org/x/net
-  version: 1c05540f6879653db88113bc4a2b70aec4bd491f
+  version: 0ed95abb35c445290478a5348a7b38bb154135fd
   subpackages:
   - context
   - http2
@@ -307,13 +304,14 @@ imports:
 - name: gopkg.in/yaml.v2
   version: 5420a8b6744d3b0345ab293f6fcba19c978f1183
 - name: k8s.io/api
-  version: fd83cbc87e7632ccd8bbab63d2b673d4e0c631cc
+  version: 89a74a8d264df0e993299876a8cde88379b940ee
   subpackages:
   - admissionregistration/v1alpha1
   - admissionregistration/v1beta1
   - apps/v1
   - apps/v1beta1
   - apps/v1beta2
+  - auditregistration/v1alpha1
   - authentication/v1
   - authentication/v1beta1
   - authorization/v1
@@ -341,7 +339,7 @@ imports:
   - storage/v1alpha1
   - storage/v1beta1
 - name: k8s.io/apimachinery
-  version: 00edbc532482e56a75224c794deaa1366dd292cb
+  version: 32ccef23274063254360a5c9c0ec4126487e1754
   repo: https://github.com/kmodules/apimachinery.git
   vcs: git
   subpackages:
@@ -380,6 +378,7 @@ imports:
   - pkg/util/strategicpatch
   - pkg/util/validation
   - pkg/util/validation/field
+  - pkg/util/wait
   - pkg/util/yaml
   - pkg/version
   - pkg/watch
@@ -387,7 +386,7 @@ imports:
   - third_party/forked/golang/netutil
   - third_party/forked/golang/reflect
 - name: k8s.io/client-go
-  version: 1638f8970cefaa404ff3a62950f88b08292b2696
+  version: e64494209f554a6723674bd494d69445fb76a1d4
   subpackages:
   - discovery
   - kubernetes
@@ -397,6 +396,7 @@ imports:
   - kubernetes/typed/apps/v1
   - kubernetes/typed/apps/v1beta1
   - kubernetes/typed/apps/v1beta2
+  - kubernetes/typed/auditregistration/v1alpha1
   - kubernetes/typed/authentication/v1
   - kubernetes/typed/authentication/v1beta1
   - kubernetes/typed/authorization/v1
@@ -446,7 +446,7 @@ imports:
   - util/homedir
   - util/integer
 - name: k8s.io/helm
-  version: 623ab91ef776ec073f1aaeed4adbd8016f8bbf2e
+  version: 28386146043d6b457b9c309df8707ed6c68e228e
   repo: https://github.com/appscode/helm.git
   subpackages:
   - pkg/chartutil
@@ -465,10 +465,20 @@ imports:
   - pkg/tlsutil
   - pkg/urlutil
   - pkg/version
+- name: k8s.io/klog
+  version: 8139d8cb77af419532b33dfa7dd09fbc5f1d344f
 - name: k8s.io/kube-openapi
-  version: 0cf8f7e6ed1d2e3d47d02e3b6e559369af24d803
+  version: c59034cc13d587f5ef4e85ca0ade0c1866ae8e1d
   subpackages:
   - pkg/util/proto
+- name: kmodules.xyz/client-go
+  version: 8e7590427751a4d2512094be0144780dc7ec860a
+  subpackages:
+  - logs
+  - meta
+  - tools/analytics
+  - tools/cli
+  - tools/portforward
 - name: sigs.k8s.io/yaml
   version: fd68e9863619f6ec2fdd8625fe1f02e7c877e480
 testImports: []
