@@ -2,13 +2,13 @@
 title: Securing Swift
 description: Securing Swift
 menu:
-  product_swift_0.10.0:
+  product_swift_0.11.0:
     identifier: guides-security
     name: Securing Swift
     parent: guides
     weight: 15
 product_name: swift
-menu_name: product_swift_0.10.0
+menu_name: product_swift_0.11.0
 section_menu_id: guides
 ---
 
