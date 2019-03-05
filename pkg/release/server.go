@@ -13,6 +13,7 @@ import (
 	hrls "k8s.io/helm/pkg/proto/hapi/release"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
 	"k8s.io/helm/pkg/version"
+	"io"
 )
 
 type Server struct {
@@ -51,6 +52,9 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeRele
 			hrls.Status_SUPERSEDED,
 			hrls.Status_FAILED,
 			hrls.Status_DELETING,
+			hrls.Status_PENDING_INSTALL,
+			hrls.Status_PENDING_UPGRADE,
+			hrls.Status_PENDING_ROLLBACK,
 		}
 	} else { // convert status(string) to status-code(int32)
 		for _, status := range req.StatusCodes {
@@ -66,14 +70,24 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeRele
 		return nil, err
 	}
 
-	listRes, err := listClient.Recv()
-	if err != nil {
-		return nil, err
+	var resp *rls.ListReleasesResponse
+	for {
+		r, err := listClient.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return nil, err
+		}
+		if resp == nil {
+			resp = r
+			continue
+		}
+		resp.Releases = append(resp.Releases, r.GetReleases()...)
 	}
-
 	var releases []*proto.ReleaseSummary
 
-	for _, item := range listRes.Releases {
+	for _, item := range resp.Releases {
 		releases = append(releases, &proto.ReleaseSummary{
 			Namespace:     item.Namespace,
 			Name:          item.Name,
