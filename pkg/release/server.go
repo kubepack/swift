@@ -1,6 +1,8 @@
 package release
 
 import (
+	"io"
+
 	stringz "github.com/appscode/go/strings"
 	proto "github.com/appscode/swift/pkg/apis/swift/v2"
 	"github.com/appscode/swift/pkg/connectors"
@@ -13,7 +15,6 @@ import (
 	hrls "k8s.io/helm/pkg/proto/hapi/release"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
 	"k8s.io/helm/pkg/version"
-	"io"
 )
 
 type Server struct {
