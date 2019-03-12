@@ -773,11 +773,25 @@
     "v2SummarizeReleasesResponse": {
       "description": "@appscode\nSummarizeReleasesResponse is a list of release summaries.",
       "properties": {
+        "count": {
+          "description": "Count is the expected total number of releases to be returned.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "next": {
+          "description": "Next is the name of the next release. If this is other than an empty\nstring, it means there are more results.",
+          "type": "string"
+        },
         "releases": {
           "items": {
             "$ref": "#/definitions/v2ReleaseSummary"
           },
           "type": "array"
+        },
+        "total": {
+          "description": "Total is the total number of queryable releases.",
+          "format": "int64",
+          "type": "integer"
         }
       },
       "type": "object"
