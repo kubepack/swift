@@ -2,20 +2,28 @@
 title: Changelog | Swift
 description: Changelog
 menu:
-  product_swift_0.11.0:
+  product_swift_0.11.1:
     identifier: changelog-swift
     name: Changelog
     parent: welcome
     weight: 10
 product_name: swift
-menu_name: product_swift_0.11.0
+menu_name: product_swift_0.11.1
 section_menu_id: welcome
-url: /products/swift/0.11.0/welcome/changelog/
+url: /products/swift/0.11.1/welcome/changelog/
 aliases:
-  - /products/swift/0.11.0/CHANGELOG/
+  - /products/swift/0.11.1/CHANGELOG/
 ---
 
 # Change Log
+
+## [0.11.1](https://github.com/appscode/swift/tree/0.11.1) (2019-04-12)
+[Full Changelog](https://github.com/appscode/swift/compare/0.11.0...0.11.1)
+
+**Merged pull requests:**
+
+- Pin github.com/soheilhy/cmux dependency [\#160](https://github.com/appscode/swift/pull/160) ([tamalsaha](https://github.com/tamalsaha))
+- Add missing fields to SummarizeReleasesResponse [\#158](https://github.com/appscode/swift/pull/158) ([tamalsaha](https://github.com/tamalsaha))
 
 ## [0.11.0](https://github.com/appscode/swift/tree/0.11.0) (2019-03-05)
 [Full Changelog](https://github.com/appscode/swift/compare/0.10.0...0.11.0)
@@ -26,6 +34,7 @@ aliases:
 
 **Merged pull requests:**
 
+- Prepare docs for 0.11.0 release [\#156](https://github.com/appscode/swift/pull/156) ([tamalsaha](https://github.com/tamalsaha))
 - Update Kubernetes client libraries to 1.13.0 [\#155](https://github.com/appscode/swift/pull/155) ([tamalsaha](https://github.com/tamalsaha))
 - Something needs to be updated because of new Helm version [\#154](https://github.com/appscode/swift/pull/154) ([joy717](https://github.com/joy717))
 - Update appscode/go/log [\#153](https://github.com/appscode/swift/pull/153) ([tamalsaha](https://github.com/tamalsaha))

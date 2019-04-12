@@ -14,7 +14,7 @@ Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://
 
 | Swift Version                                                   | Docs                                                            | Helm/Tiller Version |
 |-----------------------------------------------------------------|-----------------------------------------------------------------|---------------------|
-| [0.11.0](https://github.com/appscode/swift/releases/tag/0.11.0) | [User Guide](https://appscode.com/products/swift/0.11.0/)       | 2.13.0              |
+| [0.11.1](https://github.com/appscode/swift/releases/tag/0.11.1) | [User Guide](https://appscode.com/products/swift/0.11.1/)       | 2.13.0              |
 | [0.10.0](https://github.com/appscode/swift/releases/tag/0.10.0) | [User Guide](https://appscode.com/products/swift/0.10.0/)       | 2.12.0              |
 | [0.9.0](https://github.com/appscode/swift/releases/tag/0.9.0)   | [User Guide](https://appscode.com/products/swift/0.9.0/)        | 2.11.0              |
 | [0.8.1](https://github.com/appscode/swift/releases/tag/0.8.1)   | [User Guide](https://appscode.com/products/swift/0.8.1/)        | 2.9.0               |
@@ -26,13 +26,13 @@ Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://
 
 
 ## Installation
-To install Swift, please follow the guide [here](https://appscode.com/products/swift/0.11.0/setup/install/).
+To install Swift, please follow the guide [here](https://appscode.com/products/swift/0.11.1/setup/install/).
 
 ## Using Swift
-Want to learn how to use Swift? Please start [here](https://appscode.com/products/swift/0.11.0/).
+Want to learn how to use Swift? Please start [here](https://appscode.com/products/swift/0.11.1/).
 
 ## Contribution guidelines
-Want to help improve Swift? Please start [here](https://appscode.com/products/swift/0.11.0/welcome/contributing/).
+Want to help improve Swift? Please start [here](https://appscode.com/products/swift/0.11.1/welcome/contributing/).
 
 ---
 
