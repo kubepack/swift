@@ -1,8 +1,8 @@
-hash: 5fb9a7d7fde5d4fbdd8dc88ad87ea89587e540e0b7bb5fa5fdc415596d24d615
-updated: 2019-03-04T22:50:30.992920847-08:00
+hash: e80a7ef856dc674a81ac4c75228e12b26f8927897c89cdc49b8da17ac805ab73
+updated: 2019-04-12T05:14:19.152046151-07:00
 imports:
 - name: github.com/appscode/go
-  version: 52eaa8008e2e5fe8df77ac6fb2fd45e3ea2ae47c
+  version: 50c98d5fbcddac827713a481a7e34a26df5e4b57
   subpackages:
   - analytics
   - context
@@ -51,7 +51,7 @@ imports:
   subpackages:
   - spdy
 - name: github.com/evanphx/json-patch
-  version: 36442dbdb585210f8d5a1b45e67aa323c197d5c4
+  version: 5858425f75500d40c52783dce87d085a483ce135
 - name: github.com/fatih/structs
   version: 878a968ab22548362a09bdb3322f98b00f470d46
 - name: github.com/ghodss/yaml
@@ -89,16 +89,17 @@ imports:
 - name: github.com/google/btree
   version: 7d79101e329e5a3adf994758c578dab82b90c017
 - name: github.com/google/go-cmp
-  version: c81281657ad99ba22e14fda7c4dfaaf2974c454e
+  version: 6f77996f0c42f7b84e5a2b252227263f93432e9b
   subpackages:
   - cmp
   - cmp/internal/diff
+  - cmp/internal/flags
   - cmp/internal/function
   - cmp/internal/value
 - name: github.com/google/gofuzz
   version: 44d81051d367757e1c7c6a5a86423ece9afcf63c
 - name: github.com/google/uuid
-  version: 064e2069ce9c359c118179501254f67d7d37ba24
+  version: 8c31c18f31ede9fc8eae72290a7e7a8064e9b3e3
 - name: github.com/googleapis/gnostic
   version: 0c5108395e2debce0d731cf0287ddf7242066aba
   subpackages:
@@ -157,7 +158,7 @@ imports:
 - name: github.com/modern-go/reflect2
   version: 94122c33edd36123c84d5368cfb2b69df93a0ec8
 - name: github.com/opentracing/opentracing-go
-  version: 25a84ff92183e2f8ac018ba1db54f8a07b3c0e04
+  version: 659c90643e714681897ec2521c60567dd21da733
   subpackages:
   - ext
   - log
@@ -166,9 +167,10 @@ imports:
 - name: github.com/pkg/errors
   version: 645ef00459ed84a119197bfb8d8205042c6df63d
 - name: github.com/prometheus/client_golang
-  version: c5b7fccd204277076155f10851dad72b76a49317
+  version: 505eaef017263e299324067d40ca2c48f6a2cf50
   subpackages:
   - prometheus
+  - prometheus/internal
 - name: github.com/prometheus/client_model
   version: fa8ad6fec33561be4280a8f0514318c79d7f6cb6
   subpackages:
@@ -192,7 +194,7 @@ imports:
 - name: github.com/sirupsen/logrus
   version: d682213848ed68c0a260ca37d6dd5ace8423f5ba
 - name: github.com/soheilhy/cmux
-  version: bb79a83465015a27a175925ebd155e660f55e9f1
+  version: 8a8ea3c53959009183d7914522833c1ed8835020
 - name: github.com/spf13/cobra
   version: ef82de70bb3f60c65fb8eebacbb2d122ef517385
   subpackages:
@@ -471,8 +473,10 @@ imports:
   version: c59034cc13d587f5ef4e85ca0ade0c1866ae8e1d
   subpackages:
   - pkg/util/proto
+- name: k8s.io/utils
+  version: 66066c83e385e385ccc3c964b44fd7dcd413d0ed
 - name: kmodules.xyz/client-go
-  version: 8e7590427751a4d2512094be0144780dc7ec860a
+  version: 5dcc4cecf4c96d58e0624cd41311f3a4663db7d7
   subpackages:
   - logs
   - meta
