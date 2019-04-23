@@ -1,5 +1,5 @@
-hash: e80a7ef856dc674a81ac4c75228e12b26f8927897c89cdc49b8da17ac805ab73
-updated: 2019-04-12T05:14:19.152046151-07:00
+hash: 443002b615b9898462620785f479f7cd1b08607fe9df1c692aa68546ffbabedb
+updated: 2019-04-23T03:01:15.634764349-07:00
 imports:
 - name: github.com/appscode/go
   version: 50c98d5fbcddac827713a481a7e34a26df5e4b57
@@ -55,9 +55,13 @@ imports:
 - name: github.com/fatih/structs
   version: 878a968ab22548362a09bdb3322f98b00f470d46
 - name: github.com/ghodss/yaml
-  version: 73d445a93680fa1a78ae23a5839bad48f32ba1ee
+  version: 0ca9ea5df5451ffdf184b4428c902747c2c11cd7
 - name: github.com/go-ini/ini
   version: a9da9309fb4822643ceebb765f80025c35ac19a1
+- name: github.com/go-openapi/spec
+  version: 5bae59e25b21498baea7f9d46e9c147ec106a42e
+- name: github.com/go-openapi/swag
+  version: 5899d5c5e619fda5fa86e14795a835f473ca284c
 - name: github.com/gobwas/glob
   version: 5ccd90ef52e1e632236f7326478d4faa74f99438
   subpackages:
@@ -176,7 +180,7 @@ imports:
   subpackages:
   - go
 - name: github.com/prometheus/common
-  version: 13ba4ddd0caa9c28ca7b7bffe1dfa9ed8d5ef207
+  version: 3233b24a36715a2fe36d162260457857a56d672d
   subpackages:
   - expfmt
   - internal/bitbucket.org/ww/goautoneg
@@ -206,7 +210,7 @@ imports:
 - name: github.com/xeipuuv/gojsonreference
   version: bd5ef7bd5415a7ac448318e64f11a24cd21e594b
 - name: github.com/xeipuuv/gojsonschema
-  version: f971f3cd73b2899de6923801c147f075263e0c50
+  version: 6b940e3ae769b991236921508565ab80d55b324f
 - name: github.com/yudai/gojsondiff
   version: 7b1b7adf999dab73a6eb02669c3d82dbb27a3dd6
   subpackages:
@@ -306,7 +310,7 @@ imports:
 - name: gopkg.in/yaml.v2
   version: 5420a8b6744d3b0345ab293f6fcba19c978f1183
 - name: k8s.io/api
-  version: 89a74a8d264df0e993299876a8cde88379b940ee
+  version: 5cb15d34447165a97c76ed5a60e4e99c8a01ecfe
   subpackages:
   - admissionregistration/v1alpha1
   - admissionregistration/v1beta1
@@ -341,7 +345,7 @@ imports:
   - storage/v1alpha1
   - storage/v1beta1
 - name: k8s.io/apimachinery
-  version: 32ccef23274063254360a5c9c0ec4126487e1754
+  version: a3cbe62563e67ed2cb39fe907396990fac4280a5
   repo: https://github.com/kmodules/apimachinery.git
   vcs: git
   subpackages:
@@ -388,7 +392,7 @@ imports:
   - third_party/forked/golang/netutil
   - third_party/forked/golang/reflect
 - name: k8s.io/client-go
-  version: e64494209f554a6723674bd494d69445fb76a1d4
+  version: 7621a5ebb88b1e49ce7e7837ae8e99ca030a3c13
   subpackages:
   - discovery
   - kubernetes
