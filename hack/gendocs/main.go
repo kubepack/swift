@@ -47,7 +47,7 @@ menu_name: product_swift_{{ .Version }}
 section_menu_id: reference
 {{- if .RootCmd }}
 aliases:
-  - products/swift/{{ .Version }}/reference/
+  - /products/swift/{{ .Version }}/reference/
 {{ end }}
 ---
 `))
