@@ -4,9 +4,6 @@ import (
 	"io"
 
 	stringz "github.com/appscode/go/strings"
-	proto "github.com/appscode/swift/pkg/apis/swift/v2"
-	"github.com/appscode/swift/pkg/connectors"
-	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/metadata"
 	core "k8s.io/api/core/v1"
@@ -15,6 +12,9 @@ import (
 	hrls "k8s.io/helm/pkg/proto/hapi/release"
 	rls "k8s.io/helm/pkg/proto/hapi/services"
 	"k8s.io/helm/pkg/version"
+	proto "kubepack.dev/swift/pkg/apis/swift/v2"
+	"kubepack.dev/swift/pkg/connectors"
+	"kubepack.dev/swift/pkg/extpoints"
 )
 
 type Server struct {

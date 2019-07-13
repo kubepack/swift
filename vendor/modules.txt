@@ -2,7 +2,7 @@
 github.com/BurntSushi/toml
 # github.com/Masterminds/semver v1.3.1
 github.com/Masterminds/semver
-# github.com/appscode/go v0.0.0-20190424183524-60025f1135c9
+# github.com/appscode/go v0.0.0-20190621064509-6b292c9166e3
 github.com/appscode/go/version
 github.com/appscode/go/runtime
 github.com/appscode/go/flags
@@ -19,12 +19,6 @@ github.com/appscode/go/analytics
 github.com/appscode/go/net
 github.com/appscode/go/types
 github.com/appscode/go/homedir
-# github.com/appscode/grpc-go-addons v0.0.0-20180905130810-32346c858afd
-github.com/appscode/grpc-go-addons/cors
-github.com/appscode/grpc-go-addons/endpoints
-github.com/appscode/grpc-go-addons/security
-github.com/appscode/grpc-go-addons/server
-github.com/appscode/grpc-go-addons/server/options
 # github.com/appscode/jsonpatch v0.0.0-20190108182946-7c0e3b262f30
 github.com/appscode/jsonpatch
 # github.com/beorn7/perks v1.0.0
@@ -92,7 +86,7 @@ github.com/grpc-ecosystem/go-grpc-middleware/logging
 github.com/grpc-ecosystem/go-grpc-middleware/util/metautils
 # github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 github.com/grpc-ecosystem/go-grpc-prometheus
-# github.com/grpc-ecosystem/grpc-gateway v1.9.0 => github.com/appscode/grpc-gateway v1.3.1-ac
+# github.com/grpc-ecosystem/grpc-gateway v1.9.0 => github.com/gomodules/grpc-gateway v1.3.1-ac
 github.com/grpc-ecosystem/grpc-gateway/runtime
 github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis/appscode/api
 github.com/grpc-ecosystem/grpc-gateway/utilities
@@ -146,7 +140,7 @@ github.com/spf13/pflag
 github.com/xeipuuv/gojsonpointer
 # github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415
 github.com/xeipuuv/gojsonreference
-# github.com/xeipuuv/gojsonschema v0.0.0-20190418144516-6b940e3ae769
+# github.com/xeipuuv/gojsonschema v1.1.0
 github.com/xeipuuv/gojsonschema
 # github.com/yudai/gojsondiff v0.0.0-20180504020246-0525c875b75c
 github.com/yudai/gojsondiff
@@ -163,7 +157,7 @@ golang.org/x/crypto/openpgp/errors
 golang.org/x/crypto/openpgp/s2k
 golang.org/x/crypto/cast5
 golang.org/x/crypto/openpgp/elgamal
-# golang.org/x/net v0.0.0-20190514140710-3ec191127204
+# golang.org/x/net v0.0.0-20190603091049-60506f45cf65
 golang.org/x/net/context
 golang.org/x/net/trace
 golang.org/x/net/http2
@@ -185,6 +179,12 @@ golang.org/x/text/unicode/norm
 golang.org/x/text/transform
 # golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
 golang.org/x/time/rate
+# gomodules.xyz/grpc-go-addons v0.1.0
+gomodules.xyz/grpc-go-addons/cors
+gomodules.xyz/grpc-go-addons/endpoints
+gomodules.xyz/grpc-go-addons/security
+gomodules.xyz/grpc-go-addons/server
+gomodules.xyz/grpc-go-addons/server/options
 # google.golang.org/appengine v1.6.0
 google.golang.org/appengine/urlfetch
 google.golang.org/appengine/internal

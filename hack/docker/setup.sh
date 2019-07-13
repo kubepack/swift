@@ -8,7 +8,7 @@ GOPATH=$(go env GOPATH)
 SRC=$GOPATH/src
 BIN=$GOPATH/bin
 ROOT=$GOPATH
-REPO_ROOT=$GOPATH/src/github.com/appscode/swift
+REPO_ROOT=$GOPATH/src/kubepack.dev/swift
 
 source "$REPO_ROOT/hack/libbuild/common/lib.sh"
 source "$REPO_ROOT/hack/libbuild/common/public_image.sh"
@@ -16,20 +16,20 @@ source "$REPO_ROOT/hack/libbuild/common/public_image.sh"
 APPSCODE_ENV=${APPSCODE_ENV:-dev}
 IMG=swift
 
-DIST=$GOPATH/src/github.com/appscode/swift/dist
+DIST=$GOPATH/src/kubepack.dev/swift/dist
 mkdir -p $DIST
 if [ -f "$DIST/.tag" ]; then
   export $(cat $DIST/.tag | xargs)
 fi
 
 clean() {
-  pushd $GOPATH/src/github.com/appscode/swift/hack/docker
+  pushd $GOPATH/src/kubepack.dev/swift/hack/docker
   rm swift Dockerfile
   popd
 }
 
 build_binary() {
-  pushd $GOPATH/src/github.com/appscode/swift
+  pushd $GOPATH/src/kubepack.dev/swift
   ./hack/builddeps.sh
   ./hack/make.py build
   detect_tag $DIST/.tag
@@ -37,7 +37,7 @@ build_binary() {
 }
 
 build_docker() {
-  pushd $GOPATH/src/github.com/appscode/swift/hack/docker
+  pushd $GOPATH/src/kubepack.dev/swift/hack/docker
   cp $DIST/swift/swift-alpine-amd64 swift
   chmod 755 swift
 

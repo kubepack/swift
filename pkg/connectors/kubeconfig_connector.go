@@ -3,11 +3,11 @@ package connectors
 import (
 	"fmt"
 
-	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
+	"kubepack.dev/swift/pkg/extpoints"
 )
 
 type KubeconfigConnector struct {

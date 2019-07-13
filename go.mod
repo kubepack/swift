@@ -1,11 +1,10 @@
-module github.com/appscode/swift
+module kubepack.dev/swift
 
 go 1.12
 
 require (
 	github.com/Masterminds/semver v1.3.1 // indirect
-	github.com/appscode/go v0.0.0-20190424183524-60025f1135c9
-	github.com/appscode/grpc-go-addons v0.0.0-20180905130810-32346c858afd
+	github.com/appscode/go v0.0.0-20190621064509-6b292c9166e3
 	github.com/cpuguy83/go-md2man v1.0.10 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.2 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
@@ -23,12 +22,11 @@ require (
 	github.com/soheilhy/cmux v0.1.5-0.20181025144106-8a8ea3c53959 // indirect
 	github.com/spf13/cobra v0.0.3
 	github.com/spf13/pflag v1.0.3
-	github.com/xeipuuv/gojsonpointer v0.0.0-20180127040702-4e3ac2762d5f // indirect
-	github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415 // indirect
-	github.com/xeipuuv/gojsonschema v0.0.0-20190418144516-6b940e3ae769
+	github.com/xeipuuv/gojsonschema v1.1.0
 	golang.org/x/crypto v0.0.0-20190513172903-22d7a77e9e5f // indirect
-	golang.org/x/net v0.0.0-20190514140710-3ec191127204
+	golang.org/x/net v0.0.0-20190603091049-60506f45cf65
 	golang.org/x/sys v0.0.0-20190516110030-61b9204099cb // indirect
+	gomodules.xyz/grpc-go-addons v0.1.0
 	google.golang.org/appengine v1.6.0 // indirect
 	google.golang.org/genproto v0.0.0-20190515210553-995ef27e003f
 	google.golang.org/grpc v1.20.1
@@ -44,7 +42,7 @@ require (
 replace (
 	github.com/graymeta/stow => github.com/appscode/stow v0.0.0-20190506085026-ca5baa008ea3
 	github.com/grpc-ecosystem/go-grpc-middleware => github.com/tamalsaha/go-grpc-middleware v0.0.0-20180226223443-606e44dc6300
-	github.com/grpc-ecosystem/grpc-gateway => github.com/appscode/grpc-gateway v1.3.1-ac
+	github.com/grpc-ecosystem/grpc-gateway => github.com/gomodules/grpc-gateway v1.3.1-ac
 	gopkg.in/robfig/cron.v2 => github.com/appscode/cron v0.0.0-20170717094345-ca60c6d796d4
 	k8s.io/api => k8s.io/api v0.0.0-20190313235455-40a48860b5ab
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.0.0-20190315093550-53c4693659ed

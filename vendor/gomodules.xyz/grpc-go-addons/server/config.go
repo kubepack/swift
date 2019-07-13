@@ -1,9 +1,9 @@
 package server
 
 import (
-	"github.com/appscode/grpc-go-addons/cors"
-	"github.com/appscode/grpc-go-addons/endpoints"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"gomodules.xyz/grpc-go-addons/cors"
+	"gomodules.xyz/grpc-go-addons/endpoints"
 	"google.golang.org/grpc"
 )
 

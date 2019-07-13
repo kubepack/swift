@@ -10,9 +10,9 @@ import (
 	"time"
 
 	"github.com/appscode/go/log"
-	"github.com/appscode/grpc-go-addons/cors"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/soheilhy/cmux"
+	"gomodules.xyz/grpc-go-addons/cors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )

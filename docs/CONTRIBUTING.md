@@ -18,14 +18,14 @@ aliases:
 # Contribution Guidelines
 Want to hack on Swift?
 
-AppsCode projects are [Apache 2.0 licensed](https://github.com/appscode/swift/blob/master/LICENSE) and accept contributions via GitHub pull requests.  This document outlines some of the conventions on development workflow, commit message formatting, contact points and other resources to make it easier to get your contribution accepted.
+AppsCode projects are [Apache 2.0 licensed](https://github.com/kubepack/swift/blob/master/LICENSE) and accept contributions via GitHub pull requests.  This document outlines some of the conventions on development workflow, commit message formatting, contact points and other resources to make it easier to get your contribution accepted.
 
 ## Certificate of Origin
 
 By contributing to this project you agree to the Developer Certificate of
 Origin (DCO). This document was created by the Linux Kernel community and is a
 simple statement that you, as a contributor, have the legal right to make the
-contribution. See the [DCO](https://github.com/appscode/swift/blob/master/DCO) file for details.
+contribution. See the [DCO](https://github.com/kubepack/swift/blob/master/DCO) file for details.
 
 ## Developer Guide
 
@@ -39,11 +39,11 @@ If you have a question about Swift or having problem using it, you can contact u
 
 ## Bugs/Feature request
 
-If you have found a bug with Swift or want to request for new features, please [file an issue](https://github.com/appscode/swift/issues/new).
+If you have found a bug with Swift or want to request for new features, please [file an issue](https://github.com/kubepack/swift/issues/new).
 
 ## Submit PR
 
-If you fix a bug or developed a new feature, feel free to submit a PR. In either case, please file a [Github issue](https://github.com/appscode/swift/issues/new) first, so that we can have a discussion on it. This is a rough outline of what a contributor's workflow looks like:
+If you fix a bug or developed a new feature, feel free to submit a PR. In either case, please file a [Github issue](https://github.com/kubepack/swift/issues/new) first, so that we can have a discussion on it. This is a rough outline of what a contributor's workflow looks like:
 
 - Create a topic branch from where you want to base your work (usually master).
 - Make commits of logical units.

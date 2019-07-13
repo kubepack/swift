@@ -1,8 +1,8 @@
 package connectors
 
 import (
-	"github.com/appscode/swift/pkg/extpoints"
 	"golang.org/x/net/context"
+	"kubepack.dev/swift/pkg/extpoints"
 )
 
 type DirectConnector struct {

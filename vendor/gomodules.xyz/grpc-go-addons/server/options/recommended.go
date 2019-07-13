@@ -3,8 +3,8 @@ package options
 import (
 	"flag"
 
-	"github.com/appscode/grpc-go-addons/server"
 	"github.com/spf13/pflag"
+	"gomodules.xyz/grpc-go-addons/server"
 )
 
 type RecommendedOptions struct {

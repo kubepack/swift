@@ -22,7 +22,7 @@ The following steps must be done from a Linux x64 bit machine.
 - Build and push swift docker image:
 
 ```console
-$ cd ~/go/src/github.com/appscode/swift
+$ cd ~/go/src/kubepack.dev/swift
 ./hack/release.sh
 ```
 

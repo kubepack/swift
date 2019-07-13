@@ -30,8 +30,8 @@ development environment, please follow [these instructions](https://golang.org/d
 #### Download Source
 
 ```console
-$ go get github.com/appscode/swift
-$ cd $(go env GOPATH)/src/github.com/appscode/swift
+$ go get kubepack.dev/swift
+$ cd $(go env GOPATH)/src/kubepack.dev/swift
 ```
 
 #### Install Dev tools
@@ -45,7 +45,7 @@ $ ./_proto/hack/builddeps.sh
 $ ./hack/builddeps.sh
 ```
 
-Please note that this replaces various tools with specific versions needed to compile swift. You can find the full list [here](https://github.com/appscode/swift/blob/0.11.1/_proto/hack/builddeps.sh#L54.
+Please note that this replaces various tools with specific versions needed to compile swift. You can find the full list [here](https://github.com/kubepack/swift/blob/0.11.1/_proto/hack/builddeps.sh#L54.
 
 #### Build Binary
 ```console

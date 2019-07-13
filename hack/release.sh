@@ -2,7 +2,7 @@
 set -xeou pipefail
 
 GOPATH=$(go env GOPATH)
-REPO_ROOT="$GOPATH/src/github.com/appscode/swift"
+REPO_ROOT="$GOPATH/src/kubepack.dev/swift"
 
 export APPSCODE_ENV=prod
 
