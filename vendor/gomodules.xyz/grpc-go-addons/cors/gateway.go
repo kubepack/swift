@@ -48,7 +48,7 @@ func (r Handler) ServeHTTP(w http.ResponseWriter, req *http.Request, _ map[strin
 			(r.options.allowSubdomain && strings.HasSuffix(u.Host, "."+r.options.allowHost))
 		if !ok {
 
-			log.Errorln("CORS request from prohibited domain %v", origin)
+			log.Errorf("CORS request from prohibited domain %v", origin)
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}

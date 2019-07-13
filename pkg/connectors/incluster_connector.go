@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/appscode/swift/pkg/extpoints"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	core "k8s.io/api/core/v1"
@@ -13,6 +12,7 @@ import (
 	restclient "k8s.io/client-go/rest"
 	kutil "kmodules.xyz/client-go"
 	"kmodules.xyz/client-go/meta"
+	"kubepack.dev/swift/pkg/extpoints"
 )
 
 type InClusterConnector struct {

@@ -34,7 +34,7 @@ Swift operator can be installed via a script or as a Helm chart.
   <div class="tab-pane fade show active" id="script" role="tabpanel" aria-labelledby="script-tab">
 
 ### Using Script
-Swift can be installed via installer script included in the [/hack/deploy](https://github.com/appscode/swift/tree/0.11.1/hack/deploy) folder.
+Swift can be installed via installer script included in the [/hack/deploy](https://github.com/kubepack/swift/tree/0.11.1/hack/deploy) folder.
 
 ```console
 $ curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.11.1/hack/deploy/swift.sh | bash
@@ -94,7 +94,7 @@ For detailed instructions on how to deploy __Swift in a RBAC enabled cluster__, 
 <div class="tab-pane fade" id="helm" role="tabpanel" aria-labelledby="helm-tab">
 
 ### Using Helm
-Swift can be installed via [Helm](https://helm.sh/) using the [chart](https://github.com/appscode/swift/tree/0.11.1/chart/swift) from [AppsCode Charts Repository](https://github.com/appscode/charts). To install the chart with the release name `my-release`:
+Swift can be installed via [Helm](https://helm.sh/) using the [chart](https://github.com/kubepack/swift/tree/0.11.1/chart/swift) from [AppsCode Charts Repository](https://github.com/appscode/charts). To install the chart with the release name `my-release`:
 
 ```console
 $ helm repo add appscode https://charts.appscode.com/stable/
@@ -106,7 +106,7 @@ appscode/swift  0.11.1         0.11.1       Swift by AppsCode - Ajax friendly He
 $ helm install appscode/swift --name swift --version 0.11.1
 ```
 
-To see the detailed configuration options, visit [here](https://github.com/appscode/swift/tree/0.11.1/chart/swift/).
+To see the detailed configuration options, visit [here](https://github.com/kubepack/swift/tree/0.11.1/chart/swift/).
 
 </div>
 

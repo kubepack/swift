@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/appscode/swift.git"
+    "url": "git+https://github.com/kubepack/swift.git"
   },
   "keywords": [
     "helm",
@@ -19,9 +19,9 @@
   "author": "AppsCode Inc.",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/appscode/swift/issues"
+    "url": "https://github.com/kubepack/swift/issues"
   },
-  "homepage": "https://github.com/appscode/swift#readme",
+  "homepage": "https://github.com/kubepack/swift#readme",
   "dependencies": {
     "fs": "0.0.1-security",
     "grpc-xhr": "^1.0.9",

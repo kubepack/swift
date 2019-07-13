@@ -4,8 +4,8 @@ package main
 import (
 	"os"
 
-	"github.com/appscode/swift/pkg/cmds"
 	"kmodules.xyz/client-go/logs"
+	"kubepack.dev/swift/pkg/cmds"
 )
 
 func main() {

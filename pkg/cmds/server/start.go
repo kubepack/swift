@@ -6,15 +6,6 @@ import (
 
 	stringz "github.com/appscode/go/strings"
 	utilerrors "github.com/appscode/go/util/errors"
-	grpc_cors "github.com/appscode/grpc-go-addons/cors"
-	"github.com/appscode/grpc-go-addons/endpoints"
-	grpc_security "github.com/appscode/grpc-go-addons/security"
-	"github.com/appscode/grpc-go-addons/server"
-	"github.com/appscode/grpc-go-addons/server/options"
-	proto "github.com/appscode/swift/pkg/apis/swift/v2"
-	"github.com/appscode/swift/pkg/connectors"
-	"github.com/appscode/swift/pkg/extpoints"
-	"github.com/appscode/swift/pkg/release"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_glog "github.com/grpc-ecosystem/go-grpc-middleware/logging/glog"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
@@ -26,8 +17,17 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/pflag"
 	"golang.org/x/net/context"
+	grpc_cors "gomodules.xyz/grpc-go-addons/cors"
+	"gomodules.xyz/grpc-go-addons/endpoints"
+	grpc_security "gomodules.xyz/grpc-go-addons/security"
+	"gomodules.xyz/grpc-go-addons/server"
+	"gomodules.xyz/grpc-go-addons/server/options"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
+	proto "kubepack.dev/swift/pkg/apis/swift/v2"
+	"kubepack.dev/swift/pkg/connectors"
+	"kubepack.dev/swift/pkg/extpoints"
+	"kubepack.dev/swift/pkg/release"
 )
 
 type SwiftOptions struct {

@@ -38,4 +38,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         reindex(os.path.abspath(sys.argv[1]))
     else:
-        reindex(os.path.expandvars('$GOPATH') + '/src/github.com/appscode/swift/client/js')
+        reindex(os.path.expandvars('$GOPATH') + '/src/kubepack.dev/swift/client/js')

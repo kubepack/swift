@@ -1,5 +1,5 @@
 # swift
-[swift by AppsCode](https://github.com/appscode/swift) - Ajax friendly Helm Tiller Proxy
+[swift by AppsCode](https://github.com/kubepack/swift) - Ajax friendly Helm Tiller Proxy
 
 ## TL;DR;
 
@@ -11,7 +11,7 @@ $ helm install appscode/swift
 
 ## Introduction
 
-This chart bootstraps a [Helm Tiller Proxy](https://github.com/appscode/swift) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+This chart bootstraps a [Helm Tiller Proxy](https://github.com/kubepack/swift) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
 ## Prerequisites
 
