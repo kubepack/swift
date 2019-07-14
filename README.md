@@ -1,5 +1,5 @@
 [![Go Report Card](https://goreportcard.com/badge/kubepack.dev/swift)](https://goreportcard.com/report/kubepack.dev/swift)
-[![Build Status](https://travis-ci.org/appscode/swift.svg?branch=master)](https://travis-ci.org/appscode/swift)
+[![Build Status](https://travis-ci.org/kubepack/swift.svg?branch=master)](https://travis-ci.org/kubepack/swift)
 [![codecov](https://codecov.io/gh/appscode/swift/branch/master/graph/badge.svg)](https://codecov.io/gh/appscode/swift)
 [![Docker Pulls](https://img.shields.io/docker/pulls/appscode/swift.svg)](https://hub.docker.com/r/appscode/swift/)
 [![Slack](https://slack.appscode.com/badge.svg)](https://slack.appscode.com)
