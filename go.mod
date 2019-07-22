@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	github.com/Masterminds/semver v1.3.1 // indirect
-	github.com/appscode/go v0.0.0-20190621064509-6b292c9166e3
+	github.com/appscode/go v0.0.0-20190722173419-e454bf744023
 	github.com/cpuguy83/go-md2man v1.0.10 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.2 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
@@ -17,7 +17,6 @@ require (
 	github.com/imdario/mergo v0.3.7 // indirect
 	github.com/opentracing/opentracing-go v1.1.0 // indirect
 	github.com/pkg/errors v0.8.1
-	github.com/prometheus/client_golang v0.9.3-0.20190127221311-3c4408c8b829 // indirect
 	github.com/prometheus/common v0.4.0 // indirect
 	github.com/soheilhy/cmux v0.1.5-0.20181025144106-8a8ea3c53959 // indirect
 	github.com/spf13/cobra v0.0.3
@@ -40,10 +39,8 @@ require (
 )
 
 replace (
-	github.com/graymeta/stow => github.com/appscode/stow v0.0.0-20190506085026-ca5baa008ea3
-	github.com/grpc-ecosystem/go-grpc-middleware => github.com/tamalsaha/go-grpc-middleware v0.0.0-20180226223443-606e44dc6300
+	github.com/grpc-ecosystem/go-grpc-middleware => github.com/gomodules/go-grpc-middleware v0.0.0-20180226223443-606e44dc6300
 	github.com/grpc-ecosystem/grpc-gateway => github.com/gomodules/grpc-gateway v1.3.1-ac
-	gopkg.in/robfig/cron.v2 => github.com/appscode/cron v0.0.0-20170717094345-ca60c6d796d4
 	k8s.io/api => k8s.io/api v0.0.0-20190313235455-40a48860b5ab
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.0.0-20190315093550-53c4693659ed
 	k8s.io/apimachinery => github.com/kmodules/apimachinery v0.0.0-20190508045248-a52a97a7a2bf

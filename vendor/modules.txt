@@ -2,7 +2,7 @@
 github.com/BurntSushi/toml
 # github.com/Masterminds/semver v1.3.1
 github.com/Masterminds/semver
-# github.com/appscode/go v0.0.0-20190621064509-6b292c9166e3
+# github.com/appscode/go v0.0.0-20190722173419-e454bf744023
 github.com/appscode/go/version
 github.com/appscode/go/runtime
 github.com/appscode/go/flags
@@ -75,7 +75,7 @@ github.com/google/uuid
 github.com/googleapis/gnostic/OpenAPIv2
 github.com/googleapis/gnostic/compiler
 github.com/googleapis/gnostic/extensions
-# github.com/grpc-ecosystem/go-grpc-middleware v1.0.0 => github.com/tamalsaha/go-grpc-middleware v0.0.0-20180226223443-606e44dc6300
+# github.com/grpc-ecosystem/go-grpc-middleware v1.0.0 => github.com/gomodules/go-grpc-middleware v0.0.0-20180226223443-606e44dc6300
 github.com/grpc-ecosystem/go-grpc-middleware
 github.com/grpc-ecosystem/go-grpc-middleware/logging/glog
 github.com/grpc-ecosystem/go-grpc-middleware/recovery
