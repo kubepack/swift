@@ -3,42 +3,40 @@ module kubepack.dev/swift
 go 1.12
 
 require (
-	github.com/Masterminds/semver v1.3.1 // indirect
-	github.com/appscode/go v0.0.0-20190722173419-e454bf744023
-	github.com/cpuguy83/go-md2man v1.0.10 // indirect
+	github.com/Masterminds/semver v1.4.2 // indirect
+	github.com/appscode/go v0.0.0-20190808133642-1d4ef1f1c1e0
 	github.com/cyphar/filepath-securejoin v0.2.2 // indirect
-	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
+	github.com/gogo/protobuf v1.2.1 // indirect
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
-	github.com/golang/protobuf v1.3.1
+	github.com/golang/protobuf v1.2.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway v1.9.0
-	github.com/imdario/mergo v0.3.7 // indirect
-	github.com/opentracing/opentracing-go v1.1.0 // indirect
+	github.com/grpc-ecosystem/grpc-gateway v1.9.5
+	github.com/opentracing/opentracing-go v1.0.2 // indirect
 	github.com/pkg/errors v0.8.1
-	github.com/prometheus/common v0.4.0 // indirect
-	github.com/soheilhy/cmux v0.1.5-0.20181025144106-8a8ea3c53959 // indirect
-	github.com/spf13/cobra v0.0.3
+	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.3
 	github.com/xeipuuv/gojsonschema v1.1.0
-	golang.org/x/crypto v0.0.0-20190513172903-22d7a77e9e5f // indirect
-	golang.org/x/net v0.0.0-20190603091049-60506f45cf65
-	golang.org/x/sys v0.0.0-20190516110030-61b9204099cb // indirect
-	gomodules.xyz/grpc-go-addons v0.1.0
-	google.golang.org/appengine v1.6.0 // indirect
-	google.golang.org/genproto v0.0.0-20190515210553-995ef27e003f
-	google.golang.org/grpc v1.20.1
-	k8s.io/api v0.0.0-20190515023547-db5a9d1c40eb
-	k8s.io/apimachinery v0.0.0-20190515023456-b74e4c97951f
-	k8s.io/client-go v11.0.1-0.20190409021438-1a26190bd76a+incompatible
-	k8s.io/helm v2.14.0+incompatible
-	k8s.io/kube-openapi v0.0.0-20190510232812-a01b7d5d6c22 // indirect
+	golang.org/x/crypto v0.0.0-20190424203555-c05e17bb3b2d // indirect
+	golang.org/x/net v0.0.0-20190424112056-4829fb13d2c6
+	golang.org/x/oauth2 v0.0.0-20190402181905-9f3314589c9a // indirect
+	golang.org/x/sys v0.0.0-20190425145619-16072639606e // indirect
+	golang.org/x/text v0.3.1 // indirect
+	gomodules.xyz/grpc-go-addons v0.1.1
+	google.golang.org/genproto v0.0.0-20190307195333-5fe7a883aa19
+	google.golang.org/grpc v1.19.0
+	k8s.io/api v0.0.0-20190503110853-61630f889b3c
+	k8s.io/apimachinery v0.0.0-20190508063446-a3da69d3723c
+	k8s.io/client-go v11.0.0+incompatible
+	k8s.io/helm v0.0.0-00010101000000-000000000000
+	k8s.io/kube-openapi v0.0.0-20190502190224-411b2483e503 // indirect
 	k8s.io/utils v0.0.0-20190506122338-8fab8cb257d5 // indirect
-	kmodules.xyz/client-go v0.0.0-20190515205239-a16030cc2e50
+	kmodules.xyz/client-go v0.0.0-20190808141354-bbb9e14f60ab
 )
 
 replace (
+	github.com/Azure/go-autorest => github.com/Azure/go-autorest v12.4.2+incompatible
 	github.com/grpc-ecosystem/go-grpc-middleware => github.com/gomodules/go-grpc-middleware v0.0.0-20180226223443-606e44dc6300
 	github.com/grpc-ecosystem/grpc-gateway => github.com/gomodules/grpc-gateway v1.3.1-ac
 	k8s.io/api => k8s.io/api v0.0.0-20190313235455-40a48860b5ab
@@ -54,4 +52,5 @@ replace (
 	k8s.io/kube-openapi => k8s.io/kube-openapi v0.0.0-20190228160746-b3a7cee44a30
 	k8s.io/metrics => k8s.io/metrics v0.0.0-20190314001731-1bd6a4002213
 	k8s.io/utils => k8s.io/utils v0.0.0-20190221042446-c2654d5206da
+	sigs.k8s.io/structured-merge-diff => sigs.k8s.io/structured-merge-diff v0.0.0-20190302045857-e85c7b244fd2
 )
