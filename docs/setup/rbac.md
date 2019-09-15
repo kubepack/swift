@@ -2,13 +2,13 @@
 title: RBAC | Swift
 description: Swift RBAC
 menu:
-  product_swift_0.11.1:
+  product_swift_{{ .version }}:
     identifier: rbac
     name: RBAC
     parent: setup
     weight: 15
 product_name: swift
-menu_name: product_swift_0.11.1
+menu_name: product_swift_{{ .version }}
 section_menu_id: setup
 ---
 
@@ -73,7 +73,7 @@ Consult [Tiller and Role-based Access Control](https://github.com/kubernetes/hel
 Now deploy Swift with necessary RBAc permissions using the following command:
 
 ```console
-curl -fsSL https://raw.githubusercontent.com/appscode/swift/0.11.1/hack/deploy/swift.sh | bash
+curl -fsSL https://raw.githubusercontent.com/appscode/swift/{{< param "info.version" >}}/hack/deploy/swift.sh | bash
 ```
 
 To check if Swift proxy pods have started, run the following command:

@@ -1,12 +1,12 @@
 ---
 title: Swift Run
 menu:
-  product_swift_0.11.1:
+  product_swift_{{ .version }}:
     identifier: swift-run
     name: Swift Run
     parent: reference
 product_name: swift
-menu_name: product_swift_0.11.1
+menu_name: product_swift_{{ .version }}
 section_menu_id: reference
 ---
 ## swift run

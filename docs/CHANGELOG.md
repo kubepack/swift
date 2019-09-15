@@ -2,17 +2,17 @@
 title: Changelog | Swift
 description: Changelog
 menu:
-  product_swift_0.11.1:
+  product_swift_{{ .version }}:
     identifier: changelog-swift
     name: Changelog
     parent: welcome
     weight: 10
 product_name: swift
-menu_name: product_swift_0.11.1
+menu_name: product_swift_{{ .version }}
 section_menu_id: welcome
-url: /products/swift/0.11.1/welcome/changelog/
+url: /products/swift/{{ .version }}/welcome/changelog/
 aliases:
-  - /products/swift/0.11.1/CHANGELOG/
+  - /products/swift/{{ .version }}/CHANGELOG/
 ---
 
 # Change Log
