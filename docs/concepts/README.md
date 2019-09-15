@@ -1,17 +1,17 @@
 ---
 title: Concepts | Swift
 menu:
-  product_swift_0.11.1:
+  product_swift_{{ .version }}:
     identifier: concepts-readme
     name: Readme
     parent: concepts
     weight: -1
 product_name: swift
-menu_name: product_swift_0.11.1
+menu_name: product_swift_{{ .version }}
 section_menu_id: concepts
-url: /products/swift/0.11.1/concepts/
+url: /products/swift/{{ .version }}/concepts/
 aliases:
-  - /products/swift/0.11.1/concepts/README/
+  - /products/swift/{{ .version }}/concepts/README/
 ---
 # Concepts
 

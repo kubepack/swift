@@ -1,17 +1,17 @@
 ---
 title: Swift
 menu:
-  product_swift_0.11.1:
+  product_swift_{{ .version }}:
     identifier: swift
     name: Swift
     parent: reference
     weight: 0
 
 product_name: swift
-menu_name: product_swift_0.11.1
+menu_name: product_swift_{{ .version }}
 section_menu_id: reference
 aliases:
-  - /products/swift/0.11.1/reference/
+  - /products/swift/{{ .version }}/reference/
 
 ---
 ## swift

@@ -2,13 +2,13 @@
 title: Overview | Developer Guide
 description: Developer Guide Overview
 menu:
-  product_swift_0.11.1:
+  product_swift_{{ .version }}:
     identifier: developer-guide-readme
     name: Overview
     parent: developer-guide
     weight: 15
 product_name: swift
-menu_name: product_swift_0.11.1
+menu_name: product_swift_{{ .version }}
 section_menu_id: setup
 ---
 
@@ -45,7 +45,7 @@ $ ./_proto/hack/builddeps.sh
 $ ./hack/builddeps.sh
 ```
 
-Please note that this replaces various tools with specific versions needed to compile swift. You can find the full list [here](https://github.com/kubepack/swift/blob/0.11.1/_proto/hack/builddeps.sh#L54.
+Please note that this replaces various tools with specific versions needed to compile swift. You can find the full list [here](https://github.com/kubepack/swift/blob/{{< param "info.version" >}}/_proto/hack/builddeps.sh#L54.
 
 #### Build Binary
 ```console

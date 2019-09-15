@@ -2,10 +2,10 @@
 title: What is Swift
 description: What is Swift
 menu:
-  product_swift_0.11.1:
+  product_swift_{{ .version }}:
     identifier: what-is-swift
     parent: concepts
     name: What is swift
     weight: 10
-menu_name: product_swift_0.11.1
+menu_name: product_swift_{{ .version }}
 ---

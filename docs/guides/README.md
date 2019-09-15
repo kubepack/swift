@@ -2,17 +2,17 @@
 title: Table of Contents | Guides
 description: Table of Contents | Guides
 menu:
-  product_swift_0.11.1:
+  product_swift_{{ .version }}:
     identifier: guides-readme
     name: Readme
     parent: guides
     weight: -1
 product_name: swift
-menu_name: product_swift_0.11.1
+menu_name: product_swift_{{ .version }}
 section_menu_id: guides
-url: /products/swift/0.11.1/guides/
+url: /products/swift/{{ .version }}/guides/
 aliases:
-  - /products/swift/0.11.1/guides/README/
+  - /products/swift/{{ .version }}/guides/README/
 ---
 
 # Guides
