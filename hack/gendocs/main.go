@@ -11,12 +11,12 @@ import (
 	"text/template"
 
 	"github.com/appscode/go/runtime"
-	"kubepack.dev/swift/pkg/cmds"
 	"github.com/spf13/cobra/doc"
+	"kubepack.dev/swift/pkg/cmds"
 )
 
 const (
-	version = "0.11.1"
+	version = "v0.12.1"
 )
 
 var (
