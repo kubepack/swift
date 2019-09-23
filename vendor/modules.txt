@@ -2,7 +2,7 @@
 github.com/BurntSushi/toml
 # github.com/Masterminds/semver v1.4.2
 github.com/Masterminds/semver
-# github.com/appscode/go v0.0.0-20190808133642-1d4ef1f1c1e0
+# github.com/appscode/go v0.0.0-20190920081029-7b75ec783e2e
 github.com/appscode/go/version
 github.com/appscode/go/runtime
 github.com/appscode/go/flags
@@ -187,6 +187,8 @@ gomodules.xyz/grpc-go-addons/server
 gomodules.xyz/grpc-go-addons/server/options
 # gomodules.xyz/jsonpatch/v2 v2.0.0
 gomodules.xyz/jsonpatch/v2
+# gomodules.xyz/version v0.1.0
+gomodules.xyz/version
 # google.golang.org/appengine v1.4.0
 google.golang.org/appengine/urlfetch
 google.golang.org/appengine/internal
