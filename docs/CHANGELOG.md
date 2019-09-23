@@ -17,11 +17,31 @@ aliases:
 
 # Change Log
 
+## [v0.12.1](https://github.com/kubepack/swift/tree/v0.12.1) (2019-09-23)
+[Full Changelog](https://github.com/kubepack/swift/compare/v0.12.0...v0.12.1)
+
+**Merged pull requests:**
+
+- Prepare docs for v0.12.1 release [\#170](https://github.com/kubepack/swift/pull/170) ([tamalsaha](https://github.com/tamalsaha))
+- Fix build [\#169](https://github.com/kubepack/swift/pull/169) ([tamalsaha](https://github.com/tamalsaha))
+- Templatize front matter [\#168](https://github.com/kubepack/swift/pull/168) ([tamalsaha](https://github.com/tamalsaha))
+
+## [v0.12.0](https://github.com/kubepack/swift/tree/v0.12.0) (2019-07-22)
+[Full Changelog](https://github.com/kubepack/swift/compare/0.11.1...v0.12.0)
+
+**Merged pull requests:**
+
+- Change package path to kubepack/swift [\#167](https://github.com/kubepack/swift/pull/167) ([tamalsaha](https://github.com/tamalsaha))
+- Use absolute path as aliases for reference docs [\#166](https://github.com/kubepack/swift/pull/166) ([tamalsaha](https://github.com/tamalsaha))
+- Update to k8s 1.14.0 client libraries using go.mod [\#165](https://github.com/kubepack/swift/pull/165) ([tamalsaha](https://github.com/tamalsaha))
+- Update Kubernetes client libraries to 1.13.5 [\#162](https://github.com/kubepack/swift/pull/162) ([tamalsaha](https://github.com/tamalsaha))
+
 ## [0.11.1](https://github.com/kubepack/swift/tree/0.11.1) (2019-04-12)
 [Full Changelog](https://github.com/kubepack/swift/compare/0.11.0...0.11.1)
 
 **Merged pull requests:**
 
+- Prepare docs for 0.11.1 release [\#161](https://github.com/kubepack/swift/pull/161) ([tamalsaha](https://github.com/tamalsaha))
 - Pin github.com/soheilhy/cmux dependency [\#160](https://github.com/kubepack/swift/pull/160) ([tamalsaha](https://github.com/tamalsaha))
 - Add missing fields to SummarizeReleasesResponse [\#158](https://github.com/kubepack/swift/pull/158) ([tamalsaha](https://github.com/tamalsaha))
 
