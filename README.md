@@ -8,7 +8,7 @@
 # Swift
 Swift is an Ajax friendly [Helm](https://github.com/kubernetes/helm) Tiller proxy using [grpc-gateway](https://github.com/grpc-ecosystem/grpc-gateway).
 
-> This is also the last release of Helm unless there is any major bug. Helm 3 does not have a Tiller component and so there will be no need for something like Swift.
+> Swift project is in maintainance mode. Helm 3 does not have a Tiller component and so there will be no need for something like Swift.
 
 ## Supported Versions
 Kubernetes 1.5+ . Helm Tiller server [checks for version compatibility](https://github.com/kubernetes/helm/blob/master/pkg/version/compatible.go#L27). Please pick a version of Swift that matches your Tiller server.
