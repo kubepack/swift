@@ -42,7 +42,7 @@ func (m *Chart) Reset()         { *m = Chart{} }
 func (m *Chart) String() string { return proto.CompactTextString(m) }
 func (*Chart) ProtoMessage()    {}
 func (*Chart) Descriptor() ([]byte, []int) {
-	return fileDescriptor_chart_30067865ab546c08, []int{0}
+	return fileDescriptor_chart_f5f7f1aaab7d3f0a, []int{0}
 }
 func (m *Chart) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Chart.Unmarshal(m, b)
@@ -113,7 +113,7 @@ func (m *Any) Reset()         { *m = Any{} }
 func (m *Any) String() string { return proto.CompactTextString(m) }
 func (*Any) ProtoMessage()    {}
 func (*Any) Descriptor() ([]byte, []int) {
-	return fileDescriptor_chart_30067865ab546c08, []int{1}
+	return fileDescriptor_chart_f5f7f1aaab7d3f0a, []int{1}
 }
 func (m *Any) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Any.Unmarshal(m, b)
@@ -152,9 +152,9 @@ func init() {
 	proto.RegisterType((*Any)(nil), "hapi.chart.Any")
 }
 
-func init() { proto.RegisterFile("hapi/chart/chart.proto", fileDescriptor_chart_30067865ab546c08) }
+func init() { proto.RegisterFile("hapi/chart/chart.proto", fileDescriptor_chart_f5f7f1aaab7d3f0a) }
 
-var fileDescriptor_chart_30067865ab546c08 = []byte{
+var fileDescriptor_chart_f5f7f1aaab7d3f0a = []byte{
 	// 276 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x90, 0xcf, 0x4b, 0xc3, 0x30,
 	0x14, 0xc7, 0xe9, 0x6a, 0xf7, 0xe3, 0x39, 0x10, 0xc3, 0xd0, 0x6c, 0xa7, 0x32, 0x10, 0x86, 0x87,
