@@ -3,17 +3,25 @@
 
 package v2
 
-import proto "github.com/golang/protobuf/proto"
-import fmt "fmt"
-import math "math"
-import _ "github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis/appscode/api"
-import _ "google.golang.org/genproto/googleapis/api/annotations"
-import chart "k8s.io/helm/pkg/proto/hapi/chart"
-import release "k8s.io/helm/pkg/proto/hapi/release"
-import version "k8s.io/helm/pkg/proto/hapi/version"
-
 import (
+	fmt "fmt"
+
+	proto "github.com/golang/protobuf/proto"
+
+	math "math"
+
+	_ "github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis/appscode/api"
+
+	_ "google.golang.org/genproto/googleapis/api/annotations"
+
+	chart "k8s.io/helm/pkg/proto/hapi/chart"
+
+	release "k8s.io/helm/pkg/proto/hapi/release"
+
+	version "k8s.io/helm/pkg/proto/hapi/version"
+
 	context "golang.org/x/net/context"
+
 	grpc "google.golang.org/grpc"
 )
 

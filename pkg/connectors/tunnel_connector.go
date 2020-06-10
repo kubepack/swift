@@ -1,6 +1,8 @@
 package connectors
 
 import (
+	"context"
+
 	"github.com/pkg/errors"
 	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -13,7 +15,7 @@ type TunnelConnector struct {
 }
 
 func (s *TunnelConnector) GetTillerAddr(client clientset.Interface, config *rest.Config) (*portforward.Tunnel, error) {
-	podList, err := client.CoreV1().Pods(core.NamespaceAll).List(metav1.ListOptions{
+	podList, err := client.CoreV1().Pods(core.NamespaceAll).List(context.TODO(), metav1.ListOptions{
 		LabelSelector: tillerLabelSelector,
 	})
 	if err != nil {

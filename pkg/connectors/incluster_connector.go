@@ -1,6 +1,7 @@
 package connectors
 
 import (
+	context2 "context"
 	"fmt"
 	"strings"
 
@@ -78,7 +79,7 @@ func (c *InClusterConnector) getTillerAddr(client clientset.Interface) (string, 
 }
 
 func (c *InClusterConnector) findTillerService(client clientset.Interface, namespace string) (*core.Service, error) {
-	svcList, err := client.CoreV1().Services(namespace).List(metav1.ListOptions{
+	svcList, err := client.CoreV1().Services(namespace).List(context2.TODO(), metav1.ListOptions{
 		LabelSelector: tillerLabelSelector,
 	})
 	if err != nil {

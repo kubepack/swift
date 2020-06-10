@@ -1,13 +1,32 @@
+/*
+Copyright The Kmodules Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 package analytics
 
 import (
 	"bytes"
+	"context"
 	"crypto/md5"
 	"encoding/hex"
 	"net"
 	"os"
 	"sort"
 	"strings"
+
+	"kmodules.xyz/client-go/meta"
 
 	"github.com/appscode/go/analytics"
 	net2 "github.com/appscode/go/net"
@@ -19,7 +38,6 @@ import (
 	"k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	"kmodules.xyz/client-go/meta"
 )
 
 const (
@@ -109,7 +127,7 @@ func ClientID() string {
 			sort.Slice(ips, func(i, j int) bool { return bytes.Compare(ips[i], ips[j]) < 0 })
 			hasher := md5.New()
 			for _, ip := range ips {
-				hasher.Write(ip)
+				_, _ = hasher.Write(ip)
 			}
 			return hex.EncodeToString(hasher.Sum(nil))
 		}
@@ -119,14 +137,14 @@ func ClientID() string {
 	if err != nil {
 		return "$k8s$newforconfig"
 	}
-	nodes, err := client.CoreV1().Nodes().List(metav1.ListOptions{
+	nodes, err := client.CoreV1().Nodes().List(context.TODO(), metav1.ListOptions{
 		LabelSelector: "node-role.kubernetes.io/master",
 	})
 	if err != nil {
 		return reasonForError(err)
 	}
 	if len(nodes.Items) == 0 {
-		nodes, err = client.CoreV1().Nodes().List(metav1.ListOptions{
+		nodes, err = client.CoreV1().Nodes().List(context.TODO(), metav1.ListOptions{
 			LabelSelector: labels.SelectorFromSet(map[string]string{
 				"kubernetes.io/hostname": "minikube",
 			}).String(),
@@ -146,7 +164,7 @@ func ClientID() string {
 	sort.Slice(ips, func(i, j int) bool { return bytes.Compare(ips[i], ips[j]) < 0 })
 	hasher := md5.New()
 	for _, ip := range ips {
-		hasher.Write(ip)
+		_, _ = hasher.Write(ip)
 	}
 	return hex.EncodeToString(hasher.Sum(nil))
 }
@@ -154,7 +172,7 @@ func ClientID() string {
 func hash(data ...string) string {
 	hasher := md5.New()
 	for _, x := range data {
-		hasher.Write([]byte(x))
+		_, _ = hasher.Write([]byte(x))
 	}
 	return hex.EncodeToString(hasher.Sum(nil))
 }
