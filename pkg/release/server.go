@@ -88,6 +88,12 @@ func (s *Server) SummarizeReleases(ctx context.Context, req *proto.SummarizeRele
 	}
 	var releases []*proto.ReleaseSummary
 
+	if resp == nil {
+		return &proto.SummarizeReleasesResponse{
+			Releases: releases,
+		}, nil
+	}
+
 	for _, item := range resp.Releases {
 		releases = append(releases, &proto.ReleaseSummary{
 			Namespace:     item.Namespace,
