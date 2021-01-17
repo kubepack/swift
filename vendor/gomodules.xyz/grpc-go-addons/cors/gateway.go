@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"strings"
 
-	_env "github.com/appscode/go/env"
-	"github.com/appscode/go/log"
+	_env "gomodules.xyz/x/env"
+	"gomodules.xyz/x/log"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 )
 

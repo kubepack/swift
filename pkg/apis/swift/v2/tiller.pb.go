@@ -3,18 +3,18 @@
 
 package v2
 
-import proto "github.com/golang/protobuf/proto"
-import fmt "fmt"
-import math "math"
-import _ "github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis/appscode/api"
-import _ "google.golang.org/genproto/googleapis/api/annotations"
-import chart "k8s.io/helm/pkg/proto/hapi/chart"
-import release "k8s.io/helm/pkg/proto/hapi/release"
-import version "k8s.io/helm/pkg/proto/hapi/version"
-
 import (
+	fmt "fmt"
+	math "math"
+
+	proto "github.com/golang/protobuf/proto"
+	_ "github.com/grpc-ecosystem/grpc-gateway/third_party/appscodeapis/appscode/api"
 	context "golang.org/x/net/context"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
+	chart "k8s.io/helm/pkg/proto/hapi/chart"
+	release "k8s.io/helm/pkg/proto/hapi/release"
+	version "k8s.io/helm/pkg/proto/hapi/version"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.

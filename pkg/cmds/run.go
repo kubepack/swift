@@ -3,8 +3,8 @@ package cmds
 import (
 	_ "net/http/pprof"
 
-	v "github.com/appscode/go/version"
 	"github.com/spf13/cobra"
+	v "gomodules.xyz/x/version"
 	"kmodules.xyz/client-go/tools/cli"
 	"kubepack.dev/swift/pkg/cmds/server"
 	_ "kubepack.dev/swift/pkg/release"

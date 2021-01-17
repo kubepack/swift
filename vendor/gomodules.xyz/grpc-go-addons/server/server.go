@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/appscode/go/log"
+	"gomodules.xyz/x/log"
 	gwrt "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/soheilhy/cmux"
 	"gomodules.xyz/grpc-go-addons/cors"

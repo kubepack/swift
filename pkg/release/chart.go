@@ -15,8 +15,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/appscode/go/log"
 	"github.com/pkg/errors"
+	"gomodules.xyz/x/log"
 	"k8s.io/helm/pkg/chartutil"
 	"k8s.io/helm/pkg/proto/hapi/chart"
 	"k8s.io/helm/pkg/repo"

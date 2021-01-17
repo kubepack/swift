@@ -3,10 +3,10 @@ package cmds
 import (
 	"flag"
 
-	"github.com/appscode/go/flags"
-	"github.com/appscode/go/signals"
-	v "github.com/appscode/go/version"
 	"github.com/spf13/cobra"
+	"gomodules.xyz/signals"
+	"gomodules.xyz/x/flags"
+	v "gomodules.xyz/x/version"
 	"kmodules.xyz/client-go/logs"
 	"kmodules.xyz/client-go/tools/cli"
 )

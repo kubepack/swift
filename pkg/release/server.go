@@ -3,8 +3,8 @@ package release
 import (
 	"io"
 
-	stringz "github.com/appscode/go/strings"
 	"golang.org/x/net/context"
+	stringz "gomodules.xyz/x/strings"
 	"google.golang.org/grpc/metadata"
 	core "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/yaml"

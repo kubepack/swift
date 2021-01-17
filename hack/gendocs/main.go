@@ -10,7 +10,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/appscode/go/runtime"
+	"gomodules.xyz/runtime"
 	"github.com/spf13/cobra/doc"
 	"kubepack.dev/swift/pkg/cmds"
 )

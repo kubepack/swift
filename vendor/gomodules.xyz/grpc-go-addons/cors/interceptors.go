@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"strings"
 
-	_env "github.com/appscode/go/env"
+	_env "gomodules.xyz/x/env"
 	"github.com/pkg/errors"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
